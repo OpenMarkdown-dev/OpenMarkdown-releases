@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://openmarkdown.dev/sitemap.xml

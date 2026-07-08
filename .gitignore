@@ -1,0 +1,5 @@
+# Releases repo holds only the website (docs/), README, and LICENSE; release
+# binaries live in GitHub Releases, not the tree. Keep OS cruft out.
+.DS_Store
+Thumbs.db
+*.log

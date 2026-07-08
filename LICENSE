@@ -1,0 +1,24 @@
+Copyright © 2026 Xueyan Zhang. All rights reserved.
+
+OpenMarkdown is proprietary software. This repository hosts the compiled
+application, its release artifacts, and the project website, for public
+download and reference. It does not contain source code, and no source license
+is granted.
+
+You may download and use the OpenMarkdown application for personal and internal
+business purposes. You may NOT:
+
+  - reverse engineer, decompile, or disassemble the application, except to the
+    extent applicable law expressly permits notwithstanding this limitation;
+  - redistribute, resell, sublicense, rent, or re-host the application binaries
+    or their update artifacts;
+  - copy, modify, or reuse the website content, brand names, logos, or other
+    assets in this repository.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE
+LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN
+CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+For licensing inquiries, please open an issue in this repository.

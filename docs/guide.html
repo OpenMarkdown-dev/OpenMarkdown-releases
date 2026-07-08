@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guide — OpenMarkdown</title>
+  <meta name="description" content="OpenMarkdown guide: Markdown syntax, keyboard shortcuts, and how to put your agent on the same page.">
+  <link rel="canonical" href="https://openmarkdown.dev/guide.html">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="Guide — OpenMarkdown">
+  <meta property="og:description" content="OpenMarkdown guide: Markdown syntax, keyboard shortcuts, and how to put your agent on the same page.">
+  <meta property="og:url" content="https://openmarkdown.dev/guide.html">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guide — OpenMarkdown">
+  <meta name="twitter:description" content="OpenMarkdown guide: Markdown syntax, keyboard shortcuts, and how to put your agent on the same page.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <!-- shared chrome: same markup as index.html's nav (the canonical copy),
+       minus over-hero (this page opens on paper) and with hrefs prefixed -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#ai">Agents</a>
+        <a href="guide.html" aria-current="page">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="index.html#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>Guide</h1>
+      <p class="lede">Everything the front page pointed at — the full syntax it renders, every shortcut, and how to put your agent on the same page.</p>
+      <a class="back-home" href="index.html">← back to home</a>
+    </header>
+
+    <!-- ————— syntax ————— -->
+    <section class="guide-sec" id="syntax">
+      <h2>Markdown syntax</h2>
+      <p class="lede">What OpenMarkdown renders in live preview and reading mode. Anything it doesn't recognise falls back to a plain code block — your text is never eaten.</p>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th>You write</th><th>You get</th></tr></thead>
+          <tbody>
+            <tr><td><code># … / ## … / ###</code></td><td>Headings, three levels shown here (through H6)</td></tr>
+            <tr><td><code>**bold**</code> · <code>*italic*</code> · <code>~~strike~~</code></td><td><b>bold</b>, <em>italic</em>, <s>strikethrough</s></td></tr>
+            <tr><td><code>`inline code`</code></td><td>Inline <code>code</code></td></tr>
+            <tr><td><code>```lang … ```</code></td><td>Fenced code block with syntax highlighting</td></tr>
+            <tr><td><code>[text](url)</code></td><td>Links</td></tr>
+            <tr><td><code>![alt](path)</code></td><td>Images — local paths and URLs</td></tr>
+            <tr><td><code>- item</code> · <code>1. item</code></td><td>Unordered and ordered lists</td></tr>
+            <tr><td><code>- [ ] / - [x]</code></td><td>Task lists — checkboxes stay clickable, even in reading mode</td></tr>
+            <tr><td><code>&gt; quote</code></td><td>Blockquotes</td></tr>
+            <tr><td><code>---</code></td><td>Horizontal rule</td></tr>
+            <tr><td><code>| a | b |</code></td><td>Tables</td></tr>
+            <tr><td><code>--- … ---</code> at top</td><td>YAML frontmatter, folded</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">Three views, one file: <b>live preview</b> renders as you type, <b>source</b> shows every marker at one size (great for commit messages and prompts), and <b>reading</b> is the clean rendered page. One button cycles all three.</div>
+    </section>
+
+    <!-- ————— shortcuts ————— -->
+    <section class="guide-sec" id="shortcuts">
+      <h2>Keyboard shortcuts</h2>
+      <p class="lede">The keys you already know. If you've used VS Code or Vim, most of this is muscle memory.</p>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th>Key</th><th>Does</th></tr></thead>
+          <tbody>
+            <tr><td><code>⌘P</code></td><td>Command palette — files, then <code>&gt;</code> for commands, <code>@</code> for headings</td></tr>
+            <tr><td><code>⌘⇧P</code></td><td>Command palette, straight into command mode</td></tr>
+            <tr><td><code>⌘F</code></td><td>Find &amp; replace</td></tr>
+            <tr><td><code>⌘B</code> · <code>⌘I</code></td><td>Bold · italic</td></tr>
+            <tr><td><code>⌘S</code></td><td>Save now (it also autosaves when you pause)</td></tr>
+            <tr><td><code>⌘Z</code> · <code>⌘⇧Z</code></td><td>Undo · redo</td></tr>
+            <tr><td><code>⌃Tab</code> · <code>⌃⇧Tab</code></td><td>Next / previous tab</td></tr>
+            <tr><td><code>⌘1</code>–<code>⌘8</code> · <code>⌘9</code></td><td>Jump to the Nth tab · last tab</td></tr>
+            <tr><td><code>⌘W</code> · <code>⌘⇧W</code></td><td>Close tab · close window</td></tr>
+            <tr><td><code>⌘ +</code> · <code>⌘ −</code> · <code>⌘0</code></td><td>Zoom in · out · reset</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ————— cli ————— -->
+    <section class="guide-sec" id="cli">
+      <h2>The <code>openmd</code> CLI</h2>
+      <p class="lede">Four commands, three flags. Every one of them talks to the app already running on your machine — nothing leaves your disk.</p>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th>You run</th><th>It does</th></tr></thead>
+          <tbody>
+            <tr><td><code>openmd notes.md</code></td><td>Opens the file in OpenMarkdown — <code>open</code> is implied; several files open several tabs</td></tr>
+            <tr><td><code>openmd reveal plan.md "Auth"</code></td><td>Opens the file and scrolls to the heading — exact match, then case-insensitive, then prefix; without a heading it just opens and activates</td></tr>
+            <tr><td><code>openmd status</code></td><td>What's open right now — folder, tabs, active file. Never launches the app</td></tr>
+            <tr><td><code>openmd mcp</code></td><td>Runs the MCP server on stdio, for agents to spawn: <code>claude mcp add openmd -- openmd mcp</code></td></tr>
+            <tr><td><code>--wait</code></td><td>Blocks until you close the tab — the <code>EDITOR="openmd --wait"</code> contract git and agents rely on</td></tr>
+            <tr><td><code>--source git</code></td><td>Labels the session tab with who's asking</td></tr>
+            <tr><td><code>--json</code></td><td>One line of machine-readable JSON on stdout, for scripts</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">Exit codes and the fine print: <code>openmd --help</code>.</div>
+    </section>
+
+    <!-- ————— agents ————— -->
+    <section class="guide-sec" id="agents">
+      <h2>Put your agent on the same page</h2>
+      <p class="lede">OpenMarkdown talks to your terminal and your agent three ways — a CLI, an MCP server, and a Claude Code plugin. They stack: install once, and your agent can open, reveal, and read the same file you're looking at.</p>
+
+      <ol class="steps">
+        <li><b>Install the <code>openmd</code> CLI.</b> Open Settings → CLI and click install. It drops an <code>openmd</code> command on your PATH. Now <code>openmd notes.md</code> opens a file from any terminal — the <a href="#cli">command table</a> has the rest.</li>
+        <li><b>Make it your <code>$VISUAL</code>.</b> In Settings, one toggle points <code>$VISUAL</code> at OpenMarkdown. Git commit messages and Claude Code's <code>Ctrl+G</code> now open here — write, hit <kbd>⌘</kbd>+<kbd>↩</kbd>, done.</li>
+        <li><b>Install the Claude Code plugin.</b> Add the marketplace and install the plugin — or wire the MCP server straight in: <code>claude mcp add openmd -- openmd mcp</code>. Your agent gains four tools — <code>open_file</code>, <code>reveal</code>, <code>get_context</code>, <code>execute_command</code> — and a skill that teaches it when to use them.</li>
+      </ol>
+
+      <div class="callout">Everything runs on plain files, locally. The CLI and MCP server forward to the app on your machine — nothing leaves your disk, and your agent reads exactly the page you see.</div>
+    </section>
+
+    <!-- ————— languages ————— -->
+    <section class="guide-sec" id="languages">
+      <h2>Languages</h2>
+      <p>The interface ships in <b>中文 · 日本語 · English</b>, following your system language with a manual override in Settings.</p>
+      <p>Missing your language? That's a gap worth closing — <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/discussions">start a discussion</a> or <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues">open an issue</a>. The door is open to everyone.</p>
+      <a class="back-home" href="index.html">← back to home</a>
+    </section>
+
+  </main>
+
+  <!-- shared chrome: same footer markup as index.html (the canonical copy);
+       #footFlat stays empty here — only index's JS fills it -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+</body>
+</html>
