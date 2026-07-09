@@ -19,6 +19,17 @@ A local-first Markdown editor for macOS.
 
 Windows / Linux support is coming soon.
 
+## Claude Code plugin
+
+Let your agent use OpenMarkdown as a shared whiteboard — it previews the markdown it writes, senses what you are looking at, and hands decisions back through your editor.
+
+```
+/plugin marketplace add OpenMarkdown-dev/OpenMarkdown-releases
+/plugin install openmarkdown
+```
+
+Requires the `openmd` command line tool (install it from OpenMarkdown's settings). To pick up a newer plugin version later, run `/plugin marketplace update`.
+
 ## Feedback
 
 Found a bug or have a request? **[Open an issue](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues)**.
