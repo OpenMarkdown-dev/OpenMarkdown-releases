@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Guide — OpenMarkdown</title>
   <meta name="description" content="OpenMarkdown guide: Markdown syntax, keyboard shortcuts, and how to put your agent on the same page.">
-  <link rel="canonical" href="https://openmarkdown.dev/guide.html">
+  <link rel="canonical" href="https://openmarkdown.dev/guide">
   <meta name="theme-color" content="#17171A">
 
   <!-- Open Graph / social share -->
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="OpenMarkdown">
   <meta property="og:title" content="Guide — OpenMarkdown">
   <meta property="og:description" content="OpenMarkdown guide: Markdown syntax, keyboard shortcuts, and how to put your agent on the same page.">
-  <meta property="og:url" content="https://openmarkdown.dev/guide.html">
+  <meta property="og:url" content="https://openmarkdown.dev/guide">
   <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -36,21 +36,23 @@
 </head>
 <body>
 
-  <!-- shared chrome: same markup as index.html's nav (the canonical copy),
-       minus over-hero (this page opens on paper) and with hrefs prefixed -->
+  <!-- shared chrome: same nav structure as index.html (the canonical copy),
+       minus over-hero (this page opens on paper). Cross-page links are
+       root-absolute extensionless (/, /#features) — no .html suffix; index
+       uses same-page #anchors since it's the link target itself. -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="index.html">
+      <a class="brand" href="/">
         <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
         <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
         OpenMarkdown
       </a>
       <div class="links">
-        <a href="index.html#features">Features</a>
-        <a href="index.html#ai">Agents</a>
-        <a href="guide.html" aria-current="page">Guide</a>
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide" aria-current="page">Guide</a>
         <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
-        <a class="btn" href="index.html#download">Download</a>
+        <a class="btn" href="/#download">Download</a>
       </div>
     </div>
   </nav>
@@ -60,7 +62,7 @@
     <header class="guide-hero">
       <h1>Guide</h1>
       <p class="lede">Everything the front page pointed at — the full syntax it renders, every shortcut, and how to put your agent on the same page.</p>
-      <a class="back-home" href="index.html">← back to home</a>
+      <a class="back-home" href="/">← back to home</a>
     </header>
 
     <!-- ————— syntax ————— -->
@@ -152,7 +154,7 @@
       <h2>Languages</h2>
       <p>The interface ships in <b>中文 · 日本語 · English</b>, following your system language with a manual override in Settings.</p>
       <p>Missing your language? That's a gap worth closing — <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/discussions">start a discussion</a> or <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues">open an issue</a>. The door is open to everyone.</p>
-      <a class="back-home" href="index.html">← back to home</a>
+      <a class="back-home" href="/">← back to home</a>
     </section>
 
   </main>
@@ -179,6 +181,42 @@
     if (!nav) return;
     var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
+       Production host ONLY — file:// / localhost / previews make zero external
+       requests. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome: identical to index.html (authoritative). -->
+  <script>
+  (function () {
+    'use strict';
+    // Gate to the deployed host so local opens stay request-free (design D2).
+    if (location.hostname !== 'openmarkdown.dev') return;
+    // count endpoint — the single migration point when moving to a self-hosted
+    // GoatCounter (design D5). Registered GoatCounter site code: openmarkdown.
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    // count.js is served from GoatCounter's shared CDN; the per-site subdomain
+    // path (…goatcounter.com/count.js) 404s. Beacons still go to ENDPOINT via
+    // the data-goatcounter attribute. Self-hosting later: point both here.
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    // Download + outbound clicks as custom events; never block navigation (D4).
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
   })();
   </script>
 

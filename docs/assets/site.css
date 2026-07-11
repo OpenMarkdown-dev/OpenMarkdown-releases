@@ -161,16 +161,18 @@ a { color: inherit; }
   margin-top: calc(var(--nav-h) * -1);
   padding: calc(var(--nav-h) + 3.25rem) 0 4rem;
 }
-.hero .hero-mark { display: block; line-height: 0; }
-/* logo anchors the left — grown to the largest height that still clears the
-   full-size tagline in the shared 64rem column, then centered against it */
-.hero .hero-mark img { display: block; height: clamp(6rem, calc(28vw - 8.75rem), 11rem); width: auto; }
+/* hero lockup — the horizontal mark + wordmark, stacked above the tagline */
+.hero-lockup { display: inline-flex; align-items: center; gap: 0.9rem; text-decoration: none; color: var(--fg); }
+.hero-lockup img { display: block; height: clamp(2.4rem, 5.5vw, 3.4rem); width: auto; }
+.hero-wordmark { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1; font-size: clamp(1.7rem, 4vw, 2.6rem); }
 .hero h1 {
   margin-top: 2.25rem;
-  font-size: clamp(2.75rem, 8.5vw, 5.25rem);
-  font-weight: 700; letter-spacing: -0.035em; line-height: 1.02; text-wrap: balance;
+  /* max capped so "Feather-light. Light-speed." holds one line in the column
+     (~13em of text ≤ 976px); narrower viewports wrap balanced */
+  font-size: clamp(2.75rem, 8.5vw, 4.5rem);
+  font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance;
 }
-.hero h1 .beat { display: block; }
+.hero h1 .beat { display: inline; }
 .hero h1 .beat + .beat { color: var(--signal); }
 .hero .lede {
   margin-top: 1.5rem; max-width: 30em; color: #d6d1c6;
@@ -182,12 +184,11 @@ a { color: inherit; }
 .cta-row { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 .hero-note { font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); }
 
-/* hero head — logo anchors left, headline + lede hang right; logo centered on the block */
-.hero-head { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
-.hero-head .hero-mark { flex: none; }
-.hero-lead { flex: 1; min-width: 0; text-align: right; }
+/* hero head — a centered vertical stack: lockup, then tagline, then lede */
+.hero-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2.25rem; }
+.hero-lead { max-width: 100%; }
 .hero-lead h1 { margin-top: 0; }
-.hero-lead .lede { margin-top: 1.5rem; margin-left: auto; max-width: 34em; }
+.hero-lead .lede { margin: 1.5rem auto 0; max-width: 44em; }
 
 /* —— the window chrome (shared by demos & placeholders) ——————————— */
 .window {
@@ -202,43 +203,61 @@ a { color: inherit; }
 .titlebar .dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: transparent; border: 1px solid var(--signal); }
 .titlebar .filename { margin-left: 0.5rem; font-family: var(--mono); font-size: 0.75rem; color: var(--signal); }
 
-/* —— HERO live-preview typing demo (animation A, real) ———————————— */
+/* —— HERO demo window (the syntax kitchen-sink lives here) —————————— */
 .demo-live { padding: 0.5rem 0 0; }
-.live-doc {
-  padding: 2.5rem 3rem; min-height: 23rem; /* ≥ the typed end-frame, so the loop never jitters */
-  font-size: 1.0625rem; line-height: 1.7;
-}
-/* the app caps the text measure, so content has breathing room on both sides */
-.live-doc > * { max-width: 34rem; }
+/* the blink caret is shared by the palette, TUI typing, and the §C agent caret */
+@keyframes blink { 0%,50% { opacity: 1; } 50.01%,100% { opacity: 0; } }
+.demo-cap { margin-top: 1.1rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); text-align: center; }
+/* "What's Markdown?" — the syntax lesson lives in the guide */
+.demo-cap .cap-link { color: #F4F0E6; text-decoration: none; border-bottom: 1px solid rgba(244,240,230,0.35); white-space: nowrap; }
+.demo-cap .cap-link:hover { border-bottom-color: #F4F0E6; }
+
+/* —— HERO live-preview typing demo (welcome.md, real) ———————————————
+   markers type at heading size and render in place; the loop reserves height
+   so it never jitters. No-JS / reduced-motion fallback = the finished doc. */
+.live-doc { padding: 3rem 7rem; min-height: 34.5rem; font-size: 1.0625rem; line-height: 1.7; }
+/* content spans the full width of the padded window (no narrow cap), so it
+   sits with balanced left/right padding like the real app doc, not squeezed
+   into ~80% on the left */
+.live-doc > * { max-width: none; }
 .live-doc .line { display: block; }
-/* a heading's source types at the heading's size so it renders in place (no drop) */
 .live-doc .line-h1 { font-size: 1.9rem; line-height: 1.15; }
 .live-doc .line-h2 { font-size: 1.3rem; line-height: 1.15; }
 .live-doc .raw { font-family: var(--mono); color: var(--signal); white-space: pre-wrap; }
-.live-doc .caret {
-  display: inline-block; width: 2px; height: 1.15em; vertical-align: -0.18em;
-  background: var(--flame); margin-left: 1px; animation: blink 1.05s steps(1) infinite;
-}
-@keyframes blink { 0%,50% { opacity: 1; } 50.01%,100% { opacity: 0; } }
-/* margin:0 — the demo lives inside .hero, so it must not inherit .hero h1's top margin */
+.live-doc .caret { display: inline-block; width: 2px; height: 1.15em; vertical-align: -0.18em; background: var(--flame); margin-left: 1px; animation: blink 1.05s steps(1) infinite; }
 .live-doc .demo-h1 { margin: 0; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
 .live-doc h2 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-.live-doc blockquote {
-  border-left: 3px solid var(--signal); padding-left: 0.9rem;
-  color: var(--signal); font-style: italic;
-}
-/* unchecked task — box on the shared scale (1rem/1.5px/0.25rem, signal
-   stroke); the hero only ever shows the un-ticked state */
+.live-doc blockquote { border-left: 3px solid var(--signal); padding-left: 0.9rem; color: var(--signal); font-style: italic; }
 .live-doc .task { display: flex; align-items: center; gap: 0.55rem; }
-.live-doc .task .box {
-  width: 1rem; height: 1rem; border: 1.5px solid var(--signal); border-radius: 0.25rem;
-  flex: none;
-}
+.live-doc .task .box { width: 1rem; height: 1rem; border: 1.5px solid var(--signal); border-radius: 0.25rem; flex: none; display: grid; place-items: center; font-size: 0.65rem; }
+/* - [x] renders as ticked (fill + signal + strike), matching the shared scale;
+   it's the source's literal state, not a self-checking animation (D3) */
+.live-doc .task.done .box { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.live-doc .task.done .box::before { content: "✓"; }
+.live-doc .task.done span:not(.box) { color: var(--signal); text-decoration: line-through; }
 .live-doc .spacer { height: 0.9rem; }
-.demo-cap { margin-top: 1.1rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); text-align: center; }
+.live-doc p { margin: 0; }
+.live-doc .bullet { display: flex; gap: 0.65rem; }
+.live-doc .bullet .bl { color: var(--signal); }
+.live-doc code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); padding: 0.12em 0.4em; border-radius: 0.3em; }
+/* fenced code block — the first code block among the fake-rendered mocks; its
+   fill/radius come from the same source as inline code, kept self-contained and
+   deliberately NOT written into the shared type scale (D4) */
+.live-doc pre.demo-code { background: var(--surface); border-radius: 0.4rem; padding: 0.7rem 0.95rem; overflow-x: auto; }
+.live-doc pre.demo-code code { background: none; padding: 0; border-radius: 0; font-size: 0.85em; color: var(--fg); white-space: pre; }
+/* minimal syntax highlight, scoped to this demo block (not a shared contract):
+   comment = Signal gray, builtin = link blue, string = green */
+.live-doc pre.demo-code .c { color: var(--signal); }
+.live-doc pre.demo-code .fn { color: #2f6bd8; }
+.live-doc pre.demo-code .s { color: #1f8a5b; }
+.live-doc a { color: #2f6bd8; text-decoration: none; }
+.live-doc em { font-style: italic; }
+.live-doc b, .live-doc strong { font-weight: 700; }
+.live-doc del { text-decoration: line-through; color: var(--signal); }
+.live-doc hr.demo-hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 /* the hero window IS the real app — force the light product palette + real chrome */
-.hero .demo-live { width: 80%; margin: 3.5rem auto 0; padding: 0; }
+.hero .demo-live { width: 100%; margin: 3.5rem auto 0; padding: 0; }
 .hero .demo-live .window {
   --bg: #FBFAF7; --fg: #17171A; --surface: #F4F0E6; --signal: #9A9A9A;
   --line: rgba(23, 23, 26, 0.12); --line-soft: rgba(23, 23, 26, 0.07);
@@ -297,13 +316,6 @@ a { color: inherit; }
 .ft-row.active { background: color-mix(in srgb, var(--signal) 24%, transparent); }
 .ft-row.active .ic-file { color: var(--fg); }
 .ft-row.active span { font-weight: 600; }
-.live-doc p { margin: 0; }
-.live-doc .bullet { display: flex; gap: 0.65rem; }
-.live-doc .bullet .bl { color: var(--signal); }
-.live-doc code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); padding: 0.12em 0.4em; border-radius: 0.3em; }
-.live-doc a { color: #2f6bd8; text-decoration: none; }
-.live-doc em { font-style: italic; }
-.live-doc b, .live-doc strong { font-weight: 700; }
 
 /* —— seam: hazard stripe marking a section entrance (D11) ——————————
    Three on the page: top of each pinned stage (features & agents — they ride
@@ -316,6 +328,11 @@ a { color: inherit; }
 }
 /* the band's seam sits flush on its top edge, above the band padding */
 .band > .seam { position: absolute; top: 0; left: 0; right: 0; }
+/* internal divider within the ink band (§B top): a hazard stripe pulled flush to
+   the section's top edge, above its padding. §B has no eyebrow, so its heading is
+   the first content; the bottom margin gives a generous seam→heading gap (~80px,
+   2× the plain section top) so "Your file as Wiki." doesn't crowd the stripe. */
+.band-sec > .band-seam { margin: -3.25rem 0 5rem; }
 
 /* —— generic section rhythm ————————————————————————————————————— */
 .section { padding: 2.5rem 0; }
@@ -325,93 +342,18 @@ a { color: inherit; }
 .section .head .lede.on-bg { color: var(--signal); }
 
 /* ==========================================================================
-   §1–§4 features — flat readable stack by default; .enhanced (added by JS on
-   wide screens without reduced-motion) pins the stage and turns it into
-   scroll-driven tabs (design D10).
+   evidence blocks (§B / §C) — two-column: copy left, the app+TUI stack right;
+   stacks below the single breakpoint. Reused by the agent band.
    ========================================================================== */
-.feat-panel { padding: 2.5rem 0; }
-.feat-eyebrow { display: block; margin-bottom: 0.9rem; }
-.feat-panel .head { max-width: 40rem; }
-.feat-panel .head .lede { margin-top: 0.9rem; font-size: 1.0625rem; }
-.feat-visual .window { margin-top: 2rem; }
-/* scenario chips under the markdown lede */
-.scene-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 1.25rem; }
-.scene-intro { font-family: var(--mono); font-size: 0.9375rem; color: var(--signal); margin-right: 0.25rem; }
-.scene-intro::before { content: "↳ "; }
-.schip { font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); border: 1px solid var(--line); border-radius: 2rem; padding: 0.28rem 0.75rem; background: var(--surface); white-space: nowrap; }
-
-/* accordion tab bar — hidden in the flat layout, shown when enhanced */
-.feat-tabs { display: none; }
-.feat-tab {
-  position: relative;
-  display: inline-flex; align-items: center;
-  font-family: var(--mono); font-size: 0.9375rem; line-height: 1.2;
-  color: var(--signal); background: transparent;
-  border: 1px solid var(--line); border-radius: 0.5rem;
-  padding: 0.75rem 1.1rem; cursor: pointer;
-  flex: 0 1 auto; min-width: 0; white-space: nowrap; overflow: hidden;
-  transition: flex-grow 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s, background 0.2s;
-}
-.feat-tab:hover { color: var(--fg); }
-.feat-tab .tn { opacity: 0.75; }
-.feat-tab .tl {
-  display: inline-block; max-width: 0; opacity: 0; overflow: hidden; white-space: pre;
-  transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s;
-}
-.feat-tab.on { flex-grow: 1; color: var(--fg); background: var(--surface); }
-.feat-tab.on .tn { opacity: 1; }
-.feat-tab.on .tl { max-width: 16rem; opacity: 1; }
-/* scroll progress through the active tab's scroll segment (--tab-progress set by JS) */
-.feat-tab.on::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
-  background: var(--fg); transform-origin: 0 50%;
-  transform: scaleX(var(--tab-progress, 0));
-}
-
-/* pinned mode — shared by the two pinned regions (features 4×80vh = 320vh,
-   agents 3×80vh = 240vh); --pin-extra on the region sets the track height */
-.pinned { --pin-extra: 320vh; }
-.pinned.enhanced .feat-track { height: calc(100vh - var(--nav-h) + var(--pin-extra)); }
-.pinned.enhanced .feat-stage {
-  position: sticky; top: var(--nav-h);
-  height: calc(100vh - var(--nav-h));
-  display: flex; flex-direction: column; overflow: hidden;
-}
-.pinned.enhanced .feat-tabs { display: flex; gap: 0.5rem; padding: 1.1rem 0 0.25rem; }
-.pinned.enhanced .feat-panels { position: relative; flex: 1 1 auto; min-height: 0; }
-.pinned.enhanced .feat-panel {
-  position: absolute; inset: 0; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: center; justify-content: safe center;
-  opacity: 0; visibility: hidden; transform: translateY(0.6rem);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-  padding: 0.75rem 0 1rem;
-}
-.pinned.enhanced .feat-panel.active { opacity: 1; visibility: visible; transform: none; }
-/* demo animations start only once their tab is on stage — and restart on each return */
-.pinned.enhanced .feat-panel:not(.active) * { animation: none; }
-.pinned.enhanced .feat-eyebrow { display: none; } /* the tab bar carries the label */
-.pinned.enhanced .feat-panel .head .lede { margin-top: 0.7rem; }
-
-/* markdown panel goes two-column when pinned so the kitchen sink fits the stage */
-.pinned.enhanced .feat-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2.5rem; align-items: center; }
-.pinned.enhanced .feat-visual .window { margin-top: 0; }
-
-/* flat page, wide screens: the two-column panels (01/08/09) keep their
-   pinned layout — copy left, visual right — and collapse to stacked below
-   the same breakpoint the pin uses; 06 stays copy-over-stage everywhere.
-   The centered blocks (03's palette, 04's bars + stats) apply only when
-   the stage isn't enhanced, so the pinned view is untouched. */
+.feat-copy .head { max-width: 40rem; }
+.feat-copy .head .lede { margin-top: 0.9rem; font-size: 1.0625rem; }
+.feat-visual { margin-top: 2rem; }
 @media (min-width: 52rem) {
-  .feat-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2.5rem; align-items: center; }
-  #panel-editor .feat-grid { grid-template-columns: 1fr; gap: 1.4rem; }
-  .pinned:not(.enhanced) .palette-wrap,
-  .pinned:not(.enhanced) .bars,
-  .pinned:not(.enhanced) .stats { margin-left: auto; margin-right: auto; }
+  .feat-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2.5rem; align-items: start; }
+  .feat-grid .feat-visual { margin-top: 0; }
 }
-.pinned.enhanced #panel-markdown .syntax-doc { padding: 1.1rem 1.4rem; gap: 0.65rem; font-size: 0.875rem; }
-.pinned.enhanced #panel-markdown .syntax-doc pre { padding: 0.6rem 0.9rem; font-size: 0.72rem; }
 
-/* —— three modes demo (tab 02, real interaction) ————————————————— */
+/* —— three modes demo (live preview card, real interaction) ————————— */
 .modes { display: grid; grid-template-columns: 1fr 1.15fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
 /* mono kicker under a feature h2 (also the palette footnote) */
 .feat-note { margin-top: 0.9rem; font-family: var(--mono); font-size: 0.9375rem; color: var(--signal); text-wrap: pretty; }
@@ -486,35 +428,9 @@ a { color: inherit; }
 }
 @keyframes icPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-/* —— syntax kitchen-sink (animation C, real static showcase) ————— */
-.syntax-doc { padding: 1.75rem 2rem; display: grid; gap: 1.05rem; font-size: 0.95rem; }
-.syntax-doc h3 { font-size: 1.35rem; font-weight: 800; }
-.syntax-doc h3 .mk, .syntax-doc h4 .mk { color: var(--signal); font-family: var(--mono); }
-.syntax-doc h4 { font-size: 1.05rem; font-weight: 700; }
-.syntax-doc blockquote { border-left: 3px solid var(--signal); padding-left: 0.9rem; color: var(--signal); font-style: italic; }
-.syntax-doc code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); padding: 0.1em 0.35em; border-radius: 0.3em; }
-.syntax-doc pre { font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; background: var(--surface); border-radius: 0.5rem; padding: 0.9rem 1.1rem; overflow-x: auto; }
-.syntax-doc pre .k { color: var(--flame); } .syntax-doc pre .s { color: var(--emerald); } .syntax-doc pre .c { color: var(--signal); }
-.syntax-doc .tasks { list-style: none; display: grid; gap: 0.4rem; }
-.syntax-doc .tasks li { display: flex; gap: 0.55rem; align-items: center; }
-.syntax-doc .tasks .box { width: 1rem; height: 1rem; border: 1.5px solid var(--signal); border-radius: 0.25rem; flex: none; display: grid; place-items: center; font-size: 0.65rem; }
-.syntax-doc .tasks li.done .box { background: var(--fg); border-color: var(--fg); color: var(--bg); }
-.syntax-doc .tasks li.done .box::before { content: "✓"; }
-.syntax-doc .tasks li.done span:not(.box) { color: var(--signal); text-decoration: line-through; }
-.syntax-doc table { border-collapse: collapse; font-size: 0.85rem; width: 100%; }
-.syntax-doc th, .syntax-doc td { border: 1px solid var(--line-soft); padding: 0.4rem 0.7rem; text-align: left; }
-.syntax-doc th { background: var(--surface); font-family: var(--mono); font-weight: 600; font-size: 0.78rem; }
-.syntax-doc .fm { font-family: var(--mono); font-size: 0.78rem; color: var(--signal); border: 1px dashed var(--line); border-radius: 0.4rem; padding: 0.5rem 0.75rem; }
-
-/* —— speed bars (animation D v2, real CSS) ————————————————————————— */
-/* the idea pull-quote is itself a line of markdown — the > marker stays visible */
-.idea-quote {
-  margin-top: 1.1rem; max-width: 32em;
-  border-left: 3px solid var(--fg); padding-left: 1rem;
-  font-size: 1.1875rem; line-height: 1.55; font-style: italic; text-wrap: pretty;
-}
-.idea-quote .mk { color: var(--signal); font-family: var(--mono); font-style: normal; }
-.idea-quote .qline { display: block; }
+/* —— speed bars (real CSS) ————————————————————————————————————————— */
+/* the idea line is a plain centered subtitle (.lede), styled with the section
+   heads — it was a > pull-quote until the seam-left-border read disjointed centered */
 /* two horizontal launch bars; base styles ARE the finished tableau, so
    prefers-reduced-motion (global animation:none) shows it frozen and true */
 .bars { display: grid; gap: 1.5rem; margin-top: 2rem; max-width: 44rem; }
@@ -563,17 +479,16 @@ a { color: inherit; }
 .stat { text-align: center; }
 .stat .num { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; }
 .stat .lbl { font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); text-transform: uppercase; letter-spacing: 0.1em; }
+/* speed section: wider head so the one-line quote doesn't wrap; the bars +
+   stats are centered exhibits; the native-core note sits beneath, centered */
+/* speed is a centered beat — eyebrow, headline, and the idea quote all center */
+#speed > .wrap > .eyebrow { text-align: center; }
+.speed .head { max-width: none; text-align: center; }
+.speed .bars, .speed .stats { margin-left: auto; margin-right: auto; }
+.speed-note { margin: 1.75rem auto 0; max-width: 42rem; text-align: center; font-family: var(--mono); font-size: 0.9375rem; color: var(--signal); text-wrap: pretty; }
 
-/* —— command palette mock (animation E, static + note) ——————————— */
-/* one job per line: mono trigger chip + what it does */
-.job-list { list-style: none; display: grid; gap: 0.6rem; margin-top: 1.1rem; padding: 0; }
-.job-list li { display: flex; align-items: baseline; gap: 0.85rem; }
-.job-list .pj {
-  font-family: var(--mono); font-size: 0.8125rem; color: var(--signal);
-  border: 1px solid var(--line); border-radius: 0.4rem; background: var(--surface);
-  padding: 0.14rem 0.5rem; flex: none; min-width: 5.2rem; text-align: center;
-}
-.palette-wrap { margin-top: 2rem; max-width: 40rem; }
+/* —— command palette mock (real, three-state autoplay) ——————————— */
+.palette-wrap { margin-top: 1.5rem; max-width: 40rem; }
 .palette {
   border: 1px solid var(--line); border-radius: 0.75rem; overflow: hidden;
   background: var(--bg); box-shadow: 0 1.5rem 3rem -2rem rgba(23,23,26,0.4);
@@ -602,8 +517,11 @@ a { color: inherit; }
 }
 .band .eyebrow { color: var(--signal); }
 
-/* banner — a long strip (~half a screen), the band's opening chord; never pins (D1) */
-.band-banner { min-height: 45vh; display: flex; align-items: center; padding: 4.5rem 0; }
+/* banner — a long strip statement, the band's opening chord; never pins (D1).
+   Height is content + fixed padding, NOT a vh min-height: the whole §A run
+   (banner → your agent/file/memory) must keep a stable rhythm like §B/§C and
+   MUST NOT let its gaps grow on tall viewports (was min-height: 45vh). */
+.band-banner { display: flex; align-items: center; padding: 4.5rem 0; }
 /* sized so the whole statement holds one line inside the 64rem column
    (measured 12.42em of text ≤ 4.9rem cap); narrow viewports wrap balanced */
 .banner-h {
@@ -611,19 +529,292 @@ a { color: inherit; }
   font-size: clamp(2.5rem, 7.4vw, 4.75rem);
   font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance;
 }
-.banner-h .lit { color: var(--signal); }
+/* single line only where it provably fits the 64rem column (measured 15.9em of
+   text at -0.04em ≤ 3.6rem into the 976px content box); narrower viewports keep
+   the clamp size and wrap balanced — page must never scroll sideways (D6) */
+@media (min-width: 64rem) {
+  .banner-h { font-size: 3.6rem; letter-spacing: -0.04em; white-space: nowrap; }
+}
 .band .band-sub { margin-top: 1.5rem; max-width: 40rem; color: #cfc9bd; font-size: clamp(1.125rem, 2.4vw, 1.3rem); text-wrap: pretty; }
 .band .band-sub b { color: #F4F0E6; font-weight: 600; }
 
-/* agents pinned region — 4 tabs × 80vh, same rhythm as features */
-.agents { --pin-extra: 320vh; }
-.agents .lede { color: #cfc9bd; }
-.agents .head p { margin-top: 1rem; color: #cfc9bd; text-wrap: pretty; }
-.agents .head p b, .agents .lede b { color: #F4F0E6; font-weight: 600; }
-.agents kbd { font-family: var(--mono); font-size: 0.85em; border: 1px solid var(--line); border-radius: 0.3rem; padding: 0.08em 0.4em; background: var(--surface); color: #F4F0E6; }
-.agents .feat-visual { margin-top: 2rem; }
-.agents.enhanced .feat-visual { margin-top: 0; }
-.agents .feat-visual .window { margin-top: 0; }
+/* the band's four beats — each a free-scrolling section on the ink ground */
+.band-sec { padding: 3.25rem 0; }
+.band-sec > .wrap > .eyebrow { display: block; margin-bottom: 0.9rem; }
+.band-sec .head { max-width: 42rem; }
+.band-sec .lede { margin-top: 0.9rem; color: #cfc9bd; font-size: 1.0625rem; }
+.band-sec .head p { margin-top: 1rem; color: #cfc9bd; text-wrap: pretty; }
+.band-sec .head p b, .band-sec .lede b { color: #F4F0E6; font-weight: 600; }
+.band-sec code { font-family: var(--mono); font-size: 0.85em; background: rgba(244,240,230,0.08); padding: 0.08em 0.35em; border-radius: 0.3em; }
+.band-sec .feat-note a { color: inherit; text-decoration: underline; text-underline-offset: 0.18em; }
+.band-sec .feat-note a:hover { color: #F4F0E6; }
+
+/* —— §A · positioning block — three horizontal ownership bands ————————————————
+   Ported from the approved explore mock (desktop metaphor: light macOS objects
+   on the ink desk). copy left = a "Your ___" spine (Your stays quiet grey, the
+   noun carries), a desktop object right, centred. No eyebrow, no card chrome,
+   no seam between bands (D7). Colour (D4): paper #F4F0E6 = yours (stays), flame
+   = the agent (changes), emerald ✓ = a plain fact. Right-hand visuals are OS/app
+   objects, never OpenMarkdown's own window hosting an agent (red line). */
+.own-bands { display: grid; gap: 1.5rem; }
+.own-band { display: grid; gap: 2.25rem; align-items: center; }
+@media (min-width: 56rem) {
+  /* content-height (the right-hand visual drives it), NOT min-height: 30vh — keeps
+     the inter-band spacing fixed like §B/§C instead of ballooning on tall viewports */
+  .own-band { grid-template-columns: 0.88fr 1.12fr; gap: 3.5rem; }
+}
+
+/* left column — the phrase spine */
+.ob-copy { min-width: 0; }
+.ob-phrase {
+  margin: 0; font-size: clamp(2.4rem, 5.4vw, 3.4rem); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1.02; color: #F4F0E6; text-wrap: balance;
+}
+.ob-phrase .poss { color: #8B867C; }   /* "Your" stays quiet; the noun carries */
+.ob-lede { margin-top: 1.1rem; max-width: 30rem; color: #cfc9bd; font-size: 1.0625rem; line-height: 1.55; text-wrap: pretty; }
+.ob-lede b { color: #F4F0E6; font-weight: 600; }
+
+/* install one-liner (band 1 only) — no copy affordance. A mini vertical reel:
+   one command shown, snapping to the next agent's install form; the reel column's
+   width is the widest row so the box never jumps. Base (no anim) shows row 0. */
+.ob-cmd {
+  --ch: 1.5em;
+  /* block-level + fit-content so the box takes its own line and the "Full setup
+     guide" link below it drops to the next line (not beside the box) */
+  margin-top: 1.35rem; display: flex; width: fit-content; align-items: center;
+  font-family: var(--mono); font-size: 0.82rem; color: #F4F0E6;
+  background: rgba(244,240,230,0.06); border: 1px solid rgba(244,240,230,0.22);
+  border-radius: 0.55rem; padding: 0.6rem 0.85rem; max-width: 100%;
+}
+.ob-cmd-reel-mask { display: block; height: var(--ch); overflow: hidden; }
+.ob-cmd-reel { display: flex; flex-direction: column; will-change: transform; }
+.occ { height: var(--ch); line-height: var(--ch); display: flex; align-items: center; white-space: nowrap; }
+/* fixed-width prompt slot + trailing gap: "$ " on the CLI rows, an aligned blank
+   on the slash/config/placeholder rows, so every command text starts at one x */
+.occ-p { display: inline-block; width: 1ch; margin-right: 0.55ch; flex: none; color: var(--flame); }
+.ob-link {
+  display: inline-block; margin-top: 0.9rem; font-family: var(--mono); font-size: 0.8rem;
+  color: #cfc9bd; text-decoration: none; border-bottom: 1px solid rgba(244,240,230,0.22);
+  padding-bottom: 0.08rem; transition: color 0.15s ease, border-color 0.15s ease;
+}
+.ob-link:hover { color: #F4F0E6; border-bottom-color: #F4F0E6; }
+
+/* your-file / your-memory claims — two tight bullets */
+.ob-ticks { list-style: none; margin: 1.1rem 0 0; padding: 0; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.ob-ticks li { display: flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.9rem; color: #cfc9bd; }
+.ob-ticks li::before { content: "\2713"; color: #3DBA82; font-weight: 700; font-size: 0.9em; }
+
+/* right column — the exhibit stage floating on the desk (centred → balanced) */
+.ob-stage { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 17rem; }
+
+/* —— band 1 · works-with lockup — OM app icon │ with │ a vertical reel of the
+   agents' own app marks (real brand icons; the reel rolls past OpenMarkdown's
+   icon, not an in-app switcher). A thin rounded frame (matching the Finder
+   mockup's border weight) demarcates the animation area. */
+.works {
+  width: min(30rem, 100%);   /* match the your-file Finder mock width */
+  display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; justify-content: center;
+  padding: 2.1rem 2.2rem; border: 1px solid rgba(244,240,230,0.18); border-radius: 1.2rem;
+  background: rgba(244,240,230,0.025);
+}
+/* OM's real app icon (assets/06-appicon-ink.svg) carries its own ink squircle +
+   signal frame, so the tile is just a sized, shadowed slot. */
+.ob-tile {
+  width: 5.2rem; height: 5.2rem; border-radius: 1.22rem; flex: none; display: grid; place-items: center;
+  box-shadow: 0 1.25rem 2rem -0.5rem rgba(0,0,0,0.55);
+}
+.ob-tile img { width: 100%; height: 100%; display: block; border-radius: inherit; }
+.ob-with { flex: none; font-size: 1.15rem; color: rgba(244,240,230,0.5); letter-spacing: 0.02em; }
+/* reel window: shows the current agent centred with the previous/next peeking
+   above AND below (mask fades both edges). Height = one row + a peek band each
+   side; --peek is baked into the reel transform so the current row lands in the
+   solid middle. */
+.reel-mask {
+  --h: 3.9rem; --peek: 1.35rem;
+  flex: none; width: 13.5rem; height: calc(var(--h) + var(--peek) * 2); overflow: hidden;
+  -webkit-mask: linear-gradient(to bottom, transparent 0, #000 var(--peek), #000 calc(100% - var(--peek)), transparent 100%);
+          mask: linear-gradient(to bottom, transparent 0, #000 var(--peek), #000 calc(100% - var(--peek)), transparent 100%);
+}
+/* base (static / no-JS) frame: reel index 1 (Claude Code) centred, index 0
+   (the leading "any MCP" dup) peeking above, index 2 (Codex) below. */
+.reel { display: flex; flex-direction: column; will-change: transform; transform: translateY(calc(var(--peek) - var(--h))); }
+.agent { height: var(--h); flex: none; display: flex; align-items: center; gap: 0.95rem; }
+.atile {
+  width: 3rem; height: 3rem; border-radius: 0.8rem; flex: none; display: grid; place-items: center;
+  color: #F4F0E6; background: rgba(244,240,230,0.06); border: 1px solid rgba(244,240,230,0.16);
+}
+.atile svg { width: 1.9rem; height: 1.9rem; display: block; }  /* real brand marks: colour icons keep their fills; mono icons inherit paper */
+.atile-any { color: var(--signal); border-style: dashed; }
+.atile-any svg { width: 1.55rem; height: 1.55rem; }
+.aname { font-family: var(--mono); font-size: 1.1rem; color: #F4F0E6; white-space: nowrap; }
+
+/* phone width: shrink the whole lockup (OM icon included) so OM-with-reel stays
+   on one line instead of wrapping "with" onto its own row. */
+@media (max-width: 34rem) {
+  .works { gap: 0.65rem; padding: 1.2rem 1.1rem; border-radius: 1rem; }
+  .ob-tile { width: 3rem; height: 3rem; border-radius: 0.78rem; box-shadow: 0 0.6rem 1rem -0.35rem rgba(0,0,0,0.55); }
+  .ob-with { font-size: 0.9rem; }
+  .reel-mask { --h: 2.9rem; --peek: 0.9rem; width: 10.2rem; }
+  .atile { width: 2.05rem; height: 2.05rem; border-radius: 0.55rem; }
+  .atile svg { width: 1.3rem; height: 1.3rem; }
+  .atile-any svg { width: 1.08rem; height: 1.08rem; }
+  .aname { font-size: 0.82rem; }
+}
+
+/* —— band 2 · Finder window ------------------------------------------------ */
+.finder {
+  width: min(30rem, 100%); background: #FBFAF7; color: #17171A;
+  border: 1px solid rgba(23,23,26,0.16); border-radius: 0.7rem; overflow: hidden;
+  box-shadow: 0 2.25rem 4.5rem -1.75rem rgba(0,0,0,0.7); font-size: 0.82rem;
+}
+.fbar { position: relative; display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.8rem; background: #EFECE5; border-bottom: 1px solid rgba(23,23,26,0.07); }
+.fbar span[class^="tl-"] { width: 0.68rem; height: 0.68rem; border-radius: 50%; flex: none; }
+.tl-r { background: #ff5f57; } .tl-y { background: #febc2e; } .tl-g { background: #28c840; }
+.ftitle { position: absolute; left: 0; right: 0; text-align: center; margin: 0; font-weight: 600; font-size: 0.8rem; color: #17171A; pointer-events: none; }
+.fbody { display: grid; grid-template-columns: 7rem 1fr; min-height: 11rem; }
+.fside { background: #f2efe9; border-right: 1px solid rgba(23,23,26,0.07); padding: 0.6rem 0.5rem; display: grid; gap: 0.15rem; align-content: start; }
+.fsec { font-size: 0.68rem; font-weight: 600; color: #7c7c80; padding: 0.4rem 0.45rem 0.15rem; }
+.frow { display: flex; align-items: center; gap: 0.4rem; padding: 0.28rem 0.45rem; border-radius: 0.35rem; color: #3b3b40; font-size: 0.76rem; }
+.frow svg { width: 0.9rem; height: 0.9rem; color: #8A867E; flex: none; }
+.frow.on { background: #e2ddd3; color: #26262a; }
+.ficons { padding: 1.15rem 0.9rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; align-content: start; justify-items: center; }
+.ficon { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 0.55rem 0.35rem 0.4rem; border-radius: 0.6rem; width: 100%; }
+.ficon .art { width: 3.5rem; height: 4.2rem; display: block; }
+.ficon .lab { font-size: 0.75rem; color: #2c2c30; text-align: center; line-height: 1.2; padding: 0.1rem 0.5rem; border-radius: 0.42rem; }
+.ficon.sel .lab { background: #2f6bd8; color: #fff; }
+
+/* —— band 3 · memory — chips (above) → rail → Get Info panel (below) ------- */
+.tlwrap { width: min(30rem, 100%); }   /* match the your-file Finder mock width */
+.p1 { left: 12%; } .p2 { left: 50%; } .p3 { left: 88%; }
+.tl-agents { position: relative; height: 2rem; }
+.tchip {
+  position: absolute; top: 0; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 0.82rem; white-space: nowrap;   /* match .tl-year */
+  color: rgba(244,240,230,0.42); border: 1px solid rgba(244,240,230,0.1); border-radius: 2rem;
+  padding: 0.2rem 0.6rem; background: rgba(244,240,230,0.03);
+}
+/* default (static / no-JS) frame: the `now` chip is the lit one */
+.tchip.c1 { color: var(--flame); border-color: rgba(255,90,60,0.55); background: rgba(255,90,60,0.1); }
+.tl-rail { position: relative; height: 1.4rem; margin: 0.35rem 0 0; }
+.rline { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, rgba(244,240,230,0.14), rgba(244,240,230,0.42)); }
+.rline::after { content: "\203A"; position: absolute; right: -0.5rem; top: -0.85rem; color: #8B867C; font-size: 1.1rem; }
+.tl-tick { position: absolute; top: 50%; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: #8B867C; transform: translate(-50%, -50%); }
+.tl-year { position: absolute; top: calc(50% + 0.72rem); transform: translateX(-50%); font-family: var(--mono); font-size: 0.82rem; color: #a49e92; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tl-head { position: absolute; top: 50%; left: 12%; width: 0.72rem; height: 0.72rem; border-radius: 50%; background: var(--flame); transform: translate(-50%, -50%); box-shadow: 0 0 0 4px rgba(255,90,60,0.18); z-index: 2; }
+
+/* macOS Get Info panel — the persistent folder. Folder + meta are centred as a
+   group (was left-packed with the right half empty) and enlarged to fill more. */
+.gi { position: relative; margin-top: 1.7rem; display: flex; align-items: center; justify-content: center; gap: 1.6rem;
+  background: linear-gradient(#e0e0e0, #d3d3d3); border-radius: 0.85rem; padding: 1.5rem 1.4rem 1.35rem;
+  color: #1d1d1f; box-shadow: 0 1.75rem 3rem -1rem rgba(0,0,0,0.55); }
+/* real macOS window controls: red close + yellow minimise (traffic lights) */
+.gi-tl { position: absolute; top: 0.7rem; left: 0.8rem; display: flex; gap: 0.5rem; }
+.gi-tl i { width: 0.82rem; height: 0.82rem; border-radius: 50%; box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.12); }
+.gi-tl .gc { background: #ff5f57; }
+.gi-tl .gm { background: #febc2e; }
+.gi-share { position: absolute; top: 0.7rem; right: 0.85rem; color: #6f6f74; }
+.gi-share svg { width: 1.1rem; height: 1.1rem; display: block; }
+.gi-folder { flex: none; width: 5.7rem; height: 4.5rem; filter: drop-shadow(0 0.4rem 0.5rem rgba(0,0,0,0.22)); }
+.gi-meta { min-width: 0; padding-top: 0.5rem; }
+.gi-name { font-weight: 700; font-size: 1.18rem; color: #1d1d1f; letter-spacing: -0.01em; }
+.gi-sub { font-size: 0.82rem; color: #6b6b70; margin-top: 0.25rem; font-variant-numeric: tabular-nums; }
+.gi-path { font-family: var(--mono); font-size: 0.74rem; color: #8a8a8e; margin-top: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gi-mod { font-size: 0.82rem; color: #6b6b70; margin-top: 0.45rem; }
+/* "Last modified" odometer — each changing digit is a tiny reel of its three
+   era values; all columns share one roll keyframe, so unchanged wheels sit still. */
+.odo { display: inline-flex; align-items: flex-start; font-variant-numeric: tabular-nums; color: #3a3a3e; }
+.od { display: inline-block; overflow: hidden; height: 1.25em; line-height: 1.25em; vertical-align: top; }
+.od-strip { display: flex; flex-direction: column; }
+.od-strip b { display: block; height: 1.25em; line-height: 1.25em; font-weight: inherit; text-align: center; font-variant-numeric: tabular-nums; }
+.od-sep { display: inline-block; height: 1.25em; line-height: 1.25em; vertical-align: top; white-space: pre; }
+
+/* —— §A ambient motion — CSS loops, gated on no-preference AND on the band being
+   in view (the base state below IS the static end-frame: reel on Claude Code,
+   playhead at now with its chip flame-lit, odometer at 2026). A lightweight
+   IntersectionObserver adds `.own-band.in-view` to run them, drops it to pause
+   off-screen (power saver, D2). Reduced-motion / no-JS → the static base holds. */
+@media (prefers-reduced-motion: no-preference) {
+  /* band 1 — the reel scrolls up one notch per switch; dwell, then snap. Rows:
+     [any-MCP lead dup] · 7 agents (Claude…any-MCP) · [Claude+Codex trail dups].
+     Each frame centres the current row (--peek offset); it snaps index 1→8, and
+     index 8 == index 1 visually, so the wrap is invisible with a peek both sides. */
+  .own-band.in-view .reel { animation: obReel 18s cubic-bezier(0.72,0,0.24,1) infinite; }
+  @keyframes obReel {
+    0%,10% { transform: translateY(calc(var(--peek) - var(--h) * 1)); }
+    13%    { transform: translateY(calc(var(--peek) - var(--h) * 2)); }
+    24%    { transform: translateY(calc(var(--peek) - var(--h) * 2)); }
+    27%    { transform: translateY(calc(var(--peek) - var(--h) * 3)); }
+    38%    { transform: translateY(calc(var(--peek) - var(--h) * 3)); }
+    41%    { transform: translateY(calc(var(--peek) - var(--h) * 4)); }
+    52%    { transform: translateY(calc(var(--peek) - var(--h) * 4)); }
+    55%    { transform: translateY(calc(var(--peek) - var(--h) * 5)); }
+    66%    { transform: translateY(calc(var(--peek) - var(--h) * 5)); }
+    69%    { transform: translateY(calc(var(--peek) - var(--h) * 6)); }
+    80%    { transform: translateY(calc(var(--peek) - var(--h) * 6)); }
+    83%    { transform: translateY(calc(var(--peek) - var(--h) * 7)); }
+    94%    { transform: translateY(calc(var(--peek) - var(--h) * 7)); }
+    100%   { transform: translateY(calc(var(--peek) - var(--h) * 8)); }
+  }
+  /* the install one-liner rides the agent reel's exact cadence: 7 install forms
+     (one per agent + an "…and more" placeholder for any-MCP), snapping at the SAME
+     keyframe %s as obReel so the command and the agent icon move in lockstep; row
+     7 == row 0 so the wrap is seamless. */
+  .own-band.in-view .ob-cmd-reel { animation: obCmdReel 18s cubic-bezier(0.72,0,0.24,1) infinite; }
+  @keyframes obCmdReel {
+    0%,10%   { transform: translateY(0); }
+    13%,24%  { transform: translateY(calc(var(--ch) * -1)); }
+    27%,38%  { transform: translateY(calc(var(--ch) * -2)); }
+    41%,52%  { transform: translateY(calc(var(--ch) * -3)); }
+    55%,66%  { transform: translateY(calc(var(--ch) * -4)); }
+    69%,80%  { transform: translateY(calc(var(--ch) * -5)); }
+    83%,94%  { transform: translateY(calc(var(--ch) * -6)); }
+    100%     { transform: translateY(calc(var(--ch) * -7)); }
+  }
+  /* band 3 — the playhead snaps now → 2036 → 2048 (forward only, magnetic); at
+     2048 it fades and resets to now invisibly. */
+  .own-band.in-view .tl-head { animation: obSweep 9s infinite; }
+  @keyframes obSweep {
+    0%  { left: 12%; opacity: 0; animation-timing-function: ease-out; }
+    4%  { opacity: 1; }
+    22% { left: 12%; animation-timing-function: cubic-bezier(0.34,1.62,0.5,1); }
+    30% { left: 50%; animation-timing-function: linear; }
+    52% { left: 50%; animation-timing-function: cubic-bezier(0.34,1.62,0.5,1); }
+    60% { left: 88%; animation-timing-function: linear; }
+    90% { left: 88%; opacity: 1; }
+    96% { left: 88%; opacity: 0; }
+    100%{ left: 12%; opacity: 0; }
+  }
+  /* only the agent at the landed point is lit; the others fall dim */
+  .own-band.in-view .tchip { animation: obChip 9s ease-out infinite; }
+  .own-band.in-view .tchip.c2 { animation-delay: -6.3s; }
+  .own-band.in-view .tchip.c3 { animation-delay: -3.6s; }
+  @keyframes obChip {
+    0%  { opacity: 1; transform: translateX(-50%) scale(1.07); color: var(--flame); border-color: rgba(255,90,60,0.7); background: rgba(255,90,60,0.14); }
+    4%  { transform: translateX(-50%) scale(1); }
+    28% { color: var(--flame); border-color: rgba(255,90,60,0.55); background: rgba(255,90,60,0.1); }
+    32% { color: rgba(244,240,230,0.42); border-color: rgba(244,240,230,0.1); background: rgba(244,240,230,0.03); }
+    100%{ color: rgba(244,240,230,0.42); border-color: rgba(244,240,230,0.1); background: rgba(244,240,230,0.03); }
+  }
+  /* "Last modified" rolls like an odometer: every changing digit-wheel eases to
+     its new value (no blur). The panel briefly fades at the loop boundary so the
+     reset to "now" isn't a backward roll. */
+  .own-band.in-view .od-strip { animation: obOdigit 9s cubic-bezier(0.16,1,0.3,1) infinite; }
+  @keyframes obOdigit {
+    0%,22% { transform: translateY(0); }
+    28%    { transform: translateY(-1.25em); }
+    52%    { transform: translateY(-1.25em); }
+    58%    { transform: translateY(-2.5em); }
+    100%   { transform: translateY(-2.5em); }
+  }
+  .own-band.in-view .odo { animation: obOdoFade 9s infinite; }
+  @keyframes obOdoFade {
+    0%  { opacity: 0; }
+    4%  { opacity: 1; }
+    90% { opacity: 1; }
+    95% { opacity: 0; }
+    100%{ opacity: 0; }
+  }
+}
 
 /* —— frozen end-frame tableaus (D5): real windows, no grey boxes ——
    The OpenMarkdown window keeps the real light product palette on the ink
@@ -655,8 +846,7 @@ a { color: inherit; }
 .fs-doc code { font-family: var(--mono); font-size: 0.85em; background: var(--surface); padding: 0.08em 0.3em; border-radius: 0.3em; }
 /* reveal highlight — the agent pointed here (flame = attention) */
 .fs-doc .hl { background: rgba(255, 90, 60, 0.13); outline: 2px solid rgba(255, 90, 60, 0.45); outline-offset: 0.2rem; border-radius: 0.15rem; }
-/* your selection — the agent can see exactly this (editor blue) */
-.fs-doc .sel { background: rgba(59, 130, 246, 0.22); }
+/* the blue selection grammar (your hand) now lives on §C's .c-band overlay */
 .fs-doc .tasks { list-style: none; display: grid; gap: 0.45rem; margin-top: 0.7rem; padding: 0; }
 .fs-doc .tasks li { display: flex; gap: 0.55rem; align-items: center; }
 .fs-doc .tasks .box { width: 1rem; height: 1rem; border: 1.5px solid var(--signal); border-radius: 0.25rem; flex: none; display: grid; place-items: center; font-size: 0.65rem; }
@@ -664,32 +854,14 @@ a { color: inherit; }
 .fs-doc .tasks li.done .box::before { content: "✓"; }
 .fs-doc .tasks li.done span:not(.box) { color: var(--signal); text-decoration: line-through; }
 
-/* stacked-window tableau: OM window behind, terminal in front (F, G+K) */
-.fstack { position: relative; padding: 0 0 3.25rem; max-width: 34rem; margin: 0; }
-.fstack .window.app { width: 86%; }
-.fstack .window.term { position: absolute; right: 0; bottom: 0; width: 66%; box-shadow: 0 1.25rem 3rem -1.25rem rgba(0, 0, 0, 0.85); }
-/* 07: flat stack — the document plus the agent's one-line strip beneath */
-.fstack.fstack-flat { padding: 0; }
-.fstack.fstack-flat .window.app { width: 100%; }
-.fstack .window.term.agent-line { position: static; width: 100%; margin-top: 0.9rem; box-shadow: none; }
-/* chips naming the four beats (point → fix → translate → do) — static for now */
-.beat-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.1rem; }
-
 /* ==========================================================================
-   F · the $VISUAL/$EDITOR handoff (animation, design D1–D6)
-   Panel 06 stacks copy over a full-width stage (unlike the other tabs' two
-   columns). The default HTML is the frozen end-frame; JS adds .f-run and
-   drives data-beat="1..7" for the seven-beat timeline. Narrow/flat lays the
-   two windows out stacked (App over TUI); wide overlays them.
+   F · the $VISUAL/$EDITOR handoff (animation, in the hands-on segmented control).
+   Default HTML is the frozen end-frame; JS adds .f-run and drives
+   data-beat="1..7". Narrow/flat lays the two windows out stacked (App over
+   TUI); wide overlays them (App pops over the TUI).
    ========================================================================== */
-#panel-editor .feat-copy { max-width: 52rem; }
-.pinned.enhanced #panel-editor .feat-grid { grid-template-columns: 1fr; gap: 1.4rem; align-content: center; }
-.pinned.enhanced #panel-editor .head { max-width: 52rem; }
-.pinned.enhanced #panel-editor .feat-copy .head p { margin-top: 0.6rem; }
-
 /* narrow / flat default: two windows stacked, App above the TUI, no overlap */
-.f-stage { position: relative; margin: 1.75rem 0 0; }
-.agents.enhanced .f-stage { margin-top: 0; }
+.f-stage { position: relative; margin: 1.5rem 0 0; }
 .f-stage .f-term { margin-top: 1rem; }
 .f-stage .fs-doc { font-size: 0.82rem; min-height: 14rem; padding-top: 1.15rem; padding-bottom: 1.5rem; }
 .f-stage .fs-doc .f-app-lead { margin-top: 0; }
@@ -715,19 +887,20 @@ a { color: inherit; }
 .fw-line { margin-top: 0.1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .fw-sep { border-top: 1px solid rgba(244, 240, 230, 0.14); margin: 0.5rem 0; }
 
+/* keystroke visualizer — big keycaps that pop in over the TUI when Ctrl+G is pressed */
+.f-keys { display: none; position: absolute; top: 50%; left: 50%; gap: 0.9rem; z-index: 5; }
+/* .f-stage prefix raises specificity above the light .seg-panel kbd (which would
+   otherwise override this dark keycap); enlarged so the keystroke reads clearly */
+.f-stage .f-keys kbd {
+  font-family: var(--mono); font-size: 2.6rem; font-weight: 400; line-height: 1; padding: 0.5rem 0.8rem 0.62rem;
+  border-radius: 0.7rem; background: #FBFAF7; color: #2a2a31;
+  border: 1px solid rgba(23,23,26,0.14); border-bottom: 5px solid rgba(23,23,26,0.2);
+  box-shadow: 0 6px 0 rgba(23,23,26,0.14), 0 12px 26px rgba(0,0,0,0.42);
+}
+
 /* boxed prompt input — two rules above & below the > line, edge to edge */
 .f-term .term-body { position: relative; }
 .f-tui-box { margin: 0 -1.1rem 0.55rem; padding: 0.6rem 1.1rem; border-top: 1px solid rgba(244,240,230,0.18); border-bottom: 1px solid rgba(244,240,230,0.18); }
-
-/* keystroke visualizer — big keycaps that pop in over the TUI's centre when
-   Ctrl+G is pressed (livestream-style, oversized for emphasis) */
-.f-keys { display: none; position: absolute; top: 50%; left: 50%; gap: 0.55rem; z-index: 5; }
-.f-keys kbd {
-  font-family: var(--mono); font-size: 1.5rem; line-height: 1; padding: 0.55rem 0.85rem 0.7rem;
-  border-radius: 0.6rem; background: #2a2a31; color: #F4F0E6;
-  border: 1px solid rgba(244,240,230,0.3); border-bottom-width: 3px;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.5), 0 8px 18px rgba(0,0,0,0.45);
-}
 
 /* session banner inside the OpenMarkdown window (external-edit-session chrome) */
 .f-banner {
@@ -757,16 +930,17 @@ a { color: inherit; }
   /* overlay composition — the frozen end-frame (no .f-run): the prompt was
      written in OpenMarkdown (behind, top-left) and is filled back into the
      terminal (in front, bottom-right). */
-  .f-stage { max-width: 46rem; margin: 0 auto; min-height: clamp(24rem, 46vh, 30rem); }
+  /* fixed stage height (not 46vh) so the ctrl+g panel — and thus the whole
+     seg-panels stage — is a constant height across viewport sizes; otherwise a
+     taller viewport grew this panel past the fixed stage and the grid jumped */
+  .f-stage { max-width: 46rem; margin: 1.5rem auto 0; min-height: 26rem; }
   .f-stage .f-app { position: absolute; top: 0; left: 0; width: 78%; z-index: 1; margin: 0; }
   .f-stage .f-term {
     position: absolute; right: 0; bottom: 0; width: 60%; z-index: 2; margin: 0;
     box-shadow: 0 1.25rem 3rem -1.25rem rgba(0, 0, 0, 0.85);
   }
-
-  /* —— running: the TUI is the base layer, the App pops over it (design D2).
-     Every transition below is shorter than its beat so the picture settles
-     before the next beat fires. —— */
+  /* running: the TUI is the base layer, the App pops over it. Every transition
+     is shorter than its beat so the picture settles before the next fires. */
   .f-stage.f-run .f-term {
     top: 0; left: 0; right: 0; bottom: auto; width: 100%; z-index: 1;
     box-shadow: 0 1.75rem 3.5rem -2rem rgba(0, 0, 0, 0.6);
@@ -780,31 +954,22 @@ a { color: inherit; }
   .f-stage.f-run[data-beat="4"] .f-app,
   .f-stage.f-run[data-beat="5"] .f-app { opacity: 1; transform: scale(1); }
   .f-stage.f-run[data-beat="6"] .f-app { opacity: 0; transform: scale(0.96); }
-
   /* banner slides in as the editor takes over */
-  .f-stage.f-run .f-banner {
-    opacity: 0; transform: translateY(-0.4rem);
-    transition: opacity 0.32s ease, transform 0.32s ease;
-  }
+  .f-stage.f-run .f-banner { opacity: 0; transform: translateY(-0.4rem); transition: opacity 0.32s ease, transform 0.32s ease; }
   .f-stage.f-run[data-beat="3"] .f-banner,
   .f-stage.f-run[data-beat="4"] .f-banner,
   .f-stage.f-run[data-beat="5"] .f-banner,
   .f-stage.f-run[data-beat="6"] .f-banner { opacity: 1; transform: none; }
-
   /* app bullets grow in as they're typed (beat 4) */
   .f-stage.f-run .f-b { opacity: 0; transition: opacity 0.25s ease; }
   .f-stage.f-run .f-b.f-shown { opacity: 1; }
-
   /* ctrl+g pressed (beat 2): the tip line lights up AND the keycaps pop in */
   .f-stage.f-run .fw-cg { transition: color 0.2s ease; }
   .f-stage.f-run[data-beat="2"] .fw-cg { color: var(--flame); }
   .f-stage.f-run .f-keys { display: flex; opacity: 0; transform: translate(-50%, -50%) scale(0.7);
     transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.2,0.9,0.2,1.5); }
   .f-stage.f-run[data-beat="2"] .f-keys { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-
-  /* fake pointer — a bold black cursor; appears at the editor's centre, then
-     glides up to Done and presses. Anchored top-left so the arrow tip is the
-     hotspot; the transform delay lets it fade in at centre before it travels. */
+  /* fake pointer — appears at the editor's centre, glides up to Done and presses */
   .f-stage.f-run .f-cursor {
     display: block; position: absolute; z-index: 4;
     top: 50%; left: 50%; width: 1.2rem; color: #121216;
@@ -813,16 +978,8 @@ a { color: inherit; }
   }
   .f-stage.f-run[data-beat="5"] .f-cursor { opacity: 1; transform: translate(15rem, -5rem); }
   .f-stage.f-run[data-beat="6"] .f-cursor { opacity: 1; transform: translate(15rem, -5rem) scale(0.82); }
-  .f-stage.f-run[data-beat="6"] .fb-done {
-    transform: scale(0.93); filter: brightness(1.5);
-    transition: transform 0.15s ease, filter 0.15s ease;
-  }
+  .f-stage.f-run[data-beat="6"] .fb-done { transform: scale(0.93); filter: brightness(1.5); transition: transform 0.15s ease, filter 0.15s ease; }
 }
-
-/* free-scrolling close after the stage unpins */
-.band-close { padding: 4.5rem 0 5.5rem; }
-.wb-close { text-align: center; font-size: 1.05rem; color: #cfc9bd; text-wrap: balance; }
-.wb-close b { color: #F4F0E6; font-weight: 600; }
 
 /* —— feature grid (§10 · and the rest) ——————————————————————————— */
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1.75rem; margin-top: 2rem; }
@@ -831,6 +988,83 @@ a { color: inherit; }
 .gcard h4::before { content: "› "; color: var(--signal); font-family: var(--mono); }
 .gcard p { margin-top: 0.4rem; font-size: 0.9rem; color: var(--signal); text-wrap: pretty; }
 .gcard a { color: inherit; border-bottom: 1px solid var(--line); text-decoration: none; }
+
+/* —— hands-on — a pill segmented control (Tabs): one demo panel at a time,
+   each keeping its own inherited animation. + the small-things grid beneath —— */
+.hands-on > .wrap > .eyebrow { display: block; margin-bottom: 0.9rem; }
+.segmented { margin-top: 2rem; }
+/* the pill control: a rounded container, options side by side, active pill lit.
+   Shown only when JS can drive it — no-JS falls back to a readable stack. */
+.seg-control {
+  display: none; flex-wrap: wrap; gap: 0.25rem; padding: 0.3rem;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+}
+/* centered pill: a shrink-to-fit flex row, auto side margins (4.3) */
+.segmented.js .seg-control { display: flex; width: fit-content; max-width: 100%; margin-inline: auto; }
+.seg-tab {
+  font-family: var(--mono); font-size: 0.85rem; line-height: 1.2;
+  color: var(--signal); background: transparent; border: 0; border-radius: 999px;
+  padding: 0.5rem 1.05rem; cursor: pointer; white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.seg-tab:hover { color: var(--fg); }
+.seg-tab.on { color: var(--fg); background: var(--bg); box-shadow: 0 1px 2px rgba(23,23,26,0.12); }
+/* no JS: all panels stack, fully readable, separated by a rule. JS collapses
+   to one at a time (display:none avoids the mode-doc's internal
+   visibility:visible bleeding through a stacked hidden panel). */
+.seg-panels { margin-top: 1.75rem; }
+/* fixed stage height = the tallest panel's natural height (the F handoff's
+   overlay stage, ~31rem), so switching tabs never jolts the page vertically
+   (D5). Only in the wide JS tab mode; the narrow / no-JS stack keeps natural
+   heights (see the max-width block below). */
+@media (min-width: 52rem) {
+  .segmented.js .seg-panels { min-height: 37.5rem; }
+}
+.seg-panel + .seg-panel { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line-soft); }
+.segmented.js .seg-panel { display: none; margin-top: 0; padding-top: 0; border-top: 0; }
+.segmented.js .seg-panel.on { display: block; animation: kFade 0.28s ease; }
+.seg-head h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+.seg-head p { margin-top: 0.5rem; max-width: 44rem; font-size: 0.95rem; color: var(--signal); text-wrap: pretty; }
+/* palette panel — the three input modes as a job list (restored), and the
+   demo centered in the column (动画居中) */
+.job-list { list-style: none; display: grid; gap: 0.55rem; margin-top: 1.1rem; padding: 0; }
+.job-list li { display: flex; align-items: baseline; gap: 0.85rem; font-size: 0.95rem; }
+.job-list .pj {
+  font-family: var(--mono); font-size: 0.8125rem; color: var(--signal);
+  border: 1px solid var(--line); border-radius: 0.4rem; background: var(--surface);
+  padding: 0.14rem 0.5rem; flex: none; min-width: 5.2rem; text-align: center;
+}
+.seg-panel .palette-wrap { margin-inline: auto; }
+/* hands-on is a centered stage — the head, the pill, and everything under it (3) */
+.hands-on > .wrap > .eyebrow { text-align: center; }
+.hands-on .head { max-width: none; text-align: center; }
+.hands-on .head .lede { margin-inline: auto; }
+.seg-head { text-align: center; }
+.seg-head p { margin-inline: auto; }
+.job-list { width: fit-content; margin-inline: auto; }
+/* the ctrl+g body: one sentence per line, quote sits beneath as line four (4) */
+.seg-lines span { display: block; }
+/* keycap — a visible raised key on the light ground (a Surface fill washes out
+   against the paper section, so define it with a clear border, a thicker bottom
+   edge, and an ink tint) */
+.seg-panel kbd {
+  font-family: var(--mono); font-weight: 500; font-size: 0.85em; color: var(--fg);
+  background: #fff;
+  border: 1px solid rgba(23, 23, 26, 0.32);
+  border-bottom: 3px solid rgba(23, 23, 26, 0.42);
+  border-radius: 0.35rem; padding: 0.12em 0.45em; white-space: nowrap;
+  box-shadow: 0 1.5px 1.5px rgba(23, 23, 26, 0.08);
+}
+/* the shortcut chip inside a panel heading (ctrl+g / cmd+p) — sized under the
+   heading text and not bold, so it reads as a key label */
+.seg-head h3 .kc { font-size: 0.7em; font-weight: 500; vertical-align: 0.08em; }
+.seg-panel .palette-wrap { margin-top: 1.5rem; }
+.seg-panel .modes { margin-top: 1.5rem; }
+/* the live-preview demo runs the full product palette, like the band mocks */
+.seg-panel .window.app {
+  --surface: #F4F0E6; --line: rgba(23, 23, 26, 0.12); --line-soft: rgba(23, 23, 26, 0.07);
+  background: #FBFAF7;
+}
 
 /* —— CTA / download ————————————————————————————————————————————————
    Paper ground: the tail's seam leads into a light download scene; the
@@ -874,12 +1108,6 @@ a { color: inherit; }
 a.dl-row:hover { background: var(--surface); }
 .dl-row .dl-tag { font-family: var(--mono); font-size: 0.75rem; font-weight: 400; color: var(--signal); }
 .dl-row.dl-soon { color: var(--signal); cursor: default; }
-.unsigned { margin: 2.5rem auto 0; max-width: 38rem; text-align: left; border: 1px solid var(--line-soft); border-radius: 0.75rem; padding: 1.25rem 1.5rem; background: var(--surface); font-size: 0.9375rem; }
-.unsigned p { text-wrap: pretty; }
-.unsigned .cmd { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.9rem; }
-.unsigned pre { flex: 1; overflow-x: auto; font-family: var(--mono); font-size: 0.8125rem; line-height: 1.4; padding: 0.7rem 0.9rem; border: 1px solid var(--line-soft); border-radius: 0.5rem; background: var(--bg); }
-.copy-btn { flex: none; font-family: var(--mono); font-size: 0.75rem; padding: 0.55rem 0.8rem; border: 1px solid var(--line); border-radius: 0.5rem; background: none; color: inherit; cursor: pointer; }
-.copy-btn:hover { background: var(--bg); }
 
 /* —— footer — the ink baseline (its own seam marks the crossing) —————— */
 footer {
@@ -898,10 +1126,6 @@ footer a:hover { color: var(--fg); }
    not even the flex gap */
 .foot-flat { flex: 1 0 100%; }
 .foot-flat:empty { display: none; }
-/* flat/pinned preference toggle (D6) — quiet, reads like a footer link */
-.flat-toggle { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-bottom: 1px solid var(--line); }
-.flat-toggle:hover { color: var(--fg); }
-.flat-toggle.static { cursor: default; border-bottom: 0; font-style: italic; }
 
 /* —— guide page ————————————————————————————————————————————————— */
 .guide-hero { padding: 3.5rem 0 1rem; }
@@ -928,233 +1152,167 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
    responsive — single breakpoint, single column
    ========================================================================== */
 /* ==========================================================================
-   K · your "this" — four-scene accordion carousel (panel 07)
-   Head on top, prompt accordion left, app+TUI stack right (tab 02's shape).
-   Default HTML: accordion fully expanded (no-JS readable), scene 1 frozen
-   end-frame visible, no timer. JS adds .js (collapse to the active row) and
-   .k-run (autoplay + timer line). Blue .sel = what you selected; flame
-   .k-ed = what your agent wrote.
+   §C · agent reads your highlight — drag-select a messy list, then hand it to
+   the agent, which reformats it to a table, in place. A visible pointer drags
+   a blue selection (your hand) over the list, then travels to the agent window
+   and disappears before you ask; the table is the agent's rewrite (flame).
+   Plays on scroll-into-view; default HTML is the frozen end-frame (finished
+   table). Beats (data-beat, JS-set; every visual is CSS):
+     0 rewind (list) · 1 pointer appears · 2 pointer drags, selection sweeps ·
+     3 pointer travels to the agent window · 4 pointer gone, you type the ask ·
+     5 list → table, flame bloom, ✓ line.
    ========================================================================== */
-#panel-you .head { max-width: 44rem; }
-.k-demo { margin-top: 2rem; display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.75rem; align-items: center; }
-.agents.enhanced .k-demo { margin-top: 1.6rem; }
-
-.k-acc { border: 1px solid var(--line); border-radius: 0.6rem; overflow: hidden; }
-.k-item + .k-item { border-top: 1px solid var(--line-soft); }
-.k-head {
-  position: relative; display: flex; align-items: baseline; gap: 0.6rem; width: 100%;
-  padding: 0.72rem 1.1rem; background: none; border: 0; cursor: pointer; text-align: left;
-  font-family: var(--mono); font-size: 0.9rem; color: var(--signal);
-  transition: color 0.15s ease;
+.c-stage { position: relative; display: flex; flex-direction: column; gap: 1rem; }
+.c-stage > .window { margin: 0; min-width: 0; max-width: none; }
+/* the TUI (the "arrives" window) shares its slot with a dashed placeholder: both
+   sit in one grid cell so the real window rises onto the holder, which then fades */
+.c-termslot { position: relative; display: grid; margin: 0; }
+.c-termslot > .win-holder, .c-termslot > .window { grid-area: 1 / 1; margin: 0; min-width: 0; max-width: none; }
+/* running: the TUI stays hidden (placeholder shows) until you ask (beat 4), then rises in */
+.c-run .c-termslot > .window.term {
+  opacity: 0; transform: translateY(0.9rem) scale(0.985); transform-origin: top center;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.k-head .kp { opacity: 0.7; }
-.k-head:hover { color: var(--fg); }
-.k-item.on .k-head { color: var(--fg); background: var(--surface); }
-.k-body { padding: 0.1rem 1.1rem 0.9rem 2.45rem; font-size: 0.9375rem; color: #cfc9bd; text-wrap: pretty; }
-.k-item.on .k-body { background: var(--surface); }
-.k-demo.js .k-item:not(.on) .k-body { display: none; }
-#panel-you .feat-note { margin-top: 1.1rem; }
-#panel-you .feat-note.k-note2 { margin-top: 0.3rem; }
+.c-run[data-beat="4"] .c-termslot > .window.term,
+.c-run[data-beat="5"] .c-termslot > .window.term { opacity: 1; transform: none; }
 
-/* scene timer — the active row's bottom line fills over one 5s beat: the
-   same 2px line the pinned tabs draw, time-driven instead of scroll-driven */
-.k-item.on .k-head::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
-  background: var(--fg); transform-origin: 0 50%; transform: scaleX(0);
+/* dashed + hatch placeholder for a window that hasn't opened yet (§B app, §C TUI).
+   Only ever visible while its demo runs — never in the static end-frame, so no-JS
+   / reduced-motion keeps both windows whole with no empty box. */
+.win-holder {
+  border: 1px dashed rgba(244, 240, 230, 0.32); border-radius: 0.75rem;
+  background: repeating-linear-gradient(45deg,
+    rgba(244, 240, 230, 0.06) 0, rgba(244, 240, 230, 0.06) 5px,
+    transparent 5px, transparent 12px);
+  opacity: 0; pointer-events: none;
 }
-.k-run .k-item.on .k-head::after { animation: kBeat 5s linear forwards; }
-@keyframes kBeat { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-
-/* scene frames — stacked in one grid cell so the block keeps the tallest
-   frame's height (no layout jump on switch); one visible at a time. Each
-   frame is a column and its app window stretches, so every scene's app
-   window matches the tallest one (scene 2) in both height and width. */
-.k-view { display: grid; }
-.k-view .k-frame { grid-area: 1 / 1; visibility: hidden; display: flex; flex-direction: column; }
-.k-view .k-frame.on { visibility: visible; }
-.k-frame .window.app { flex: 1 0 auto; display: flex; flex-direction: column; }
-.k-frame .window.app .fs-doc { flex: 1 1 auto; }
-.k-demo.js .k-frame.on { animation: kFade 0.25s ease; }
-@keyframes kFade { from { opacity: 0; } }
-.k-frame .fs-doc { min-height: 10.5rem; }
-
-/* what the agent wrote — flame tint (vs the blue .sel of what you selected) */
-.fs-doc .k-ed { background: rgba(255, 90, 60, 0.16); border-radius: 0.15rem; }
-/* scene-1 agent caret — a flame block that sits on the word while it's fixed */
-.k-word.k-caret::after {
-  content: ""; display: inline-block; width: 0.55em; height: 1.05em;
-  vertical-align: -0.15em; margin-left: 1px; background: var(--flame);
-  animation: blink 1.05s steps(1) infinite;
+.c-run .win-holder, .g-run .win-holder { transition: opacity 0.4s ease; }
+/* §C: the placeholder holds the TUI's slot through the selection beats (0–3) */
+.c-run[data-beat="0"] .c-termslot .win-holder,
+.c-run[data-beat="1"] .c-termslot .win-holder,
+.c-run[data-beat="2"] .c-termslot .win-holder,
+.c-run[data-beat="3"] .c-termslot .win-holder { opacity: 1; }
+/* both states share one grid cell so the window never jumps on the swap */
+.c-clip { position: relative; display: grid; margin-top: 0.55rem; min-height: 6.5rem; }
+.c-clip > .c-list, .c-clip > .c-table { grid-area: 1 / 1; align-self: start; }
+/* default = the finished table; running shows the list until the swap (beat 5) */
+.c-list { position: relative; opacity: 0; }
+.c-table { opacity: 1; }
+.c-run[data-beat="0"] .c-list, .c-run[data-beat="1"] .c-list, .c-run[data-beat="2"] .c-list,
+.c-run[data-beat="3"] .c-list, .c-run[data-beat="4"] .c-list { opacity: 1; }
+.c-run[data-beat="0"] .c-table, .c-run[data-beat="1"] .c-table, .c-run[data-beat="2"] .c-table,
+.c-run[data-beat="3"] .c-table, .c-run[data-beat="4"] .c-table { opacity: 0; }
+.c-run .c-list, .c-run .c-table { transition: opacity 0.35s ease; }
+/* the blue selection — your hand — sweeps down over the list, then holds while
+   the pointer leaves and you ask */
+.c-band {
+  position: absolute; left: -0.3rem; right: -0.3rem; top: 0; height: 0;
+  background: rgba(59, 130, 246, 0.22); border-radius: 0.2rem; pointer-events: none;
 }
-/* scene-2 drafts fade in as the agent lands them */
-.k-draft { transition: opacity 0.35s ease; }
-.k-hide { opacity: 0; }
+.c-run .c-band { transition: height 0.5s cubic-bezier(0.3, 0, 0.2, 1); }
+.c-run[data-beat="2"] .c-band, .c-run[data-beat="3"] .c-band, .c-run[data-beat="4"] .c-band { height: 100%; }
+/* the visible pointer floats over the app window: its only job is to drag the
+   blue selection over the list (demonstrate the highlight), then fade out in
+   place before the ask — it never travels to the agent window */
+/* the pointer tracks two JS-measured anchors (--c-x0/y0 = first item's text start,
+   --c-x1/y1 = last item's text end) so the drag lands on the real list at any
+   width; the rem fallbacks stand in only if the measurement never runs */
+.c-cursor { position: absolute; top: 0; left: 0; z-index: 6; width: 1rem; color: #16161a; opacity: 0; transform: translate(var(--c-x0, 2.1rem), var(--c-y0, 5.4rem)); pointer-events: none; }
+.c-cursor svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 1.5px 1.5px rgba(0, 0, 0, 0.4)); }
+.c-run .c-cursor { transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.3, 0.5, 0.2, 1); }
+.c-run[data-beat="1"] .c-cursor { opacity: 1; transform: translate(var(--c-x0, 2.1rem), var(--c-y0, 5.4rem)); }   /* at the first line's start */
+.c-run[data-beat="2"] .c-cursor { opacity: 1; transform: translate(var(--c-x1, 9rem), var(--c-y1, 8.4rem)); }      /* dragged to the last line's end — selection complete */
+/* highlight demonstrated — the pointer fades out where it stopped; no travel */
+.c-run[data-beat="3"] .c-cursor, .c-run[data-beat="4"] .c-cursor, .c-run[data-beat="5"] .c-cursor { opacity: 0; transform: translate(var(--c-x1, 9rem), var(--c-y1, 8.4rem)); }
+/* the table the agent wrote — fs-doc type scale, flame-tinted while fresh */
+.c-doc table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.c-doc th, .c-doc td { text-align: left; padding: 0.34rem 0.55rem; border-bottom: 1px solid var(--line-soft); }
+.c-doc thead th { font-weight: 700; color: var(--fg); border-bottom-color: var(--line); }
+.c-doc td { color: var(--fg); }
+.c-table table { background: rgba(255, 90, 60, 0.08); border-radius: 0.35rem; }
+.c-run[data-beat="5"] .c-table table { animation: cTableBloom 1.1s ease; }
+@keyframes cTableBloom { 0% { background: rgba(255, 90, 60, 0.3); } 100% { background: rgba(255, 90, 60, 0.08); } }
+/* the TUI caret is ash, like F/§B (flame stays the editor's) */
+.c-stage .f-typing::after { background: #D8D3C8; }
+/* the stale ✓ line hides until the ask is typed, so the answer never leads */
+.c-run .c-line { transition: opacity 0.3s ease; }
+.c-run[data-beat="0"] .c-line, .c-run[data-beat="1"] .c-line, .c-run[data-beat="2"] .c-line,
+.c-run[data-beat="3"] .c-line, .c-run[data-beat="4"] .c-line { opacity: 0; }
 /* in-progress TUI line — Claude Code's thinking look: the text holds still
    in Claude yellow while the prefix glyph spins (· ✢ ✳ ✻ ✽, JS-driven) */
 .k-live { color: #FBE24D; }
 /* the flip to "✓ done" eases in instead of snapping */
 .k-flip { animation: kFlip 0.4s ease; }
 @keyframes kFlip { from { opacity: 0; transform: translateY(0.25em); } }
+/* shared fade used by §B's page-in and elsewhere */
+@keyframes kFade { from { opacity: 0; } }
 
 /* ==========================================================================
-   tab 08 — the one-beat reveal (animation G). Two doc states stacked in one
-   clip: the wiki's index page, and caffeine.md whose content scrolls up so
-   ## Sources lands at the top of the view — the motion is the feature, so
-   it's a transform, never a crossfade. Default HTML (no JS / reduced-motion)
-   is the frozen end-frame: page open, scrolled, settled flame tint.
+   §B · your file as a wiki — the ask-then-open reveal (animation G). A centered
+   agent window; when it opens the file, the OpenMarkdown window rises in below
+   and scrolls so ## Decisions lands at the top of the view — the motion is the
+   feature, so it's a transform, never a crossfade. Default HTML (no JS /
+   reduced-motion) is the frozen end-frame: file open, scrolled, settled tint.
    Beats (data-beat, set by JS; every visual is CSS keyed off it):
-     0 rewind · 1 question · 2 tab pops, page in at top · 3 scroll ·
-     4 bloom on ## Sources · 5 ✦ line flips.
-   Flame = the agent's hand — what it wrote (.k-ed) and where it points
-   (.g-hl); blue .sel stays yours.
+     0 rewind · 1 question · 2 searching · 3 opening — file window rises in ·
+     4 scroll to ## Decisions · 5 bloom + ✦ opened.
    ========================================================================== */
+/* stage: the agent window (TUI) on top, the opened file window below it — both
+   fill the right-hand demo column of the two-column evidence block */
+.g-stage { display: flex; flex-direction: column; gap: 1rem; margin: 0; }
+.g-stage .g-term, .g-stage .g-app { width: 100%; max-width: none; margin: 0; min-width: 0; }
+/* the app window shares its slot with the dashed placeholder (same as §C's TUI) */
+.g-appslot { position: relative; display: grid; margin: 0; width: 100%; }
+.g-appslot > .win-holder, .g-appslot > .window { grid-area: 1 / 1; margin: 0; min-width: 0; }
+/* §B: the placeholder holds the app's slot until the agent opens the file (beat 3) */
+.g-run[data-beat="0"] .g-appslot .win-holder,
+.g-run[data-beat="1"] .g-appslot .win-holder,
+.g-run[data-beat="2"] .g-appslot .win-holder { opacity: 1; }
+
 .g-tabs { gap: 0.45rem; }
-.g-tab {
-  font-family: var(--mono); font-size: 0.72rem; padding: 0.16rem 0.6rem;
-  border: 1px solid var(--line-soft); border-radius: 0.45rem; color: var(--signal);
-}
-/* whichever page is open reads as the active capsule */
-.g-tab.g-tp { color: var(--fg); background: var(--surface); border-color: var(--line); }
-.g-run[data-beat="0"] .g-tab.g-tp, .g-run[data-beat="1"] .g-tab.g-tp {
-  opacity: 0; transform: translateY(2px) scale(0.96);
-}
-.g-run[data-beat="0"] .g-tab.g-ti, .g-run[data-beat="1"] .g-tab.g-ti {
-  color: var(--fg); background: var(--surface); border-color: var(--line);
-}
-.g-run .g-tab { transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease, background 0.25s ease; }
+.g-tab { font-family: var(--mono); font-size: 0.72rem; padding: 0.16rem 0.6rem; border: 1px solid var(--line); border-radius: 0.45rem; color: var(--fg); background: var(--surface); }
 
-/* the clip: fixed height, both docs in one grid cell; sized so the whole
-   app window matches tab 07's (the stage doesn't jump between tabs) */
-.g-clip { position: relative; display: grid; height: 16.5rem; overflow: hidden; }
+/* the file window opens: it rises + fades in once the agent opens it (beat 3+).
+   Before that it holds its space (empty below the agent window) — the file
+   simply isn't open yet. */
+.g-run .g-app { opacity: 0; transform: translateY(0.9rem) scale(0.985); transform-origin: top center;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.g-run[data-beat="3"] .g-app, .g-run[data-beat="4"] .g-app, .g-run[data-beat="5"] .g-app { opacity: 1; transform: none; }
+
+/* the clip: fixed height, the note scrolls inside it */
+.g-clip { position: relative; display: grid; height: 12rem; overflow: hidden; }
 .g-clip .g-doc { grid-area: 1 / 1; }
-.g-doc-index { visibility: hidden; }
-.g-run[data-beat="0"] .g-doc-index, .g-run[data-beat="1"] .g-doc-index { visibility: visible; }
-.g-run[data-beat="0"] .g-doc-page, .g-run[data-beat="1"] .g-doc-page { visibility: hidden; }
-.g-run[data-beat="2"] .g-doc-page { animation: kFade 0.25s ease; }
 
-/* the scroll itself — the end state has ## Sources at the top of the clip;
-   --g-off is the heading's measured offset (JS sets it in px each play; the
-   rem value is the no-JS fallback, tuned to this content) */
-.g-stage { --g-off: 7.9rem; }
+/* the scroll — the end state has ## Decisions at the top of the clip; --g-off is
+   the heading's measured offset (JS sets it in px each play; the rem is the
+   no-JS fallback, tuned to this content) */
+.g-stage { --g-off: 6.4rem; }
 .g-scroll { transform: translateY(calc(-1 * var(--g-off))); }
 .g-run .g-scroll { transition: transform 0.6s cubic-bezier(0.3, 0, 0.2, 1); }
 .g-run[data-beat="0"] .g-scroll, .g-run[data-beat="1"] .g-scroll,
-.g-run[data-beat="2"] .g-scroll { transform: translateY(0); transition: none; }
+.g-run[data-beat="2"] .g-scroll, .g-run[data-beat="3"] .g-scroll { transform: translateY(0); transition: none; }
 
-/* [[wikilinks]] — enough to read as a wiki, no link affordance needed */
-.fs-doc .wl { font-family: var(--mono); font-size: 0.92em; color: #3B82F6; }
-
-/* the landing: settled flame tint (same family as .k-ed), plus a one-shot
-   bloom ring when the reveal arrives (beats 4+, while running) */
+/* the landing: settled flame tint, plus a one-shot bloom when the reveal arrives */
 .fs-doc .g-hl { background: rgba(255, 90, 60, 0.16); border-radius: 0.15rem; }
-.g-run[data-beat="4"] .g-hl, .g-run[data-beat="5"] .g-hl { animation: gBloom 0.9s ease; }
+.g-run[data-beat="5"] .g-hl { animation: gBloom 0.9s ease; }
 @keyframes gBloom {
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--flame) 65%, transparent); background: rgba(255, 90, 60, 0.34); }
   100% { box-shadow: 0 0 0 0.5rem rgba(255, 90, 60, 0); background: rgba(255, 90, 60, 0.16); }
 }
 
-/* the question types out on beat 1 (full text is the end-frame default);
-   the stale ✦ line hides until the spinner takes over (.k-live), so the
-   answer never precedes the question */
+/* the question types out on beat 1; the stale ✦ line hides until the spinner
+   takes over, so the answer never precedes the question */
 .g-run[data-beat="0"] .g-q { opacity: 0; }
 .g-run[data-beat="0"] .g-line, .g-run[data-beat="1"] .g-line.dim { opacity: 0; }
 .g-run .g-q { transition: opacity 0.35s ease; }
 /* TUI caret is ash, like F's terminal (flame is the editor's) */
-.g-stage .f-typing::after, .h-stage .f-typing::after { background: #D8D3C8; }
-
-/* the llm-wiki nod, linked to the pattern's source */
-#panel-it .feat-note a { color: inherit; text-decoration: underline; text-underline-offset: 0.18em; }
-#panel-it .feat-note a:hover { color: var(--paper, #FBFAF7); }
-
-/* ==========================================================================
-   H · the whiteboard read-back (tab 09) — the band's quiet closing beat.
-   Default HTML is the frozen end-frame: two blue ticks (your hand), one box
-   left open, the ✓ read-back line up. Flame (.k-ed) = the agent's hand — it
-   wrote the checklist; blue stays yours. JS adds .h-run + data-beat and
-   measures each glide's target box into --hx/--hy.
-   ========================================================================== */
-/* line 2 — the follow-up job ("booking…"): hidden with its space reserved
-   (the window never jumps) until the read-back lands on beat 4; always
-   visible in the frozen end-frame */
-.h-stage.h-run .h-line2 { visibility: hidden; }
-.h-stage.h-run[data-beat="4"] .h-line2 { visibility: visible; }
-
-/* beat t — the ask: the prompt types into the empty box; line 1 keeps its
-   space but stays blank until the write starts (the answer never precedes
-   the question — G's rule) */
-.h-stage.h-run[data-beat="t"] .h-line { opacity: 0; }
-
-/* beat 0 — the write-in: while the loop runs, the doc starts blank and the
-   title + items land one by one (.h-in, staggered by JS). Layout space is
-   kept (opacity only), so the cursor's measured targets hold still. The
-   transition lives on .h-in only — removing it (rewind) snaps instantly.
-   Frozen end-frame (no .h-run) shows everything, same as no-JS. */
-.h-stage.h-run .fs-doc h4,
-.h-stage.h-run .h-tasks li { opacity: 0; transform: translateY(0.3rem); }
-.h-stage.h-run .fs-doc h4.h-in,
-.h-stage.h-run .h-tasks li.h-in {
-  opacity: 1; transform: none;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-/* trigger-moment chips on the ink band — 01's scene-chips grammar, re-inked */
-.agents .scene-chips { margin-top: 1.1rem; }
-.agents .schip {
-  color: #cfc9bd; background: rgba(244, 240, 230, 0.06);
-  border-color: rgba(244, 240, 230, 0.22);
-}
-
-/* story switch above the window — two takes on the same four beats
-   ("at home" / "at work"); the chosen one is a filled paper pill */
-.h-switch { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; }
-.h-sw {
-  font-family: var(--mono); font-size: 0.8125rem; color: #cfc9bd;
-  border: 1px solid rgba(244, 240, 230, 0.22); border-radius: 2rem;
-  padding: 0.28rem 0.85rem; background: rgba(244, 240, 230, 0.06);
-  cursor: pointer; transition: color 0.15s ease, border-color 0.15s ease;
-}
-.h-sw:hover { color: #F4F0E6; }
-.h-sw.on { color: #17171A; background: #F4F0E6; border-color: #F4F0E6; }
-
-/* your hand is blue: selection-blue glyph in a selection-tinted box; the
-   un-ticked box keeps its neutral stroke — a skip is an answer, not a gap */
-.fs-doc .h-tasks li.done .box {
-  background: rgba(59, 130, 246, 0.14); border-color: #3B82F6; color: #3B82F6;
-}
-/* ticks pop as they land while the loop runs */
-.h-stage.h-run .h-tasks li.done .box { animation: hPop 0.3s ease; }
-@keyframes hPop {
-  0% { transform: scale(0.55); }
-  60% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-/* fake pointer — F's cursor grammar, aimed at measured box targets; the tip
-   is the hotspot (transform-origin 0 0), clicks dip it briefly */
-.h-stage { position: relative; }
-.h-stage .f-cursor {
-  display: block; position: absolute; left: 0; top: 0; z-index: 5;
-  width: 0.85rem; color: #121216; transform-origin: 0 0; pointer-events: none;
-  opacity: 0; transform: translate(var(--hx, 8rem), var(--hy, 6rem));
-  transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.25, 1), opacity 0.3s ease;
-}
-.h-stage.h-run[data-beat="1"] .f-cursor { opacity: 1; }
-.h-stage .f-cursor.h-click {
-  transform: translate(var(--hx, 8rem), var(--hy, 6rem)) scale(0.78);
-  transition-duration: 0.12s;
-}
+.g-stage .f-typing::after { background: #D8D3C8; }
 
 @media (max-width: 52rem) {
-  .modes { grid-template-columns: 1fr; }
-  .k-demo { grid-template-columns: 1fr; gap: 1.75rem; }
   .grid { grid-template-columns: 1fr 1fr; }
-  /* hero head stacks and returns to natural left alignment on narrow screens */
-  .hero-head { flex-direction: column; gap: 1.25rem; }
-  .hero .hero-mark img { height: clamp(4rem, 22vw, 6rem); }
-  .hero-lead { text-align: left; }
-  .hero-lead .lede { margin-left: 0; }
-  /* demo window goes full-width on narrow screens; text uses the full measure */
-  .hero .demo-live { width: 100%; }
+  /* hero head tightens its vertical rhythm on narrow screens (already centered) */
+  .hero-head { gap: 1.5rem; }
+  /* demo window keeps full width on narrow screens; text uses the full measure */
   .live-doc { padding: 1.75rem 1.5rem; }
   .live-doc > * { max-width: none; }
   /* sidebar stays usable but narrower so the doc keeps room when opened */
@@ -1164,7 +1322,6 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
 @media (max-width: 34rem) {
   .grid { grid-template-columns: 1fr; }
   .stats { gap: 1rem; grid-template-columns: 1fr; }
-  .unsigned .cmd { flex-direction: column; align-items: stretch; }
   /* keep the nav-height compensation (the hero rides under the transparent
      nav) — a bare value here once put the mark underneath the navbar */
   .hero { padding-top: calc(var(--nav-h) + 1.25rem); }

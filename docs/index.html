@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>OpenMarkdown — Feather-light. Light-speed.</title>
-  <meta name="description" content="A feather-light, local-first Markdown editor — so fast you and your agent stay on the same page.">
+  <meta name="description" content="A feather-light, local-first Markdown editor built for you and your agent.">
   <link rel="canonical" href="https://openmarkdown.dev/">
   <meta name="theme-color" content="#17171A">
 
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OpenMarkdown">
   <meta property="og:title" content="OpenMarkdown — Feather-light. Light-speed.">
-  <meta property="og:description" content="A feather-light, local-first Markdown editor — so fast you and your agent stay on the same page.">
+  <meta property="og:description" content="A feather-light, local-first Markdown editor built for you and your agent.">
   <meta property="og:url" content="https://openmarkdown.dev/">
   <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OpenMarkdown — Feather-light. Light-speed.">
-  <meta name="twitter:description" content="A feather-light, local-first Markdown editor — so fast you and your agent stay on the same page.">
+  <meta name="twitter:description" content="A feather-light, local-first Markdown editor built for you and your agent.">
   <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
   <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
 
@@ -41,7 +41,7 @@
     "name": "OpenMarkdown",
     "applicationCategory": "Productivity",
     "operatingSystem": "macOS",
-    "description": "A feather-light, local-first Markdown editor — so fast you and your agent stay on the same page.",
+    "description": "A feather-light, local-first Markdown editor built for you and your agent.",
     "url": "https://openmarkdown.dev/",
     "downloadUrl": "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
     "softwareVersion": "0.7.0",
@@ -61,9 +61,9 @@
         OpenMarkdown
       </a>
       <div class="links">
-        <a href="#features">Features</a>
-        <a href="#ai">Agents</a>
-        <a href="guide.html">Guide</a>
+        <a href="#agents">Agents</a>
+        <a href="#hands-on">Features</a>
+        <a href="/guide">Guide</a>
         <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
         <a class="btn" href="#download">Download</a>
       </div>
@@ -72,16 +72,21 @@
 
   <main id="top">
 
-    <!-- ═══════════ §0 · hero (ink) ═══════════ -->
+    <!-- ═══════════ hero (ink) ═══════════
+         The heartbeat up front: speed + one line of the relationship. The
+         live-preview typing demo IS the Markdown glimpse (source types, renders
+         in place); a small "What's Markdown?" link hands the syntax lesson to
+         the guide. No-JS / reduced-motion fallback = the finished welcome.md. -->
     <header class="hero">
       <div class="wrap">
         <div class="hero-head">
-          <span class="hero-mark rise">
-            <img src="assets/02-mark-reversed.svg" alt="OpenMarkdown" width="208" height="128">
-          </span>
+          <a class="hero-lockup rise" href="#top" aria-label="OpenMarkdown">
+            <img src="assets/02-mark-reversed.svg" alt="" width="208" height="128">
+            <span class="hero-wordmark">OpenMarkdown</span>
+          </a>
           <div class="hero-lead">
             <h1 class="rise rise-2"><span class="beat">Feather-light.</span> <span class="beat">Light-speed.</span></h1>
-            <p class="lede rise rise-3">A local-first Markdown editor — so fast <b>you and your agent</b> stay on the same page.</p>
+            <p class="lede rise rise-3">A local-first Markdown editor <b>built for you and your agent</b>.</p>
           </div>
         </div>
         <div class="hero-cta rise rise-4">
@@ -92,8 +97,8 @@
           <span class="hero-note">free · rust-core · no account</span>
         </div>
 
-        <!-- animation A — real live-preview typing demo, in the real app chrome.
-             No-JS / reduced-motion fallback = the finished rendered welcome.md below. -->
+        <!-- the Markdown glimpse: a real live-preview typing demo in the real
+             app chrome. No-JS / reduced-motion fallback = the finished welcome.md. -->
         <figure class="demo-live rise rise-5">
           <div class="window app">
             <div class="titlebar" aria-hidden="true">
@@ -113,13 +118,12 @@
                   </div>
                   <ul class="ft">
                     <li class="ft-row lvl1 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Daily</span></li>
-                    <li class="ft-row lvl1 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg><span>Features</span></li>
-                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>AI Native</span></li>
-                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Cmd Palette</span></li>
-                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>MCP</span></li>
-                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Reveal</span></li>
-                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Shortcuts</span></li>
-                    <li class="ft-row lvl1 is-file"><svg class="ic ic-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg><span>Agent.md</span></li>
+                    <li class="ft-row lvl1 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg><span>Notes</span></li>
+                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Wiki</span></li>
+                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Projects</span></li>
+                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Reading</span></li>
+                    <li class="ft-row lvl2 is-folder"><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span>Drafts</span></li>
+                    <li class="ft-row lvl1 is-file"><svg class="ic ic-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg><span>AGENT.md</span></li>
                     <li class="ft-row lvl1 is-file"><svg class="ic ic-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg><span>design.md</span></li>
                     <li class="ft-row lvl1 is-file active"><svg class="ic ic-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg><span>welcome.md</span></li>
                   </ul>
@@ -136,726 +140,596 @@
                   </span>
                 </div>
                 <div class="live-doc" id="typing" aria-label="A Markdown file being typed and rendered live">
-                <div class="demo-h1">Welcome</div>
+                <div class="demo-h1">Welcome to Markdown</div>
                 <div class="spacer"></div>
-                <p>Open a file. Start typing.</p>
+                <p>Simple syntax, real formatting</p>
                 <div class="spacer"></div>
-                <p><b>Bold</b>, <em>italic</em>, <code>code</code>, a <a>link</a>.</p>
+                <h2>A second-level heading</h2>
                 <div class="spacer"></div>
-                <blockquote>your notes, rendered in place</blockquote>
+                <p><b>bold</b>, <em>italic</em>, <del>strikeout</del></p>
                 <div class="spacer"></div>
-                <div class="bullet"><span class="bl">•</span><span>a list item</span></div>
-                <div class="task"><span class="box"></span><span>a task you can tick</span></div>
+                <blockquote>a quote</blockquote>
+                <div class="spacer"></div>
+                <div class="bullet"><span class="bl">•</span><span>item 1</span></div>
+                <div class="task"><span class="box"></span><span>todo</span></div>
+                <div class="task done"><span class="box"></span><span>done</span></div>
+                <div class="spacer"></div>
+                <hr class="demo-hr">
+                <div class="spacer"></div>
+                <pre class="demo-code"><code><span class="c"># code block</span>
+<span class="fn">print</span>(<span class="s">'hello world'</span>)</code></pre>
                 </div>
               </div>
             </div>
           </div>
-          <figcaption class="demo-cap">You type Markdown source. It renders in place — the file on disk stays plain <code>.md</code>.</figcaption>
+          <figcaption class="demo-cap"><a class="cap-link" href="/guide#syntax">More Markdown syntax →</a></figcaption>
         </figure>
       </div>
     </header>
 
-    <!-- ═══════════ §1–§4 · features — pinned scroll-driven tabs (design D10) ═══════════
-         Default HTML is this flat, fully readable stack. JS adds .enhanced on wide
-         screens without reduced-motion: the track grows tall, the stage pins, and
-         scroll progress drives the four tabs. No JS / reduced-motion / narrow = flat. -->
-    <div class="features pinned" id="features">
-      <div class="feat-track" id="featTrack">
-        <div class="feat-stage" id="featStage">
-          <!-- the seam rides inside the stage: pinned, it stays put under the
-               nav for the whole scroll sequence — the section's lintel -->
-          <div class="seam" aria-hidden="true"></div>
+    <!-- ═══════════ speed — the heartbeat, straight after the hero ═══════════
+         Was tab 04 (light-speed); now its own beat, retitled toward
+         "before it slips". Generic comparison (a heavier app) — no competitor
+         named. The bars + stats are real CSS; reduced-motion freezes them true. -->
+    <div class="seam" aria-hidden="true"></div>
+    <section class="section speed" id="speed">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="md-h">Catch your idea before it slips.</h2>
+          <p class="lede">An idea gives you about five seconds. OpenMarkdown takes less than one.</p>
+        </div>
 
-          <div class="feat-tabs-row">
-            <div class="wrap">
-              <div class="feat-tabs" role="tablist" aria-label="Features" id="featTabs">
-                <button class="feat-tab on" id="ftab-0" type="button" role="tab" aria-selected="true" aria-controls="panel-markdown"><span class="tn">01</span><span class="tl">&nbsp;· markdown</span></button>
-                <button class="feat-tab" id="ftab-1" type="button" role="tab" aria-selected="false" aria-controls="panel-preview" tabindex="-1"><span class="tn">02</span><span class="tl">&nbsp;· live preview</span></button>
-                <button class="feat-tab" id="ftab-2" type="button" role="tab" aria-selected="false" aria-controls="panel-palette" tabindex="-1"><span class="tn">03</span><span class="tl">&nbsp;· command palette</span></button>
-                <button class="feat-tab" id="ftab-3" type="button" role="tab" aria-selected="false" aria-controls="panel-speed" tabindex="-1"><span class="tn">04</span><span class="tl">&nbsp;· light-speed.</span></button>
-              </div>
-            </div>
+        <!-- two launch bars: ours fills instantly and the idea is already a ticked
+             task; theirs crawls through splash → updates → sync and never arrives -->
+        <div class="bars" aria-hidden="true">
+          <div class="blane us">
+            <div class="bl-top"><span class="who"><span class="app-ic" aria-hidden="true"><img src="assets/06-appicon-ink.svg" alt=""></span>OpenMarkdown</span><span class="verdict">✓ open — 0.2s</span></div>
+            <div class="bbar"><i></i></div>
+            <div class="bl-note typed">- [ ] that idea — already written down</div>
           </div>
+          <div class="blane them">
+            <div class="bl-top"><span class="who"><span class="app-ic app-ic-them" aria-hidden="true">?</span>A heavier app</span><span class="verdict">✕ still loading…</span></div>
+            <div class="bbar"><i></i></div>
+            <div class="bl-note stat-cycle"><span class="s1">splash screen…</span><span class="s2">checking for updates…</span><span class="s3">syncing workspace…</span></div>
+          </div>
+        </div>
 
-          <div class="feat-panels">
+        <div class="stats">
+          <div class="stat"><div class="num">&lt; 1s</div><div class="lbl">cold start (P50)</div></div>
+          <div class="stat"><div class="num">0.2s</div><div class="lbl">click → window</div></div>
+          <div class="stat"><div class="num">.md</div><div class="lbl">plain files, no lock-in</div></div>
+        </div>
+        <p class="speed-note">A native Rust core: the window is there before you let go of the mouse.</p>
+      </div>
+    </section>
 
-            <!-- tab 01 · markdown -->
-            <section class="feat-panel active" id="panel-markdown" role="tabpanel" aria-labelledby="ftab-0">
-              <div class="wrap feat-grid">
-                <div class="feat-copy">
-                  <span class="eyebrow feat-eyebrow"><span class="n">01</span> · markdown</span>
-                  <div class="head">
-                    <h2 class="md-h">You write Markdown. It just looks right.</h2>
-                    <p class="lede">Plain text with a few marks — rendered the moment you type them.</p>
-                    <ul class="job-list" aria-label="What the marks do">
-                      <li><span class="pj">#</span><span>a heading</span></li>
-                      <li><span class="pj">**bold**</span><span>bold</span></li>
-                      <li><span class="pj">- [ ]</span><span>a task you can tick</span></li>
-                    </ul>
-                  </div>
-                  <div class="scene-chips" aria-label="Things people write in Markdown">
-                    <span class="scene-intro">you've met it before:</span>
-                    <span class="schip">meeting notes</span><span class="schip">README</span><span class="schip">a blog draft</span><span class="schip">agent plan</span><span class="schip">AGENT.md</span>
+    <!-- ═══════════ agents — the ink band (the soul) ═══════════
+         The page's climax. One ink ground, one theme. Pure vertical scroll —
+         no pinned stage. Four beats: A (bring your own agent) + D (keep your
+         own memory) form the positioning block; B (ask, don't hunt) + C
+         (show, don't paste) are the evidence, each a real animation that plays
+         when it scrolls into view and freezes to its end-frame otherwise. -->
+    <section class="band" id="agents">
+      <div class="seam" aria-hidden="true"></div>
+
+      <!-- banner — a long strip, not a full screen; never pins -->
+      <div class="band-banner">
+        <div class="wrap">
+          <span class="eyebrow">what&rsquo;s new</span>
+          <h2 class="banner-h">Unlocks agent-native collaboration.</h2>
+          <p class="band-sub">You and your agent, <b>on the same page. Literally.</b></p>
+        </div>
+      </div>
+
+      <!-- §A · positioning block — three horizontal ownership bands, one claim each:
+           your agent (bring your own; it runs on the agent you already have) ·
+           your file (local-first; every note is a plain .md you own) ·
+           your memory (the file is the memory; agents change, it doesn't).
+           text left / visual right; the three `your …` phrases form a scannable
+           left spine. No seam between the bands, tightened rhythm (D7); §A sets
+           no entry seam either. Right-hand visuals are light macOS objects on the ink
+           desk (D3) — a works-with reel, a Finder icon view, a Get Info panel +
+           memory timeline — all ambient CSS loops, none an in-app agent (red
+           line): the tile is a neighbouring app mark, Finder / Get Info are OS
+           objects, never OpenMarkdown's own window hosting an agent. -->
+      <div class="band-sec" id="own">
+        <div class="wrap">
+          <div class="own-bands">
+
+            <!-- your agent — bring your own; OpenMarkdown works with any MCP agent.
+                 OM's real app icon (assets/06-appicon-ink.svg) sits beside a vertical
+                 reel of the agents' own app marks rolling past — never an agent
+                 switcher inside the app (red line). Agent marks are inlined from the
+                 LobeHub icon set (CC0); each remains its owner's trademark, shown
+                 nominatively to signal compatibility. -->
+            <section class="own-band ob-agent">
+              <div class="ob-copy">
+                <h3 class="ob-phrase"><span class="poss">Your</span> Agent.</h3>
+                <p class="ob-lede">No AI inside. That&rsquo;s the point.<br>It runs on <b>the agent you already have.</b></p>
+                <!-- install one-liner — a mini reel cycling each agent's own install
+                     form at the works-with lockup's tempo; base row (no-JS / reduced-
+                     motion) is the canonical $ claude plugin install example -->
+                <div class="ob-cmd" role="img" aria-label="Install into the agent you already use — for example, claude plugin install openmarkdown">
+                  <span class="ob-cmd-reel-mask" aria-hidden="true">
+                    <span class="ob-cmd-reel">
+                      <span class="occ"><i class="occ-p">$</i>claude plugin install</span>
+                      <span class="occ"><i class="occ-p">$</i>codex plugin install &hellip;</span>
+                      <span class="occ"><i class="occ-p">$</i>gemini extensions install</span>
+                      <span class="occ"><i class="occ-p">$</i>copilot plugin install</span>
+                      <span class="occ"><i class="occ-p"></i>/add-plugin</span>
+                      <span class="occ"><i class="occ-p"></i>opencode.json: plugin</span>
+                      <span class="occ"><i class="occ-p"></i>&hellip;and more</span>
+                      <span class="occ"><i class="occ-p">$</i>claude plugin install</span>
+                    </span>
+                  </span>
+                </div>
+                <a class="ob-link" href="/guide#agents">Full setup guide &rarr;</a>
+              </div>
+              <div class="ob-stage">
+                <div class="works" role="img" aria-label="OpenMarkdown works with Claude Code, ChatGPT Codex, Gemini CLI, GitHub Copilot, Cursor, opencode, or any MCP client">
+                  <span class="ob-tile" aria-hidden="true">
+                    <img src="assets/06-appicon-ink.svg" alt="" width="256" height="256">
+                  </span>
+                  <span class="ob-with" aria-hidden="true">with</span>
+                  <div class="reel-mask" aria-hidden="true">
+                    <div class="reel">
+                      <div class="agent"><span class="atile atile-any"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14"></path><path d="M5 12h14"></path><path d="M7 7l10 10"></path><path d="M17 7 7 17"></path></g></svg></span><span class="aname">any MCP client</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#D97757" fill-rule="nonzero" d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z"></path></svg></span><span class="aname">Claude Code</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M19.503 0H4.496A4.496 4.496 0 000 4.496v15.007A4.496 4.496 0 004.496 24h15.007A4.496 4.496 0 0024 19.503V4.496A4.496 4.496 0 0019.503 0z"></path><path fill="url(#omx-codex)" d="M9.064 3.344a4.578 4.578 0 012.285-.312c1 .115 1.891.54 2.673 1.275.01.01.024.017.037.021a.09.09 0 00.043 0 4.55 4.55 0 013.046.275l.047.022.116.057a4.581 4.581 0 012.188 2.399c.209.51.313 1.041.315 1.595a4.24 4.24 0 01-.134 1.223.123.123 0 00.03.115c.594.607.988 1.33 1.183 2.17.289 1.425-.007 2.71-.887 3.854l-.136.166a4.548 4.548 0 01-2.201 1.388.123.123 0 00-.081.076c-.191.551-.383 1.023-.74 1.494-.9 1.187-2.222 1.846-3.711 1.838-1.187-.006-2.239-.44-3.157-1.302a.107.107 0 00-.105-.024c-.388.125-.78.143-1.204.138a4.441 4.441 0 01-1.945-.466 4.544 4.544 0 01-1.61-1.335c-.152-.202-.303-.392-.414-.617a5.81 5.81 0 01-.37-.961 4.582 4.582 0 01-.014-2.298.124.124 0 00.006-.056.085.085 0 00-.027-.048 4.467 4.467 0 01-1.034-1.651 3.896 3.896 0 01-.251-1.192 5.189 5.189 0 01.141-1.6c.337-1.112.982-1.985 1.933-2.618.212-.141.413-.251.601-.33.215-.089.43-.164.646-.227a.098.098 0 00.065-.066 4.51 4.51 0 01.829-1.615 4.535 4.535 0 011.837-1.388zm3.482 10.565a.637.637 0 000 1.272h3.636a.637.637 0 100-1.272h-3.636zM8.462 9.23a.637.637 0 00-1.106.631l1.272 2.224-1.266 2.136a.636.636 0 101.095.649l1.454-2.455a.636.636 0 00.005-.64L8.462 9.23z"></path><defs><linearGradient gradientUnits="userSpaceOnUse" id="omx-codex" x1="12" x2="12" y1="3" y2="21"><stop stop-color="#B1A7FF"></stop><stop offset=".5" stop-color="#7A9DFF"></stop><stop offset="1" stop-color="#3941FF"></stop></linearGradient></defs></svg></span><span class="aname">ChatGPT Codex</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="omx-gem" fill="#3186FF" d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z"></path><use href="#omx-gem" fill="url(#omx-gem0)"></use><use href="#omx-gem" fill="url(#omx-gem1)"></use><use href="#omx-gem" fill="url(#omx-gem2)"></use><defs><linearGradient gradientUnits="userSpaceOnUse" id="omx-gem0" x1="7" x2="11" y1="15.5" y2="12"><stop stop-color="#08B962"></stop><stop offset="1" stop-color="#08B962" stop-opacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="omx-gem1" x1="8" x2="11.5" y1="5.5" y2="11"><stop stop-color="#F94543"></stop><stop offset="1" stop-color="#F94543" stop-opacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="omx-gem2" x1="3.5" x2="17.5" y1="13.5" y2="12"><stop stop-color="#FABC12"></stop><stop offset=".46" stop-color="#FABC12" stop-opacity="0"></stop></linearGradient></defs></svg></span><span class="aname">Gemini CLI</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M19.245 5.364c1.322 1.36 1.877 3.216 2.11 5.817.622 0 1.2.135 1.592.654l.73.964c.21.278.323.61.323.955v2.62c0 .339-.173.669-.453.868C20.239 19.602 16.157 21.5 12 21.5c-4.6 0-9.205-2.583-11.547-4.258-.28-.2-.452-.53-.453-.868v-2.62c0-.345.113-.679.321-.956l.73-.963c.392-.517.974-.654 1.593-.654l.029-.297c.25-2.446.81-4.213 2.082-5.52 2.461-2.54 5.71-2.851 7.146-2.864h.198c1.436.013 4.685.323 7.146 2.864zm-7.244 4.328c-.284 0-.613.016-.962.05-.123.447-.305.85-.57 1.108-1.05 1.023-2.316 1.18-2.994 1.18-.638 0-1.306-.13-1.851-.464-.516.165-1.012.403-1.044.996a65.882 65.882 0 00-.063 2.884l-.002.48c-.002.563-.005 1.126-.013 1.69.002.326.204.63.51.765 2.482 1.102 4.83 1.657 6.99 1.657 2.156 0 4.504-.555 6.985-1.657a.854.854 0 00.51-.766c.03-1.682.006-3.372-.076-5.053-.031-.596-.528-.83-1.046-.996-.546.333-1.212.464-1.85.464-.677 0-1.942-.157-2.993-1.18-.266-.258-.447-.661-.57-1.108-.32-.032-.64-.049-.96-.05zm-2.525 4.013c.539 0 .976.426.976.95v1.753c0 .525-.437.95-.976.95a.964.964 0 01-.976-.95v-1.752c0-.525.437-.951.976-.951zm5 0c.539 0 .976.426.976.95v1.753c0 .525-.437.95-.976.95a.964.964 0 01-.976-.95v-1.752c0-.525.437-.951.976-.951zM7.635 5.087c-1.05.102-1.935.438-2.385.906-.975 1.037-.765 3.668-.21 4.224.405.394 1.17.657 1.995.657h.09c.649-.013 1.785-.176 2.73-1.11.435-.41.705-1.433.675-2.47-.03-.834-.27-1.52-.63-1.813-.39-.336-1.275-.482-2.265-.394zm6.465.394c-.36.292-.6.98-.63 1.813-.03 1.037.24 2.06.675 2.47.968.957 2.136 1.104 2.776 1.11h.044c.825 0 1.59-.263 1.995-.657.555-.556.765-3.187-.21-4.224-.45-.468-1.335-.804-2.385-.906-.99-.088-1.875.058-2.265.394zM12 7.615c-.24 0-.525.015-.84.044.03.16.045.336.06.526l-.001.159a2.94 2.94 0 01-.014.25c.225-.022.425-.027.612-.028h.366c.187 0 .387.006.612.028-.015-.146-.015-.277-.015-.409.015-.19.03-.365.06-.526a9.29 9.29 0 00-.84-.044z"></path></svg></span><span class="aname">GitHub Copilot</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"></path></svg></span><span class="aname">Cursor</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M16 6H8v12h8V6zm4 16H4V2h16v20z"></path></svg></span><span class="aname">opencode</span></div>
+                      <div class="agent"><span class="atile atile-any"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14"></path><path d="M5 12h14"></path><path d="M7 7l10 10"></path><path d="M17 7 7 17"></path></g></svg></span><span class="aname">any MCP client</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#D97757" fill-rule="nonzero" d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z"></path></svg></span><span class="aname">Claude Code</span></div>
+                      <div class="agent"><span class="atile"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M19.503 0H4.496A4.496 4.496 0 000 4.496v15.007A4.496 4.496 0 004.496 24h15.007A4.496 4.496 0 0024 19.503V4.496A4.496 4.496 0 0019.503 0z"></path><path fill="url(#omx-codex-b)" d="M9.064 3.344a4.578 4.578 0 012.285-.312c1 .115 1.891.54 2.673 1.275.01.01.024.017.037.021a.09.09 0 00.043 0 4.55 4.55 0 013.046.275l.047.022.116.057a4.581 4.581 0 012.188 2.399c.209.51.313 1.041.315 1.595a4.24 4.24 0 01-.134 1.223.123.123 0 00.03.115c.594.607.988 1.33 1.183 2.17.289 1.425-.007 2.71-.887 3.854l-.136.166a4.548 4.548 0 01-2.201 1.388.123.123 0 00-.081.076c-.191.551-.383 1.023-.74 1.494-.9 1.187-2.222 1.846-3.711 1.838-1.187-.006-2.239-.44-3.157-1.302a.107.107 0 00-.105-.024c-.388.125-.78.143-1.204.138a4.441 4.441 0 01-1.945-.466 4.544 4.544 0 01-1.61-1.335c-.152-.202-.303-.392-.414-.617a5.81 5.81 0 01-.37-.961 4.582 4.582 0 01-.014-2.298.124.124 0 00.006-.056.085.085 0 00-.027-.048 4.467 4.467 0 01-1.034-1.651 3.896 3.896 0 01-.251-1.192 5.189 5.189 0 01.141-1.6c.337-1.112.982-1.985 1.933-2.618.212-.141.413-.251.601-.33.215-.089.43-.164.646-.227a.098.098 0 00.065-.066 4.51 4.51 0 01.829-1.615 4.535 4.535 0 011.837-1.388zm3.482 10.565a.637.637 0 000 1.272h3.636a.637.637 0 100-1.272h-3.636zM8.462 9.23a.637.637 0 00-1.106.631l1.272 2.224-1.266 2.136a.636.636 0 101.095.649l1.454-2.455a.636.636 0 00.005-.64L8.462 9.23z"></path><defs><linearGradient gradientUnits="userSpaceOnUse" id="omx-codex-b" x1="12" x2="12" y1="3" y2="21"><stop stop-color="#B1A7FF"></stop><stop offset=".5" stop-color="#7A9DFF"></stop><stop offset="1" stop-color="#3941FF"></stop></linearGradient></defs></svg></span><span class="aname">ChatGPT Codex</span></div>
+                    </div>
                   </div>
                 </div>
-                <div class="feat-visual">
-                  <div class="window">
-                    <div class="titlebar" aria-hidden="true">
-                      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                      <span class="filename">everything.md</span>
+              </div>
+            </section>
+
+            <!-- your file — local-first; every note is a plain .md you own.
+                 A Finder icon view (an OS object, not an app window). -->
+            <section class="own-band ob-file">
+              <div class="ob-copy">
+                <h3 class="ob-phrase"><span class="poss">Your</span> File.</h3>
+                <p class="ob-lede">Local-first means every note stays a plain <code>.md</code> on your disk.</p>
+                <ul class="ob-ticks">
+                  <li>no database</li>
+                  <li>no lock-in</li>
+                </ul>
+              </div>
+              <div class="ob-stage">
+                <div class="finder" role="img" aria-label="A Finder window titled My Knowledge Base holding reading_list.md and concepts.md">
+                  <div class="fbar" aria-hidden="true">
+                    <span class="tl-r"></span><span class="tl-y"></span><span class="tl-g"></span>
+                    <span class="ftitle">My Knowledge Base</span>
+                  </div>
+                  <div class="fbody" aria-hidden="true">
+                    <aside class="fside">
+                      <div class="fsec">Favorites</div>
+                      <div class="frow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"></path><path d="M5 10v10h14V10"></path></svg>Recents</div>
+                      <div class="frow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 2h8v12a2 2 0 0 1-2 2H4z"></path></svg>Documents</div>
+                      <div class="fsec">iCloud</div>
+                      <div class="frow on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 2h8v12a2 2 0 0 1-2 2H4z"></path></svg>notes</div>
+                    </aside>
+                    <div class="ficons">
+                      <div class="ficon sel">
+                        <svg class="art" viewBox="0 0 48 60"><path d="M7 1.5h26.5L45 13v43a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V4.5A3 3 0 0 1 7 1.5Z" fill="#ffffff" stroke="#d9d4c9" stroke-width="1.2"></path><path d="M33.5 1.5V11a2 2 0 0 0 2 2H45" fill="#ece7dd"></path><rect x="12" y="22" width="24" height="2.3" rx="1.15" fill="#c9c4ba"></rect><rect x="12" y="28.5" width="24" height="2.3" rx="1.15" fill="#d7d2c8"></rect><rect x="12" y="35" width="15" height="2.3" rx="1.15" fill="#d7d2c8"></rect><rect x="12" y="41.5" width="19" height="2.3" rx="1.15" fill="#d7d2c8"></rect></svg>
+                        <span class="lab">reading_list.md</span>
+                      </div>
+                      <div class="ficon">
+                        <svg class="art" viewBox="0 0 48 60"><path d="M7 1.5h26.5L45 13v43a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V4.5A3 3 0 0 1 7 1.5Z" fill="#ffffff" stroke="#d9d4c9" stroke-width="1.2"></path><path d="M33.5 1.5V11a2 2 0 0 0 2 2H45" fill="#ece7dd"></path><rect x="12" y="22" width="24" height="2.3" rx="1.15" fill="#c9c4ba"></rect><rect x="12" y="28.5" width="24" height="2.3" rx="1.15" fill="#d7d2c8"></rect><rect x="12" y="35" width="15" height="2.3" rx="1.15" fill="#d7d2c8"></rect><rect x="12" y="41.5" width="19" height="2.3" rx="1.15" fill="#d7d2c8"></rect></svg>
+                        <span class="lab">concepts.md</span>
+                      </div>
                     </div>
-                    <div class="syntax-doc">
-                      <div class="fm">--- &nbsp;title: A little of everything &nbsp;·&nbsp; tags: [demo, markdown] &nbsp;---</div>
-                      <h3><span class="mk"># </span>A little of everything</h3>
-                      <p><b>Bold</b>, <em>italic</em>, <s>struck through</s>, and <code>inline code</code> — plus <a style="border-bottom:1px solid var(--line);text-decoration:none">a link</a>.</p>
-                      <blockquote>“A plan you and your agent can both read.”</blockquote>
-                      <h4><span class="mk">## </span>A fenced code block</h4>
-                      <pre><span class="c"># highlighted, not just monospaced</span>
-<span class="k">fn</span> main() { <span class="s">"light-speed"</span> }</pre>
-                      <h4><span class="mk">## </span>A task list</h4>
-                      <ul class="tasks">
-                        <li class="done"><span class="box"></span><span>ship the draft</span></li>
-                        <li><span class="box"></span><span>cut what's left</span></li>
-                      </ul>
-                      <h4><span class="mk">## </span>A table</h4>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- your memory — the file is the memory; agents change, it doesn't.
+                 chips (above) light the current era (claude → new agent → next gen);
+                 the playhead snaps now→2036→2048; the Get Info panel's Last modified
+                 rolls, the folder never moves. 2036/2048 are an endurance metaphor,
+                 not a future-agent claim. -->
+            <section class="own-band ob-memory">
+              <div class="ob-copy">
+                <h3 class="ob-phrase"><span class="poss">Your</span> Memory.</h3>
+                <p class="ob-lede">The file is the memory. Agents change; <b>your knowledge doesn&rsquo;t.</b></p>
+                <ul class="ob-ticks">
+                  <li>persistent</li>
+                  <li>portable</li>
+                </ul>
+              </div>
+              <div class="ob-stage">
+                <div class="tlwrap" role="img" aria-label="A folder called My Knowledge Base keeps its memory as the agent changes from claude now to a new agent by 2036 to the next generation by 2048">
+                  <div class="tl-agents" aria-hidden="true">
+                    <span class="tchip c1 p1">claude</span>
+                    <span class="tchip c2 p2">new agent</span>
+                    <span class="tchip c3 p3">next gen</span>
+                  </div>
+                  <div class="tl-rail" aria-hidden="true">
+                    <span class="rline"></span>
+                    <span class="tl-tick p1"></span><span class="tl-tick p2"></span><span class="tl-tick p3"></span>
+                    <span class="tl-head"></span>
+                    <span class="tl-year p1">now</span><span class="tl-year p2">2036</span><span class="tl-year p3">2048</span>
+                  </div>
+                  <div class="gi" aria-hidden="true">
+                    <div class="gi-tl"><i class="gc"></i><i class="gm"></i></div>
+                    <div class="gi-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11"></path><path d="M8 7l4-4 4 4"></path><path d="M6 11v8a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-8"></path></svg></div>
+                    <svg class="gi-folder" viewBox="0 0 96 76" aria-hidden="true"><defs><linearGradient id="omf-back" x1="48" y1="6" x2="48" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#4C9DEA"></stop><stop offset="1" stop-color="#2E7AC6"></stop></linearGradient><linearGradient id="omf-front" x1="48" y1="25" x2="48" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#72C0FC"></stop><stop offset="1" stop-color="#3D93E6"></stop></linearGradient></defs><path d="M8 16.8c0-3 2.42-5.4 5.4-5.4h18.9c1.4 0 2.74.54 3.74 1.5l3.53 3.4c1 .96 2.34 1.5 3.74 1.5H82.6c2.98 0 5.4 2.42 5.4 5.4V62.9c0 2.98-2.42 5.4-5.4 5.4H13.4C10.42 68.3 8 65.88 8 62.9z" fill="url(#omf-back)"></path><path d="M8 30.7c0-2.98 2.42-5.4 5.4-5.4h69.2c2.98 0 5.4 2.42 5.4 5.4v32.2c0 2.98-2.42 5.4-5.4 5.4H13.4C10.42 68.3 8 65.88 8 62.9z" fill="url(#omf-front)"></path><path d="M13.4 25.3h69.2c2.98 0 5.4 2.42 5.4 5.4v1.3H8v-1.3c0-2.98 2.42-5.4 5.4-5.4z" fill="#ffffff" fill-opacity=".22"></path></svg>
+                    <div class="gi-meta">
+                      <div class="gi-name">My Knowledge Base</div>
+                      <div class="gi-sub">2 items &middot; 12 KB</div>
+                      <div class="gi-path">~/My Knowledge Base</div>
+                      <div class="gi-mod">Last modified
+                        <span class="odo"><span class="od"><span class="od-strip"><b>2</b><b>2</b><b>2</b></span></span><span class="od"><span class="od-strip"><b>0</b><b>0</b><b>0</b></span></span><span class="od"><span class="od-strip"><b>2</b><b>3</b><b>4</b></span></span><span class="od"><span class="od-strip"><b>6</b><b>6</b><b>8</b></span></span><span class="od-sep">-</span><span class="od"><span class="od-strip"><b>0</b><b>0</b><b>1</b></span></span><span class="od"><span class="od-strip"><b>7</b><b>3</b><b>1</b></span></span><span class="od-sep">-</span><span class="od"><span class="od-strip"><b>0</b><b>0</b><b>2</b></span></span><span class="od"><span class="od-strip"><b>9</b><b>3</b><b>0</b></span></span><span class="od-sep">&nbsp;&nbsp;</span><span class="od"><span class="od-strip"><b>1</b><b>0</b><b>2</b></span></span><span class="od"><span class="od-strip"><b>7</b><b>9</b><b>2</b></span></span><span class="od-sep">:</span><span class="od"><span class="od-strip"><b>5</b><b>1</b><b>4</b></span></span><span class="od"><span class="od-strip"><b>8</b><b>2</b><b>7</b></span></span><span class="od-sep">:</span><span class="od"><span class="od-strip"><b>5</b><b>0</b><b>1</b></span></span><span class="od"><span class="od-strip"><b>9</b><b>4</b><b>0</b></span></span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- §B · your file as a wiki — the ask-then-open reveal (real animation).
+           A centered agent window: you ask, it searches, then opens the file —
+           and the OpenMarkdown window opens below it, scrolling your view to the
+           right heading. reveal-only, honest: no clickable nav, the agent just
+           opens the file and scrolls. Default HTML is the frozen end-frame. -->
+      <div class="band-sec" id="read">
+        <div class="seam band-seam" aria-hidden="true"></div>
+        <div class="wrap feat-grid">
+          <div class="feat-copy">
+            <div class="head">
+              <h2 class="md-h">Your file as Wiki.</h2>
+              <p class="lede">Throw your files at the model.<br>When you ask, <b>your agent opens the right one</b> and takes you to the spot.</p>
+              <p>No summary, no paraphrase — you read your own words, on the page.</p>
+            </div>
+          </div>
+          <div class="feat-visual">
+            <figure class="g-stage" id="gStage" aria-label="You ask what you decided about the launch date; your agent searches, opens the meeting note, and scrolls your view to its Decisions heading">
+              <!-- the agent window, centered — you ask here; it searches, then opens -->
+              <div class="window term g-term">
+                <div class="titlebar" aria-hidden="true">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                  <span class="filename">claude code</span>
+                </div>
+                <div class="term-body">
+                  <div class="f-tui-box"><div class="tl g-q">&gt; <span class="g-qt">what did we land on for the launch date?</span></div></div>
+                  <!-- one line that steps: "✻ searching…" → "✦ opening …" → "✦ opened …" -->
+                  <div class="tl dim g-line" data-run="searching notes…" data-open="opening meetings/2026-07-07.md…" data-done="✦ opened meetings/2026-07-07.md">✦ opened meetings/2026-07-07.md</div>
+                </div>
+              </div>
+              <!-- the file the agent opened — pops open below, then scrolls to the heading;
+                   before it opens (beats 0–2) its slot holds a dashed placeholder box -->
+              <div class="g-appslot">
+                <span class="win-holder" aria-hidden="true"></span>
+                <div class="window app g-app">
+                  <div class="titlebar" aria-hidden="true">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="app-title">OpenMarkdown</span>
+                  </div>
+                  <div class="toolbar g-tabs" aria-hidden="true">
+                    <span class="g-tab g-tp">2026-07-07.md</span>
+                  </div>
+                  <div class="g-clip">
+                    <div class="fs-doc g-doc g-doc-page">
+                      <div class="g-scroll" id="gScroll">
+                        <h4>Launch sync — Jul 7</h4>
+                        <h5>Notes</h5>
+                        <p>Staging is green; docs site still pending Mia&rsquo;s QA pass — the long pole.</p>
+                        <h5 id="gHit"><span class="g-hl">Decisions</span></h5>
+                        <div class="bullet"><span class="bl">•</span><span>Launch date: <b>Friday, Jul 10</b> — go/no-go Thursday 4 pm.</span></div>
+                        <div class="bullet"><span class="bl">•</span><span>Docs can ship the morning of.</span></div>
+                        <h5>Action items</h5>
+                        <div class="bullet"><span class="bl">•</span><span>Sam — cut the release branch Wed.</span></div>
+                        <div class="bullet"><span class="bl">•</span><span>Mia — final QA pass Thu.</span></div>
+                        <div class="bullet"><span class="bl">•</span><span>Dan — draft the go/no-go checklist.</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- §C · show, don't paste — no-paste, in place (real animation).
+           Two windows, one file: a visible pointer drag-selects a messy list in
+           the app (selection blue = your hand), you ask your agent in the
+           terminal, and it reformats the selection into a table in place (flame =
+           the agent's hand). No copy, no paste. Default HTML is the end-frame:
+           the finished table, settled. -->
+      <div class="band-sec" id="write">
+        <div class="wrap feat-grid">
+          <div class="feat-copy">
+            <div class="head">
+              <h2 class="md-h">Agent reads your highlight.</h2>
+              <p class="lede">Drag to select, then ask. Your agent reads <b>exactly what you selected</b> and reworks it in place — no copy, no paste through a chat box.</p>
+              <p>And it&rsquo;s still your file — saved on your disk, same as always.</p>
+            </div>
+          </div>
+          <div class="feat-visual">
+            <figure class="c-stage" id="cStage" aria-label="A pointer drag-selects a messy list; you ask 'make this a table'; your agent reformats it into a table, in place">
+              <div class="window app">
+                <div class="titlebar" aria-hidden="true">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                  <span class="app-title">OpenMarkdown</span>
+                </div>
+                <div class="toolbar" aria-hidden="true"><span class="tb-file">vendors.md</span></div>
+                <div class="fs-doc c-doc">
+                  <h4>Vendor options</h4>
+                  <div class="c-clip">
+                    <!-- state 1: your rough list; a pointer drags a blue selection over it -->
+                    <div class="c-list">
+                      <span class="c-band" aria-hidden="true"></span>
+                      <div class="bullet"><span class="bl">•</span><span>Acme — <code>$12/mo</code>, fast, no SSO</span></div>
+                      <div class="bullet"><span class="bl">•</span><span>Globex — <code>$9/mo</code>, slow, has SSO</span></div>
+                      <div class="bullet"><span class="bl">•</span><span>Initech — <code>$15/mo</code>, fast, has SSO</span></div>
+                    </div>
+                    <!-- state 2: the table your agent wrote in place (flame while fresh) -->
+                    <div class="c-table" aria-hidden="true">
                       <table>
-                        <thead><tr><th>Mode</th><th>Shows</th></tr></thead>
+                        <thead><tr><th>Vendor</th><th>Price</th><th>Speed</th><th>SSO</th></tr></thead>
                         <tbody>
-                          <tr><td>Live</td><td>renders as you type</td></tr>
-                          <tr><td>Source</td><td>every marker, one size</td></tr>
-                          <tr><td>Reading</td><td>clean rendered page</td></tr>
+                          <tr><td>Acme</td><td><code>$12/mo</code></td><td>fast</td><td>—</td></tr>
+                          <tr><td>Globex</td><td><code>$9/mo</code></td><td>slow</td><td>✓</td></tr>
+                          <tr><td>Initech</td><td><code>$15/mo</code></td><td>fast</td><td>✓</td></tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-
-            <!-- tab 02 · live preview -->
-            <section class="feat-panel" id="panel-preview" role="tabpanel" aria-labelledby="ftab-1">
-              <div class="wrap">
-                <span class="eyebrow feat-eyebrow"><span class="n">02</span> · live preview</span>
-                <div class="head">
-                  <h2 class="md-h">One tap. Three modes.</h2>
-                  <p class="lede">In the app: one key cycles all three</p>
+              <!-- the agent's TUI — hidden behind a dashed placeholder during the
+                   selection beats (0–3); it rises into place when you ask (beat 4) -->
+              <div class="c-termslot">
+                <span class="win-holder" aria-hidden="true"></span>
+                <div class="window term">
+                  <div class="titlebar" aria-hidden="true">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="filename">claude code</span>
+                  </div>
+                  <div class="term-body">
+                    <div class="f-tui-box"><div class="tl">&gt; <span class="c-qt">make this a table</span></div></div>
+                    <!-- one line that flips in place: "✻ formatting…" → "✓ formatted in place" -->
+                    <div class="tl ok c-line" data-run="formatting…" data-done="✓ formatted in place">✓ formatted in place</div>
+                  </div>
                 </div>
+              </div>
+              <!-- the pointer lives at stage level so it can drag over the list
+                   to demonstrate the highlight, then fade out — its only job -->
+              <span class="c-cursor" aria-hidden="true">
+                <svg viewBox="0 0 12 18" fill="currentColor"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </span>
+            </figure>
+          </div>
+        </div>
+      </div>
 
-                <div class="modes" id="modeDemo" data-mode="live">
-                  <div class="modes-side">
-                    <!-- vertical accordion: the app's own top-bar icons (pencil = live, code = source,
-                         book = reading); clicking a row switches the window AND expands its one-liner.
-                         No JS = all three descriptions stay readable. -->
-                    <div class="mode-acc" role="group" aria-label="Editor mode">
-                      <div class="mode-acc-item on" data-mode-id="live">
-                        <button class="mode-acc-head" type="button" aria-expanded="true">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-                          <span class="mn">Live preview</span>
-                        </button>
-                        <div class="mode-acc-body"><p>Markers render as you type; your cursor enters an element and it snaps back to source.</p></div>
+    </section>
+
+    <!-- ═══════════ hands-on — the craft, in a segmented control ═══════════
+         The confidence beat: a pill segmented control (Tabs) switches one demo
+         at a time; each demo keeps its own inherited animation (F handoff,
+         palette autoplay, live-preview modes), playing while its tab is active
+         and in view. Then the small things as a tile grid. -->
+    <div class="seam" aria-hidden="true"></div>
+    <section class="section hands-on" id="hands-on">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="md-h">It feels right.</h2>
+          <p class="lede">Control without leaving the keyboard.</p>
+        </div>
+
+        <!-- pill segmented control: click a tab to switch the panel below and
+             play that demo's own animation (inherited from its feature panel) -->
+        <div class="segmented" id="handsSeg">
+          <div class="seg-control" role="tablist" aria-label="Hands-on features">
+            <button class="seg-tab on" type="button" role="tab" aria-selected="true" id="segtab-0" aria-controls="segpanel-0" data-seg="0">ctrl+g $EDITOR</button>
+            <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="segtab-1" aria-controls="segpanel-1" data-seg="1">cmd+p Palette</button>
+            <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="segtab-2" aria-controls="segpanel-2" data-seg="2">Live Preview</button>
+          </div>
+
+          <div class="seg-panels">
+
+            <!-- panel · the $VISUAL/$EDITOR handoff — animation F (seven beats).
+                 Default HTML is the frozen end-frame; JS adds .f-run and drives
+                 data-beat="1..7". Two windows: the coding agent's TUI and
+                 OpenMarkdown (which takes over on Ctrl+G). -->
+            <section class="seg-panel on" id="segpanel-0" role="tabpanel" aria-labelledby="segtab-0" data-seg="0">
+              <div class="seg-head">
+                <h3><kbd class="kc">ctrl</kbd>+<kbd class="kc">g</kbd> prompt with OpenMarkdown</h3>
+                <p class="seg-lines">
+                  <span><kbd>⌘</kbd>+<kbd>↩</kbd> when complete.</span>
+                  <span>Structured, not squeezed into a chat box.</span>
+                  <span>Never missend a prompt again.</span>
+                </p>
+              </div>
+              <figure class="f-stage" id="fStage" aria-label="Press Ctrl+G in your coding agent; the prompt opens in OpenMarkdown; press Done and it's filled back into the terminal">
+                <!-- OpenMarkdown — the editor that takes over on Ctrl+G -->
+                <div class="window app f-app" aria-hidden="true">
+                  <div class="titlebar">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="app-title">OpenMarkdown</span>
+                  </div>
+                  <div class="toolbar"><span class="tb-file">prompt.md</span></div>
+                  <div class="f-banner">
+                    <span class="fb-for">editing for: <b>claude</b> — closing the tab submits the content</span>
+                    <span class="fb-acts">
+                      <span class="fb-btn">Discard</span>
+                      <span class="fb-btn fb-done">Done <kbd>⌘↩</kbd></span>
+                    </span>
+                  </div>
+                  <div class="fs-doc">
+                    <p class="f-app-lead">build a landing page</p>
+                    <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t1">hero, features, pricing</span></div>
+                    <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t2">dark theme</span></div>
+                    <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t3">one HTML file</span></div>
+                  </div>
+                  <span class="f-cursor" aria-hidden="true">
+                    <svg viewBox="0 0 12 18" fill="currentColor" aria-hidden="true"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <!-- the coding agent's TUI — where the prompt starts and lands back -->
+                <div class="window term f-term" aria-hidden="true">
+                  <div class="titlebar">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="filename">claude code</span>
+                  </div>
+                  <div class="term-body">
+                    <div class="f-welcome">
+                      <span class="fw-cap">Claude Code v2.1.xxx</span>
+                      <div class="fw-left">
+                        <div class="fw-title">Welcome OpenMarkdown.dev</div>
+                        <pre class="fw-logo">▐▛███▜▌
+▝▜█████▛▘
+▘▘ ▝▝</pre>
+                        <div class="fw-meta">Fable 5 with Max effort · Claude Max</div>
+                        <div class="fw-path">~/OpenMarkdown/Demo</div>
                       </div>
-                      <div class="mode-acc-item" data-mode-id="source">
-                        <button class="mode-acc-head" type="button" aria-expanded="false">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
-                          <span class="mn">Source</span>
-                        </button>
-                        <div class="mode-acc-body"><p>Every marker visible, syntax-coloured, one size. True plain text for commit messages and prompts.</p></div>
-                      </div>
-                      <div class="mode-acc-item" data-mode-id="reading">
-                        <button class="mode-acc-head" type="button" aria-expanded="false">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
-                          <span class="mn">Reading</span>
-                        </button>
-                        <div class="mode-acc-body"><p>No cursor, no markers, just the page.</p></div>
+                      <div class="fw-right">
+                        <div class="fw-h">Tips for getting started</div>
+                        <div class="fw-line fw-cg">ctrl + g to edit in $EDITOR</div>
+                        <div class="fw-sep"></div>
+                        <div class="fw-h">What's new</div>
+                        <div class="fw-line">…</div>
                       </div>
                     </div>
+                    <div class="f-tui-box">
+                      <div class="tl"><span class="f-tui-p">&gt; </span><span class="f-tui-cmd">build a landing page
+  - hero, features, pricing
+  - dark theme
+  - one HTML file</span></div>
+                    </div>
+                    <div class="tl dim f-tui-status">? for shortcuts</div>
+                    <div class="f-keys" aria-hidden="true"><kbd>Ctrl</kbd><kbd>G</kbd></div>
                   </div>
+                </div>
+              </figure>
+            </section>
 
-                  <div class="mode-view">
-                    <!-- chrome mirrors the hero app window: dots + OpenMarkdown title + toolbar
-                         with the filename and the current mode's icon (display only) -->
-                    <div class="window app">
-                      <div class="titlebar" aria-hidden="true">
-                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                        <span class="app-title">OpenMarkdown</span>
-                      </div>
-                      <div class="toolbar" aria-hidden="true">
-                        <span class="tb-file">plan.md</span>
-                        <span class="tb-right">
-                          <span class="tb-icon mode-tb-icon">
-                            <svg class="mi mi-live" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-                            <svg class="mi mi-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
-                            <svg class="mi mi-reading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
-                          </span>
-                        </span>
-                      </div>
-                      <div class="mode-doc">
-                        <div class="rendered">
-                          <h4><span class="mk"># </span>Auth revamp — plan</h4>
-                          <p><span class="mk">**</span><b>Drafted with my agent</b><span class="mk">**</span> — we're both in <span class="mk">`</span><code>plan.md</code><span class="mk">`</span>: it writes, I tick, it reads the ticks back.</p>
-                          <ul class="tasks">
-                            <li class="done"><span class="box"></span><span>map the current token flow</span></li>
-                            <li><span class="box"></span><span>draft the migration steps</span></li>
-                            <!-- in live preview the cursor sits on this line, so it snaps back to source -->
-                            <li class="cursor-line">
-                              <span class="as-rendered"><span class="box"></span><span>flag anything risky</span></span>
-                              <span class="as-src"><span class="sm">- [ ]</span> flag anything risky<span class="caret"></span></span>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="src"><span class="sh"># Auth revamp — plan</span>
+            <!-- panel · command palette — three-state autoplay -->
+            <section class="seg-panel" id="segpanel-1" role="tabpanel" aria-labelledby="segtab-1" data-seg="1">
+              <div class="seg-head">
+                <h3><kbd class="kc">cmd</kbd>+<kbd class="kc">p</kbd> and you&rsquo;re there.</h3>
+                <p>Skip the file tree. Skip the menus.</p>
+                <ul class="job-list" aria-label="What the palette does">
+                  <li><span class="pj">@</span><span>jump to any heading</span></li>
+                  <li><span class="pj">anything</span><span>fuzzy-find any file</span></li>
+                  <li><span class="pj">&gt;</span><span>run any command</span></li>
+                </ul>
+              </div>
+            <div class="palette-wrap">
+              <div class="palette" id="paletteDemo" aria-label="Command palette demo cycling outline, file, and command modes">
+                <div class="pinput"><span class="prompt" id="palPrompt">@</span><span id="palQuery">auth</span><span class="caret" style="background:var(--signal)"></span></div>
+                <div class="chips" id="palChips">
+                  <button class="chip on" type="button" data-pal="0">@ Outline</button>
+                  <button class="chip" type="button" data-pal="1">File</button>
+                  <button class="chip" type="button" data-pal="2">&gt; Command</button>
+                </div>
+                <div class="rows" id="palRows">
+                  <div class="row sel"><span class="ic">#</span><span>Authentication</span><span class="hint">jump ↵</span></div>
+                  <div class="row"><span class="ic">##</span><span>Auth — token flow</span></div>
+                  <div class="row"><span class="ic">##</span><span>Auth — session store</span></div>
+                </div>
+              </div>
+            </div>
+            </section>
 
-<span class="sm">**</span><b>Drafted with my agent</b><span class="sm">**</span> — we're both in <span class="sm">`</span><code>plan.md</code><span class="sm">`</span>: it writes, I tick, it reads the ticks back.
+            <!-- panel · live preview — three modes (click to switch) -->
+            <section class="seg-panel" id="segpanel-2" role="tabpanel" aria-labelledby="segtab-2" data-seg="2">
+              <div class="seg-head">
+                <h3>One tap. Three modes.</h3>
+                <p>One key cycles all three — live preview, plain source, clean reading.</p>
+              </div>
+            <div class="modes" id="modeDemo" data-mode="live">
+              <div class="modes-side">
+                <div class="mode-acc" role="group" aria-label="Editor mode">
+                  <div class="mode-acc-item on" data-mode-id="live">
+                    <button class="mode-acc-head" type="button" aria-expanded="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                      <span class="mn">Live preview</span>
+                    </button>
+                    <div class="mode-acc-body"><p>Markers render as you type; your cursor enters an element and it snaps back to source.</p></div>
+                  </div>
+                  <div class="mode-acc-item" data-mode-id="source">
+                    <button class="mode-acc-head" type="button" aria-expanded="false">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+                      <span class="mn">Source</span>
+                    </button>
+                    <div class="mode-acc-body"><p>Every marker visible, syntax-coloured, one size. True plain text for commit messages and prompts.</p></div>
+                  </div>
+                  <div class="mode-acc-item" data-mode-id="reading">
+                    <button class="mode-acc-head" type="button" aria-expanded="false">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+                      <span class="mn">Reading</span>
+                    </button>
+                    <div class="mode-acc-body"><p>No cursor, no markers, just the page.</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mode-view">
+                <div class="window app">
+                  <div class="titlebar" aria-hidden="true">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span class="app-title">OpenMarkdown</span>
+                  </div>
+                  <div class="toolbar" aria-hidden="true">
+                    <span class="tb-file">plan.md</span>
+                    <span class="tb-right">
+                      <span class="tb-icon mode-tb-icon">
+                        <svg class="mi mi-live" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                        <svg class="mi mi-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+                        <svg class="mi mi-reading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="mode-doc">
+                    <div class="rendered">
+                      <h4><span class="mk"># </span>Auth revamp — plan</h4>
+                      <p><span class="mk">**</span><b>Drafted with my agent</b><span class="mk">**</span> — we&rsquo;re both in <span class="mk">`</span><code>plan.md</code><span class="mk">`</span>: it writes, I tick, it reads the ticks back.</p>
+                      <ul class="tasks">
+                        <li class="done"><span class="box"></span><span>map the current token flow</span></li>
+                        <li><span class="box"></span><span>draft the migration steps</span></li>
+                        <li class="cursor-line">
+                          <span class="as-rendered"><span class="box"></span><span>flag anything risky</span></span>
+                          <span class="as-src"><span class="sm">- [ ]</span> flag anything risky<span class="caret"></span></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="src"><span class="sh"># Auth revamp — plan</span>
+
+<span class="sm">**</span><b>Drafted with my agent</b><span class="sm">**</span> — we&rsquo;re both in <span class="sm">`</span><code>plan.md</code><span class="sm">`</span>: it writes, I tick, it reads the ticks back.
 
 <span class="sm">- [x]</span> map the current token flow
 <span class="sm">- [ ]</span> draft the migration steps
 <span class="sm">- [ ]</span> flag anything risky</div>
-                      </div>
-                    </div>
                   </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- tab 03 · command palette -->
-            <section class="feat-panel" id="panel-palette" role="tabpanel" aria-labelledby="ftab-2">
-              <div class="wrap">
-                <span class="eyebrow feat-eyebrow"><span class="n">03</span> · command palette</span>
-                <div class="head">
-                  <h2 class="md-h">Cmd+P, and you're there.</h2>
-                  <p class="lede">Skip the file tree. Skip the menus.</p>
-                  <ul class="job-list" aria-label="What the palette does">
-                    <li><span class="pj">@</span><span>jump to any heading</span></li>
-                    <li><span class="pj">anything</span><span>fuzzy-find any file</span></li>
-                    <li><span class="pj">&gt;</span><span>run any command</span></li>
-                  </ul>
-                  <p class="feat-note">shortcuts, just like you already know them — ⌘P included.</p>
-                </div>
-
-                <div class="palette-wrap">
-                  <!-- autoplay cycles @ outline → file → > command while this tab is active;
-                       the chips jump straight to a state and pause the loop. No JS = this @ state. -->
-                  <div class="palette" id="paletteDemo" aria-label="Command palette demo cycling outline, file, and command modes">
-                    <div class="pinput"><span class="prompt" id="palPrompt">@</span><span id="palQuery">auth</span><span class="caret" style="background:var(--signal)"></span></div>
-                    <div class="chips" id="palChips">
-                      <button class="chip on" type="button" data-pal="0">@ Outline</button>
-                      <button class="chip" type="button" data-pal="1">File</button>
-                      <button class="chip" type="button" data-pal="2">&gt; Command</button>
-                    </div>
-                    <div class="rows" id="palRows">
-                      <div class="row sel"><span class="ic">#</span><span>Authentication</span><span class="hint">jump ↵</span></div>
-                      <div class="row"><span class="ic">##</span><span>Auth — token flow</span></div>
-                      <div class="row"><span class="ic">##</span><span>Auth — session store</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- tab 04 · light-speed -->
-            <section class="feat-panel" id="panel-speed" role="tabpanel" aria-labelledby="ftab-3">
-              <div class="wrap">
-                <span class="eyebrow feat-eyebrow"><span class="n">04</span> · light-speed.</span>
-                <div class="head">
-                  <h2 class="md-h">It's already open.</h2>
-                  <blockquote class="idea-quote">
-                    <span class="qline"><span class="mk">&gt; </span>An idea gives you about five seconds.</span>
-                    <span class="qline"><span class="mk">&gt; </span>OpenMarkdown is open in less than one.</span>
-                    <span class="qline"><span class="mk">&gt; </span>Write it down before it slips.</span>
-                  </blockquote>
-                  <p class="lede">A native Rust core: the window is there before you let go of the mouse.</p>
-                </div>
-
-                <!-- two launch bars: ours fills instantly and the idea is already a ticked
-                     task; theirs crawls through splash → updates → sync and never arrives -->
-                <div class="bars" aria-hidden="true">
-                  <div class="blane us">
-                    <div class="bl-top"><span class="who"><span class="app-ic" aria-hidden="true"><img src="assets/06-appicon-ink.svg" alt=""></span>OpenMarkdown</span><span class="verdict">✓ open — 0.2s</span></div>
-                    <div class="bbar"><i></i></div>
-                    <div class="bl-note typed">- [ ] that idea — already written down</div>
-                  </div>
-                  <div class="blane them">
-                    <div class="bl-top"><span class="who"><span class="app-ic app-ic-them" aria-hidden="true">?</span>A heavier app</span><span class="verdict">✕ still loading…</span></div>
-                    <div class="bbar"><i></i></div>
-                    <div class="bl-note stat-cycle"><span class="s1">splash screen…</span><span class="s2">checking for updates…</span><span class="s3">syncing workspace…</span></div>
-                  </div>
-                </div>
-
-                <div class="stats">
-                  <div class="stat"><div class="num">&lt; 1s</div><div class="lbl">cold start (P50)</div></div>
-                  <div class="stat"><div class="num">0.2s</div><div class="lbl">click → window</div></div>
-                  <div class="stat"><div class="num">.md</div><div class="lbl">plain files, no lock-in</div></div>
-                </div>
-              </div>
-            </section>
-
-          </div><!-- /feat-panels -->
-        </div><!-- /feat-stage -->
-      </div><!-- /feat-track -->
-    </div><!-- /features -->
-
-    <!-- ═══════════ §5 · agents — the ink band ═══════════
-         Three movements: a free-scrolling banner strip, a pinned 4-tab
-         stage (05–08, same mechanism as features), and a free-scrolling
-         close. Default HTML is the flat stack; each animation slot ships as
-         the frozen end-frame of its future animation (design D5). -->
-    <section class="band" id="ai">
-      <div class="seam" aria-hidden="true"></div>
-
-      <!-- banner — a long strip, not a full screen; never pins (design D1) -->
-      <div class="band-banner">
-        <div class="wrap">
-          <span class="eyebrow"><span class="n">05</span> · agent-native</span>
-          <h2 class="banner-h">On the same page. <span class="lit">Literally.</span></h2>
-          <p class="band-sub">Both of you can say <b>&ldquo;this.&rdquo;</b></p>
-        </div>
-      </div>
-
-      <!-- pinned 4-tab stage — 06 · 07 · 08 · 09 continue the page numbering -->
-      <div class="pinned agents" id="agents">
-        <div class="feat-track">
-          <div class="feat-stage">
-            <!-- the stage's own seam: like the features lintel, it rides pinned
-                 under the nav for the whole scroll sequence -->
-            <div class="seam" aria-hidden="true"></div>
-            <div class="feat-tabs-row">
-              <div class="wrap">
-                <div class="feat-tabs" role="tablist" aria-label="Working with your agent">
-                  <button class="feat-tab on" id="atab-0" type="button" role="tab" aria-selected="true" aria-controls="panel-editor"><span class="tn">06</span><span class="tl">&nbsp;· the $VISUAL/$EDITOR</span></button>
-                  <button class="feat-tab" id="atab-1" type="button" role="tab" aria-selected="false" aria-controls="panel-you" tabindex="-1"><span class="tn">07</span><span class="tl">&nbsp;· your &ldquo;this&rdquo;</span></button>
-                  <button class="feat-tab" id="atab-2" type="button" role="tab" aria-selected="false" aria-controls="panel-it" tabindex="-1"><span class="tn">08</span><span class="tl">&nbsp;· agent&rsquo;s &ldquo;this&rdquo;</span></button>
-                  <button class="feat-tab" id="atab-3" type="button" role="tab" aria-selected="false" aria-controls="panel-whiteboard" tabindex="-1"><span class="tn">09</span><span class="tl">&nbsp;· the whiteboard</span></button>
                 </div>
               </div>
             </div>
+            </section>
 
-            <div class="feat-panels">
-
-              <!-- tab 06 · the $VISUAL/$EDITOR — animation F (the Ctrl+G handoff).
-                   The default HTML is the frozen end-frame; JS layers the seven-beat
-                   timeline (design D5) on top and gates it to the active tab, exactly
-                   like the palette autoplay. Two windows: the coding agent's TUI (the
-                   prompt starts and returns here) and OpenMarkdown (the editor that
-                   takes over when you press Ctrl+G). On wide screens the stage overlays
-                   them (App pops over the TUI); narrow/flat stacks them (App over TUI). -->
-              <section class="feat-panel active" id="panel-editor" role="tabpanel" aria-labelledby="atab-0">
-                <div class="wrap feat-grid">
-                  <div class="feat-copy">
-                    <span class="eyebrow feat-eyebrow"><span class="n">06</span> · the $VISUAL/$EDITOR</span>
-                    <div class="head">
-                      <h2 class="md-h">Never mistype a prompt again.</h2>
-                      <p>Hit <kbd>Ctrl</kbd>+<kbd>G</kbd> in your coding agent and the prompt opens in OpenMarkdown. <kbd>⌘</kbd>+<kbd>↩</kbd> sends it back — <b>structured, not squeezed into a chat box</b>.</p>
-                    </div>
-                  </div>
-                  <div class="feat-visual">
-                    <figure class="f-stage" id="fStage" aria-label="Press Ctrl+G in your coding agent; the prompt opens in OpenMarkdown; press Done and it's filled back into the terminal">
-                      <!-- OpenMarkdown — the editor that takes over on Ctrl+G -->
-                      <div class="window app f-app" aria-hidden="true">
-                        <div class="titlebar">
-                          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                          <span class="app-title">OpenMarkdown</span>
-                        </div>
-                        <div class="toolbar"><span class="tb-file">prompt.md</span></div>
-                        <!-- session banner (external-edit-session tab chrome) -->
-                        <div class="f-banner">
-                          <span class="fb-for">editing for: <b>claude</b> — closing the tab submits the content</span>
-                          <span class="fb-acts">
-                            <span class="fb-btn">Discard</span>
-                            <span class="fb-btn fb-done">Done <kbd>⌘↩</kbd></span>
-                          </span>
-                        </div>
-                        <div class="fs-doc">
-                          <p class="f-app-lead">build a landing page</p>
-                          <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t1">hero, features, pricing</span></div>
-                          <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t2">dark theme</span></div>
-                          <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t3">one HTML file</span></div>
-                        </div>
-                        <span class="f-cursor" aria-hidden="true">
-                          <svg viewBox="0 0 12 18" fill="currentColor" aria-hidden="true"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
-                        </span>
-                      </div>
-                      <!-- the coding agent's TUI — where the prompt starts and lands back -->
-                      <div class="window term f-term" aria-hidden="true">
-                        <div class="titlebar">
-                          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                          <span class="filename">claude code</span>
-                        </div>
-                        <div class="term-body">
-                          <!-- Claude Code welcome banner (mockup) -->
-                          <div class="f-welcome">
-                            <span class="fw-cap">Claude Code v2.1.xxx</span>
-                            <div class="fw-left">
-                              <div class="fw-title">Welcome OpenMarkdown.dev</div>
-                              <pre class="fw-logo">▐▛███▜▌
-▝▜█████▛▘
-▘▘ ▝▝</pre>
-                              <div class="fw-meta">Fable 5 with Max effort · Claude Max</div>
-                              <div class="fw-path">~/OpenMarkdown/Demo</div>
-                            </div>
-                            <div class="fw-right">
-                              <div class="fw-h">Tips for getting started</div>
-                              <div class="fw-line fw-cg">ctrl + g to edit in $EDITOR</div>
-                              <div class="fw-sep"></div>
-                              <div class="fw-h">What's new</div>
-                              <div class="fw-line">…</div>
-                            </div>
-                          </div>
-                          <!-- boxed prompt input, like a coding-agent TUI's composer -->
-                          <div class="f-tui-box">
-                            <div class="tl"><span class="f-tui-p">&gt; </span><span class="f-tui-cmd">build a landing page
-  - hero, features, pricing
-  - dark theme
-  - one HTML file</span></div>
-                          </div>
-                          <div class="tl dim f-tui-status">? for shortcuts</div>
-                          <!-- keystroke visualizer — pops in the moment Ctrl+G is pressed (beat 2) -->
-                          <div class="f-keys" aria-hidden="true"><kbd>Ctrl</kbd><kbd>G</kbd></div>
-                        </div>
-                      </div>
-                    </figure>
-                  </div>
-                </div>
-              </section>
-
-              <!-- tab 07 · your "this" — animation K as a four-scene accordion
-                   carousel (get_context). Layout mirrors tab 02: head on top,
-                   prompt accordion left, app+TUI stack right. The default HTML
-                   is the frozen end-frame of scene 1 (grammar fixed, agent tint
-                   on the word) with the accordion fully expanded; JS collapses
-                   it, autoplays 5s per scene while this tab is active, and
-                   replays the scene-1/2 micro-animations on entry. Two kinds of
-                   highlight: blue .sel = what you selected, flame .k-ed = what
-                   your agent wrote. -->
-              <section class="feat-panel" id="panel-you" role="tabpanel" aria-labelledby="atab-1">
-                <div class="wrap">
-                  <span class="eyebrow feat-eyebrow"><span class="n">07</span> · your &ldquo;this&rdquo;</span>
-                  <div class="head">
-                    <h2 class="md-h">Show, don't paste.</h2>
-                    <p class="lede">What you see is what your agent gets — <b>when you ask</b>.</p>
-                  </div>
-                  <div class="k-demo" id="kDemo">
-                    <div class="k-side">
-                      <div class="k-acc" role="group" aria-label="Things you can say about a selection">
-                        <div class="k-item on" data-scene="fix">
-                          <button class="k-head" type="button" aria-expanded="true"><span class="kp">&gt;</span><span>fix &ldquo;this&rdquo; grammar</span></button>
-                          <div class="k-body"><p>Select the sentence, say the word. The fix lands in your doc — you watch it happen.</p></div>
-                        </div>
-                        <div class="k-item" data-scene="expand">
-                          <button class="k-head" type="button" aria-expanded="false"><span class="kp">&gt;</span><span>expand &ldquo;this&rdquo; outline</span></button>
-                          <div class="k-body"><p>Your agent drafts under your headings — right in the doc you're looking at.</p></div>
-                        </div>
-                        <div class="k-item" data-scene="follow">
-                          <button class="k-head" type="button" aria-expanded="false"><span class="kp">&gt;</span><span>follow &ldquo;this&rdquo; ##install</span></button>
-                          <div class="k-body"><p>Docs become instructions. It reads the section you're pointing at and runs the steps.</p></div>
-                        </div>
-                        <div class="k-item" data-scene="email">
-                          <button class="k-head" type="button" aria-expanded="false"><span class="kp">&gt;</span><span>email &ldquo;this&rdquo; to the team</span></button>
-                          <div class="k-body"><p>The doc you're looking at is the email. No copy-paste through a chat box.</p></div>
-                        </div>
-                      </div>
-                      <!-- who does what: the acting is the agent's; OpenMarkdown adds the pointing -->
-                      <p class="feat-note">The verbs are your agent's own. OpenMarkdown brings the &ldquo;this.&rdquo;</p>
-                      <p class="feat-note k-note2">a CLI &nbsp;·&nbsp; an MCP server &nbsp;·&nbsp; a one-install plugin — reads &amp; edits on request</p>
-                    </div>
-                    <div class="k-view">
-                      <!-- scene 1 · fix this grammar — the agent caret lands on the word (micro-animation) -->
-                      <figure class="k-frame fstack on" data-scene="fix" aria-label="You select a sentence and say 'fix this grammar'; the fix lands in your document, in place">
-                        <div class="window app">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="app-title">OpenMarkdown</span>
-                          </div>
-                          <div class="toolbar" aria-hidden="true"><span class="tb-file">notes.md</span></div>
-                          <div class="fs-doc">
-                            <h4>Sync notes</h4>
-                            <p>Rollout is on track for Friday.</p>
-                            <p><span class="sel">The app remembers <span class="k-word k-ed" id="kWord">its</span> window size and position.</span></p>
-                          </div>
-                        </div>
-                        <div class="window term">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="filename">claude code</span>
-                          </div>
-                          <div class="term-body">
-                            <div class="f-tui-box"><div class="tl">&gt; fix this grammar</div></div>
-                            <!-- one line that flips in place: "· fixing…" (dim, pulsing) → "✓ …" -->
-                            <div class="tl ok k-line" data-run="fixing…" data-done="✓ 1 fix — in place">✓ 1 fix — in place</div>
-                          </div>
-                        </div>
-                      </figure>
-                      <!-- scene 2 · expand this outline — the drafts fade in under the headings -->
-                      <figure class="k-frame fstack" data-scene="expand" aria-label="You select three headings and say 'expand this outline'; your agent drafts a line under each">
-                        <div class="window app">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="app-title">OpenMarkdown</span>
-                          </div>
-                          <div class="toolbar" aria-hidden="true"><span class="tb-file">talk.md</span></div>
-                          <div class="fs-doc">
-                            <h4>Launch talk — outline</h4>
-                            <h5><span class="sel">Why now</span></h5>
-                            <p class="k-draft k-ed">Agents write; nobody can read what they write.</p>
-                            <h5><span class="sel">What we built</span></h5>
-                            <p class="k-draft k-ed">A markdown editor both of you can point at.</p>
-                            <h5><span class="sel">Demo</span></h5>
-                            <p class="k-draft k-ed">Fix a doc live, on stage, without touching the keyboard.</p>
-                          </div>
-                        </div>
-                        <div class="window term">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="filename">claude code</span>
-                          </div>
-                          <div class="term-body">
-                            <div class="f-tui-box"><div class="tl">&gt; expand this outline</div></div>
-                            <div class="tl ok k-line" data-run="drafting…" data-done="✓ 3 sections drafted — in your doc">✓ 3 sections drafted — in your doc</div>
-                          </div>
-                        </div>
-                      </figure>
-                      <!-- scene 3 · follow "this" ##install — read-only: name the heading,
-                           no selection needed; the doc becomes instructions (still) -->
-                      <figure class="k-frame fstack" data-scene="follow" aria-label="You say 'follow this ##install'; your agent reads the Install section and runs the steps in the terminal">
-                        <div class="window app">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="app-title">OpenMarkdown</span>
-                          </div>
-                          <div class="toolbar" aria-hidden="true"><span class="tb-file">README.md</span></div>
-                          <div class="fs-doc">
-                            <h4>Demo app</h4>
-                            <h5>Install</h5>
-                            <div class="bullet"><span class="bl">1.</span><span>clone the repo</span></div>
-                            <div class="bullet"><span class="bl">2.</span><span><code>npm install</code></span></div>
-                            <div class="bullet"><span class="bl">3.</span><span><code>npm run dev</code></span></div>
-                          </div>
-                        </div>
-                        <div class="window term">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="filename">claude code</span>
-                          </div>
-                          <div class="term-body">
-                            <div class="f-tui-box"><div class="tl">&gt; follow this ##install</div></div>
-                            <!-- the same line steps through the run: "cloning…" → "running…" → "✓ …" -->
-                            <div class="tl ok k-line" data-run="cloning…" data-done="✓ 3 steps run — dev server up">✓ 3 steps run — dev server up</div>
-                          </div>
-                        </div>
-                      </figure>
-                      <!-- scene 4 · email "this" to the team — outward action: the doc
-                           you're looking at IS the email, no selection needed (still) -->
-                      <figure class="k-frame fstack" data-scene="email" aria-label="You say 'email this to the team'; your agent sends the weekly update you're looking at">
-                        <div class="window app">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="app-title">OpenMarkdown</span>
-                          </div>
-                          <div class="toolbar" aria-hidden="true"><span class="tb-file">weekly-update.md</span></div>
-                          <div class="fs-doc">
-                            <h4>Week 28 — payments</h4>
-                            <p><b>Shipped:</b> beta to the team, Tue</p>
-                            <p><b>Next:</b> ship 1.0 — Fri Jul 17</p>
-                          </div>
-                        </div>
-                        <div class="window term">
-                          <div class="titlebar" aria-hidden="true">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <span class="filename">claude code</span>
-                          </div>
-                          <div class="term-body">
-                            <div class="f-tui-box"><div class="tl">&gt; email this to the team</div></div>
-                            <div class="tl ok k-line" data-run="sending…" data-done="✓ sent — 6 people">✓ sent — 6 people</div>
-                          </div>
-                        </div>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <!-- tab 08 · agent's "this" — the one-beat reveal (animation G).
-                   The agent's wiki is hundreds of pages you never open; ask,
-                   and the right page opens at the right heading. Default HTML
-                   is the frozen end-frame: caffeine.md scrolled to ## Sources,
-                   settled flame tint, the ✦ line already answered. -->
-              <section class="feat-panel" id="panel-it" role="tabpanel" aria-labelledby="atab-2">
-                <div class="wrap feat-grid">
-                  <div class="feat-copy">
-                    <span class="eyebrow feat-eyebrow"><span class="n">08</span> · agent&rsquo;s &ldquo;this&rdquo;</span>
-                    <div class="head">
-                      <h2 class="md-h">Ask, don&rsquo;t hunt.</h2>
-                      <p class="lede">Its answer is a place — <b>your agent takes you there</b>.</p>
-                      <p>Throw everything at your agent — links, papers, meeting notes. It maintains the wiki: <b>hundreds of plain .md pages</b>, distilled, cross-linked, kept current.</p>
-                      <p>Too many to browse? You never have to. Ask, and the right page opens at the right heading — <b>even one you&rsquo;ve never had open</b>.</p>
-                      <p>When it walks you through a change, your view follows — section by section.</p>
-                      <p class="feat-note">the pattern: Karpathy&rsquo;s <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">llm wiki</a> — plain .md all the way down</p>
-                    </div>
-                  </div>
-                  <div class="feat-visual">
-                    <figure class="fstack g-stage" id="gStage" aria-label="You ask where you read something; your agent opens the wiki page and scrolls your view to its Sources heading">
-                      <div class="window app">
-                        <div class="titlebar" aria-hidden="true">
-                          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                          <span class="app-title">OpenMarkdown</span>
-                        </div>
-                        <!-- two tab capsules: the wiki's front door, then the page
-                             the reveal opened (pops in on beat 2) -->
-                        <div class="toolbar g-tabs" aria-hidden="true">
-                          <span class="g-tab g-ti">index.md</span>
-                          <span class="g-tab g-tp">caffeine.md</span>
-                        </div>
-                        <!-- two doc states stacked in one clip; the page state
-                             scrolls inside it (the motion IS the feature) -->
-                        <div class="g-clip">
-                          <div class="fs-doc g-doc g-doc-index" aria-hidden="true">
-                            <h4>index</h4>
-                            <h5>concepts</h5>
-                            <div class="bullet"><span class="bl">•</span><span><span class="wl">[[caffeine]]</span> — half-life, sleep, timing</span></div>
-                            <div class="bullet"><span class="bl">•</span><span><span class="wl">[[context-rot]]</span> — why long chats drift</span></div>
-                            <div class="bullet"><span class="bl">•</span><span><span class="wl">[[spaced-repetition]]</span> — what sticks</span></div>
-                            <h5>people</h5>
-                            <div class="bullet"><span class="bl">•</span><span><span class="wl">[[andrej]]</span> — wrote the wiki pattern itself</span></div>
-                            <div class="bullet"><span class="bl">•</span><span><span class="wl">[[sarah]]</span> — sent the sleep podcast</span></div>
-                          </div>
-                          <div class="fs-doc g-doc g-doc-page">
-                            <div class="g-scroll" id="gScroll">
-                              <h4>Caffeine</h4>
-                              <h5>Key facts</h5>
-                              <p>Half-life ≈ 5–6 h — a 4 pm coffee is half in your blood at 10 pm.</p>
-                              <h5 id="gHit"><span class="g-hl">Sources</span></h5>
-                              <div class="bullet"><span class="bl">•</span><span>&ldquo;How Long Does Caffeine Last?&rdquo; — ingested Jun 12</span></div>
-                              <div class="bullet"><span class="bl">•</span><span>&ldquo;Caffeine &amp; Sleep&rdquo; — podcast notes, May 30</span></div>
-                              <div class="bullet"><span class="bl">•</span><span>morning-pages entry — Apr 08</span></div>
-                              <h5>Related</h5>
-                              <div class="bullet"><span class="bl">•</span><span><span class="wl">[[sleep]]</span> — pressure, adenosine, the 10 pm dip</span></div>
-                              <div class="bullet"><span class="bl">•</span><span><span class="wl">[[adenosine]]</span> — what caffeine actually blocks</span></div>
-                              <div class="bullet"><span class="bl">•</span><span><span class="wl">[[naps]]</span> — the 20-minute rule</span></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="window term">
-                        <div class="titlebar" aria-hidden="true">
-                          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                          <span class="filename">claude code</span>
-                        </div>
-                        <div class="term-body">
-                          <div class="f-tui-box"><div class="tl g-q">&gt; <span class="g-qt">where did I read that caffeine has a 6-hour half-life?</span></div></div>
-                          <!-- one line that flips in place: "✻ looking…" → "✦ opened …" (stays one line) -->
-                          <div class="tl dim g-line" data-run="looking…" data-done="✦ opened wiki/concepts/caffeine.md">✦ opened wiki/concepts/caffeine.md</div>
-                        </div>
-                      </div>
-                    </figure>
-                  </div>
-                </div>
-              </section>
-
-              <!-- tab 09 · the whiteboard — the form read-back (animation H).
-                   The band's quiet closing beat: the agent leaves a checklist
-                   and waits; you tick two boxes and deliberately skip the
-                   third; it reads all three answers back and gets back to
-                   work. Default HTML is the frozen end-frame: two blue ticks
-                   (your hand), one box left open, the ✓ read-back line up and
-                   the follow-up job already running. Flame = the agent's hand
-                   — it wrote the checklist; blue stays yours. Two stories
-                   share the same four beats — "at home" (kyoto) and "at work"
-                   (the pre-refactor check-in) — picked by the switch above
-                   the window; no auto-rotation. Scene 0 (at home) is the
-                   default HTML and every frozen fallback. -->
-              <section class="feat-panel" id="panel-whiteboard" role="tabpanel" aria-labelledby="atab-3">
-                <div class="wrap feat-grid">
-                  <div class="feat-copy">
-                    <span class="eyebrow feat-eyebrow"><span class="n">09</span> · the whiteboard</span>
-                    <div class="head">
-                      <h2 class="md-h">Tick, don&rsquo;t type.</h2>
-                      <p class="lede">Answer <b>in the document itself</b>.</p>
-                      <p>Mid-job, your agent hits questions only you can answer. No twenty questions in the terminal — it leaves a checklist in your doc, <b>and waits</b>.</p>
-                      <p>Come back whenever. Tick what&rsquo;s true, skip what isn&rsquo;t — it reads your answers and keeps going. <b>That&rsquo;s the whiteboard.</b></p>
-                      <div class="scene-chips" aria-label="When the whiteboard comes out">
-                        <span class="scene-intro">when it asks:</span>
-                        <span class="schip">booking a trip</span><span class="schip">before a refactor</span><span class="schip">any time it shouldn&rsquo;t guess</span>
-                      </div>
-                      <p class="feat-note">you&rsquo;re the human in the loop — it waits until you&rsquo;ve answered</p>
-                    </div>
-                  </div>
-                  <div class="feat-visual">
-                    <!-- H stage: default HTML is the frozen end-frame; JS layers
-                         the five-beat timeline (write the checklist in → wait →
-                         tick, tick, skip → read back → back to work) and
-                         measures the cursor's box targets -->
-                    <figure class="fstack fstack-flat h-stage" id="hStage" aria-label="You ask your agent to plan a trip; it writes a checklist into the doc and waits; you tick two boxes and skip the third; it reads all three answers back and gets back to work — switch between a trip-booking and a pre-refactor story">
-                      <!-- story switch: two takes on the same four beats;
-                           no auto-rotation, a click starts that story -->
-                      <div class="h-switch" role="group" aria-label="Pick a story">
-                        <button class="h-sw on" type="button" data-h-scene="0">at home</button>
-                        <button class="h-sw" type="button" data-h-scene="1">at work</button>
-                      </div>
-                      <div class="window app">
-                        <div class="titlebar" aria-hidden="true">
-                          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                          <span class="app-title">OpenMarkdown</span>
-                        </div>
-                        <div class="toolbar" aria-hidden="true"><span class="tb-file">kyoto.md</span></div>
-                        <div class="fs-doc">
-                          <h4><span class="k-ed">Before I book Kyoto</span></h4>
-                          <ul class="tasks h-tasks">
-                            <li class="done"><span class="box"></span><span class="k-ed">window seat on the flight</span></li>
-                            <li class="done"><span class="box"></span><span class="k-ed">hotel near the station</span></li>
-                            <li><span class="box"></span><span class="k-ed">rent a car for the day trips?</span></li>
-                          </ul>
-                        </div>
-                        <span class="f-cursor" aria-hidden="true">
-                          <svg viewBox="0 0 12 18" fill="currentColor" aria-hidden="true"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
-                        </span>
-                      </div>
-                      <div class="window term agent-line">
-                        <div class="titlebar" aria-hidden="true">
-                          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                          <span class="filename">claude code</span>
-                        </div>
-                        <div class="term-body">
-                          <!-- the job request — the conversation's opening line; the
-                               Q&A itself never comes back to the terminal -->
-                          <div class="f-tui-box"><div class="tl h-q">&gt; <span class="h-qt">plan my kyoto trip — flights, hotel, day trips</span></div></div>
-                          <!-- line 1, four states: "✻ writing…" → "✻ waiting…" →
-                               "· reading…" → "✓ …" (the done text reads back the
-                               un-ticked box too); line 2: the agent gets back to
-                               work — the "keeps going" made visible -->
-                          <div class="tl ok h-line" data-write="writing kyoto.md…" data-wait="waiting on kyoto.md…" data-run="reading your answers…" data-done="✓ window seat, station hotel — skipping the car">✓ window seat, station hotel — skipping the car</div>
-                          <div class="tl dim h-line2" data-run="booking…">· booking…</div>
-                        </div>
-                      </div>
-                    </figure>
-                  </div>
-                </div>
-              </section>
-
-            </div><!-- /feat-panels -->
-          </div><!-- /feat-stage -->
-        </div><!-- /feat-track -->
-      </div><!-- /pinned agents -->
-
-      <!-- close — free-scrolling again after the stage unpins -->
-      <div class="band-close">
-        <div class="wrap">
-          <p class="wb-close">Plain files. Local-first. <b>Nothing leaves your disk</b> — your agent just reads the same page you do.</p>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- ═══════════ §10 · and the rest ═══════════ -->
-    <div class="seam" aria-hidden="true"></div>
-    <section class="section" id="more">
+      <!-- and the rest — the small things, done right -->
       <div class="wrap">
-        <span class="eyebrow"><span class="n">10</span> · and the rest</span>
-        <div class="head">
-          <h2 class="md-h lvl2">The small things, done right.</h2>
-        </div>
         <div class="grid">
           <div class="gcard"><h4>Just Markdown files</h4><p>Byte-for-byte. OpenMarkdown never reflows, trims, or reformats your text — open and close, the file is unchanged.</p></div>
           <div class="gcard"><h4>Safe by default</h4><p>Delete moves files to the system Trash. Autosave when you pause, without nagging. Tabs, folder, and cursor come back after a crash.</p></div>
           <div class="gcard"><h4>No account, no cloud</h4><p>No telemetry, nothing phones home. Your agent reads the same file on the same disk — no third party in between.</p></div>
-          <div class="gcard"><h4>The keys you already know</h4><p>Standard Mac shortcuts — and ⌘P opens a palette for every command. <a href="guide.html#shortcuts">Full list →</a></p></div>
+          <div class="gcard"><h4>The keys you already know</h4><p>Standard Mac shortcuts — and ⌘P opens a palette for every command. <a href="/guide#shortcuts">Full list →</a></p></div>
           <div class="gcard"><h4>中文 · 日本語 · English</h4><p>Full trilingual UI. Missing your language? <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/discussions">Open a discussion.</a></p></div>
           <div class="gcard"><h4>The <code>openmd</code> CLI</h4><p>Open files from your terminal. Install it in one click from Settings.</p></div>
         </div>
@@ -884,7 +758,7 @@
             </div>
           </details>
         </div>
-        <span class="platform">macOS · Apple Silicon &amp; Intel (universal)</span>
+        <span class="platform">macOS · Apple Silicon &amp; Intel (universal) · signed &amp; notarized — double-click to open</span>
       </div>
     </section>
 
@@ -900,7 +774,6 @@
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
         </span>
       </div>
-      <div class="foot-flat" id="footFlat"></div>
     </div>
   </footer>
 
@@ -908,13 +781,16 @@
   /* Progressive enhancement only. Everything degrades to complete static content. */
   (function () {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var wide = window.matchMedia('(min-width: 52rem)');
+    /* hands-on segmented control state — read by the F + palette gates below */
+    var segActive = 0, segInView = false;
 
-    /* —— nav: hairline on scroll + ground-aware recolor (design D11) ——
-       The page has three ink grounds (hero, §5 band, the slim ink footer).
-       The nav flips to reversed colors whenever the ground under its bottom
-       edge is ink — i.e. the flip happens exactly as the nav crosses a seam
-       stripe. (The footer is too short for the nav to ever sit over it on a
-       normal viewport; it's listed for correctness on tiny ones.) */
+    /* —— nav: hairline on scroll + ground-aware recolor ——
+       The page has three ink grounds (hero, the agent band, the slim ink
+       footer). The nav flips to reversed colors whenever the ground under its
+       bottom edge is ink — i.e. exactly as it crosses a seam into or out of an
+       ink zone. Order down the page: hero (reversed) → speed (primary) → agent
+       band (reversed) → hands-on / CTA (primary) → ink footer (reversed). */
     var nav = document.getElementById('nav');
     if (nav) {
       var inkZones = [];
@@ -922,7 +798,7 @@
         var el = document.querySelector(sel);
         if (el) inkZones.push(el);
       });
-      var onScroll = function () {
+      var onNavScroll = function () {
         nav.classList.toggle('scrolled', window.scrollY > 8);
         var navH = nav.offsetHeight;
         var onInk = inkZones.some(function (el) {
@@ -931,156 +807,19 @@
         });
         nav.classList.toggle('on-ink', onInk);
       };
-      onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+      onNavScroll(); window.addEventListener('scroll', onNavScroll, { passive: true });
     }
 
-    /* —— pinned scroll-driven tabs (design D10, generalized as D2) ——
-       createPinned() wires one pinned region: a tall track, a sticky stage,
-       and scroll progress mapped onto its N tabs. The page has two regions —
-       features (§1–§4) and agents (§5). Enhanced only on wide screens without
-       reduced-motion and not user-flattened; otherwise the flat stack stands. */
-    var pinRegions = [];
-    var createPinned = function (root, opts) {
-      opts = opts || {};
-      var track = root.querySelector('.feat-track');
-      var stage = root.querySelector('.feat-stage');
-      var tabs = Array.prototype.slice.call(root.querySelectorAll('.feat-tab'));
-      var panels = Array.prototype.slice.call(root.querySelectorAll('.feat-panel'));
-      var N = tabs.length;
-      var self = { active: 0, enhanced: false, pinned: false };
-
-      var activate = function (i) {
-        if (i === self.active) return;
-        var prev = self.active;
-        self.active = i;
-        tabs.forEach(function (t, j) {
-          t.classList.toggle('on', j === i);
-          t.setAttribute('aria-selected', j === i ? 'true' : 'false');
-          t.tabIndex = j === i ? 0 : -1;
-        });
-        panels.forEach(function (p, j) { p.classList.toggle('active', j === i); });
-        if (opts.onActivate) opts.onActivate(i, prev);
-      };
-
-      var scrollGeom = function () {
-        var rect = track.getBoundingClientRect();
-        return {
-          pinTop: parseFloat(getComputedStyle(stage).top) || 0,
-          top: rect.top,
-          scrollable: track.offsetHeight - stage.offsetHeight
-        };
-      };
-      var onScroll = function () {
-        if (!self.enhanced) return;
-        var g = scrollGeom();
-        if (g.scrollable <= 0) return;
-        var p = (g.pinTop - g.top) / g.scrollable;
-        /* pinned = the stage is actually stuck under the nav. Approaching
-           (p < 0) the raw math clamps to tab 0, leaving (p >= 1) to the last
-           tab — without this flag the edge tabs' animations would run while
-           the stage merely peeks into the viewport. */
-        var pinned = p >= 0 && p < 1;
-        if (pinned !== self.pinned) {
-          self.pinned = pinned;
-          if (opts.onPinChange) opts.onPinChange(pinned);
-        }
-        p = Math.max(0, Math.min(0.9999, p));
-        activate(Math.floor(p * N));
-        root.style.setProperty('--tab-progress', (p * N % 1).toFixed(4));
-      };
-      var jumpTo = function (i) {
-        if (!self.enhanced) return;
-        var g = scrollGeom();
-        window.scrollTo({ top: window.scrollY + g.top - g.pinTop + (i + 0.5) / N * g.scrollable, behavior: 'instant' });
-        activate(i); // don't wait for the scroll event — switch immediately
-        onScroll();
-      };
-
-      tabs.forEach(function (t, i) {
-        t.addEventListener('click', function () { jumpTo(i); });
-        t.addEventListener('keydown', function (e) {
-          var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-          if (!d) return;
-          e.preventDefault();
-          var n = (self.active + d + N) % N;
-          jumpTo(n); tabs[n].focus();
-        });
-      });
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-
-      self.setEnhanced = function (on) {
-        if (on === self.enhanced) return;
-        self.enhanced = on;
-        root.classList.toggle('enhanced', on);
-        onScroll();
-      };
-      pinRegions.push(self);
-      return self;
-    };
-
-    var featuresEl = document.getElementById('features');
-    var featPin = featuresEl && createPinned(featuresEl, {
-      onActivate: function (i, prev) {
-        if (i === 2 && prev !== 2) palResume();
-        palGate();
-      }
-    });
-    var agentsEl = document.getElementById('agents');
-    var agentPin = agentsEl && createPinned(agentsEl, {
-      // re-gate the tab animations on tab switch AND on pin/unpin: the edge
-      // tabs (06, 09) must not play while the stage merely peeks into view
-      onActivate: function () { fGate(); kGate(); gGate(); hGate(); },
-      onPinChange: function () { fGate(); kGate(); gGate(); hGate(); }
-    });
-
-    /* one gate for every pinned region: viewport width, motion preference,
-       and the visitor's flat-page preference (see the footer toggle) */
-    var wide = window.matchMedia('(min-width: 52rem)');
-    var userFlat = false;
-    try { userFlat = localStorage.getItem('om-flat') === '1'; } catch (e) {}
-    var evalEnhance = function () {
-      var on = wide.matches && !reduce && !userFlat;
-      pinRegions.forEach(function (r) { r.setEnhanced(on); });
-      palGate();
-      fGate();
-      kGate();
-    };
-    evalEnhance();
-    if (wide.addEventListener) wide.addEventListener('change', evalEnhance);
-    else if (wide.addListener) wide.addListener(evalEnhance);
-
-    /* —— flat/pinned page toggle (design D6) — created by JS, so a no-JS
-       page (already flat) never shows a control that couldn't do anything
-       (its .foot-flat row collapses while empty). Reduced-motion visitors
-       are flat by definition; show that, inert. */
-    var flatHome = document.getElementById('footFlat');
-    if (flatHome && pinRegions.length) {
-      var flatEl;
-      if (reduce) {
-        flatEl = document.createElement('span');
-        flatEl.className = 'flat-toggle static';
-        flatEl.textContent = 'flat page — following your reduced-motion setting';
-      } else {
-        flatEl = document.createElement('button');
-        flatEl.type = 'button';
-        flatEl.className = 'flat-toggle';
-        var flatLabel = function () {
-          flatEl.textContent = userFlat ? 'flat page: on — bring back pinned scrolling' : 'prefer a flat page?';
-          flatEl.setAttribute('aria-pressed', userFlat ? 'true' : 'false');
-        };
-        flatLabel();
-        flatEl.addEventListener('click', function () {
-          userFlat = !userFlat;
-          try { localStorage.setItem('om-flat', userFlat ? '1' : '0'); } catch (e) {}
-          flatLabel();
-          evalEnhance();
-        });
-      }
-      flatHome.appendChild(flatEl);
+    /* small helper: run fn once the element scrolls into view, and again on
+       every re-entry; falls back to running immediately without IO support. */
+    function onInView(el, threshold, fn) {
+      if (!('IntersectionObserver' in window)) { fn(true); return; }
+      new IntersectionObserver(function (entries) {
+        fn(entries[0].isIntersecting);
+      }, { threshold: threshold }).observe(el);
     }
 
-    /* —— tab 02: three-mode vertical accordion (click a row = expand + switch) —— */
+    /* —— hands-on: live-preview three-mode accordion (click a row = expand + switch) —— */
     var demo = document.getElementById('modeDemo');
     if (demo) {
       demo.classList.add('js'); // JS on → collapse all but the active mode's one-liner
@@ -1102,15 +841,14 @@
       });
     }
 
-    /* —— tab 03: palette three-state autoplay (@ outline → file → > command) ——
-       Runs only while its tab is active (or, in the flat layout, while on screen).
-       Clicking a chip jumps to that state and pauses the loop. */
+    /* —— hands-on: command palette three-state autoplay (@ outline → file → > command)
+       Runs while on screen; clicking a chip jumps to that state and pauses the loop. */
     var palEl = document.getElementById('paletteDemo');
     var palTimer = null, palPaused = false, palInView = true, palIdx = 0;
-    function palResume() { palPaused = false; }
     function palGate() {
       if (!palEl) return;
-      var run = !reduce && !palPaused && palInView && (!featPin || !featPin.enhanced || featPin.active === 2);
+      /* run only while the palette's own tab is active and the section's in view */
+      var run = !reduce && !palPaused && segInView && segActive === 1;
       if (run && !palTimer) palTimer = setInterval(palTick, 2600);
       if (!run && palTimer) { clearInterval(palTimer); palTimer = null; }
     }
@@ -1144,34 +882,13 @@
       Array.prototype.forEach.call(document.querySelectorAll('#palChips .chip'), function (c, j) {
         c.addEventListener('click', function () { palPaused = true; palIdx = j; palRender(); palGate(); });
       });
-      if ('IntersectionObserver' in window) {
-        palInView = false;
-        new IntersectionObserver(function (entries) {
-          palInView = entries[0].isIntersecting;
-          palGate();
-        }, { threshold: 0.3 }).observe(palEl);
-      }
+      onInView(palEl, 0.3, function (vis) { palInView = vis; palGate(); });
       palGate();
     }
 
-    /* —— tab 06: the $VISUAL/$EDITOR handoff — seven-beat timeline (design D5).
-       Same shape as the palette autoplay above: it runs only while its tab is
-       active (or, in the flat layout, while on screen), motion is allowed, and
-       the screen is wide enough for the overlay stage; otherwise the frozen
-       end-frame stands. Leaving the tab resets to that end-frame — never a
-       mid-beat. JS only ever touches text + the data-beat attribute; every
-       visual change is a CSS transition keyed off data-beat. */
-    var fStage = document.getElementById('fStage');
-    var fRunning = false, fInView = true, fTimers = [];
-    var fCmd, fLead, fT1, fT2, fT3, fB1, fB2, fB3;
-    var F_FULL_CMD = 'build a landing page\n  - hero, features, pricing\n  - dark theme\n  - one HTML file';
-    var F_LEAD = 'build a landing page';
-    function fAfter(ms, fn) { var t = setTimeout(fn, ms); fTimers.push(t); return t; }
-    function fClearTimers() { fTimers.forEach(clearTimeout); fTimers = []; }
-    function fBeat(n) { fStage.setAttribute('data-beat', n); }
-    /* shared TUI typing for F/G/H — one grammar: hero easing, caret via
-       .f-typing::after. `after` is the caller's own timer scheduler
-       (fAfter/gAfter/hAfter) so each animation's reset clears its own. */
+    /* shared TUI typing grammar for the band animations — one voice: hero
+       easing, caret via .f-typing::after. `after` is the caller's own timer
+       scheduler so each animation's reset clears only its own. */
     function typeInto(el, text, cps, amp, after, done) {
       el.classList.add('f-typing');
       var i = 0;
@@ -1183,9 +900,284 @@
       };
       step();
     }
-    /* the frozen end-frame: full prompt in both windows, no run class, no beat.
-       Every downgrade (no-JS/reduced-motion/narrow/inactive) and every
-       between-loops reset lands here. */
+    /* the Claude-style thinking spinner prefix, shared by §B and §C */
+    var SPIN = ['·', '✢', '✳', '✻', '✽', '✻', '✳', '✢'];
+
+    /* —— §B · your file as a wiki — the ask-then-open reveal (animation G).
+       Plays when the block scrolls into view; freezes to the end-frame (file
+       open, scrolled to ## Decisions, settled tint) otherwise. JS only sets
+       data-beat + the result line's text; every visual is CSS keyed off the
+       beat. Beats: 0 rewind · 1 question · 2 searching · 3 opening (file window
+       rises in) · 4 scroll to ## Decisions · 5 bloom + ✦ opened. */
+    var gStage = document.getElementById('gStage');
+    var gRunning = false, gInView = true, gTimers = [];
+    var gSpinT = null, gSpinI = 0;
+    var gScroll, gHit, gLine, gQt;
+    var G_Q = 'what did we land on for the launch date?';
+    function gAfter(ms, fn) { var t = setTimeout(fn, ms); gTimers.push(t); return t; }
+    function gBeat(n) { gStage.setAttribute('data-beat', n); }
+    var gRunText = '';
+    function gRunLine(attr) {                 // spins on data-run ("searching") or data-open ("opening")
+      gRunText = gLine.getAttribute(attr || 'data-run');
+      gLine.className = 'tl k-live g-line';
+      gSpinI = 0;
+      gLine.textContent = SPIN[0] + ' ' + gRunText;
+      if (gSpinT) { clearInterval(gSpinT); }
+      gSpinT = setInterval(function () {
+        gSpinI = (gSpinI + 1) % SPIN.length;
+        gLine.textContent = SPIN[gSpinI] + ' ' + gRunText;
+      }, 140);
+    }
+    function gDoneLine(flip) {
+      if (gSpinT) { clearInterval(gSpinT); gSpinT = null; }
+      gLine.className = flip ? 'tl dim g-line k-flip' : 'tl dim g-line';
+      gLine.textContent = gLine.getAttribute('data-done');
+    }
+    function gEndFrame() {
+      gTimers.forEach(clearTimeout); gTimers = [];
+      gStage.classList.remove('g-run');
+      gStage.removeAttribute('data-beat');
+      gQt.textContent = G_Q; gQt.classList.remove('f-typing');
+      gDoneLine(false);
+    }
+    function gPlay() {
+      gEndFrame(); // clear timers + spinner, then re-arm
+      gStage.classList.add('g-run');
+      gBeat(0); // rewind: file window closed, question empty, line hidden
+      gQt.textContent = '';
+      /* measure the true scroll offset while the note sits untranslated */
+      gStage.style.setProperty('--g-off',
+        (gHit.getBoundingClientRect().top - gScroll.getBoundingClientRect().top) + 'px');
+      gAfter(150, function () {
+        gBeat(1);
+        typeInto(gQt, G_Q, 18, 20, gAfter, function () {
+          gRunLine('data-run');                                          // "searching notes…"
+          gAfter(500,  function () { gBeat(2); });                       // searching
+          gAfter(1350, function () { gBeat(3); gRunLine('data-open'); }); // "opening…" + file window rises in
+          gAfter(2250, function () { gBeat(4); });                       // scroll to ## Decisions
+          gAfter(2950, function () { gBeat(5); gDoneLine(true); });      // arrival bloom + ✦ opened
+          gAfter(7000, function () { if (gRunning) gPlay(); });          // hold, then loop
+        });
+      });
+    }
+    function gGate() {
+      if (!gStage) return;
+      var run = !reduce && gInView;
+      if (run && !gRunning) { gRunning = true; gPlay(); }
+      else if (!run && gRunning) { gRunning = false; gEndFrame(); }
+    }
+    if (gStage) {
+      gScroll = document.getElementById('gScroll');
+      gHit    = document.getElementById('gHit');
+      gLine   = gStage.querySelector('.g-line');
+      gQt     = gStage.querySelector('.g-qt');
+      onInView(gStage, 0.3, function (vis) { gInView = vis; gGate(); });
+      gGate();
+    }
+
+    /* —— §C · agent reads your highlight — drag-select a messy list, then hand
+       it off. Plays when in view: a visible pointer drags a blue selection over
+       the list (its only job — demonstrating the highlight), then fades out; you
+       type the ask, and the list swaps for a table (flame). Freezes to the
+       end-frame (finished table, ✓ line) otherwise. JS sets data-beat + text;
+       every visual is CSS. Blue = your hand, flame = the agent's. Reuses
+       typeInto + SPIN. */
+    var cStage = document.getElementById('cStage');
+    var cRunning = false, cInView = true, cTimers = [];
+    var cSpinT = null, cSpinI = 0, cLine, cQt;
+    var C_Q = 'make this a table';
+    function cAfter(ms, fn) { var t = setTimeout(fn, ms); cTimers.push(t); return t; }
+    function cBeat(n) { cStage.setAttribute('data-beat', n); }
+    function cRunLine() {
+      cLine.className = 'tl k-live c-line';
+      cSpinI = 0;
+      cLine.textContent = SPIN[0] + ' ' + cLine.getAttribute('data-run');
+      cSpinT = setInterval(function () {
+        cSpinI = (cSpinI + 1) % SPIN.length;
+        cLine.textContent = SPIN[cSpinI] + ' ' + cLine.getAttribute('data-run');
+      }, 140);
+    }
+    function cDoneLine(flip) {
+      if (cSpinT) { clearInterval(cSpinT); cSpinT = null; }
+      cLine.className = flip ? 'tl ok c-line k-flip' : 'tl ok c-line';
+      cLine.textContent = cLine.getAttribute('data-done');
+    }
+    function cEndFrame() {
+      cTimers.forEach(clearTimeout); cTimers = [];
+      if (cSpinT) { clearInterval(cSpinT); cSpinT = null; }
+      cStage.classList.remove('c-run');
+      cStage.removeAttribute('data-beat');
+      cQt.textContent = C_Q; cQt.classList.remove('f-typing');
+      cDoneLine(false);
+    }
+    function cPlay() {
+      cEndFrame(); // clear timers + spinner, then re-arm
+      cStage.classList.add('c-run');
+      cBeat(0);                 // rewind: the messy list, no pointer, no selection
+      cQt.textContent = '';
+      /* measure the drag anchors while the list sits laid-out (beat 0): the
+         pointer tip starts at the first item's text and ends at the last, so it
+         tracks the real list across viewports (replaces hard-coded rem, D-fix) */
+      var cList = cStage.querySelector('.c-list');
+      var cRows = cList ? cList.querySelectorAll('.bullet') : [];
+      if (cRows.length) {
+        var cBase = cStage.getBoundingClientRect();
+        var aStart = cRows[0].lastElementChild.getBoundingClientRect();
+        var aEnd = cRows[cRows.length - 1].lastElementChild.getBoundingClientRect();
+        cStage.style.setProperty('--c-x0', (aStart.left - cBase.left) + 'px');
+        cStage.style.setProperty('--c-y0', (aStart.top - cBase.top) + 'px');
+        cStage.style.setProperty('--c-x1', (aEnd.right - cBase.left) + 'px');
+        cStage.style.setProperty('--c-y1', (aEnd.bottom - cBase.top) + 'px');
+      }
+      cAfter(250,  function () { cBeat(1); });   // the pointer appears at the list's start
+      cAfter(900,  function () { cBeat(2); });   // it drags down; the blue selection sweeps
+      cAfter(1950, function () { cBeat(3); });   // selection held — the pointer fades out in place
+      cAfter(2750, function () {
+        cBeat(4);                                // pointer gone — you type the ask
+        typeInto(cQt, C_Q, 55, 40, cAfter, function () {
+          cRunLine();
+          cAfter(750,  function () { cBeat(5); cDoneLine(true); }); // list → table, ✓ in place
+          cAfter(4600, function () { if (cRunning) cPlay(); });     // hold, then loop
+        });
+      });
+    }
+    function cGate() {
+      if (!cStage) return;
+      var run = !reduce && cInView;
+      if (run && !cRunning) { cRunning = true; cPlay(); }
+      else if (!run && cRunning) { cRunning = false; cEndFrame(); }
+    }
+    if (cStage) {
+      cLine = cStage.querySelector('.c-line');
+      cQt   = cStage.querySelector('.c-qt');
+      onInView(cStage, 0.3, function (vis) { cInView = vis; cGate(); });
+      cGate();
+    }
+
+    /* §A · positioning bands — the works-with reel, memory timeline and odometer
+       are CSS ambient loops (see site.css); this only GATES them: a band gets
+       `.in-view` while it's on screen so its loop runs, and loses it to pause
+       off-screen (power saver). No product animation logic lives here — no JS (or
+       reduced-motion) leaves every loop on its static end-frame. */
+    Array.prototype.forEach.call(document.querySelectorAll('.own-band'), function (band) {
+      onInView(band, 0.12, function (vis) { band.classList.toggle('in-view', vis); });
+    });
+
+    /* —— hero demo sidebar toggle (independent of typing) —— */
+    var sbToggle = document.getElementById('sbToggle');
+    var appWin = sbToggle && sbToggle.closest('.window.app');
+    if (sbToggle && appWin) {
+      var toggleSidebar = function () { appWin.classList.toggle('sidebar-open'); };
+      sbToggle.addEventListener('click', toggleSidebar);
+      var sbClose = document.getElementById('sbClose');
+      if (sbClose) sbClose.addEventListener('click', toggleSidebar);
+    }
+
+    /* —— hero live-preview typing (welcome.md) —— */
+    var host = document.getElementById('typing');
+    if (host && !reduce) {
+      var script = [
+        { type: 'h1', raw: '# Welcome to Markdown', html: 'Welcome to Markdown' },
+        { type: 'gap' },
+        { type: 'p',  raw: 'Simple syntax, real formatting', html: 'Simple syntax, real formatting' },
+        { type: 'gap' },
+        { type: 'h2', raw: '## A second-level heading', html: 'A second-level heading' },
+        { type: 'gap' },
+        { type: 'p',  raw: '**bold**, *italic*, ~~strikeout~~', html: '<b>bold</b>, <em>italic</em>, <del>strikeout</del>' },
+        { type: 'gap' },
+        { type: 'quote', raw: '> a quote', html: 'a quote' },
+        { type: 'gap' },
+        { type: 'li', raw: '- item 1', html: 'item 1' },
+        { type: 'task', raw: '- [ ] todo', html: 'todo' },
+        { type: 'taskdone', raw: '- [x] done', html: 'done' },
+        { type: 'gap' },
+        { type: 'hr', raw: '---' },
+        { type: 'gap' },
+        { type: 'code', raw: "```python\n# code block\nprint('hello world')\n```", html: '<span class="c"># code block</span>\n<span class="fn">print</span>(<span class="s">\'hello world\'</span>)' }
+      ];
+      var render = function (item) {
+        if (item.type === 'gap') return '<div class="spacer"></div>';
+        if (item.type === 'h1') return '<div class="demo-h1">' + item.html + '</div>';
+        if (item.type === 'h2') return '<h2>' + item.html + '</h2>';
+        if (item.type === 'p')  return '<p>' + item.html + '</p>';
+        if (item.type === 'quote') return '<blockquote>' + item.html + '</blockquote>';
+        if (item.type === 'li') return '<div class="bullet"><span class="bl">•</span><span>' + item.html + '</span></div>';
+        if (item.type === 'task') return '<div class="task"><span class="box"></span><span>' + item.html + '</span></div>';
+        if (item.type === 'taskdone') return '<div class="task done"><span class="box"></span><span>' + item.html + '</span></div>';
+        if (item.type === 'hr') return '<hr class="demo-hr">';
+        if (item.type === 'code') return '<pre class="demo-code"><code>' + item.html + '</code></pre>';
+        return '';
+      };
+      var run = function () {
+        host.innerHTML = '';
+        var i = 0;
+        var nextLine = function () {
+          if (i >= script.length) { setTimeout(run, 4200); return; }
+          var item = script[i];
+          if (item.type === 'gap') { host.insertAdjacentHTML('beforeend', render(item)); i++; nextLine(); return; }
+          var cur = document.createElement('div'); cur.className = 'line line-' + item.type;
+          var raw = document.createElement('span'); raw.className = 'raw';
+          var caret = document.createElement('span'); caret.className = 'caret';
+          cur.appendChild(raw); cur.appendChild(caret); host.appendChild(cur);
+          var t = item.raw, c = 0;
+          var typeChar = function () {
+            raw.textContent = t.slice(0, c);
+            c++;
+            if (c <= t.length) { setTimeout(typeChar, 26 + Math.round(Math.abs(Math.sin(c)) * 34)); }
+            else { setTimeout(function () { cur.outerHTML = render(item); i++; setTimeout(nextLine, 260); }, 220); }
+          };
+          typeChar();
+        };
+        nextLine();
+      };
+      run();
+    }
+
+    /* —— hands-on segmented control (pill Tabs): clicking a tab switches the
+       panel below and plays that demo's own inherited animation. Each demo is
+       gated to "this tab is active + the section is in view". No-JS = the first
+       panel shows (the others are inert stills), all fully readable. —— */
+    var seg = document.getElementById('handsSeg');
+    if (seg) {
+      seg.classList.add('js'); // JS on → collapse the stacked panels into tabs
+      var segTabs = Array.prototype.slice.call(seg.querySelectorAll('.seg-tab'));
+      var segPanels = Array.prototype.slice.call(seg.querySelectorAll('.seg-panel'));
+      var segSelect = function (i) {
+        segActive = i;
+        segTabs.forEach(function (t, j) {
+          t.classList.toggle('on', j === i);
+          t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+          t.tabIndex = j === i ? 0 : -1;
+        });
+        segPanels.forEach(function (p, j) { p.classList.toggle('on', j === i); });
+        fGate(); palGate(); // start the active demo's animation, reset the others
+      };
+      segTabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { segSelect(i); });
+        t.addEventListener('keydown', function (e) {
+          var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (!d) return; e.preventDefault();
+          var n = (segActive + d + segTabs.length) % segTabs.length;
+          segSelect(n); segTabs[n].focus();
+        });
+      });
+      onInView(seg, 0.25, function (vis) { segInView = vis; fGate(); palGate(); });
+    }
+
+    /* —— the $VISUAL/$EDITOR handoff — seven-beat timeline (animation F).
+       Runs while its tab is active, the section is in view, motion is allowed,
+       and the screen is wide enough for the overlay stage; otherwise the frozen
+       end-frame stands. JS only ever touches text + the data-beat attribute;
+       every visual change is a CSS transition keyed off data-beat. */
+    var fStage = document.getElementById('fStage');
+    var fRunning = false, fTimers = [];
+    var fCmd, fLead, fT1, fT2, fT3, fB1, fB2, fB3;
+    var F_FULL_CMD = 'build a landing page\n  - hero, features, pricing\n  - dark theme\n  - one HTML file';
+    var F_LEAD = 'build a landing page';
+    function fAfter(ms, fn) { var t = setTimeout(fn, ms); fTimers.push(t); return t; }
+    function fClearTimers() { fTimers.forEach(clearTimeout); fTimers = []; }
+    function fBeat(n) { fStage.setAttribute('data-beat', n); }
+    /* the frozen end-frame: full prompt in both windows, no run class, no beat */
     function fEndFrame() {
       fClearTimers();
       fStage.classList.remove('f-run');
@@ -1208,10 +1200,10 @@
       /* beat 1 — the TUI types the first line of the prompt */
       fBeat(1);
       typeInto(fCmd, F_LEAD, 55, 40, fAfter, function () {
-        /* beat 2 — ctrl+g pressed; the hint lights up */
+        /* beat 2 — ctrl+g pressed; the hint lights up, the keycaps pop in */
         fBeat(2);
         fAfter(1200, function () {
-          /* beat 3 — OpenMarkdown pops over the TUI, banner slides in, half prompt carried in */
+          /* beat 3 — OpenMarkdown pops over the TUI, banner slides in */
           fBeat(3);
           fLead.textContent = F_LEAD;
           fAfter(1400, function () {
@@ -1223,21 +1215,21 @@
                 fB2.classList.add('f-shown');
                 typeInto(fT2, 'dark theme', 42, 40, fAfter, function () {
                   fAfter(280, function () {
-                  fB3.classList.add('f-shown');
-                  typeInto(fT3, 'one HTML file', 42, 40, fAfter, function () {
-                  /* beat 5 — the pointer glides onto Done */
-                  fBeat(5);
-                  fAfter(1000, function () {
-                    /* beat 6 — Done pressed; the editor window exits (submits) */
-                    fBeat(6);
-                    fAfter(800, function () {
-                      /* beat 7 — the TUI is left with the full prompt filled in; hold, then loop */
-                      fBeat(7);
-                      fCmd.textContent = F_FULL_CMD;
-                      fAfter(4000, function () { if (fRunning) fPlay(); });
+                    fB3.classList.add('f-shown');
+                    typeInto(fT3, 'one HTML file', 42, 40, fAfter, function () {
+                      /* beat 5 — the pointer glides onto Done */
+                      fBeat(5);
+                      fAfter(1000, function () {
+                        /* beat 6 — Done pressed; the editor window exits (submits) */
+                        fBeat(6);
+                        fAfter(800, function () {
+                          /* beat 7 — the TUI is left with the full prompt filled in; hold, then loop */
+                          fBeat(7);
+                          fCmd.textContent = F_FULL_CMD;
+                          fAfter(4000, function () { if (fRunning) fPlay(); });
+                        });
+                      });
                     });
-                  });
-                  });
                   });
                 });
               });
@@ -1248,8 +1240,7 @@
     }
     function fGate() {
       if (!fStage) return;
-      var run = !reduce && wide.matches && fInView &&
-                (!agentPin || !agentPin.enhanced || (agentPin.pinned && agentPin.active === 0));
+      var run = !reduce && wide.matches && segInView && segActive === 0;
       if (run && !fRunning) { fRunning = true; fPlay(); }
       else if (!run && fRunning) { fRunning = false; fEndFrame(); }
     }
@@ -1259,459 +1250,11 @@
       fT1   = fStage.querySelector('.f-app-t1');
       fT2   = fStage.querySelector('.f-app-t2');
       fT3   = fStage.querySelector('.f-app-t3');
-      fB1   = fT1.closest('.f-b');
-      fB2   = fT2.closest('.f-b');
-      fB3   = fT3.closest('.f-b');
-      if ('IntersectionObserver' in window) {
-        fInView = false;
-        new IntersectionObserver(function (entries) {
-          fInView = entries[0].isIntersecting;
-          fGate();
-        }, { threshold: 0.35 }).observe(fStage);
-      }
+      fB1   = fT1.closest('.f-b'); fB2 = fT2.closest('.f-b'); fB3 = fT3.closest('.f-b');
       fGate();
     }
 
-    /* —— tab 07: your "this" — four-scene accordion carousel (animation K).
-       Same gate as the palette autoplay: runs while its tab is active (or,
-       in the flat layout, while on screen) and motion is allowed. 5s per
-       scene; the active row's bottom line is the beat's timer. Clicking a
-       row jumps there, replays its micro-animation, and restarts the beat —
-       the loop keeps going. Scene 1 replays the agent-caret grammar fix on
-       entry, scene 2 fades its drafts in; scenes 3 and 4 are stills. Every
-       reset lands on the scene-1 end-frame — never a mid-state. */
-    var kDemo = document.getElementById('kDemo');
-    var kTimer = null, kInView = true, kIdx = 0, kAnim = [];
-    var kItems, kFrames, kWord, kDrafts, kLines;
-    function kAfter(ms, fn) { var t = setTimeout(fn, ms); kAnim.push(t); return t; }
-    /* each TUI has ONE result line that flips in place:
-       running ("✻ doing…", Claude-style spinner prefix, text held still)
-       → done (green "✓ …") */
-    var K_SPIN = ['·', '✢', '✳', '✻', '✽', '✻', '✳', '✢'];
-    var kSpinT = null, kSpinI = 0, kLiveLine = null, kLiveTxt = '';
-    function kRunLine(j, txt) {
-      var l = kLines[j];
-      l.className = 'tl k-live k-line';
-      kLiveLine = l; kLiveTxt = txt || l.getAttribute('data-run'); kSpinI = 0;
-      l.textContent = K_SPIN[0] + ' ' + kLiveTxt;
-    }
-    function kSpinTick() { /* only the prefix glyph cycles */
-      if (!kLiveLine) return;
-      kSpinI = (kSpinI + 1) % K_SPIN.length;
-      kLiveLine.textContent = K_SPIN[kSpinI] + ' ' + kLiveTxt;
-    }
-    function kDoneLine(j, flip) {
-      var l = kLines[j];
-      /* flip: ease the ✓ in (fade + slight rise) instead of snapping */
-      l.className = flip ? 'tl ok k-line k-flip' : 'tl ok k-line';
-      l.textContent = l.getAttribute('data-done');
-      if (kLiveLine === l) kLiveLine = null;
-    }
-    /* the frozen end-frame of every scene: fix landed, drafts in, every ✓ shown */
-    function kEndFrame() {
-      kAnim.forEach(clearTimeout); kAnim = [];
-      kWord.textContent = 'its';
-      kWord.classList.add('k-ed'); kWord.classList.remove('k-caret');
-      kDrafts.forEach(function (d) { d.classList.remove('k-hide'); });
-      kLines.forEach(function (l, j) { kDoneLine(j); });
-    }
-    function kShow(i, replay) {
-      kIdx = i;
-      kEndFrame();
-      kItems.forEach(function (it, j) {
-        it.classList.remove('on');
-        if (j === i) { void it.offsetWidth; it.classList.add('on'); } // reflow restarts the timer line
-        it.querySelector('.k-head').setAttribute('aria-expanded', j === i ? 'true' : 'false');
-      });
-      kFrames.forEach(function (f, j) { f.classList.toggle('on', j === i); });
-      if (!replay) return;
-      if (i === 0) { /* scene 1 — "· fixing…" while the caret lands and fixes the word */
-        kWord.textContent = 'it’s'; kWord.classList.remove('k-ed');
-        kRunLine(0);
-        kAfter(1200, function () { kWord.classList.add('k-caret', 'k-ed'); });
-        kAfter(1800, function () { kWord.textContent = 'its'; });
-        kAfter(2400, function () { kWord.classList.remove('k-caret'); kDoneLine(0, true); });
-      } else if (i === 1) { /* scene 2 — "· drafting…" while the drafts land one by one */
-        kDrafts.forEach(function (d) { d.classList.add('k-hide'); });
-        kRunLine(1);
-        kDrafts.forEach(function (d, n) {
-          kAfter(1200 + n * 700, function () { d.classList.remove('k-hide'); });
-        });
-        kAfter(3400, function () { kDoneLine(1, true); });
-      } else if (i === 2) { /* scene 3 — "cloning…" → "running…" → done */
-        kRunLine(2);
-        kAfter(1600, function () { kRunLine(2, 'running…'); });
-        kAfter(3200, function () { kDoneLine(2, true); });
-      } else if (i === 3) { /* scene 4 — "· sending…" → done */
-        kRunLine(3);
-        kAfter(2200, function () { kDoneLine(3, true); });
-      }
-    }
-    function kTick() { kShow((kIdx + 1) % kItems.length, true); }
-    function kGate() {
-      if (!kDemo) return;
-      var run = !reduce && kInView &&
-                (!agentPin || !agentPin.enhanced || (agentPin.pinned && agentPin.active === 1));
-      if (run && !kTimer) {
-        kDemo.classList.add('k-run');
-        kShow(0, true); // always start the loop from scene 1
-        kTimer = setInterval(kTick, 5000);
-        kSpinT = setInterval(kSpinTick, 140);
-      } else if (!run && kTimer) {
-        clearInterval(kTimer); kTimer = null;
-        clearInterval(kSpinT); kSpinT = null;
-        kDemo.classList.remove('k-run');
-        kShow(0, false); // reset: scene-1 end-frame, never a mid-state
-      }
-    }
-    if (kDemo) {
-      kDemo.classList.add('js'); // JS on → collapse all but the active row
-      kItems  = Array.prototype.slice.call(kDemo.querySelectorAll('.k-item'));
-      kFrames = Array.prototype.slice.call(kDemo.querySelectorAll('.k-frame'));
-      kWord   = document.getElementById('kWord');
-      kDrafts = Array.prototype.slice.call(kDemo.querySelectorAll('.k-draft'));
-      kLines  = Array.prototype.slice.call(kDemo.querySelectorAll('.k-line'));
-      kItems.forEach(function (it, j) {
-        it.querySelector('.k-head').addEventListener('click', function () {
-          if (kTimer) { // loop running — jump there, replay, restart the beat
-            clearInterval(kTimer);
-            kTimer = setInterval(kTick, 5000);
-            kShow(j, true);
-          } else {      // reduced-motion / not running — instant end-frame
-            kShow(j, false);
-          }
-        });
-      });
-      if ('IntersectionObserver' in window) {
-        kInView = false;
-        new IntersectionObserver(function (entries) {
-          kInView = entries[0].isIntersecting;
-          kGate();
-        }, { threshold: 0.3 }).observe(kDemo);
-      }
-      kGate();
-    }
-
-    /* —— tab 08: agent's "this" — the one-beat reveal (animation G).
-       One question, one scroll, one bloom — the shortest beat in the band.
-       The beats replay the real reveal's timing: open the tab, wait for the
-       editor, then scroll. JS only sets data-beat + the result line's text;
-       every visual is CSS keyed off the beat. Every reset lands on the
-       frozen end-frame — never a mid-scroll. */
-    var gStage = document.getElementById('gStage');
-    var gRunning = false, gInView = true, gTimers = [];
-    var gSpinT = null, gSpinI = 0;
-    var gScroll, gHit, gLine, gQt;
-    var G_Q = 'where did I read that caffeine has a 6-hour half-life?';
-    function gAfter(ms, fn) { var t = setTimeout(fn, ms); gTimers.push(t); return t; }
-    function gBeat(n) { gStage.setAttribute('data-beat', n); }
-    function gRunLine() { /* same grammar as K: spinner prefix, text held still */
-      gLine.className = 'tl k-live g-line';
-      gSpinI = 0;
-      gLine.textContent = K_SPIN[0] + ' ' + gLine.getAttribute('data-run');
-      gSpinT = setInterval(function () {
-        gSpinI = (gSpinI + 1) % K_SPIN.length;
-        gLine.textContent = K_SPIN[gSpinI] + ' ' + gLine.getAttribute('data-run');
-      }, 140);
-    }
-    function gDoneLine(flip) {
-      if (gSpinT) { clearInterval(gSpinT); gSpinT = null; }
-      gLine.className = flip ? 'tl dim g-line k-flip' : 'tl dim g-line';
-      gLine.textContent = gLine.getAttribute('data-done');
-    }
-    function gEndFrame() {
-      gTimers.forEach(clearTimeout); gTimers = [];
-      gStage.classList.remove('g-run');
-      gStage.removeAttribute('data-beat');
-      gQt.textContent = G_Q; gQt.classList.remove('f-typing');
-      gDoneLine(false);
-    }
-    function gPlay() {
-      gEndFrame(); // clear timers + spinner, then re-arm
-      gStage.classList.add('g-run');
-      gBeat(0); // rewind: index page up front, capsule hidden, question empty
-      gQt.textContent = '';
-      /* measure the true scroll offset while the page sits untranslated */
-      gStage.style.setProperty('--g-off',
-        (gHit.getBoundingClientRect().top - gScroll.getBoundingClientRect().top) + 'px');
-      /* beat 1 — you type the question (~1.8s) */
-      gAfter(150, function () {
-        gBeat(1);
-        /* F's grammar, a touch quicker (longer line) */
-        typeInto(gQt, G_Q, 18, 20, gAfter, function () {
-          /* typed → the agent starts looking */
-          gRunLine();
-          /* beat 2 — the reveal opens the page: capsule pops, content in at the top */
-          gAfter(550, function () { gBeat(2); });
-          /* beat 3 — the scroll: ## Sources is carried to the top of the view */
-          gAfter(1100, function () { gBeat(3); });
-          /* beat 4 — arrival: the heading blooms, then settles into its tint */
-          gAfter(1800, function () { gBeat(4); });
-          /* beat 5 — the ✦ line flips: the answer is the place it just showed you */
-          gAfter(2300, function () { gBeat(5); gDoneLine(true); });
-          /* hold the end-frame, then loop */
-          gAfter(6300, function () { if (gRunning) gPlay(); });
-        });
-      });
-    }
-    function gGate() {
-      if (!gStage) return;
-      var run = !reduce && gInView &&
-                (!agentPin || !agentPin.enhanced || (agentPin.pinned && agentPin.active === 2));
-      if (run && !gRunning) { gRunning = true; gPlay(); }
-      else if (!run && gRunning) { gRunning = false; gEndFrame(); }
-    }
-    if (gStage) {
-      gScroll = document.getElementById('gScroll');
-      gHit    = document.getElementById('gHit');
-      gLine   = gStage.querySelector('.g-line');
-      gQt     = gStage.querySelector('.g-qt');
-      if ('IntersectionObserver' in window) {
-        gInView = false;
-        new IntersectionObserver(function (entries) {
-          gInView = entries[0].isIntersecting;
-          gGate();
-        }, { threshold: 0.3 }).observe(gStage);
-      }
-      gGate();
-    }
-
-    /* —— tab 09: the whiteboard — the form read-back (animation H).
-       The band's quiet closing beat: you ask (prompt), the agent writes
-       the checklist into the doc, waits, you tick two boxes and
-       deliberately skip the third, it reads all three answers back and
-       gets back to work. JS writes the list in (staggered .h-in), ticks
-       the boxes, aims the cursor at measured box targets (--hx/--hy),
-       flips line 1 through writing → waiting → reading → ✓, then sets
-       line 2 spinning ("booking…") — the "keeps going" made visible.
-       Every reset lands on the frozen end-frame — never a half-ticked
-       or half-written list. */
-    var hStage = document.getElementById('hStage');
-    var hRunning = false, hInView = true, hTimers = [];
-    var hSpinT = null, hSpinI = 0, hLiveEl = null, hLiveTxt = '';
-    var hLine, hLine2, hItems, hCursor, hFile, hTitle, hQ, hH4, hSws;
-    /* two stories, one script — picked by the "at home / at work" switch,
-       never auto-rotated; the loop replays the chosen story. Scene 0
-       (at home) is the default HTML and every frozen fallback. */
-    var H_SCENES = [
-      { file: 'kyoto.md', title: 'Before I book Kyoto',
-        q: 'plan my kyoto trip — flights, hotel, day trips',
-        items: ['window seat on the flight', 'hotel near the station', 'rent a car for the day trips?'],
-        write: 'writing kyoto.md…', wait: 'waiting on kyoto.md…',
-        done: '✓ window seat, station hotel — skipping the car', work: 'booking…' },
-      { file: 'check-in.md', title: 'Quick check before I refactor',
-        q: 'clean up the session module before 0.7',
-        items: ['keep the current CLI flags', 'tests can use the new fixtures', 'rename session → workspace everywhere?'],
-        write: 'writing check-in.md…', wait: 'waiting on check-in.md…',
-        done: '✓ keeping flags, new fixtures — skipping the rename', work: 'refactoring…' },
-    ];
-    var hSceneIdx = 0;
-    function hSetScene(i) {
-      hSceneIdx = i;
-      var sc = H_SCENES[i];
-      hFile.textContent = sc.file;
-      hTitle.textContent = sc.title;
-      hQ.textContent = sc.q;
-      hItems.forEach(function (li, j) { li.querySelector('.k-ed').textContent = sc.items[j]; });
-      hLine.setAttribute('data-write', sc.write);
-      hLine.setAttribute('data-wait', sc.wait);
-      hLine.setAttribute('data-done', sc.done);
-      hLine2.setAttribute('data-run', sc.work);
-      hSws.forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-h-scene') === i); });
-    }
-    function hAfter(ms, fn) { var t = setTimeout(fn, ms); hTimers.push(t); return t; }
-    function hBeat(n) { hStage.setAttribute('data-beat', n); }
-    /* same grammar as K/G — spinner prefix, text held still — on either line */
-    function hSpinStart(el, base, txt) {
-      hLiveEl = el; hLiveTxt = txt;
-      el.className = base + ' k-live';
-      hSpinI = 0;
-      el.textContent = K_SPIN[0] + ' ' + txt;
-      if (!hSpinT) hSpinT = setInterval(function () {
-        hSpinI = (hSpinI + 1) % K_SPIN.length;
-        hLiveEl.textContent = K_SPIN[hSpinI] + ' ' + hLiveTxt;
-      }, 140);
-    }
-    function hSpinStop() {
-      if (hSpinT) { clearInterval(hSpinT); hSpinT = null; }
-      hLiveEl = null;
-    }
-    function hDoneLine(flip) {
-      hSpinStop();
-      hLine.className = flip ? 'tl ok h-line k-flip' : 'tl ok h-line';
-      hLine.textContent = hLine.getAttribute('data-done');
-    }
-    function hEndFrame() {
-      hTimers.forEach(clearTimeout); hTimers = [];
-      hStage.classList.remove('h-run');
-      hStage.removeAttribute('data-beat');
-      hCursor.classList.remove('h-click');
-      hQ.textContent = H_SCENES[hSceneIdx].q; // never a half-typed prompt
-      hQ.classList.remove('f-typing');
-      hItems[0].classList.add('done');
-      hItems[1].classList.add('done');
-      hItems[2].classList.remove('done');
-      hDoneLine(false);
-      /* line 2 settles to its static form: the follow-up job underway */
-      hLine2.className = 'tl dim h-line2';
-      hLine2.textContent = '· ' + hLine2.getAttribute('data-run');
-    }
-    function hAim(n) { /* park the cursor on box n (1-based), measured live */
-      var b = hItems[n - 1].querySelector('.box').getBoundingClientRect();
-      var s = hStage.getBoundingClientRect();
-      hStage.style.setProperty('--hx', (b.left - s.left + b.width * 0.55) + 'px');
-      hStage.style.setProperty('--hy', (b.top - s.top + b.height * 0.6) + 'px');
-    }
-    function hClick(n) { /* dip the cursor, then the tick lands */
-      hCursor.classList.add('h-click');
-      hAfter(150, function () {
-        hCursor.classList.remove('h-click');
-        hItems[n - 1].classList.add('done');
-      });
-    }
-    function hPlay() {
-      hSetScene(hSceneIdx); // swap the story while the list is about to reset
-      hEndFrame(); // clear timers + spinner, then re-arm
-      hStage.classList.add('h-run');
-      hBeat('t'); // rewind: doc blank, cursor hidden, prompt box empty
-      hItems.forEach(function (li) { li.classList.remove('done'); li.classList.remove('h-in'); });
-      hH4.classList.remove('h-in');
-      /* beat t — you say it: the task request types into the empty box;
-         the agent moves only once you've finished (F/G's grammar) */
-      hQ.textContent = '';
-      typeInto(hQ, H_SCENES[hSceneIdx].q, 18, 20, hAfter, function () {
-        /* beat 0 — the write: you asked; the agent puts the checklist
-           INTO the doc — where the whiteboard comes from */
-        hBeat(0);
-        hSpinStart(hLine, 'tl h-line', hLine.getAttribute('data-write'));
-        hAim(1); // pre-aim so the entrance glides onto the first box
-        hAfter(500,  function () { hH4.classList.add('h-in'); });
-        hAfter(950,  function () { hItems[0].classList.add('h-in'); });
-        hAfter(1350, function () { hItems[1].classList.add('h-in'); });
-        hAfter(1750, function () { hItems[2].classList.add('h-in'); });
-        /* beat 1 — the wait: an agent doing nothing, on purpose (~2.5s) */
-        hAfter(2300, function () { hSpinStart(hLine, 'tl h-line', hLine.getAttribute('data-wait')); });
-        hAfter(4200, function () { hBeat(1); }); // cursor fades in, gliding already
-        hAfter(4900, function () { hClick(1); });
-        /* second answer */
-        hAfter(5600, function () { hAim(2); });
-        hAfter(6500, function () { hClick(2); });
-        /* beat 2 — hover the third… and walk away: a skip is an answer too */
-        hAfter(7200, function () { hAim(3); });
-        hAfter(8400, function () { hBeat(2); }); // cursor exits, box left open
-        /* beat 3 — the read-back: the un-ticked box is read too */
-        hAfter(9100, function () { hSpinStart(hLine, 'tl h-line', hLine.getAttribute('data-run')); });
-        hAfter(10900, function () { hBeat(3); hDoneLine(true); });
-        /* beat 4 — back to work: answers in hand, the booking starts */
-        hAfter(12100, function () {
-          hBeat(4);
-          hSpinStart(hLine2, 'tl h-line2', hLine2.getAttribute('data-run'));
-        });
-        /* hold the end-frame, then replay the chosen story */
-        hAfter(16100, function () { if (hRunning) hPlay(); });
-      });
-    }
-    function hGate() {
-      if (!hStage) return;
-      var run = !reduce && hInView &&
-                (!agentPin || !agentPin.enhanced || (agentPin.pinned && agentPin.active === 3));
-      if (run && !hRunning) { hRunning = true; hSceneIdx = 0; hPlay(); }
-      else if (!run && hRunning) {
-        hRunning = false;
-        hSetScene(0); // every frozen fallback is scene 0, same as no-JS
-        hEndFrame();
-      }
-    }
-    if (hStage) {
-      hLine   = hStage.querySelector('.h-line');
-      hLine2  = hStage.querySelector('.h-line2');
-      hItems  = Array.prototype.slice.call(hStage.querySelectorAll('.h-tasks li'));
-      hCursor = hStage.querySelector('.f-cursor');
-      hFile   = hStage.querySelector('.tb-file');
-      hTitle  = hStage.querySelector('.fs-doc h4 .k-ed');
-      hQ      = hStage.querySelector('.h-qt');
-      hH4     = hStage.querySelector('.fs-doc h4');
-      hSws    = Array.prototype.slice.call(hStage.querySelectorAll('.h-switch .h-sw'));
-      hSws.forEach(function (b) {
-        b.addEventListener('click', function () {
-          var j = +b.getAttribute('data-h-scene');
-          if (hRunning) { hSceneIdx = j; hPlay(); } // start that story from the top
-          else { hSetScene(j); hEndFrame(); }       // reduced-motion: swap the still
-        });
-      });
-      if ('IntersectionObserver' in window) {
-        hInView = false;
-        new IntersectionObserver(function (entries) {
-          hInView = entries[0].isIntersecting;
-          hGate();
-        }, { threshold: 0.3 }).observe(hStage);
-      }
-      hGate();
-    }
-
-    /* —— §0 hero demo sidebar toggle (independent of typing) —— */
-    var sbToggle = document.getElementById('sbToggle');
-    var appWin = sbToggle && sbToggle.closest('.window.app');
-    if (sbToggle && appWin) {
-      var toggleSidebar = function () { appWin.classList.toggle('sidebar-open'); };
-      sbToggle.addEventListener('click', toggleSidebar);
-      var sbClose = document.getElementById('sbClose');
-      if (sbClose) sbClose.addEventListener('click', toggleSidebar);
-    }
-
-    /* —— §0 hero live-preview typing —— */
-    var host = document.getElementById('typing');
-    if (host && !reduce) {
-      var script = [
-        { type: 'h1', raw: '# Welcome', html: 'Welcome' },
-        { type: 'gap' },
-        { type: 'p',  raw: 'Open a file. Start typing.', html: 'Open a file. Start typing.' },
-        { type: 'gap' },
-        { type: 'p',  raw: '**Bold**, *italic*, `code`, a [link].', html: '<b>Bold</b>, <em>italic</em>, <code>code</code>, a <a>link</a>.' },
-        { type: 'gap' },
-        { type: 'quote', raw: '> your notes, rendered in place', html: 'your notes, rendered in place' },
-        { type: 'gap' },
-        { type: 'li', raw: '- a list item', html: 'a list item' },
-        { type: 'task', raw: '- [ ] a task you can tick', html: 'a task you can tick' }
-      ];
-      var render = function (item) {
-        if (item.type === 'gap') return '<div class="spacer"></div>';
-        if (item.type === 'h1') return '<div class="demo-h1">' + item.html + '</div>';
-        if (item.type === 'p')  return '<p>' + item.html + '</p>';
-        if (item.type === 'quote') return '<blockquote>' + item.html + '</blockquote>';
-        if (item.type === 'li') return '<div class="bullet"><span class="bl">•</span><span>' + item.html + '</span></div>';
-        if (item.type === 'task') return '<div class="task"><span class="box"></span><span>' + item.html + '</span></div>';
-        return '';
-      };
-      var run = function () {
-        host.innerHTML = '';
-        var i = 0;
-        var nextLine = function () {
-          if (i >= script.length) { // finished — hold, then loop
-            setTimeout(run, 4200);
-            return;
-          }
-          var item = script[i];
-          if (item.type === 'gap') { host.insertAdjacentHTML('beforeend', render(item)); i++; nextLine(); return; }
-          var cur = document.createElement('div'); cur.className = 'line line-' + item.type;
-          var raw = document.createElement('span'); raw.className = 'raw';
-          var caret = document.createElement('span'); caret.className = 'caret';
-          cur.appendChild(raw); cur.appendChild(caret); host.appendChild(cur);
-          var t = item.raw, c = 0;
-          var typeChar = function () {
-            raw.textContent = t.slice(0, c);
-            c++;
-            if (c <= t.length) { setTimeout(typeChar, 26 + Math.round(Math.abs(Math.sin(c)) * 34)); }
-            else { setTimeout(function () { cur.outerHTML = render(item); i++; setTimeout(nextLine, 260); }, 220); }
-          };
-          typeChar();
-        };
-        nextLine();
-      };
-      run();
-    }
-
-    /* —— §9 download platform menu: close on outside click / Esc ——
+    /* —— download platform menu: close on outside click / Esc ——
        (the <details> itself opens and closes natively without JS) */
     var dlMenu = document.getElementById('dlMenu');
     if (dlMenu) {
@@ -1722,6 +1265,41 @@
         if (e.key === 'Escape') dlMenu.open = false;
       });
     }
+  })();
+  </script>
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
+       Production host ONLY — file:// / localhost / previews make zero external
+       requests. Contract: openspec landing-page-analytics + landing-page. -->
+  <script>
+  (function () {
+    'use strict';
+    // Gate to the deployed host so local opens stay request-free (design D2).
+    if (location.hostname !== 'openmarkdown.dev') return;
+    // count endpoint — the single migration point when moving to a self-hosted
+    // GoatCounter (design D5). Registered GoatCounter site code: openmarkdown.
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    // count.js is served from GoatCounter's shared CDN; the per-site subdomain
+    // path (…goatcounter.com/count.js) 404s. Beacons still go to ENDPOINT via
+    // the data-goatcounter attribute. Self-hosting later: point both here.
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    // Download + outbound clicks as custom events; never block navigation (D4).
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
   })();
   </script>
 
