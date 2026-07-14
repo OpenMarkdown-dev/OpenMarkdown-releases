@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transparency — OpenMarkdown</title>
+  <meta name="description" content="Exactly what OpenMarkdown touches on your machine — your files, the network, your shell — and what the website itself collects.">
+  <link rel="canonical" href="https://openmarkdown.dev/transparency">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="Transparency — OpenMarkdown">
+  <meta property="og:description" content="Exactly what OpenMarkdown touches on your machine — your files, the network, your shell — and what the website itself collects.">
+  <meta property="og:url" content="https://openmarkdown.dev/transparency">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Transparency — OpenMarkdown">
+  <meta name="twitter:description" content="Exactly what OpenMarkdown touches on your machine — your files, the network, your shell — and what the website itself collects.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <!-- shared chrome: same nav structure as index.html (the canonical copy),
+       minus over-hero (this page opens on paper). Cross-page links are
+       root-absolute extensionless (/, /#agents). Transparency has no nav link,
+       so no aria-current here. -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>What OpenMarkdown touches on your machine</h1>
+      <p class="lede">OpenMarkdown is a local Markdown editor. It should be trustworthy the way a plain-text file is trustworthy — so here is exactly what it touches, and what it leaves alone.</p>
+      <a class="back-home" href="/">← back to home</a>
+    </header>
+
+    <!-- ————— your files ————— -->
+    <section class="guide-sec" id="files">
+      <h2>Your files</h2>
+      <p>Everything you write is plain Markdown, saved as <code>.md</code> in a folder you pick. No database, no proprietary format, no account. Uninstall OpenMarkdown and every file opens, unchanged, in any editor. Images you paste are saved in an <code>attachments/</code> folder next to your note and linked with a relative path, so notes stay portable.</p>
+    </section>
+
+    <!-- ————— the network ————— -->
+    <section class="guide-sec" id="network">
+      <h2>The network</h2>
+      <p>The app has no AI inside it and sends no telemetry. The only thing it ever puts on the network is a check for a newer version — a request to the GitHub releases where OpenMarkdown is published, which, like any web request, lets that server see your IP. There is no account and no identifier. Your files, your keystrokes, and how you use the app never leave your machine.</p>
+    </section>
+
+    <!-- ————— your shell ($VISUAL) ————— -->
+    <section class="guide-sec" id="shell">
+      <h2>Your shell (<code>$VISUAL</code>)</h2>
+      <p>If you turn on the <code>$VISUAL</code> integration — so “edit in your editor,” including from your agent, opens OpenMarkdown — the app adds one clearly-marked block to your shell config:</p>
+      <pre><code># &gt;&gt;&gt; OpenMarkdown VISUAL &gt;&gt;&gt;
+export VISUAL="openmd --wait --source claude"
+# &lt;&lt;&lt; OpenMarkdown VISUAL &lt;&lt;&lt;</code></pre>
+      <p>That is the whole change. Specifically:</p>
+      <ul>
+        <li>It writes to <code>~/.zshrc</code>, and to <code>~/.bash_profile</code> or <code>~/.bashrc</code> only if you already have one — it never creates a shell file you didn’t have.</li>
+        <li>It only ever touches text between those two markers. Everything else in your config is preserved byte-for-byte.</li>
+        <li>Turning the integration off deletes the block and nothing else. A <code>VISUAL=</code> line you set yourself, outside the markers, is never touched.</li>
+        <li>The file is written atomically — a fresh file is renamed into place — so a crash mid-write can’t truncate your config, and your original permission bits are kept (a locked-down <code>600</code> file stays <code>600</code>).</li>
+      </ul>
+      <p>The source for this is a single small file. It’s closed today — but if you want to audit it, ask and I’ll send it over.</p>
+    </section>
+
+    <!-- ————— default app ————— -->
+    <section class="guide-sec" id="default-app">
+      <h2>Default app</h2>
+      <p>A button in Settings, off until you press it, registers OpenMarkdown as the macOS handler for <code>.md</code> and <code>.markdown</code>. That’s a system setting, not a change to your files.</p>
+      <p>Before taking over, it records the app that was default first. <b>Revert</b> puts that exact app back.</p>
+    </section>
+
+    <!-- ————— openmd CLI ————— -->
+    <section class="guide-sec" id="cli">
+      <h2>CLI <code>openmd</code></h2>
+      <p>A button in Settings, off until you press it, installs the <code>openmd</code> command. Nothing is downloaded — it’s a symlink to the <code>openmd</code> binary already inside the app, VS Code style, in <code>/usr/local/bin</code> or <code>~/.local/bin</code>.</p>
+      <p><b>Uninstall</b> removes that link, and only that link. Same rule as <code>$VISUAL</code>: OpenMarkdown only removes what it put there.</p>
+    </section>
+
+    <!-- ————— this website (site-side data: analytics + updater target) ————— -->
+    <section class="guide-sec" id="this-website">
+      <h2>This website</h2>
+      <p>This site counts page views with a privacy-friendly analytics tool: no cookies, no personal data, no consent banner — just aggregate views, referrer, and country. It runs only on the live site, so if you open these pages from a file the browser makes no external requests at all.</p>
+    </section>
+
+    <!-- ————— no warranty ————— -->
+    <section class="guide-sec" id="warranty">
+      <h2>No warranty</h2>
+      <p>OpenMarkdown is free to use. The app is closed-source and provided as-is, without warranty of any kind. You’re trusted to decide whether it fits your machine and your work.</p>
+      <a class="back-home" href="/">← back to home</a>
+    </section>
+
+  </main>
+
+  <!-- shared chrome: same footer markup as index.html (the canonical copy).
+       Footer link set (Releases · GitHub · Transparency) is identical on every
+       page; #footFlat stays empty here — only index's JS fills it. -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
+       Production host ONLY — file:// / localhost / previews make zero external
+       requests. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome: identical to index.html (authoritative). -->
+  <script>
+  (function () {
+    'use strict';
+    // Gate to the deployed host so local opens stay request-free (design D2).
+    if (location.hostname !== 'openmarkdown.dev') return;
+    // count endpoint — the single migration point when moving to a self-hosted
+    // GoatCounter (design D5). Registered GoatCounter site code: openmarkdown.
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    // count.js is served from GoatCounter's shared CDN; the per-site subdomain
+    // path (…goatcounter.com/count.js) 404s. Beacons still go to ENDPOINT via
+    // the data-goatcounter attribute. Self-hosting later: point both here.
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    // Download + outbound clicks as custom events; never block navigation (D4).
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

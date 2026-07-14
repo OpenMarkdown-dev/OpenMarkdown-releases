@@ -1144,6 +1144,12 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
 .steps { margin: 1.5rem 0 0 1.2rem; display: grid; gap: 0.9rem; }
 .steps li { padding-left: 0.3rem; text-wrap: pretty; }
 .steps li b { font-weight: 650; }
+/* prose lists + fenced code block inside guide sections (transparency page) —
+   the global `* { padding: 0 }` reset strips list indent, so restore it here */
+.guide-sec ul { margin: 0.9rem 0 0 1.2rem; max-width: 44rem; display: grid; gap: 0.5rem; }
+.guide-sec ul li { padding-left: 0.3rem; text-wrap: pretty; }
+.guide-sec pre { margin-top: 1rem; max-width: 44rem; overflow-x: auto; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 0.5rem; padding: 0.9rem 1.1rem; }
+.guide-sec pre code { font-family: var(--mono); font-size: 0.82rem; line-height: 1.6; background: none; padding: 0; color: var(--fg); }
 .callout { margin-top: 1.5rem; border: 1px solid var(--line-soft); border-left: 3px solid var(--signal); border-radius: 0.5rem; padding: 1rem 1.25rem; background: var(--surface); font-size: 0.95rem; text-wrap: pretty; }
 .back-home { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); text-decoration: none; }
 .back-home:hover { color: var(--fg); }
@@ -1310,6 +1316,10 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
 
 @media (max-width: 52rem) {
   .grid { grid-template-columns: 1fr 1fr; }
+  /* live-preview three-mode demo stacks single-column (accordion above, window
+     below — DOM order) so the preview window keeps the full measure and its
+     doc stays readable; two columns here squeeze it to nothing */
+  .modes { grid-template-columns: 1fr; }
   /* hero head tightens its vertical rhythm on narrow screens (already centered) */
   .hero-head { gap: 1.5rem; }
   /* demo window keeps full width on narrow screens; text uses the full measure */
@@ -1322,6 +1332,14 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
 @media (max-width: 34rem) {
   .grid { grid-template-columns: 1fr; }
   .stats { gap: 1rem; grid-template-columns: 1fr; }
+  /* hands-on: narrower than the centered pill's fit width — drop the tab control
+     and fall back to the no-JS layout (all three demo panels stacked, separated
+     by a rule, fully readable) so the pill never wraps to two rows. F stays a
+     static end-frame (<52rem); the palette demo rests on its static first frame
+     since no tab is active. Mirrors the `.seg-panel + .seg-panel` no-JS stack. */
+  .segmented.js .seg-control { display: none; }
+  .segmented.js .seg-panel { display: block; }
+  .segmented.js .seg-panel + .seg-panel { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line-soft); }
   /* keep the nav-height compensation (the hero rides under the transparent
      nav) — a bare value here once put the mark underneath the navbar */
   .hero { padding-top: calc(var(--nav-h) + 1.25rem); }
