@@ -1,6 +1,6 @@
 {
   "name": "openmarkdown",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Use OpenMarkdown as a shared whiteboard with the user: preview and reveal markdown you produce, sense what they are looking at, and hand decisions back through their editor.",
   "author": {
     "name": "Xueyan Zhang"
