@@ -1076,6 +1076,10 @@ a { color: inherit; }
 .cta h2 .quiet { color: var(--signal); }
 .cta .btn { margin-top: 2rem; padding: 1rem 2.2rem; font-size: 1.125rem; border-radius: 0.6rem; }
 .cta .platform { display: block; margin-top: 0.9rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); }
+/* Product Hunt featured badge — self-hosted SVG (see index.html comment). */
+.ph-badge { display: inline-block; margin-top: 1.8rem; line-height: 0; border-radius: 10px; transition: opacity 0.15s ease; }
+.ph-badge:hover { opacity: 0.85; }
+.ph-badge img { display: block; width: 250px; height: auto; max-width: 100%; }
 
 /* download split button — main button + caret sharing one ink capsule; the
    caret is a native <details> so the platform menu opens without JS */
