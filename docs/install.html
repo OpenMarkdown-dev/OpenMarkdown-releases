@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install — OpenMarkdown</title>
+  <meta name="description" content="Install OpenMarkdown for your agent: paste one sentence and it sets itself up, or wire it by hand for Claude Code, Codex, Gemini CLI, opencode, or any MCP client.">
+  <link rel="canonical" href="https://openmarkdown.dev/install">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="Install — OpenMarkdown">
+  <meta property="og:description" content="Paste one sentence to your agent — it reads this page and installs OpenMarkdown, then opens your first note. Or wire it up by hand.">
+  <meta property="og:url" content="https://openmarkdown.dev/install">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Install — OpenMarkdown">
+  <meta name="twitter:description" content="Paste one sentence to your agent — it reads this page and installs OpenMarkdown, then opens your first note.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <!-- shared chrome: same nav structure as index.html (the canonical copy),
+       minus over-hero (this page opens on paper). Install is not in the fixed
+       nav set (Agents / Features / Guide / GitHub / Download), so no link here
+       is aria-current. Cross-page links are root-absolute extensionless. -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>Install</h1>
+      <p class="lede">Hand one sentence to your agent and it sets OpenMarkdown up for you — checks your machine, wires in the tools, and opens your first note. Or do any of it by hand below.</p>
+      <a class="back-home" href="/">← back to home</a>
+    </header>
+
+    <!-- ————— the one sentence ————— -->
+    <section class="guide-sec" id="one-sentence">
+      <h2>Paste one sentence</h2>
+      <p class="lede">Give this to any agent that can read a URL. It reads this page and does the rest — the URL is the single thing that stays current, so the sentence never goes stale.</p>
+      <div class="callout copyable"><code>Read openmarkdown.dev/install to install OpenMarkdown and open my first note</code></div>
+      <p>That's the whole install for most people. Want to see or run the steps yourself? They're below — pick your agent.</p>
+    </section>
+
+    <!-- ————— prerequisite: the app is the tools ————— -->
+    <section class="guide-sec" id="app-first">
+      <h2>First: install the app</h2>
+      <p class="lede">OpenMarkdown's tools <b>are</b> the desktop app — the MCP server is <code>openmd mcp</code>, your local app in server mode. An agent can install the plugin, but it can't download the app or grant it permissions. So this step is yours, and it comes first.</p>
+      <ol class="steps">
+        <li><b>Download and install the app.</b> Grab the <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">latest release</a> and drag it to Applications.</li>
+        <li><b>Install the <code>openmd</code> CLI.</b> Open Settings → System integration and turn on the command line tool. It drops <code>openmd</code> on your PATH.</li>
+        <li><b>Check it.</b> Run <code>openmd status</code> — it should answer. If <code>openmd</code> isn't found, the app or CLI isn't set up yet; finish this before wiring your agent.</li>
+      </ol>
+      <div class="callout"><b>Agents reading this:</b> probe <code>openmd</code> on the PATH first. If it's missing, <b>stop</b> and tell the user to install the app and turn on the CLI in Settings — do not try to install the app yourself.</div>
+    </section>
+
+    <!-- ————— connect your agent (host selector) —————
+         No-JS: every host card stacks, fully readable, so an agent fetching this
+         page sees all of them. JS collapses them into a pill control. Mirrors
+         index.html's #handsSeg exactly (site.css .segmented / .seg-* rules). -->
+    <section class="guide-sec" id="connect">
+      <h2>Then: connect your agent</h2>
+      <p class="lede"><b>Claude Code</b> gets the full plugin — the seven MCP tools <i>and</i> a skill that teaches it when to use them. Every other agent connects the same MCP server (the tools); the skill is Claude Code–only. The runtime is identical either way: plain <code>openmd mcp</code> over stdio.</p>
+
+      <div class="segmented" id="hostSeg">
+        <div class="seg-control" role="tablist" aria-label="Your agent">
+          <button class="seg-tab on" type="button" role="tab" aria-selected="true" id="hosttab-0" aria-controls="hostpanel-0" data-seg="0">Claude Code</button>
+          <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="hosttab-1" aria-controls="hostpanel-1" data-seg="1">Codex</button>
+          <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="hosttab-2" aria-controls="hostpanel-2" data-seg="2">Gemini CLI</button>
+          <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="hosttab-3" aria-controls="hostpanel-3" data-seg="3">opencode</button>
+          <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="hosttab-4" aria-controls="hostpanel-4" data-seg="4">Any MCP client</button>
+        </div>
+
+        <div class="seg-panels">
+
+          <!-- Claude Code — full plugin -->
+          <section class="seg-panel on" id="hostpanel-0" role="tabpanel" aria-labelledby="hosttab-0" data-seg="0">
+            <div class="seg-head"><h3>Claude Code</h3></div>
+            <p class="host-kind full">Full plugin — the seven MCP tools <b>plus</b> the skill.</p>
+            <p><b>Hand it the sentence</b> (it installs the plugin and opens your first note):</p>
+            <div class="callout copyable"><code>Read openmarkdown.dev/install to install OpenMarkdown and open my first note</code></div>
+            <p><b>Or run it yourself:</b></p>
+            <div class="codeblock copyable"><code>claude plugin marketplace add OpenMarkdown-dev/OpenMarkdown-releases
+claude plugin install openmarkdown@openmarkdown</code></div>
+            <p>Want the tools only, without the skill? <code>claude mcp add openmd -- openmd mcp</code></p>
+          </section>
+
+          <!-- Codex — MCP only -->
+          <section class="seg-panel" id="hostpanel-1" role="tabpanel" aria-labelledby="hosttab-1" data-seg="1">
+            <div class="seg-head"><h3>Codex</h3></div>
+            <p class="host-kind">Connects the seven MCP tools. The skill is Claude Code–only, so Codex won't load it — the tools work the same.</p>
+            <p><b>One line:</b></p>
+            <div class="codeblock copyable"><code>codex mcp add openmd -- openmd mcp</code></div>
+            <p><b>Or by hand</b> in <code>~/.codex/config.toml</code>:</p>
+            <div class="codeblock copyable"><code>[mcp_servers.openmd]
+command = "openmd"
+args = ["mcp"]</code></div>
+          </section>
+
+          <!-- Gemini CLI — MCP only -->
+          <section class="seg-panel" id="hostpanel-2" role="tabpanel" aria-labelledby="hosttab-2" data-seg="2">
+            <div class="seg-head"><h3>Gemini CLI</h3></div>
+            <p class="host-kind">Connects the seven MCP tools. The skill is Claude Code–only, so Gemini won't load it — the tools work the same.</p>
+            <p><b>One line:</b></p>
+            <div class="codeblock copyable"><code>gemini mcp add openmd openmd mcp</code></div>
+            <p><b>Or by hand</b> in <code>~/.gemini/settings.json</code>:</p>
+            <div class="codeblock copyable"><code>{
+  "mcpServers": {
+    "openmd": { "command": "openmd", "args": ["mcp"] }
+  }
+}</code></div>
+          </section>
+
+          <!-- opencode — MCP only -->
+          <section class="seg-panel" id="hostpanel-3" role="tabpanel" aria-labelledby="hosttab-3" data-seg="3">
+            <div class="seg-head"><h3>opencode</h3></div>
+            <p class="host-kind">Connects the seven MCP tools. The skill is Claude Code–only, so opencode won't load it — the tools work the same.</p>
+            <p>No add command — set it in <code>opencode.json</code> (project) or <code>~/.config/opencode/opencode.json</code> (global):</p>
+            <div class="codeblock copyable"><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "openmd": { "type": "local", "command": ["openmd", "mcp"], "enabled": true }
+  }
+}</code></div>
+          </section>
+
+          <!-- Any MCP client — MCP only -->
+          <section class="seg-panel" id="hostpanel-4" role="tabpanel" aria-labelledby="hosttab-4" data-seg="4">
+            <div class="seg-head"><h3>Any MCP client</h3></div>
+            <p class="host-kind">Anything that speaks MCP can spawn the server. Point it at <code>openmd mcp</code> over stdio — no arguments, no network.</p>
+            <div class="codeblock copyable"><code>{ "command": "openmd", "args": ["mcp"] }</code></div>
+            <p>That's the whole contract: a stdio server named <code>openmd</code> running <code>openmd mcp</code>. Consult your client's docs for where its config lives.</p>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ————— the first-run script (single source) —————
+         The three-beat co-edit walkthrough your agent runs once the tools are
+         live. For Claude Code it ships in the plugin skill; it's inlined here
+         verbatim so agents WITHOUT the skill (every other host) still have it.
+         Generated from plugin/skills/using-openmarkdown/references/first-run-guide.md
+         by scripts/build-install-page.mjs — do not hand-edit between the markers. -->
+    <section class="guide-sec" id="first-run">
+      <h2>Finally: your first note</h2>
+      <p class="lede">With the tools live, your agent opens a note and walks you through co-editing it — you and it writing in the same file, the app just rendering it. Here's the exact script it follows. <b>Agents reading this page: this is yours to run.</b></p>
+      <!-- BEGIN first-run-guide (generated — do not edit) -->
+      <div class="codeblock"><code># First-run guide — the co-edit first moment
+
+Agent-facing runbook for the very first thing to do once OpenMarkdown's plugin/MCP is installed and verified. Your job: in about 30 seconds, make *"the human and the agent share one file, and the app just renders it"* **felt**, not explained.
+
+This file is the single source of truth for that script. The install runbook page (`openmarkdown.dev/install`) inlines this same file so non-Claude MCP hosts get the identical steps — so keep everything here host-neutral (only the seven MCP tools, no Claude-Code-specific verbs).
+
+**Prerequisite** (the install runbook has already met it): `openmd` is on PATH and the tools `open_file`, `reveal`, `write_section`, `read_section`, `wait_for_change` are live. If they are not, you are running out of order — stop and finish install first.
+
+**Language:** the user-facing strings below (the consent line, the note body, the headings) are the English canonical form. Render them in the user's UI language when you know it — e.g. the "Your turn" heading is `## 轮到你` in Chinese, `## あなたの番` in Japanese. You wrote the note, so you always know which heading text to read back in Beat 3.
+
+## Beat 0 — Ask first (consent gate)
+
+Before opening anything, ask one light line in chat and wait for the answer:
+
+&gt; "Installed. Want me to open a note and walk you through co-editing together? (yes / later)"
+
+- **Skip the ask** if the sentence that triggered this install already asked to open a note (e.g. "…and open my first note"). That is consent — go straight to Beat 1.
+- **"later"** → do **not** steal focus. Quietly create the note (below) **without** `reveal`, then say: "Left it at `~/OpenMarkdown/Welcome_to_openmd_agent.md` — open it or ping me whenever." Stop here.
+- **"yes"** → continue.
+
+## The note
+
+Create a real, keeper file at `~/OpenMarkdown/Welcome_to_openmd_agent.md` (the user's default notes dir). Never a temp/throwaway file — it stays on disk so the point lands: *this is your file, not a chat log.* Seed it with:
+
+```markdown
+# Welcome to OpenMarkdown
+
+I'm your agent. I just opened this note in front of you — it's a real file on
+your disk (`~/OpenMarkdown/Welcome_to_openmd_agent.md`), not a chat message.
+We can both write in it.
+
+## Watch this
+
+&lt;!-- the agent writes here, live, in Beat 2 --&gt;
+
+## Your turn
+
+&lt;!-- leave this blank for the user --&gt;
+```
+
+## Beat 1 — Open it (proves `open_file` / `reveal`)
+
+`open_file` the note, then `reveal` it so the app comes to the front. One line in chat: "That window that just popped up — I opened it for you. Look at the note."
+
+## Beat 2 — Write while they watch (agent → file → render)
+
+`write_section` into `## Watch this` — ideally two or three small writes with a beat between them, so text appears line by line in their editor rather than all at once. Write something that proves it is live: a one-line hello, the note's path, and "you're watching me type into your file right now." This is the agent→human direction of co-editing.
+
+## Beat 3 — Their turn (human → agent, closes the loop)
+
+Ask them to write one line under `## Your turn` and save (⌘S / Ctrl+S). Then `wait_for_change` on the note. When it returns, `read_section` the "Your turn" section and reply in chat **quoting what they wrote** — "Got it — you wrote '…'." That read-back is the proof the loop closes both ways.
+
+**Degrade — never hang.** `wait_for_change` blocks. If they stall or say "skip", wind down gracefully (a short `wait_for_change` timeout in a loop, or stop the moment they say so) and say: "No rush — write a line under `## Your turn` whenever, and I'll pick it up." Never sit in an unbounded wait.
+
+## Tail — "Also try" (they explore the rest on their own)
+
+After the three beats, offer a short menu (in chat, or appended to the note) of things they can try **separately**. Do **not** expand it into a second forced tutorial — the beats teach exactly one co-edit loop; everything else is opt-in here:
+
+- `export VISUAL="openmd --wait"` — then `git commit` (and anything using `$EDITOR`/`$VISUAL`) opens in OpenMarkdown.
+- `⌘P` — the command palette (files / commands / outline).
+- Drag an image into a note — it's saved next to the file and linked with a relative path.
+- Ask me to jump you to any heading — I'll `reveal` it.</code></div>
+      <!-- END first-run-guide -->
+    </section>
+
+  </main>
+
+  <!-- shared chrome: same footer markup as index.html (the canonical copy);
+       #footFlat stays empty here — only index's JS fills it -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- host selector: collapse the stacked cards into a pill control when JS is
+       on. No-JS leaves every card stacked and readable (site.css .seg-panel
+       rules). Same behaviour as index.html #handsSeg, minus the demo gates. -->
+  <script>
+  (function () {
+    var seg = document.getElementById('hostSeg');
+    if (!seg) return;
+    seg.classList.add('js');
+    var tabs = Array.prototype.slice.call(seg.querySelectorAll('.seg-tab'));
+    var panels = Array.prototype.slice.call(seg.querySelectorAll('.seg-panel'));
+    var active = 0;
+    var select = function (i) {
+      active = i;
+      tabs.forEach(function (t, j) {
+        t.classList.toggle('on', j === i);
+        t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+        t.tabIndex = j === i ? 0 : -1;
+      });
+      panels.forEach(function (p, j) { p.classList.toggle('on', j === i); });
+    };
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i); });
+      t.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return; e.preventDefault();
+        var n = (active + d + tabs.length) % tabs.length;
+        select(n); tabs[n].focus();
+      });
+    });
+  })();
+  </script>
+
+  <!-- copy buttons: progressive enhancement for boxes marked .copyable. Wraps
+       each in a positioned .copybox and drops a Copy button top-right. No-JS or
+       no clipboard API → no button, box stays selectable. Mirrors index.html. -->
+  <script>
+  (function () {
+    var boxes = document.querySelectorAll('.copyable');
+    if (!boxes.length || !navigator.clipboard) return;
+    var COPY = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    var DONE = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    Array.prototype.forEach.call(boxes, function (box) {
+      var wrap = document.createElement('div');
+      wrap.className = 'copybox';
+      box.parentNode.insertBefore(wrap, box);
+      wrap.appendChild(box);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.setAttribute('aria-label', 'Copy');
+      btn.innerHTML = COPY;
+      btn.addEventListener('click', function () {
+        var code = box.querySelector('code');
+        var text = (code ? code.textContent : box.textContent) || '';
+        navigator.clipboard.writeText(text).then(function () {
+          btn.innerHTML = DONE;
+          setTimeout(function () { btn.innerHTML = COPY; }, 1400);
+        }).catch(function () {});
+      });
+      wrap.appendChild(btn);
+    });
+  })();
+  </script>
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
+       Production host ONLY — file:// / localhost / previews make zero external
+       requests. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome: identical to index.html (authoritative). -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

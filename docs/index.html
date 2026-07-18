@@ -736,6 +736,21 @@
       </div>
     </section>
 
+    <!-- ═══════════ connect your agent ═══════════
+         Landing keeps only the automatic path: the one universal sentence (with
+         a copy button). The per-host manual commands live on /install — the
+         sentence works for every agent because the runbook branches, not the
+         sentence (src/lib/agentHosts.ts, spec agent-install-runbook). -->
+    <div class="seam" aria-hidden="true"></div>
+    <section class="section" id="connect">
+      <div class="wrap">
+        <h2 class="md-h">Bring your agent.</h2>
+        <p class="lede">To install, paste this into your agent</p>
+        <div class="callout copyable"><code>Read openmarkdown.dev/install to install OpenMarkdown and open my first note</code></div>
+        <p class="connect-more"><a class="btn" href="/install">Full install guide →</a></p>
+      </div>
+    </section>
+
     <!-- ═══════════ download ═══════════ -->
     <div class="seam" aria-hidden="true"></div>
     <section class="cta" id="download" aria-label="Download">
@@ -795,7 +810,7 @@
     var nav = document.getElementById('nav');
     if (nav) {
       var inkZones = [];
-      ['.hero', '.band', 'footer'].forEach(function (sel) {
+      ['.hero', '.band', '#connect', 'footer'].forEach(function (sel) {
         var el = document.querySelector(sel);
         if (el) inkZones.push(el);
       });
@@ -1266,6 +1281,38 @@
         if (e.key === 'Escape') dlMenu.open = false;
       });
     }
+  })();
+  </script>
+
+  <!-- copy buttons: progressive enhancement for boxes marked .copyable. Wraps
+       each in a positioned .copybox and drops a Copy button top-right. No-JS or
+       no clipboard API → no button, box stays selectable. Mirrors install.html. -->
+  <script>
+  (function () {
+    var boxes = document.querySelectorAll('.copyable');
+    if (!boxes.length || !navigator.clipboard) return;
+    var COPY = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    var DONE = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    Array.prototype.forEach.call(boxes, function (box) {
+      var wrap = document.createElement('div');
+      wrap.className = 'copybox';
+      box.parentNode.insertBefore(wrap, box);
+      wrap.appendChild(box);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.setAttribute('aria-label', 'Copy');
+      btn.innerHTML = COPY;
+      btn.addEventListener('click', function () {
+        var code = box.querySelector('code');
+        var text = (code ? code.textContent : box.textContent) || '';
+        navigator.clipboard.writeText(text).then(function () {
+          btn.innerHTML = DONE;
+          setTimeout(function () { btn.innerHTML = COPY; }, 1400);
+        }).catch(function () {});
+      });
+      wrap.appendChild(btn);
+    });
   })();
   </script>
 

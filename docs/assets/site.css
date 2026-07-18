@@ -1344,3 +1344,52 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
      nav) — a bare value here once put the mark underneath the navbar */
   .hero { padding-top: calc(var(--nav-h) + 1.25rem); }
 }
+
+/* ————— install.html: agent connect cards + the inlined first-run script —————
+   Monospace command/runbook boxes scroll horizontally on overflow so the page
+   body never does. The first-run block is generated verbatim from the plugin
+   skill's single source by scripts/build-install-page.mjs — never hand-edited. */
+.codeblock {
+  margin-top: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--line);
+  border-radius: 12px; background: var(--surface); overflow-x: auto;
+}
+.codeblock code {
+  display: block; font-family: var(--mono); font-size: 0.82rem; line-height: 1.65;
+  white-space: pre; color: var(--fg);
+}
+.host-kind { color: var(--signal); font-size: 0.95rem; margin-top: 0.4rem; }
+.host-kind.full { color: var(--fg); }
+/* /install's host selector reuses the segmented control, but its panels are
+   short — opt out of the hands-on demo's fixed 37.5rem stage height (id beats the
+   .segmented.js rule at every width, so no empty gap below the cards). */
+#hostSeg.js .seg-panels { min-height: 0; }
+.connect-more { margin-top: 1.75rem; }
+
+/* #connect is an ink ground (mirrors the hero / agent band): reversed tokens on
+   the subtree, lighter lede for contrast. Registered in the nav's ink-zone list
+   (index.html) so the nav recolors over it; the flanking .seam stripes serve
+   both grounds unchanged. */
+#connect {
+  background: var(--ink); color: #F4F0E6;
+  --fg: #F4F0E6; --bg: var(--ink);
+  --surface: rgba(244, 240, 230, 0.06);
+  --line: rgba(244, 240, 230, 0.20); --line-soft: rgba(244, 240, 230, 0.10);
+}
+#connect .lede { color: #cfc9bd; }
+
+/* copy buttons (JS-injected): a positioned wrapper + a Copy button top-right of
+   any .codeblock/.callout marked .copyable. The inner box gets right padding so
+   content never slides under the button. No-JS → no wrapper, no button. */
+.copybox { position: relative; }
+.copybox > .callout, .copybox > .codeblock { padding-right: 3.25rem; }
+/* icon button, vertically centered on the box's right edge */
+.copy-btn {
+  position: absolute; top: 50%; right: 0.6rem; transform: translateY(-50%); z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; padding: 0;
+  color: var(--signal); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px; cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.copy-btn:hover { color: var(--fg); border-color: var(--fg); }
+.copy-btn svg { display: block; }
