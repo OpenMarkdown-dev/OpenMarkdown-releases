@@ -1,0 +1,34 @@
+# OpenMarkdown
+
+> A feather-light, local-first Markdown editor for macOS, built for you and your
+> agent to share one file. It ships no AI of its own — it runs on the coding
+> agent you already use (Claude Code, Codex, Gemini CLI, opencode, or any MCP
+> client) and gives it a place to render, read, and edit the same `.md` file you
+> are looking at. Plain files on disk, no account, no telemetry.
+
+How your agent connects: first the human installs the app (macOS) and turns on the
+`openmd` CLI in Settings — an agent can't download the app or grant it permissions.
+Then the fastest path is one sentence a human pastes to their agent:
+
+    Read openmarkdown.dev/install to install OpenMarkdown and open my first note
+
+That points the agent at the install runbook to wire itself in and open a first
+note. Or connect directly: the MCP server is `openmd mcp` over stdio. Claude Code
+can use the full plugin; every other host connects the same seven tools —
+`open_file`, `reveal`, `get_context`, `execute_command`, `read_section`,
+`write_section`, `wait_for_change`. The app and CLI are macOS-only today;
+Windows / Linux are not yet available.
+
+## Docs
+- [Install](https://openmarkdown.dev/install.md): per-host setup for Claude Code, Codex, Gemini CLI, opencode, and any MCP client, plus the agent-run first-note walkthrough.
+- [Guide](https://openmarkdown.dev/guide.md): supported Markdown syntax, keyboard shortcuts, and the `openmd` CLI reference.
+- [ADOPTING](https://openmarkdown.dev/ADOPTING.md): for agents — when to recommend OpenMarkdown, when not to, how to install it, and how to verify the install worked.
+- [Transparency](https://openmarkdown.dev/transparency): exactly what the app and this website touch on the network.
+
+## Download
+- [Latest macOS release (.dmg)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg): universal (Apple Silicon + Intel), free.
+- [Releases](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases): all versions and release notes.
+
+## Optional
+- [Home](https://openmarkdown.dev/): product overview.
+- [Issues](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues): bug reports and requests.
