@@ -183,6 +183,9 @@ a { color: inherit; }
 .hero-cta { margin-top: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 .cta-row { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 .hero-note { font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); }
+/* Product Hunt social proof — hero text line (single-colour, no image/request) */
+.hero-ph { font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); text-decoration: none; transition: color 0.15s ease; }
+.hero-ph:hover { color: var(--fg); }
 
 /* hero head — a centered vertical stack: lockup, then tagline, then lede */
 .hero-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2.25rem; }
@@ -1076,8 +1079,11 @@ a { color: inherit; }
 .cta h2 .quiet { color: var(--signal); }
 .cta .btn { margin-top: 2rem; padding: 1rem 2.2rem; font-size: 1.125rem; border-radius: 0.6rem; }
 .cta .platform { display: block; margin-top: 0.9rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); }
-/* Product Hunt featured badge — self-hosted SVG (see index.html comment). */
+/* Product Hunt CTA badge — a host-gated remote embed whose <img> is injected by
+   JS only on the live host (see index.html). Empty on local opens, so :empty
+   collapses the slot (no orphan top-margin); the hero text line is the baseline. */
 .ph-badge { display: inline-block; margin-top: 1.8rem; line-height: 0; border-radius: 10px; transition: opacity 0.15s ease; }
+.ph-badge:empty { display: none; }
 .ph-badge:hover { opacity: 0.85; }
 .ph-badge img { display: block; width: 250px; height: auto; max-width: 100%; }
 

@@ -95,6 +95,10 @@
             <a class="btn ghost" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">View on GitHub</a>
           </div>
           <span class="hero-note">free · rust-core · no account</span>
+          <!-- Product Hunt social proof — text line (single-colour, no image,
+               so it renders on every open incl. file:// and needs no request).
+               The colourful embed lives at the CTA; this is the baseline proof. -->
+          <a class="hero-ph" href="https://www.producthunt.com/products/openmarkdown" target="_blank" rel="noopener noreferrer">▲ #5 Product of the Day on Product Hunt</a>
         </div>
 
         <!-- the Markdown glimpse: a real live-preview typing demo in the real
@@ -774,13 +778,15 @@
           </details>
         </div>
         <span class="platform">macOS · Apple Silicon &amp; Intel (universal) · signed &amp; notarized — double-click to open</span>
-        <!-- Product Hunt featured badge. Self-hosted asset (assets/producthunt-featured.svg),
-             NOT Product Hunt's remote embed image: keeps the site's "zero external request on
-             local open" and "only external request = GoatCounter" invariants intact. The
-             click-through is a plain outbound <a> (same class as GitHub / releases links). -->
-        <a class="ph-badge" href="https://www.producthunt.com/products/openmarkdown" target="_blank" rel="noopener noreferrer">
-          <img src="assets/producthunt-featured.svg" width="250" height="54" alt="OpenMarkdown - A markdown editor you and your agent co-edit | Product Hunt">
-        </a>
+        <!-- Product Hunt "#5 Product of the Day" badge. HOST-GATED remote embed:
+             the <img> is injected by JS ONLY on openmarkdown.dev (see script
+             below), so file:// / localhost opens make ZERO external requests —
+             the slot stays empty locally and the hero text line is the
+             always-present baseline proof. The live-site request to
+             api.producthunt.com is disclosed on /transparency. Click-through is
+             a plain outbound <a>, same tier as the GitHub / releases links.
+             Contract: landing-page 第三方推广徽章接入 (方式 b). -->
+        <a class="ph-badge" id="phBadge" href="https://www.producthunt.com/products/openmarkdown" target="_blank" rel="noopener noreferrer" aria-label="OpenMarkdown — #5 Product of the Day on Product Hunt"></a>
       </div>
     </section>
 
@@ -1355,6 +1361,29 @@
         g.count({ path: 'outbound-github', event: true });
       }
     }, true);
+  })();
+  </script>
+
+  <!-- Product Hunt badge: host-gated remote embed (same gate as analytics).
+       Injected ONLY on the deployed host, so file:// / localhost stay
+       request-free and the badge slot is empty locally. The request to
+       api.producthunt.com is disclosed on /transparency. Functional params only
+       (post_id / theme / period) — utm_* / t= tracking decorations stripped.
+       Contract: openspec landing-page 第三方推广徽章接入. -->
+  <script>
+  (function () {
+    'use strict';
+    // Same host gate as analytics: local opens make zero external requests.
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var slot = document.getElementById('phBadge');
+    if (!slot) return;
+    var img = document.createElement('img');
+    img.width = 250; img.height = 54; img.loading = 'lazy';
+    img.alt = 'OpenMarkdown — #5 Product of the Day on Product Hunt';
+    // top-post-badge renders "#5 Product of the Day" server-side.
+    img.src = 'https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg'
+            + '?post_id=1196845&theme=light&period=daily';
+    slot.appendChild(img);
   })();
   </script>
 
