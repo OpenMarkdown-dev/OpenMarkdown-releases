@@ -864,6 +864,15 @@ a { color: inherit; }
    TUI); wide overlays them (App pops over the TUI).
    ========================================================================== */
 /* narrow / flat default: two windows stacked, App above the TUI, no overlap */
+/* §0 · the $EDITOR-handoff wedge — sits tight under the banner (no entry seam);
+   copy centered above the full-width handoff stage. On the ink band the f-app
+   window picks up .band .window.app automatically (matches §B/§C). */
+#editor-handoff { padding-bottom: 1.5rem; }
+#editor-handoff .eh-head { text-align: center; max-width: 46rem; margin-inline: auto; }
+#editor-handoff .eh-head .lede { margin-top: 1rem; margin-inline: auto; color: #E7E2D6; font-size: 1.0625rem; }
+#editor-handoff .eh-head .lede code { font-family: var(--mono); font-size: 0.9em; }
+#editor-handoff .eh-fine { margin-top: 0.7rem; color: #9c968b; font-size: 0.95rem; }
+
 .f-stage { position: relative; margin: 1.5rem 0 0; }
 .f-stage .f-term { margin-top: 1rem; }
 .f-stage .fs-doc { font-size: 0.82rem; min-height: 14rem; padding-top: 1.15rem; padding-bottom: 1.5rem; }

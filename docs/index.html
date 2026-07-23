@@ -225,6 +225,84 @@
         </div>
       </div>
 
+      <!-- §0 · the $EDITOR-handoff wedge — the door into the agent story
+           (animation F, seven beats). The title names the felt moment and is
+           product-absent; $EDITOR / OpenMarkdown appear only in the sub. No entry
+           seam — sits tight under the banner. Two windows, one file (red line):
+           the coding agent's TUI and OpenMarkdown, which takes over on Ctrl+G.
+           Default HTML is the frozen end-frame; JS adds .f-run + drives
+           data-beat="1..7", gated on THIS block being in view (not on any tab). -->
+      <div class="band-sec" id="editor-handoff">
+        <div class="wrap">
+          <div class="head eh-head">
+            <h2 class="md-h">The enter key shouldn&rsquo;t fire before you&rsquo;re done.</h2>
+            <p class="lede">A real prompt shouldn&rsquo;t live in a one-line box &mdash; point <code>$EDITOR</code> at OpenMarkdown, write it like a document, <b>hand your agent the finished thing.</b></p>
+            <p class="eh-fine">No undo, no drafts, no half-sent prompts.</p>
+          </div>
+          <figure class="f-stage" id="fStage" aria-label="Press Ctrl+G in your coding agent; the prompt opens in OpenMarkdown; press Done and it's filled back into the terminal">
+            <!-- OpenMarkdown — the editor that takes over on Ctrl+G -->
+            <div class="window app f-app" aria-hidden="true">
+              <div class="titlebar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="app-title">OpenMarkdown</span>
+              </div>
+              <div class="toolbar"><span class="tb-file">prompt.md</span></div>
+              <div class="f-banner">
+                <span class="fb-for">editing for: <b>claude</b> — closing the tab submits the content</span>
+                <span class="fb-acts">
+                  <span class="fb-btn">Discard</span>
+                  <span class="fb-btn fb-done">Done <kbd>⌘↩</kbd></span>
+                </span>
+              </div>
+              <div class="fs-doc">
+                <p class="f-app-lead">build a landing page</p>
+                <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t1">hero, features, pricing</span></div>
+                <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t2">dark theme</span></div>
+                <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t3">one HTML file</span></div>
+              </div>
+              <span class="f-cursor" aria-hidden="true">
+                <svg viewBox="0 0 12 18" fill="currentColor" aria-hidden="true"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <!-- the coding agent's TUI — where the prompt starts and lands back -->
+            <div class="window term f-term" aria-hidden="true">
+              <div class="titlebar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="filename">claude code</span>
+              </div>
+              <div class="term-body">
+                <div class="f-welcome">
+                  <span class="fw-cap">Claude Code v2.1.xxx</span>
+                  <div class="fw-left">
+                    <div class="fw-title">Welcome OpenMarkdown.dev</div>
+                    <pre class="fw-logo">▐▛███▜▌
+▝▜█████▛▘
+▘▘ ▝▝</pre>
+                    <div class="fw-meta">Fable 5 with Max effort · Claude Max</div>
+                    <div class="fw-path">~/OpenMarkdown/Demo</div>
+                  </div>
+                  <div class="fw-right">
+                    <div class="fw-h">Tips for getting started</div>
+                    <div class="fw-line fw-cg">ctrl + g to edit in $EDITOR</div>
+                    <div class="fw-sep"></div>
+                    <div class="fw-h">What's new</div>
+                    <div class="fw-line">…</div>
+                  </div>
+                </div>
+                <div class="f-tui-box">
+                  <div class="tl"><span class="f-tui-p">&gt; </span><span class="f-tui-cmd">build a landing page
+  - hero, features, pricing
+  - dark theme
+  - one HTML file</span></div>
+                </div>
+                <div class="tl dim f-tui-status">? for shortcuts</div>
+                <div class="f-keys" aria-hidden="true"><kbd>Ctrl</kbd><kbd>G</kbd></div>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+
       <!-- §A · positioning block — three horizontal ownership bands, one claim each:
            your agent (bring your own; it runs on the agent you already have) ·
            your file (local-first; every note is a plain .md you own) ·
@@ -522,9 +600,10 @@
 
     <!-- ═══════════ hands-on — the craft, in a segmented control ═══════════
          The confidence beat: a pill segmented control (Tabs) switches one demo
-         at a time; each demo keeps its own inherited animation (F handoff,
-         palette autoplay, live-preview modes), playing while its tab is active
-         and in view. Then the small things as a tile grid. -->
+         at a time; each demo keeps its own inherited animation (palette autoplay,
+         live-preview modes), playing while its tab is active and in view. (The
+         $EDITOR handoff moved up to the agent band as §0.) Then the small things
+         as a tile grid. -->
     <div class="seam" aria-hidden="true"></div>
     <section class="section hands-on" id="hands-on">
       <div class="wrap">
@@ -537,91 +616,14 @@
              play that demo's own animation (inherited from its feature panel) -->
         <div class="segmented" id="handsSeg">
           <div class="seg-control" role="tablist" aria-label="Hands-on features">
-            <button class="seg-tab on" type="button" role="tab" aria-selected="true" id="segtab-0" aria-controls="segpanel-0" data-seg="0">ctrl+g $EDITOR</button>
-            <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="segtab-1" aria-controls="segpanel-1" data-seg="1">cmd+p Palette</button>
-            <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="segtab-2" aria-controls="segpanel-2" data-seg="2">Live Preview</button>
+            <button class="seg-tab on" type="button" role="tab" aria-selected="true" id="segtab-0" aria-controls="segpanel-0" data-seg="0">cmd+p Palette</button>
+            <button class="seg-tab" type="button" role="tab" aria-selected="false" tabindex="-1" id="segtab-1" aria-controls="segpanel-1" data-seg="1">Live Preview</button>
           </div>
 
           <div class="seg-panels">
 
-            <!-- panel · the $VISUAL/$EDITOR handoff — animation F (seven beats).
-                 Default HTML is the frozen end-frame; JS adds .f-run and drives
-                 data-beat="1..7". Two windows: the coding agent's TUI and
-                 OpenMarkdown (which takes over on Ctrl+G). -->
-            <section class="seg-panel on" id="segpanel-0" role="tabpanel" aria-labelledby="segtab-0" data-seg="0">
-              <div class="seg-head">
-                <h3><kbd class="kc">ctrl</kbd>+<kbd class="kc">g</kbd> prompt with OpenMarkdown</h3>
-                <p class="seg-lines">
-                  <span><kbd>⌘</kbd>+<kbd>↩</kbd> when complete.</span>
-                  <span>Structured, not squeezed into a chat box.</span>
-                  <span>Never missend a prompt again.</span>
-                </p>
-              </div>
-              <figure class="f-stage" id="fStage" aria-label="Press Ctrl+G in your coding agent; the prompt opens in OpenMarkdown; press Done and it's filled back into the terminal">
-                <!-- OpenMarkdown — the editor that takes over on Ctrl+G -->
-                <div class="window app f-app" aria-hidden="true">
-                  <div class="titlebar">
-                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                    <span class="app-title">OpenMarkdown</span>
-                  </div>
-                  <div class="toolbar"><span class="tb-file">prompt.md</span></div>
-                  <div class="f-banner">
-                    <span class="fb-for">editing for: <b>claude</b> — closing the tab submits the content</span>
-                    <span class="fb-acts">
-                      <span class="fb-btn">Discard</span>
-                      <span class="fb-btn fb-done">Done <kbd>⌘↩</kbd></span>
-                    </span>
-                  </div>
-                  <div class="fs-doc">
-                    <p class="f-app-lead">build a landing page</p>
-                    <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t1">hero, features, pricing</span></div>
-                    <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t2">dark theme</span></div>
-                    <div class="bullet f-b f-shown"><span class="bl">•</span><span class="f-app-t3">one HTML file</span></div>
-                  </div>
-                  <span class="f-cursor" aria-hidden="true">
-                    <svg viewBox="0 0 12 18" fill="currentColor" aria-hidden="true"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
-                  </span>
-                </div>
-                <!-- the coding agent's TUI — where the prompt starts and lands back -->
-                <div class="window term f-term" aria-hidden="true">
-                  <div class="titlebar">
-                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                    <span class="filename">claude code</span>
-                  </div>
-                  <div class="term-body">
-                    <div class="f-welcome">
-                      <span class="fw-cap">Claude Code v2.1.xxx</span>
-                      <div class="fw-left">
-                        <div class="fw-title">Welcome OpenMarkdown.dev</div>
-                        <pre class="fw-logo">▐▛███▜▌
-▝▜█████▛▘
-▘▘ ▝▝</pre>
-                        <div class="fw-meta">Fable 5 with Max effort · Claude Max</div>
-                        <div class="fw-path">~/OpenMarkdown/Demo</div>
-                      </div>
-                      <div class="fw-right">
-                        <div class="fw-h">Tips for getting started</div>
-                        <div class="fw-line fw-cg">ctrl + g to edit in $EDITOR</div>
-                        <div class="fw-sep"></div>
-                        <div class="fw-h">What's new</div>
-                        <div class="fw-line">…</div>
-                      </div>
-                    </div>
-                    <div class="f-tui-box">
-                      <div class="tl"><span class="f-tui-p">&gt; </span><span class="f-tui-cmd">build a landing page
-  - hero, features, pricing
-  - dark theme
-  - one HTML file</span></div>
-                    </div>
-                    <div class="tl dim f-tui-status">? for shortcuts</div>
-                    <div class="f-keys" aria-hidden="true"><kbd>Ctrl</kbd><kbd>G</kbd></div>
-                  </div>
-                </div>
-              </figure>
-            </section>
-
             <!-- panel · command palette — three-state autoplay -->
-            <section class="seg-panel" id="segpanel-1" role="tabpanel" aria-labelledby="segtab-1" data-seg="1">
+            <section class="seg-panel on" id="segpanel-0" role="tabpanel" aria-labelledby="segtab-0" data-seg="0">
               <div class="seg-head">
                 <h3><kbd class="kc">cmd</kbd>+<kbd class="kc">p</kbd> and you&rsquo;re there.</h3>
                 <p>Skip the file tree. Skip the menus.</p>
@@ -649,7 +651,7 @@
             </section>
 
             <!-- panel · live preview — three modes (click to switch) -->
-            <section class="seg-panel" id="segpanel-2" role="tabpanel" aria-labelledby="segtab-2" data-seg="2">
+            <section class="seg-panel" id="segpanel-1" role="tabpanel" aria-labelledby="segtab-1" data-seg="1">
               <div class="seg-head">
                 <h3>One tap. Three modes.</h3>
                 <p>One key cycles all three — live preview, plain source, clean reading.</p>
@@ -881,7 +883,7 @@
     function palGate() {
       if (!palEl) return;
       /* run only while the palette's own tab is active and the section's in view */
-      var run = !reduce && !palPaused && segInView && segActive === 1;
+      var run = !reduce && !palPaused && segInView && segActive === 0;
       if (run && !palTimer) palTimer = setInterval(palTick, 2600);
       if (!run && palTimer) { clearInterval(palTimer); palTimer = null; }
     }
@@ -1183,7 +1185,7 @@
           t.tabIndex = j === i ? 0 : -1;
         });
         segPanels.forEach(function (p, j) { p.classList.toggle('on', j === i); });
-        fGate(); palGate(); // start the active demo's animation, reset the others
+        palGate(); // start the active demo's animation, reset the others
       };
       segTabs.forEach(function (t, i) {
         t.addEventListener('click', function () { segSelect(i); });
@@ -1194,16 +1196,17 @@
           segSelect(n); segTabs[n].focus();
         });
       });
-      onInView(seg, 0.25, function (vis) { segInView = vis; fGate(); palGate(); });
+      onInView(seg, 0.25, function (vis) { segInView = vis; palGate(); });
     }
 
     /* —— the $VISUAL/$EDITOR handoff — seven-beat timeline (animation F).
-       Runs while its tab is active, the section is in view, motion is allowed,
-       and the screen is wide enough for the overlay stage; otherwise the frozen
-       end-frame stands. JS only ever touches text + the data-beat attribute;
-       every visual change is a CSS transition keyed off data-beat. */
+       Lives as §0 in the agent band (no longer a hands-on tab). Runs while its
+       block is in view, motion is allowed, and the screen is wide enough for the
+       overlay stage; otherwise the frozen end-frame stands. JS only ever touches
+       text + the data-beat attribute; every visual change is a CSS transition
+       keyed off data-beat. */
     var fStage = document.getElementById('fStage');
-    var fRunning = false, fTimers = [];
+    var fRunning = false, fInView = false, fTimers = [];
     var fCmd, fLead, fT1, fT2, fT3, fB1, fB2, fB3;
     var F_FULL_CMD = 'build a landing page\n  - hero, features, pricing\n  - dark theme\n  - one HTML file';
     var F_LEAD = 'build a landing page';
@@ -1273,7 +1276,7 @@
     }
     function fGate() {
       if (!fStage) return;
-      var run = !reduce && wide.matches && segInView && segActive === 0;
+      var run = !reduce && wide.matches && fInView;
       if (run && !fRunning) { fRunning = true; fPlay(); }
       else if (!run && fRunning) { fRunning = false; fEndFrame(); }
     }
@@ -1284,6 +1287,8 @@
       fT2   = fStage.querySelector('.f-app-t2');
       fT3   = fStage.querySelector('.f-app-t3');
       fB1   = fT1.closest('.f-b'); fB2 = fT2.closest('.f-b'); fB3 = fT3.closest('.f-b');
+      onInView(fStage, 0.25, function (vis) { fInView = vis; fGate(); }); // play on scroll-in, reset on exit
+      wide.addEventListener && wide.addEventListener('change', fGate); // re-gate if the viewport crosses 52rem
       fGate();
     }
 
