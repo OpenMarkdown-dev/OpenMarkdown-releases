@@ -20,14 +20,15 @@ Before opening anything, ask one light line in chat and wait for the answer:
 
 ## The note
 
-Create a real, keeper file at `~/OpenMarkdown/Welcome_to_openmd_agent.md` (the user's default notes dir). Never a temp/throwaway file — it stays on disk so the point lands: *this is your file, not a chat log.* Seed it with:
+Create a real, keeper file at `~/OpenMarkdown/Welcome_to_openmd_agent.md` (the user's default notes dir). **Create it fresh — never repurpose or open one of the user's existing notes** ("open my first note" means *this* curated Welcome, not their oldest file). Never a temp/throwaway file either — it stays on disk so the point lands: *this is your file, not a chat log.* Seed it with:
 
 ```markdown
 # Welcome to OpenMarkdown
 
-I'm your agent. I just opened this note in front of you — it's a real file on
-your disk (`~/OpenMarkdown/Welcome_to_openmd_agent.md`), not a chat message.
-We can both write in it.
+This is a real file on your disk — `~/OpenMarkdown/Welcome_to_openmd_agent.md` —
+not a chat message. I'm your agent, and I just opened it in front of you. The app
+you're looking at is only rendering it; the *file* is what we both share. Watch
+what that feels like:
 
 ## Watch this
 
@@ -35,7 +36,7 @@ We can both write in it.
 
 ## Your turn
 
-<!-- leave this blank for the user -->
+<!-- write me a line here and save — I'm watching this file, and I'll read it back -->
 ```
 
 ## Beat 1 — Open it (proves `open_file` / `reveal`)
