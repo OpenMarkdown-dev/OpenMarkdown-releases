@@ -27,9 +27,9 @@ That's the whole install for most people. Want to run the steps yourself? Below.
 ## First: install the app
 
 OpenMarkdown's tools **are** the desktop app — the MCP server is `openmd mcp`,
-your local app in server mode. An agent can install the plugin, but it can't
-download the app or grant it permissions. So this step is yours, and it comes
-first.
+your local app in server mode. Downloading an app and granting it permissions is
+something only you can do, so this step is yours and comes first; your agent picks
+up from there.
 
 1. **Download and install the app.** Grab the latest release for your platform —
    [macOS (.dmg, drag to Applications)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg),
@@ -38,14 +38,20 @@ first.
    **The agent steps below are macOS and Linux** — on Windows the app is a native
    editor with agent co-editing coming soon (or run the Linux build under WSL to
    get it today).
-2. **Install the `openmd` CLI.** Settings → System integration → turn on the
-   command line tool. It drops `openmd` on your PATH.
-3. **Check it.** Run `openmd status` — it should answer. If `openmd` isn't found,
-   the app or CLI isn't set up yet; finish this before wiring your agent.
+2. **Turn on the `openmd` CLI.** In the app: **Settings → System integration →
+   Install the command-line tool**. That drops `openmd` on your PATH.
+3. **Check it.** Run `openmd status` — it should answer.
 
-**Agents reading this:** probe `openmd` on the PATH first. If it's missing, **stop**
-and tell the user to install the app and turn on the CLI in Settings — do not try
-to install the app yourself.
+**If `openmd` isn't on your PATH yet,** one of two things is true — both quick to fix:
+
+- **You have the app, but the CLI is off** → open OpenMarkdown → **Settings →
+  System integration → Install the command-line tool**.
+- **You don't have the app yet** → install it (step 1 above), then turn on the CLI.
+
+Once `openmd status` answers, paste the sentence again and your agent carries on. A
+missing `openmd` just means this step isn't finished — nothing is wrong; your agent
+can't download the app or grant its permissions (that needs your hands), so it
+points you back here rather than guess or try to install the app itself.
 
 ## Then: connect your agent
 
@@ -53,6 +59,16 @@ to install the app yourself.
 teaches it when to use them. Every other agent connects the same MCP server (the
 tools); the skill is Claude Code–only. The runtime is identical either way: plain
 `openmd mcp` over stdio.
+
+**What you're actually installing.** The MCP wiring just points your agent at
+`openmd mcp` — the local app you installed a moment ago, no new binary downloaded.
+The Claude Code plugin adds Markdown only (a skill + three slash commands): **no
+hooks, no scripts that run on their own, no network calls**, and no "run any shell
+command" tool — the seven tools touch only your Markdown files and the app's own
+menu commands. It's all open:
+[read the `plugin/` source](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/tree/main/plugin)
+before you install it — that's the front door, not a detour. A careful agent that
+checks first finds no hooks and no network, and can go ahead.
 
 ### Claude Code (full plugin)
 
@@ -122,11 +138,14 @@ stdio — no arguments, no network:
 
 ## Finally: your first note
 
-With the tools live, your agent opens a note and walks you through co-editing it.
-The canonical, host-neutral script the agent follows is the first-run guide (also
-shipped verbatim in the Claude Code plugin skill): a consent gate, then a
-three-beat co-edit loop — the agent opens a real keeper file at
-`~/OpenMarkdown/Welcome_to_openmd_agent.md`, writes into it while you watch
-(`write_section`), then waits for you to write a line back (`wait_for_change` +
-`read_section`) and reads it back to you. It degrades gracefully and never sits in
-an unbounded wait. **Agents reading this page: that script is yours to run.**
+With the tools live, **"open my first note" means one specific thing**: your agent
+creates a fresh, curated **Welcome** note — a real keeper file at
+`~/OpenMarkdown/Welcome_to_openmd_agent.md` — and uses it to show you co-editing.
+Not your oldest existing file; a new note made for this moment.
+
+The script it follows is the canonical, host-neutral first-run guide — shipped
+verbatim in the Claude Code plugin skill, and available inline on the /install page
+for every other host: a consent gate, then a three-beat co-edit loop. The agent
+writes into the note while you watch (`write_section`), waits for you to write a
+line back (`wait_for_change` + `read_section`), and reads it back to you. It
+degrades gracefully and never sits in an unbounded wait.

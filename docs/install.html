@@ -76,13 +76,13 @@
     <!-- ————— prerequisite: the app is the tools ————— -->
     <section class="guide-sec" id="app-first">
       <h2>First: install the app</h2>
-      <p class="lede">OpenMarkdown's tools <b>are</b> the desktop app — the MCP server is <code>openmd mcp</code>, your local app in server mode. An agent can install the plugin, but it can't download the app or grant it permissions. So this step is yours, and it comes first.</p>
+      <p class="lede">OpenMarkdown's tools <b>are</b> the desktop app — the MCP server is <code>openmd mcp</code>, your local app in server mode. Downloading an app and granting it permissions is something only you can do, so this step is yours and comes first; your agent picks up from there.</p>
       <ol class="steps">
         <li><b>Download and install the app.</b> Grab the latest release for your platform — <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">macOS (.dmg, drag to Applications)</a>, <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage">Linux (AppImage)</a>, or <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe">Windows (.exe)</a>. <b>The agent steps below are macOS and Linux</b> — on Windows the app is a native editor with agent co-editing coming soon (or run the Linux build under WSL to get it today).</li>
-        <li><b>Install the <code>openmd</code> CLI.</b> Open Settings → System integration and turn on the command line tool. It drops <code>openmd</code> on your PATH.</li>
-        <li><b>Check it.</b> Run <code>openmd status</code> — it should answer. If <code>openmd</code> isn't found, the app or CLI isn't set up yet; finish this before wiring your agent.</li>
+        <li><b>Turn on the <code>openmd</code> CLI.</b> In the app: <b>Settings → System integration → Install the command-line tool</b>. That drops <code>openmd</code> on your PATH.</li>
+        <li><b>Check it.</b> Run <code>openmd status</code> — it should answer.</li>
       </ol>
-      <div class="callout"><b>Agents reading this:</b> probe <code>openmd</code> on the PATH first. If it's missing, <b>stop</b> and tell the user to install the app and turn on the CLI in Settings — do not try to install the app yourself.</div>
+      <div class="callout"><b>If <code>openmd</code> isn't on your PATH yet</b>, one of two things is true — both quick to fix. <b>You have the app but the CLI is off</b> → open OpenMarkdown → <b>Settings → System integration → Install the command-line tool</b>. <b>You don't have the app yet</b> → install it (step 1 above), then turn on the CLI. Once <code>openmd status</code> answers, paste the sentence again and your agent carries on. A missing <code>openmd</code> just means this step isn't finished — nothing is wrong; your agent can't download the app or grant its permissions (that needs your hands), so it points you back here rather than guess or try to install the app itself.</div>
     </section>
 
     <!-- ————— connect your agent (host selector) —————
@@ -92,6 +92,8 @@
     <section class="guide-sec" id="connect">
       <h2>Then: connect your agent</h2>
       <p class="lede"><b>Claude Code</b> gets the full plugin — the seven MCP tools <i>and</i> a skill that teaches it when to use them. Every other agent connects the same MCP server (the tools); the skill is Claude Code–only. The runtime is identical either way: plain <code>openmd mcp</code> over stdio.</p>
+
+      <div class="callout"><b>What you're actually installing.</b> The MCP wiring just points your agent at <code>openmd mcp</code> — the local app you installed a moment ago, no new binary downloaded. The Claude Code plugin adds Markdown only (a skill + three slash commands); <b>no hooks, no scripts that run on their own, no network calls</b>, and no "run any shell command" tool — the seven tools touch only your Markdown files and the app's own menu commands. It's all open: <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/tree/main/plugin">read the <code>plugin/</code> source</a> before you install it — that's the front door, not a detour. A careful agent that checks first finds no hooks and no network, and can go ahead.</div>
 
       <div class="segmented" id="hostSeg">
         <div class="seg-control" role="tablist" aria-label="Your agent">
@@ -175,7 +177,7 @@ args = ["mcp"]</code></div>
          by scripts/build-install-page.mjs — do not hand-edit between the markers. -->
     <section class="guide-sec" id="first-run">
       <h2>Finally: your first note</h2>
-      <p class="lede">With the tools live, your agent opens a note and walks you through co-editing it — you and it writing in the same file, the app just rendering it. Here's the exact script it follows. <b>Agents reading this page: this is yours to run.</b></p>
+      <p class="lede">With the tools live, <b>“open my first note” means one specific thing</b>: your agent creates a fresh, curated <b>Welcome</b> note — a real keeper file at <code>~/OpenMarkdown/Welcome_to_openmd_agent.md</code> — and uses it to show you co-editing, you and it writing in the same file while the app just renders it. Not your oldest existing file; a new note made for this. Here's the exact host-neutral script it follows.</p>
       <!-- BEGIN first-run-guide (generated — do not edit) -->
       <div class="codeblock"><code># First-run guide — the co-edit first moment
 
@@ -199,14 +201,15 @@ Before opening anything, ask one light line in chat and wait for the answer:
 
 ## The note
 
-Create a real, keeper file at `~/OpenMarkdown/Welcome_to_openmd_agent.md` (the user's default notes dir). Never a temp/throwaway file — it stays on disk so the point lands: *this is your file, not a chat log.* Seed it with:
+Create a real, keeper file at `~/OpenMarkdown/Welcome_to_openmd_agent.md` (the user's default notes dir). **Create it fresh — never repurpose or open one of the user's existing notes** ("open my first note" means *this* curated Welcome, not their oldest file). Never a temp/throwaway file either — it stays on disk so the point lands: *this is your file, not a chat log.* Seed it with:
 
 ```markdown
 # Welcome to OpenMarkdown
 
-I'm your agent. I just opened this note in front of you — it's a real file on
-your disk (`~/OpenMarkdown/Welcome_to_openmd_agent.md`), not a chat message.
-We can both write in it.
+This is a real file on your disk — `~/OpenMarkdown/Welcome_to_openmd_agent.md` —
+not a chat message. I'm your agent, and I just opened it in front of you. The app
+you're looking at is only rendering it; the *file* is what we both share. Watch
+what that feels like:
 
 ## Watch this
 
@@ -214,7 +217,7 @@ We can both write in it.
 
 ## Your turn
 
-&lt;!-- leave this blank for the user --&gt;
+&lt;!-- write me a line here and save — I'm watching this file, and I'll read it back --&gt;
 ```
 
 ## Beat 1 — Open it (proves `open_file` / `reveal`)
