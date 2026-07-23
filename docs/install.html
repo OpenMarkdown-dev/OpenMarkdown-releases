@@ -185,7 +185,11 @@ Agent-facing runbook for the very first thing to do once OpenMarkdown's plugin/M
 
 This file is the single source of truth for that script. The install runbook page (`openmarkdown.dev/install`) inlines this same file so non-Claude MCP hosts get the identical steps — so keep everything here host-neutral (only the seven MCP tools, no Claude-Code-specific verbs).
 
-**Prerequisite** (the install runbook has already met it): `openmd` is on PATH and the tools `open_file`, `reveal`, `write_section`, `read_section`, `wait_for_change` are live. If they are not, you are running out of order — stop and finish install first.
+**Prerequisite:** `openmd` is on PATH. The seven MCP tools may not be *live in this session* yet — and that changes what you do, not whether you do it:
+
+- **Tools live** → run the beats below with them.
+- **Not live because the plugin was just installed this session** (a host loads a plugin's MCP server + skill only when its session starts) → **do not stop, and do not claim you can't help.** Run the beats in *degraded mode*: edit the note file directly with your own file tools and `openmd &lt;file&gt;` to open/reveal it — it still lands the felt moment. Then, at the end, tell the user how to load the full tools **without a restart**: on Claude Code that is **`/reload-plugins`** (the user types it — an agent cannot), which loads the MCP server, skill, and `/openmarkdown` commands into this same session.
+- **`openmd` itself missing** (not on PATH) → *that* is the one stop condition: the app + CLI aren't set up yet; finish install first (see the runbook).
 
 **Language:** the user-facing strings below (the consent line, the note body, the headings) are the English canonical form. Render them in the user's UI language when you know it — e.g. the "Your turn" heading is `## 轮到你` in Chinese, `## あなたの番` in Japanese. You wrote the note, so you always know which heading text to read back in Beat 3.
 
@@ -218,6 +222,13 @@ what that feels like:
 ## Your turn
 
 &lt;!-- write me a line here and save — I'm watching this file, and I'll read it back --&gt;
+
+## Hand me a task
+
+&lt;!-- Leave me async work right in the file. Uncomment the line below (or write your
+     own) and save — while I'm watching this note I'll do it and tick the box. The
+     point: you hand off work through the file, not the chat. --&gt;
+&lt;!-- - [ ] @agent turn the three lines above into a bullet list --&gt;
 ```
 
 ## Beat 1 — Open it (proves `open_file` / `reveal`)
@@ -238,6 +249,8 @@ Ask them to write one line under `## Your turn` and save (⌘S / Ctrl+S). Then `
 
 After the three beats, offer a short menu (in chat, or appended to the note) of things they can try **separately**. Do **not** expand it into a second forced tutorial — the beats teach exactly one co-edit loop; everything else is opt-in here:
 
+- **Keep co-editing** — ask me to watch a note again and I'll wait for your saves and react; that re-opens this loop anytime (on Claude Code, `/openmarkdown:co-edit &lt;file&gt;` does it in one step).
+- **Hand me async work** — drop `- [ ] @agent &lt;task&gt;` into a note I'm watching (like `## Hand me a task` above); I pick it up, do it, and tick the box. This is the whole point of the shared file.
 - `export VISUAL="openmd --wait"` — then `git commit` (and anything using `$EDITOR`/`$VISUAL`) opens in OpenMarkdown.
 - `⌘P` — the command palette (files / commands / outline).
 - Drag an image into a note — it's saved next to the file and linked with a relative path.
