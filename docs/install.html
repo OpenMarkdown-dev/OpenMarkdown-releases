@@ -78,7 +78,7 @@
       <h2>First: install the app</h2>
       <p class="lede">OpenMarkdown's tools <b>are</b> the desktop app — the MCP server is <code>openmd mcp</code>, your local app in server mode. An agent can install the plugin, but it can't download the app or grant it permissions. So this step is yours, and it comes first.</p>
       <ol class="steps">
-        <li><b>Download and install the app.</b> Grab the <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">latest release</a> and drag it to Applications.</li>
+        <li><b>Download and install the app.</b> Grab the latest release for your platform — <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">macOS (.dmg, drag to Applications)</a>, <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage">Linux (AppImage)</a>, or <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe">Windows (.exe)</a>. <b>The agent steps below are macOS and Linux</b> — on Windows the app is a native editor with agent co-editing coming soon (or run the Linux build under WSL to get it today).</li>
         <li><b>Install the <code>openmd</code> CLI.</b> Open Settings → System integration and turn on the command line tool. It drops <code>openmd</code> on your PATH.</li>
         <li><b>Check it.</b> Run <code>openmd status</code> — it should answer. If <code>openmd</code> isn't found, the app or CLI isn't set up yet; finish this before wiring your agent.</li>
       </ol>
@@ -252,6 +252,8 @@ After the three beats, offer a short menu (in chat, or appended to the note) of 
       <div class="foot-row">
         <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
         <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>
@@ -354,8 +356,14 @@ After the three beats, offer a short menu (in chat, or appended to the note) of 
       var g = window.goatcounter;
       if (!g || !g.count) return;
       var href = a.getAttribute('href') || '';
+      // Per-platform download events (specific filenames before the generic
+      // github outbound check — see site/index.html for the rationale).
       if (href.indexOf('OpenMarkdown.dmg') !== -1) {
         g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('OpenMarkdown-setup.exe') !== -1) {
+        g.count({ path: 'download-windows', event: true });
+      } else if (href.indexOf('OpenMarkdown.AppImage') !== -1) {
+        g.count({ path: 'download-linux', event: true });
       } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
         g.count({ path: 'outbound-github', event: true });
       }

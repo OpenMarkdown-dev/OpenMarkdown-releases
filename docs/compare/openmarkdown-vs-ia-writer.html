@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenMarkdown vs iA Writer — agent co-editing vs a focused writing app</title>
+  <meta name="description" content="OpenMarkdown vs iA Writer: iA Writer is a beautiful, cross-platform focused writing app with signature typography; OpenMarkdown is a free renderer native on macOS, Linux, and Windows; on macOS and Linux it lets your coding agent co-edit the same file over MCP. An honest comparison.">
+  <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-ia-writer">
+  <meta name="theme-color" content="#17171A">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown vs iA Writer — an honest comparison">
+  <meta property="og:description" content="iA Writer is a beautiful, cross-platform focused writing app with signature typography; OpenMarkdown is a free renderer native on macOS, Linux, and Windows; on macOS and Linux it lets your agent co-edit the same file over MCP.">
+  <meta property="og:url" content="https://openmarkdown.dev/compare/openmarkdown-vs-ia-writer">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown vs iA Writer — an honest comparison">
+  <meta name="twitter:description" content="iA Writer is a beautiful, cross-platform focused writing app with signature typography; OpenMarkdown is a free renderer native on macOS, Linux, and Windows; on macOS and Linux it lets your agent co-edit the same file over MCP.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>OpenMarkdown vs iA Writer</h1>
+      <p class="lede">iA Writer is a benchmark writing app — famous typography, a focus mode people love, and it's on every platform. OpenMarkdown isn't a writing app in that sense. It's built around a different moment: watching and co-editing the file your coding agent is working on.</p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </header>
+
+    <section class="guide-sec" id="at-a-glance">
+      <h2>At a glance</h2>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th></th><th>OpenMarkdown</th><th>iA Writer</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>Free</td><td>$49.99 Mac · $29.99 Windows (one-time, per platform)</td></tr>
+            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, iPadOS, iOS, Android, Windows</td></tr>
+            <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie (plain text files; iCloud sync optional)</td></tr>
+            <tr><td>Typography &amp; focus mode</td><td>—</td><td>Yes — its signature craft, plus Style Check</td></tr>
+            <tr><td>Live preview</td><td>Live-preview / source / reading, one button cycles</td><td>Styled editor with an on-demand preview</td></tr>
+            <tr><td>Agent co-editing over MCP (built-in)</td><td>Built-in MCP server, seven tools, section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>—</td></tr>
+            <tr><td>Export (PDF / Word / HTML)</td><td>— (keeps your plain <code>.md</code>)</td><td>Yes</td></tr>
+            <tr><td>Maturity</td><td>New (first public release 2026)</td><td>Established, cross-platform</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Competitor facts checked 2026-07-19; pricing and platforms change — see <a href="https://ia.net/writer" rel="nofollow">ia.net/writer</a> for current details.</p>
+    </section>
+
+    <section class="guide-sec" id="where-ia-wins">
+      <h2>Where iA Writer wins</h2>
+      <ul>
+        <li><b>The writing experience.</b> Signature typography, focus mode that dims everything but the current sentence, and Style Check for tightening prose. If your goal is to write well, iA is crafted for exactly that; OpenMarkdown isn't.</li>
+        <li><b>Mobile, and iCloud sync.</b> Mac, iPad, iPhone, Android, and Windows, synced over iCloud. OpenMarkdown is desktop-only — native on macOS, Linux, and Windows, but no mobile app or built-in sync.</li>
+        <li><b>Export.</b> PDF, Word and HTML with themed output. OpenMarkdown doesn't export.</li>
+      </ul>
+    </section>
+
+    <section class="guide-sec" id="where-openmarkdown-wins">
+      <h2>Where OpenMarkdown is different</h2>
+      <p>iA Writer is built for one person writing. OpenMarkdown is built for <b>you and your agent sharing the file.</b></p>
+      <p>Its built-in MCP server lets Claude Code, Codex, Gemini CLI or opencode open, reveal, read and <code>write_section</code> on the document you're watching, with section-level conflict protection so your unsaved edits survive. The preview re-renders and scrolls to each change the agent makes. iA Writer has no agent integration of this kind — and OpenMarkdown is free, with a Rust core that opens a window in well under a second. Different tools for different moments: iA for drafting prose, OpenMarkdown for watching a plan or spec fill in as your agent works.</p>
+    </section>
+
+    <section class="guide-sec" id="when-to-pick-ia">
+      <h2>When to pick iA Writer instead</h2>
+      <div class="callout"><b>Choose iA Writer</b> if you want a focused, beautiful writing environment for your own prose — especially across Mac and mobile, with export and style tooling. <b>Choose OpenMarkdown</b> if the point is to watch and co-edit the <code>.md</code> your coding agent is working on, live (agent co-editing on macOS and Linux today; Windows coming soon).</div>
+      <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </section>
+
+  </main>
+
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

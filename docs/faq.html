@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — watch &amp; preview the Markdown your agent writes — OpenMarkdown</title>
+  <meta name="description" content="How to watch the Markdown files your coding agent writes live, preview them while it edits, and connect OpenMarkdown's MCP server to Claude Code, Codex, or Gemini CLI.">
+  <link rel="canonical" href="https://openmarkdown.dev/faq">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown FAQ — watch &amp; preview the Markdown your agent writes">
+  <meta property="og:description" content="How to watch the Markdown files your coding agent writes live, preview them while it edits, and connect OpenMarkdown's MCP server to Claude Code, Codex, or Gemini CLI.">
+  <meta property="og:url" content="https://openmarkdown.dev/faq">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown FAQ — watch &amp; preview the Markdown your agent writes">
+  <meta name="twitter:description" content="How to watch the Markdown files your coding agent writes live, preview them while it edits, and connect OpenMarkdown's MCP server to Claude Code, Codex, or Gemini CLI.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+
+  <!-- FAQPage structured data. Answer text mirrors the visible answers below —
+       keep them in sync (Google requires the schema answer to match on-page copy).
+       Every claim here is honesty-gated (public-claim-integrity): the exact
+       platform story (native on macOS · Linux · Windows; agent co-edit on macOS &
+       Linux today, Windows coming soon), no built-in AI, no unverifiable numbers. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I watch the Markdown files my agent (Claude Code) writes, live?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the file in OpenMarkdown. As your agent writes to it — through OpenMarkdown's MCP server or straight to disk — the preview re-renders and scrolls to the change, so you read the rendered page instead of a terminal diff. OpenMarkdown is a local-first app native on macOS, Linux, and Windows: the file stays as plain .md on your disk, no account, no cloud."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an MCP server that renders Markdown for my agent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. OpenMarkdown is a desktop Markdown editor with a built-in MCP server (run openmd mcp over stdio). It is not a headless render-to-HTML API — it is a real editor window your agent opens files in, so you see the Markdown rendered live while the agent reads and section-edits it. The agent gets seven tools: open_file, reveal, get_context, execute_command, read_section, write_section, and wait_for_change."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I preview Markdown while my agent edits it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the file in OpenMarkdown and keep live-preview mode on. Your agent edits the file through the MCP server or on disk and the preview updates in place. Writes are section-scoped with optimistic concurrency: if you and the agent touch the same section at the same time, the agent's write is rejected as a CONFLICT so your unsaved edit is never clobbered — the agent re-reads and retries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What Markdown app works with Claude Code, Codex, or Gemini CLI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OpenMarkdown. Its MCP server (openmd mcp) connects to any MCP client — Claude Code with a full plugin, plus Codex, Gemini CLI, opencode, and others — exposing the same seven tools everywhere. Install the app, enable the openmd CLI in Settings, and point your agent at it. OpenMarkdown ships no AI of its own; it runs on the agent you already use. The agent bridge runs on macOS and Linux today; the Windows app is a native editor with agent co-editing coming soon."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does OpenMarkdown run on Windows or Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — OpenMarkdown runs natively on macOS, Linux, and Windows. On macOS and Linux it's the full app: your coding agent co-edits the file over MCP. On Windows today it's a native editor and viewer — open a .md by double-click — with agent co-editing coming soon."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- shared chrome: same nav structure as index.html (the canonical copy).
+       Cross-page links are root-absolute extensionless (/, /#features). -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>Questions &amp; answers</h1>
+      <p class="lede">The short version of what OpenMarkdown is for: watching, previewing, and co-editing the Markdown your coding agent writes — on the same file, live.</p>
+      <a class="back-home" href="/">← back to home</a>
+    </header>
+
+    <section class="guide-sec" id="watch-agent-files">
+      <h2>How do I watch the Markdown files my agent (Claude Code) writes, live?</h2>
+      <p>Open the file in OpenMarkdown. As your agent writes to it — through OpenMarkdown's MCP server or straight to disk — the preview re-renders and scrolls to the change, so you read the rendered page instead of a terminal diff.</p>
+      <p>OpenMarkdown is a local-first desktop app: the file stays as plain <code>.md</code> on your disk, with no account and no cloud. The agent can also <code>reveal</code> a heading to scroll your view to whatever it's discussing, so the window follows the work.</p>
+      <div class="callout">It runs on the agent you already use — Claude Code, Codex, Gemini CLI, opencode, or any MCP client. <a href="/compare/openmarkdown-vs-marked-2">How this differs from a preview-only tool like Marked 2 →</a></div>
+    </section>
+
+    <section class="guide-sec" id="mcp-renders-markdown">
+      <h2>Is there an MCP server that renders Markdown for my agent?</h2>
+      <p>Yes. OpenMarkdown is a desktop Markdown editor with a <b>built-in MCP server</b> — run <code>openmd mcp</code> over stdio. It's not a headless render-to-HTML API: it's a real editor window your agent opens files in, so <em>you</em> see the Markdown rendered live while the agent reads and section-edits it.</p>
+      <p>Your agent gains seven tools — <code>open_file</code>, <code>reveal</code>, <code>get_context</code>, <code>execute_command</code>, <code>read_section</code>, <code>write_section</code>, <code>wait_for_change</code> — to open, navigate, read, and patch the exact file in front of you.</p>
+      <div class="callout">Connect it in one line: <code>claude mcp add openmd -- openmd mcp</code>. Per-host setup for Codex, Gemini CLI, and opencode: <a href="/install">openmarkdown.dev/install</a>.</div>
+    </section>
+
+    <section class="guide-sec" id="preview-while-agent-edits">
+      <h2>How do I preview Markdown while my agent edits it?</h2>
+      <p>Open the file in OpenMarkdown and keep <b>live-preview</b> mode on. Your agent edits the file — through the MCP server or on disk — and the preview updates in place.</p>
+      <p>Writes are <b>section-scoped with optimistic concurrency</b>: if you and the agent touch the same section at the same time, the agent's write comes back as a <code>CONFLICT</code> so your unsaved edit is never clobbered — the agent re-reads the section and retries. You edit alongside it, not after it.</p>
+    </section>
+
+    <section class="guide-sec" id="works-with-claude-code-codex-gemini">
+      <h2>What Markdown app works with Claude Code, Codex, or Gemini CLI?</h2>
+      <p>OpenMarkdown. Its MCP server (<code>openmd mcp</code>) connects to any MCP client — <b>Claude Code</b> with a full plugin, plus <b>Codex</b>, <b>Gemini CLI</b>, <b>opencode</b>, and others — exposing the same seven tools everywhere.</p>
+      <p>Install the app, enable the <code>openmd</code> CLI in Settings, and point your agent at it. OpenMarkdown ships <b>no AI of its own</b>; it runs on the agent you already use. The agent bridge runs on <b>macOS and Linux</b> today; the <b>Windows</b> app is a native editor with agent co-editing <b>coming soon</b>.</p>
+      <div class="callout">The fastest path — paste this to your agent: <code>Read openmarkdown.dev/install to install OpenMarkdown and open my first note</code></div>
+    </section>
+
+    <section class="guide-sec" id="windows-linux">
+      <h2>Does OpenMarkdown run on Windows or Linux?</h2>
+      <p>Yes — OpenMarkdown runs natively on <b>macOS, Linux, and Windows</b>. On macOS and Linux it's the full app: your coding agent co-edits the file over MCP. On <b>Windows</b> today it's a native editor and viewer — open a <code>.md</code> by double-click — with agent co-editing <b>coming soon</b>.</p>
+    </section>
+
+    <section class="guide-sec" id="more">
+      <h2>Still deciding?</h2>
+      <p>See how OpenMarkdown lines up against the editors you might already use — honestly, including where they win: <a href="/compare/">OpenMarkdown compared →</a>. Or read the <a href="/guide">guide</a> for the full syntax, shortcuts, and CLI.</p>
+      <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <a class="back-home" href="/">← back to home</a>
+    </section>
+
+  </main>
+
+  <!-- shared chrome: same footer markup as index.html (the canonical copy);
+       #footFlat stays empty here — only index's JS fills it -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
+       Production host ONLY — file:// / localhost / previews make zero external
+       requests. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome: identical to index.html (authoritative). -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

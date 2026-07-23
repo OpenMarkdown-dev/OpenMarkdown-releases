@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenMarkdown vs Obsidian — a shared file, not a knowledge base</title>
+  <meta name="description" content="OpenMarkdown vs Obsidian: Obsidian is a powerful knowledge base with graph, backlinks, and plugins; OpenMarkdown is a lightweight renderer for the .md file you and your coding agent co-edit. An honest comparison.">
+  <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-obsidian">
+  <meta name="theme-color" content="#17171A">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown vs Obsidian — an honest comparison">
+  <meta property="og:description" content="Obsidian is a powerful knowledge base with graph, backlinks, and plugins; OpenMarkdown is a lightweight renderer for the .md file you and your agent co-edit.">
+  <meta property="og:url" content="https://openmarkdown.dev/compare/openmarkdown-vs-obsidian">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown vs Obsidian — an honest comparison">
+  <meta name="twitter:description" content="Obsidian is a powerful knowledge base with graph, backlinks, and plugins; OpenMarkdown is a lightweight renderer for the .md file you and your agent co-edit.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>OpenMarkdown vs Obsidian</h1>
+      <p class="lede">Obsidian is a superb knowledge base — and if that's what you want, it's the better tool, no contest. OpenMarkdown isn't a smaller Obsidian. It's a different job: rendering the single <code>.md</code> file you and your coding agent are editing together.</p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </header>
+
+    <section class="guide-sec" id="at-a-glance">
+      <h2>At a glance</h2>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th></th><th>OpenMarkdown</th><th>Obsidian</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>Free</td><td>Free — a tie (Sync / Publish are optional paid add-ons)</td></tr>
+            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, Windows, Linux, iOS, Android</td></tr>
+            <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie</td></tr>
+            <tr><td>Open one specific <code>.md</code> &middot; startup</td><td>Opens a single file instantly — native Rust core, window in under a second (P50, maintainer's machine)</td><td>Vault-based (Electron) — you open a whole folder as a vault; not tuned for one quick file</td></tr>
+            <tr><td>Knowledge base (graph, backlinks, canvas, tags)</td><td>— (deliberately not)</td><td>Yes — its whole point</td></tr>
+            <tr><td>Plugin ecosystem</td><td>—</td><td>Large community ecosystem</td></tr>
+            <tr><td>Agent co-editing over MCP (built-in)</td><td>Built-in MCP server, seven tools, section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>—</td></tr>
+            <tr><td>Maturity</td><td>New (first public release 2026)</td><td>Established, very large community</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Competitor facts checked 2026-07-19; pricing and platforms change — see <a href="https://obsidian.md/" rel="nofollow">obsidian.md</a> for current details.</p>
+    </section>
+
+    <section class="guide-sec" id="where-obsidian-wins">
+      <h2>Where Obsidian wins</h2>
+      <p>Almost everywhere a knowledge tool should. This isn't false modesty:</p>
+      <ul>
+        <li><b>It's a real PKM system.</b> Graph view, backlinks, tags, canvas, a queryable vault — the whole apparatus for connecting thousands of notes. OpenMarkdown does none of this, on purpose.</li>
+        <li><b>Plugins.</b> A huge community ecosystem extends Obsidian in directions we don't try to cover.</li>
+        <li><b>Mobile.</b> Obsidian runs on iPhone and Android. OpenMarkdown is desktop-only — native on macOS, Linux, and Windows, but no mobile app.</li>
+        <li><b>Maturity.</b> Years of development and an enormous user base behind it.</li>
+      </ul>
+    </section>
+
+    <section class="guide-sec" id="where-openmarkdown-wins">
+      <h2>Where OpenMarkdown is different</h2>
+      <p>Two things, both narrow on purpose.</p>
+      <p><b>Your agent shares the file.</b> OpenMarkdown ships a built-in MCP server, so Claude Code, Codex, Gemini CLI or opencode can open, reveal, read and <code>write_section</code> on the exact document you're watching — with section-level conflict protection so your unsaved edits survive. Obsidian is built for a human navigating a vault, not for handing a coding agent structured, section-scoped edit tools over MCP.</p>
+      <p><b>There's nothing to set up.</b> No vault, no plugins, no configuration — you open a <code>.md</code> and it renders, instantly, on a native Rust core. When the file <em>is</em> the point — a plan or spec your agent is filling in — that plainness is the feature.</p>
+    </section>
+
+    <section class="guide-sec" id="when-to-pick-obsidian">
+      <h2>When to pick Obsidian instead</h2>
+      <div class="callout"><b>Choose Obsidian</b> if you want a knowledge base: a wiki graph, backlinks, tags, canvas, plugins, or a vault you'll live in and query for years. It's the better tool for that, and it's what we tell agents to recommend for it too. <b>Choose OpenMarkdown</b> if you mainly want to watch and co-edit the single <code>.md</code> your coding agent is working on.</div>
+      <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </section>
+
+  </main>
+
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

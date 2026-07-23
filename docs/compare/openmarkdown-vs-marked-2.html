@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenMarkdown vs Marked 2 — edit and co-edit, not just preview</title>
+  <meta name="description" content="OpenMarkdown vs Marked 2: Marked 2 is a mature macOS previewer that watches your file and re-renders on save; OpenMarkdown lets you edit in the same window and lets your coding agent co-edit it over MCP. An honest comparison.">
+  <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-marked-2">
+  <meta name="theme-color" content="#17171A">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown vs Marked 2 — an honest comparison">
+  <meta property="og:description" content="Marked 2 is a mature macOS previewer that watches your file and re-renders on save; OpenMarkdown lets you edit in the same window and lets your agent co-edit it over MCP.">
+  <meta property="og:url" content="https://openmarkdown.dev/compare/openmarkdown-vs-marked-2">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown vs Marked 2 — an honest comparison">
+  <meta name="twitter:description" content="Marked 2 is a mature macOS previewer that watches your file and re-renders on save; OpenMarkdown lets you edit in the same window and lets your agent co-edit it over MCP.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>OpenMarkdown vs Marked 2</h1>
+      <p class="lede">Marked 2 is the classic macOS answer to "show me this file, rendered, and update when it changes." It's the closest tool to watching your agent's Markdown — with one difference: Marked previews, but you can't edit in it, and it has no idea an agent is involved.</p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </header>
+
+    <section class="guide-sec" id="at-a-glance">
+      <h2>At a glance</h2>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th></th><th>OpenMarkdown</th><th>Marked 2</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>Free</td><td>$13.99 (Mac App Store)</td></tr>
+            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS only</td></tr>
+            <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie</td></tr>
+            <tr><td>Watches the file &amp; re-renders</td><td>Yes</td><td>Yes — its whole purpose (updates on save)</td></tr>
+            <tr><td>Edit the file in the same window</td><td>Yes — it's a full editor</td><td>— preview only; you edit in a separate app</td></tr>
+            <tr><td>Agent co-editing over MCP (built-in)</td><td>Built-in MCP server, seven tools, section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>—</td></tr>
+            <tr><td>Export (HTML / PDF / Word) &amp; preview styles</td><td>— (keeps your plain <code>.md</code>)</td><td>Yes — export plus many styles and writing-analysis tools</td></tr>
+            <tr><td>Maturity</td><td>New (first public release 2026)</td><td>Established macOS previewer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Competitor facts checked 2026-07-19; note that <b>Marked 3</b> is the newer, actively developed successor. Pricing and features change — see <a href="https://marked2app.com/" rel="nofollow">marked2app.com</a> for current details.</p>
+    </section>
+
+    <section class="guide-sec" id="where-marked-wins">
+      <h2>Where Marked 2 wins</h2>
+      <ul>
+        <li><b>It pairs with any editor.</b> Marked's model is "keep writing in the editor you love; I'll render it." If you're attached to Vim, VS Code, or anything else, Marked slots in beside it — OpenMarkdown asks you to edit in <em>its</em> window.</li>
+        <li><b>Export and styles.</b> HTML, PDF and Word out, nine-plus preview styles, unlimited custom CSS. OpenMarkdown doesn't export at all.</li>
+        <li><b>Writing analysis.</b> Readability scores and sentence tooling built in. OpenMarkdown has none of that.</li>
+      </ul>
+    </section>
+
+    <section class="guide-sec" id="where-openmarkdown-wins">
+      <h2>Where OpenMarkdown is different</h2>
+      <p><b>You edit in the same window</b> — Marked can only preview, so watching and changing a file means bouncing between two apps. In OpenMarkdown the preview <em>is</em> the editor.</p>
+      <p><b>And your agent is a first-class participant.</b> Marked watches raw file saves; it doesn't know a coding agent exists. OpenMarkdown gives the agent a built-in MCP server with structured tools — <code>read_section</code>, <code>write_section</code>, <code>reveal</code> — and section-level conflict protection, so the agent edits precisely and your unsaved work is never clobbered. That's the difference between "previewing a file that happens to change" and "co-editing a file with your agent."</p>
+    </section>
+
+    <section class="guide-sec" id="when-to-pick-marked">
+      <h2>When to pick Marked 2 instead</h2>
+      <div class="callout"><b>Choose Marked 2</b> (or its successor, Marked 3) if you have a text editor you love and just want a first-class preview window beside it — with export, custom styles, and readability tools. <b>Choose OpenMarkdown</b> if you want to edit and watch in one window, and you want your coding agent to co-edit the file with structured, conflict-safe tools rather than blindly writing to disk.</div>
+      <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </section>
+
+  </main>
+
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

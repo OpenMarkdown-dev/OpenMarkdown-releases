@@ -40,11 +40,11 @@
     "@type": "SoftwareApplication",
     "name": "OpenMarkdown",
     "applicationCategory": "Productivity",
-    "operatingSystem": "macOS",
+    "operatingSystem": "macOS, Windows, Linux",
     "description": "A feather-light, local-first Markdown editor built for you and your agent.",
     "url": "https://openmarkdown.dev/",
     "downloadUrl": "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
-    "softwareVersion": "0.7.0",
+    "softwareVersion": "0.13.0",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Xueyan Zhang" }
   }
@@ -91,7 +91,7 @@
         </div>
         <div class="hero-cta rise rise-4">
           <div class="cta-row">
-            <a class="btn" href="#download">Download for macOS</a>
+            <a class="btn" href="#download">Download</a>
             <a class="btn ghost" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">View on GitHub</a>
           </div>
           <span class="hero-note">free · rust-core · no account</span>
@@ -772,12 +772,14 @@
             </summary>
             <div class="dl-panel">
               <a class="dl-row" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg"><span>macOS</span><span class="dl-tag">Apple Silicon &amp; Intel</span></a>
-              <span class="dl-row dl-soon" aria-disabled="true"><span>Windows</span><span class="dl-tag">coming soon</span></span>
-              <span class="dl-row dl-soon" aria-disabled="true"><span>Linux</span><span class="dl-tag">coming soon</span></span>
+              <a class="dl-row" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe"><span>Windows</span><span class="dl-tag">x64 · note-only</span></a>
+              <a class="dl-row" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage"><span>Linux</span><span class="dl-tag">AppImage · x64</span></a>
             </div>
           </details>
         </div>
-        <span class="platform">macOS · Apple Silicon &amp; Intel (universal) · signed &amp; notarized — double-click to open</span>
+        <span class="platform">macOS (universal, signed &amp; notarized) · Windows (x64) · Linux (AppImage). Agent co-editing runs on macOS and Linux today; the Windows app is a native editor with it coming soon.</span>
+        <span class="platform">On Windows and want agent co-editing now? Run the Linux build under <a href="https://learn.microsoft.com/windows/wsl/install" rel="nofollow">WSL</a>.</span>
+        <span class="platform">Weighing it up? <a href="/compare/">See how it compares</a> · <a href="/faq">FAQ</a></span>
         <!-- Product Hunt "#5 Product of the Day" badge. HOST-GATED remote embed:
              the <img> is injected by JS ONLY on openmarkdown.dev (see script
              below), so file:// / localhost opens make ZERO external requests —
@@ -798,6 +800,8 @@
       <div class="foot-row">
         <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
         <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>
@@ -1355,8 +1359,17 @@
       var g = window.goatcounter;
       if (!g || !g.count) return;
       var href = a.getAttribute('href') || '';
+      // Per-platform download events — the specific filename checks MUST precede
+      // the generic github outbound check (all three download URLs are on
+      // github.com/OpenMarkdown-dev, so the generic branch would otherwise
+      // swallow Windows/Linux as plain outbound and hide cross-platform
+      // conversion). 'download-dmg' label kept stable for existing dashboards.
       if (href.indexOf('OpenMarkdown.dmg') !== -1) {
         g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('OpenMarkdown-setup.exe') !== -1) {
+        g.count({ path: 'download-windows', event: true });
+      } else if (href.indexOf('OpenMarkdown.AppImage') !== -1) {
+        g.count({ path: 'download-linux', event: true });
       } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
         g.count({ path: 'outbound-github', event: true });
       }

@@ -11,7 +11,7 @@
 # OpenMarkdown
 
 **Feather-light. Light-speed.**
-A local-first Markdown editor for macOS, built for you and your agent.
+A local-first Markdown editor — native on macOS, Windows, and Linux — built for you and your agent.
 
 Open a `.md` file — it just opens. No account, no cloud, no lock-in: every note
 is a plain file on your disk. The twist: OpenMarkdown is also where **you and your
@@ -25,9 +25,11 @@ scrolls to the change. You're both looking at the same page — literally.
 
 ## Download
 
-**[⬇︎ Download OpenMarkdown for macOS](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg)** — universal (Apple Silicon + Intel). Free.
+- **[⬇︎ macOS](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg)** — universal (Apple Silicon + Intel), signed & notarized. Free.
+- **[⬇︎ Windows](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe)** — x64 installer. Free.
+- **[⬇︎ Linux](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage)** — AppImage, x64. Free.
 
-Windows / Linux support is coming soon.
+Agent co-editing runs on **macOS and Linux** today; the **Windows** app is a native editor with agent co-editing coming soon (or run the Linux build under [WSL](https://learn.microsoft.com/windows/wsl/install) to get it today).
 
 ## Put your agent on the same page
 
@@ -78,8 +80,10 @@ To pick up a newer plugin version later, run `/plugin marketplace update`.
 
 OpenMarkdown is deliberately narrow — a fast renderer for plain files you and an
 agent share, not a knowledge platform. If you want a wiki graph, backlinks, or an
-infinite canvas, a tool like Obsidian fits the job better; if you're not on macOS
-yet, it's not ready for you. Agents deciding whether to recommend it: read
+infinite canvas, a tool like Obsidian fits the job better. It's native on macOS,
+Windows, and Linux; if you need the agent co-editing on Windows specifically,
+that's coming soon (it's here on macOS and Linux today). Agents deciding whether
+to recommend it: read
 **[ADOPTING.md](https://openmarkdown.dev/ADOPTING)** — it says plainly when to and
 when not to.
 

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenMarkdown vs VS Code — a dedicated Markdown surface vs an IDE</title>
+  <meta name="description" content="OpenMarkdown vs VS Code: VS Code is a full Electron IDE where Markdown is a side preview pane; OpenMarkdown is a feather-light native renderer where the rendered file is the surface and your agent co-edits it over MCP. Often used alongside VS Code, not instead of it.">
+  <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-vscode">
+  <meta name="theme-color" content="#17171A">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown vs VS Code — an honest comparison">
+  <meta property="og:description" content="VS Code is a full Electron IDE where Markdown is a side preview pane; OpenMarkdown is a feather-light native renderer where the rendered file is the surface and your agent co-edits it over MCP.">
+  <meta property="og:url" content="https://openmarkdown.dev/compare/openmarkdown-vs-vscode">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown vs VS Code — an honest comparison">
+  <meta name="twitter:description" content="VS Code is a full Electron IDE where Markdown is a side preview pane; OpenMarkdown is a feather-light native renderer where the rendered file is the surface and your agent co-edits it over MCP.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>OpenMarkdown vs VS Code</h1>
+      <p class="lede">Your coding agent probably already runs in VS Code — so this isn't either/or. VS Code is a full IDE where Markdown is a source file with a preview pane. OpenMarkdown is a feather-light window where the rendered file is the surface, and it's often open right next to VS Code.</p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </header>
+
+    <section class="guide-sec" id="at-a-glance">
+      <h2>At a glance</h2>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th></th><th>OpenMarkdown</th><th>VS Code</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>Free</td><td>Free — a tie</td></tr>
+            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, Windows, Linux</td></tr>
+            <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie</td></tr>
+            <tr><td>Weight &amp; startup</td><td>Feather-light native Rust renderer; window in under a second (P50, maintainer's machine)</td><td>Full Electron IDE — around 300&nbsp;MB+ of RAM</td></tr>
+            <tr><td>What it is</td><td>A dedicated Markdown renderer you and your agent share</td><td>A complete code editor / IDE — Markdown is one file type among many</td></tr>
+            <tr><td>Markdown view</td><td>Live-preview / source / reading — the rendered page is the surface, and it scrolls to each change</td><td>Source-first, with a built-in preview pane (<code>⌘⇧V</code>)</td></tr>
+            <tr><td>How your agent touches the file</td><td>Built-in MCP server drives this rendered view — <code>read_section</code>, <code>write_section</code>, <code>reveal</code>, with section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>Agents (Copilot, Claude Code, Cursor) run in the editor and edit source; no rendered-view co-edit surface of this kind</td></tr>
+            <tr><td>Extensions &amp; language support</td><td>— (just Markdown, on purpose)</td><td>Vast marketplace; every language, debugging, git, terminal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Facts checked 2026-07-19; VS Code is free and cross-platform, an Electron app with a built-in Markdown preview. Details change — see <a href="https://code.visualstudio.com/docs/languages/markdown" rel="nofollow">code.visualstudio.com</a>.</p>
+    </section>
+
+    <section class="guide-sec" id="where-vscode-wins">
+      <h2>Where VS Code wins</h2>
+      <p>It's not close, and it's not meant to be: VS Code is a whole IDE.</p>
+      <ul>
+        <li><b>Everything a developer needs.</b> Every language, debugging, git, a terminal, and a vast extension marketplace. OpenMarkdown renders Markdown and nothing else.</li>
+        <li><b>On Windows, still the agent's home.</b> Both run natively on Windows now, but OpenMarkdown's agent bridge isn't on Windows yet (coming soon) — so on Windows, VS Code is where your agent works and OpenMarkdown is just a fast viewer beside it.</li>
+        <li><b>It's where your agent likely already lives.</b> Copilot, Claude Code and Cursor all run inside VS Code, editing your source directly.</li>
+      </ul>
+    </section>
+
+    <section class="guide-sec" id="where-openmarkdown-wins">
+      <h2>Where OpenMarkdown is different</h2>
+      <p>Not by being a better editor — by being a different surface. In VS Code, a <code>.md</code> is source with an optional preview pane. In OpenMarkdown, the <b>rendered page is the thing you look at</b>, on a native Rust core that opens in well under a second rather than a ~300&nbsp;MB Electron process.</p>
+      <p>And the agent participates through that rendered view: OpenMarkdown's built-in MCP server lets it <code>reveal</code> a heading, <code>read_section</code> and <code>write_section</code> with section-level conflict protection, while your preview scrolls to each change. So the natural setup isn't OpenMarkdown <em>instead of</em> VS Code — it's your agent working in VS Code (or any terminal) while the shared plan or spec renders live in OpenMarkdown for you to watch and edit alongside it.</p>
+    </section>
+
+    <section class="guide-sec" id="when-to-pick-vscode">
+      <h2>When to pick VS Code instead</h2>
+      <div class="callout"><b>Choose VS Code</b> if you want to edit Markdown source right next to your code in a full IDE — especially since your agent may already run there, and its built-in preview is one shortcut away. <b>Choose OpenMarkdown</b> when you want a fast, dedicated rendered view of the shared file that follows your agent's edits — frequently open <em>alongside</em> VS Code, not instead of it.</div>
+      <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </section>
+
+  </main>
+
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

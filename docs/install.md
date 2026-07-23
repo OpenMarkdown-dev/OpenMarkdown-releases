@@ -31,9 +31,13 @@ your local app in server mode. An agent can install the plugin, but it can't
 download the app or grant it permissions. So this step is yours, and it comes
 first.
 
-1. **Download and install the app.** Grab the
-   [latest release](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg)
-   (macOS, universal) and drag it to Applications.
+1. **Download and install the app.** Grab the latest release for your platform —
+   [macOS (.dmg, drag to Applications)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg),
+   [Linux (AppImage)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage),
+   or [Windows (.exe)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe).
+   **The agent steps below are macOS and Linux** — on Windows the app is a native
+   editor with agent co-editing coming soon (or run the Linux build under WSL to
+   get it today).
 2. **Install the `openmd` CLI.** Settings → System integration → turn on the
    command line tool. It drops `openmd` on your PATH.
 3. **Check it.** Run `openmd status` — it should answer. If `openmd` isn't found,

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenMarkdown vs Apple Notes — plain Markdown files your agent can edit</title>
+  <meta name="description" content="OpenMarkdown vs Apple Notes: Apple Notes is a superb built-in notes app, but it keeps notes in a proprietary database; OpenMarkdown keeps each note as a plain .md file on disk that your coding agent can co-edit over MCP. An honest comparison.">
+  <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes">
+  <meta name="theme-color" content="#17171A">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown vs Apple Notes — an honest comparison">
+  <meta property="og:description" content="Apple Notes is a superb built-in notes app, but it keeps notes in a proprietary database; OpenMarkdown keeps each note as a plain .md file your agent can co-edit over MCP.">
+  <meta property="og:url" content="https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown vs Apple Notes — an honest comparison">
+  <meta name="twitter:description" content="Apple Notes is a superb built-in notes app, but it keeps notes in a proprietary database; OpenMarkdown keeps each note as a plain .md file your agent can co-edit over MCP.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>OpenMarkdown vs Apple Notes</h1>
+      <p class="lede">Apple Notes is where most of your quick notes probably live — and it should be. This isn't a case for switching. It's about one specific thing Apple Notes can't be: a plain <code>.md</code> file on disk that your coding agent can open and edit with you.</p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </header>
+
+    <section class="guide-sec" id="at-a-glance">
+      <h2>At a glance</h2>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th></th><th>OpenMarkdown</th><th>Apple Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>Free</td><td>Free — built into Apple's OSes (a tie)</td></tr>
+            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, iPadOS, iOS, iCloud web (Apple ecosystem)</td></tr>
+            <tr><td>The note is a plain <code>.md</code> file on disk</td><td>Yes — the file is the source of truth</td><td>No — notes live in a proprietary database; Markdown only via import/export</td></tr>
+            <tr><td>Markdown while writing</td><td>Live-preview / source / reading</td><td>Rich text; Markdown import &amp; export only (since macOS&nbsp;26), not while you type</td></tr>
+            <tr><td>Agent co-editing over MCP (built-in)</td><td>Built-in MCP server, seven tools, section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>— (no file on disk for an agent to co-edit)</td></tr>
+            <tr><td>Rich media (handwriting, scans, photos, audio)</td><td>— (plain Markdown, images by path)</td><td>Yes — a core strength</td></tr>
+            <tr><td>Sync across your devices</td><td>— (plain files; sync with your own tools)</td><td>Yes — seamless iCloud</td></tr>
+            <tr><td>Maturity / reach</td><td>New (first public release 2026)</td><td>Built in on every Apple device, huge user base</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede">Facts checked 2026-07-19; Apple Notes gained Markdown import/export in macOS&nbsp;26 / iOS&nbsp;26. Features change — see <a href="https://www.apple.com/notes/" rel="nofollow">apple.com/notes</a> for current details.</p>
+    </section>
+
+    <section class="guide-sec" id="where-apple-notes-wins">
+      <h2>Where Apple Notes wins</h2>
+      <p>For everyday personal notes, Apple Notes is hard to beat — and it's already on your devices:</p>
+      <ul>
+        <li><b>Zero setup, everywhere in the Apple world.</b> It's built in, free, and synced across iPhone, iPad, and Mac over iCloud without a thought. OpenMarkdown is a separate download: native on macOS, Linux, and Windows.</li>
+        <li><b>Rich media.</b> Handwriting and Apple Pencil, document scanning, photos, audio, sketches, collaborative sharing. OpenMarkdown is deliberately just Markdown and plain files.</li>
+        <li><b>Ubiquity.</b> Deeply integrated with Siri, the share sheet, widgets, and Lock Screen — a note is always one tap away.</li>
+      </ul>
+    </section>
+
+    <section class="guide-sec" id="where-openmarkdown-wins">
+      <h2>Where OpenMarkdown is different</h2>
+      <p>This is the one comparison where "local-first" genuinely is the difference — not a tie.</p>
+      <p>Apple Notes keeps your writing inside a proprietary database (<code>NoteStore.sqlite</code>). Markdown, added in macOS&nbsp;26, is a <em>conversion</em> at the import and export edges — the note itself is never a plain file you own. In OpenMarkdown, the plain <code>.md</code> file on disk <b>is</b> the note. That's exactly what lets a coding agent take part: its built-in MCP server hands Claude Code, Codex, Gemini CLI or opencode structured tools — <code>read_section</code>, <code>write_section</code>, <code>reveal</code> — to co-edit the file live, with section-level conflict protection so your unsaved edits survive. There's nothing in a locked Apple Notes database for an agent to open that way. Different jobs: Apple Notes for your life; OpenMarkdown for the file you and your agent build together.</p>
+    </section>
+
+    <section class="guide-sec" id="when-to-pick-apple-notes">
+      <h2>When to pick Apple Notes instead</h2>
+      <div class="callout"><b>Choose Apple Notes</b> for everyday personal notes — quick capture, photos, handwriting, scans, and effortless sync across your Apple devices. It's free, it's already there, and for that job nothing here beats it. <b>Choose OpenMarkdown</b> when the note needs to be a plain <code>.md</code> file on disk that your coding agent can co-edit — a plan, a spec, a shared scratchpad — which a note living in Apple's database can't be.</div>
+      <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
+      <a class="back-home" href="/compare/">← all comparisons</a>
+    </section>
+
+  </main>
+
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>
