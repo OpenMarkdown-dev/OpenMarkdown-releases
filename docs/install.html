@@ -177,84 +177,49 @@ args = ["mcp"]</code></div>
          by scripts/build-install-page.mjs — do not hand-edit between the markers. -->
     <section class="guide-sec" id="first-run">
       <h2>Finally: your first note</h2>
-      <p class="lede">With the tools live, <b>“open my first note” means one specific thing</b>: your agent creates a fresh, curated <b>Welcome</b> note — a real keeper file at <code>~/OpenMarkdown/Welcome_to_openmd_agent.md</code> — and uses it to show you co-editing, you and it writing in the same file while the app just renders it. Not your oldest existing file; a new note made for this. Here's the exact host-neutral script it follows.</p>
+      <p class="lede">You don't have to make one. On its first launch OpenMarkdown already seeded <b>a curated Welcome note</b> — a real file at <code>~/OpenMarkdown/Welcome.md</code> — and opened it: a two-part walkthrough you can work through on your own, whose second half hands your agent <i>"copy this to your agent"</i> prompts. So <b>"open my first note" means one specific thing</b>: your agent <b>opens that same file</b> — not a new one, not your oldest existing note — and, when you ask, demos any section right inside it, you and it writing in the same file while the app just renders it. Here's the exact host-neutral script it follows.</p>
       <!-- BEGIN first-run-guide (generated — do not edit) -->
-      <div class="codeblock"><code># First-run guide — the co-edit first moment
+      <div class="codeblock"><code># First-run guide — open the Welcome, don't build one
 
-Agent-facing runbook for the very first thing to do once OpenMarkdown's plugin/MCP is installed and verified. Your job: in about 30 seconds, make *"the human and the agent share one file, and the app just renders it"* **felt**, not explained.
+Agent-facing runbook for the very first thing to do once OpenMarkdown's plugin/MCP is installed and verified. Your job is small and specific: **open the Welcome note the app already seeded** and hand the user into it. You are not building an onboarding — the app did that.
 
-This file is the single source of truth for that script. The install runbook page (`openmarkdown.dev/install`) inlines this same file so non-Claude MCP hosts get the identical steps — so keep everything here host-neutral (only the seven MCP tools, no Claude-Code-specific verbs).
+This file is the single source of truth for that handoff. The install runbook page (`openmarkdown.dev/install`) inlines this same file so non-Claude MCP hosts get the identical steps — so keep everything here host-neutral (only the seven MCP tools, no Claude-Code-specific verbs).
 
-**Prerequisite:** `openmd` is on PATH. The seven MCP tools may not be *live in this session* yet — and that changes what you do, not whether you do it:
+**Where the Welcome comes from:** on its first launch OpenMarkdown seeds `~/OpenMarkdown/Welcome.md` (a curated, two-part onboarding note) and opens it. That file is the onboarding — a real file on the user's disk, with the human-facing lesson and, in its second half, per-section *"copy this to your agent"* prompts. Your role at first run is to **open that same file**, not to author your own.
 
-- **Tools live** → run the beats below with them.
-- **Not live because the plugin was just installed this session** (a host loads a plugin's MCP server + skill only when its session starts) → **do not stop, and do not claim you can't help.** Run the beats in *degraded mode*: edit the note file directly with your own file tools and `openmd &lt;file&gt;` to open/reveal it — it still lands the felt moment. Then, at the end, tell the user how to load the full tools **without a restart**: on Claude Code that is **`/reload-plugins`** (the user types it — an agent cannot), which loads the MCP server, skill, and `/openmarkdown` commands into this same session.
+**Prerequisite:** `openmd` is on PATH. The seven MCP tools may not be *live in this session* yet — and that changes how you open the note, not whether you do:
+
+- **Tools live** → `open_file` / `reveal` the Welcome as below.
+- **Not live because the plugin was just installed this session** (a host loads a plugin's MCP server + skill only when its session starts) → **do not stop, and do not claim you can't help.** Open the note with `openmd ~/OpenMarkdown/Welcome.md` directly. Then, at the end, tell the user how to load the full tools **without a restart**: on Claude Code that is **`/reload-plugins`** (the user types it — an agent cannot), which loads the MCP server, skill, and `/openmarkdown` commands into this same session.
 - **`openmd` itself missing** (not on PATH) → *that* is the one stop condition: the app + CLI aren't set up yet; finish install first (see the runbook).
 
-**Language:** the user-facing strings below (the consent line, the note body, the headings) are the English canonical form. Render them in the user's UI language when you know it — e.g. the "Your turn" heading is `## 轮到你` in Chinese, `## あなたの番` in Japanese. You wrote the note, so you always know which heading text to read back in Beat 3.
-
-## Beat 0 — Ask first (consent gate)
+## Ask first (consent gate)
 
 Before opening anything, ask one light line in chat and wait for the answer:
 
-&gt; "Installed. Want me to open a note and walk you through co-editing together? (yes / later)"
+&gt; "Installed. Want me to open your Welcome note and get you started? (yes / later)"
 
-- **Skip the ask** if the sentence that triggered this install already asked to open a note (e.g. "…and open my first note"). That is consent — go straight to Beat 1.
-- **"later"** → do **not** steal focus. Quietly create the note (below) **without** `reveal`, then say: "Left it at `~/OpenMarkdown/Welcome_to_openmd_agent.md` — open it or ping me whenever." Stop here.
-- **"yes"** → continue.
+- **Skip the ask** if the sentence that triggered this install already asked to open a note (e.g. "…and open my first note"). That is consent — open it now.
+- **"later"** → do **not** steal focus (no `reveal`). Say: "Your Welcome is at `~/OpenMarkdown/Welcome.md` — open it or ping me whenever." **Never create a note of your own**, and never open one of the user's existing files to stand in for it. Stop here.
+- **"yes"** → open it.
 
-## The note
+## Open the seeded Welcome
 
-Create a real, keeper file at `~/OpenMarkdown/Welcome_to_openmd_agent.md` (the user's default notes dir). **Create it fresh — never repurpose or open one of the user's existing notes** ("open my first note" means *this* curated Welcome, not their oldest file). Never a temp/throwaway file either — it stays on disk so the point lands: *this is your file, not a chat log.* Seed it with:
+`open_file` `~/OpenMarkdown/Welcome.md`, then `reveal` it so the app comes to the front. This is the file the app seeded on first launch — **open it, never author your own, and never open the user's oldest existing note in its place** ("open my first note" means *this* curated Welcome).
 
-```markdown
-# Welcome to OpenMarkdown
+If `~/OpenMarkdown/Welcome.md` doesn't exist — the default notes dir is already there but was created some other way (an existing user), so the app never seeded it — do not manufacture a curated note. Open the default notes directory (or say where it is) and let the user pick up from there.
 
-This is a real file on your disk — `~/OpenMarkdown/Welcome_to_openmd_agent.md` —
-not a chat message. I'm your agent, and I just opened it in front of you. The app
-you're looking at is only rendering it; the *file* is what we both share. Watch
-what that feels like:
+## Hand off
 
-## Watch this
+Once it's open, one line in chat, then get out of the way:
 
-&lt;!-- the agent writes here, live, in Beat 2 --&gt;
+&gt; "That's your Welcome — a real file on your disk; the app just renders it. Walk through it yourself, or ask me to demo any section for you."
 
-## Your turn
+The Welcome's first part teaches the basics with nothing but the user and the editor. Its second part is the agent half: each section carries a *"copy this to your agent"* prompt the user can hand to you. So the felt moment isn't a fixed script you perform up front — it happens **on demand**, when the user asks.
 
-&lt;!-- write me a line here and save — I'm watching this file, and I'll read it back --&gt;
+## Demo a section on request
 
-## Hand me a task
-
-&lt;!-- Leave me async work right in the file. Uncomment the line below (or write your
-     own) and save — while I'm watching this note I'll do it and tick the box. The
-     point: you hand off work through the file, not the chat. --&gt;
-&lt;!-- - [ ] @agent turn the three lines above into a bullet list --&gt;
-```
-
-## Beat 1 — Open it (proves `open_file` / `reveal`)
-
-`open_file` the note, then `reveal` it so the app comes to the front. One line in chat: "That window that just popped up — I opened it for you. Look at the note."
-
-## Beat 2 — Write while they watch (agent → file → render)
-
-`write_section` into `## Watch this` — ideally two or three small writes with a beat between them, so text appears line by line in their editor rather than all at once. Write something that proves it is live: a one-line hello, the note's path, and "you're watching me type into your file right now." This is the agent→human direction of co-editing.
-
-## Beat 3 — Their turn (human → agent, closes the loop)
-
-Ask them to write one line under `## Your turn` and save (⌘S / Ctrl+S). Then `wait_for_change` on the note. When it returns, `read_section` the "Your turn" section and reply in chat **quoting what they wrote** — "Got it — you wrote '…'." That read-back is the proof the loop closes both ways.
-
-**Degrade — never hang.** `wait_for_change` blocks. If they stall or say "skip", wind down gracefully (a short `wait_for_change` timeout in a loop, or stop the moment they say so) and say: "No rush — write a line under `## Your turn` whenever, and I'll pick it up." Never sit in an unbounded wait.
-
-## Tail — "Also try" (they explore the rest on their own)
-
-After the three beats, offer a short menu (in chat, or appended to the note) of things they can try **separately**. Do **not** expand it into a second forced tutorial — the beats teach exactly one co-edit loop; everything else is opt-in here:
-
-- **Keep co-editing** — ask me to watch a note again and I'll wait for your saves and react; that re-opens this loop anytime (on Claude Code, `/openmarkdown:co-edit &lt;file&gt;` does it in one step).
-- **Hand me async work** — drop `- [ ] @agent &lt;task&gt;` into a note I'm watching (like `## Hand me a task` above); I pick it up, do it, and tick the box. This is the whole point of the shared file.
-- `export VISUAL="openmd --wait"` — then `git commit` (and anything using `$EDITOR`/`$VISUAL`) opens in OpenMarkdown.
-- `⌘P` — the command palette (files / commands / outline).
-- Drag an image into a note — it's saved next to the file and linked with a relative path.
-- Ask me to jump you to any heading — I'll `reveal` it.</code></div>
+When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV into a table", "take me to where we build the hero"), do exactly that with the MCP tools — `read_section` / `write_section` to edit in place, `reveal` to move their view, `get_context` to see what they've selected. Each section already says what it shows; you're just the agent it points to. No separate beat script, no keeper note to seed — the file is already there, and you act on it when invited.</code></div>
       <!-- END first-run-guide -->
     </section>
 

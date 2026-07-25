@@ -1396,6 +1396,17 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
 }
 #connect .lede { color: #cfc9bd; }
 
+/* …but /install's "connect your agent" stays on paper like the rest of that
+   page (only the landing's #connect is an ink ground). The id is shared, so
+   scope the reset to .guide-sec#connect — beats the ink #connect rule above,
+   and never touches index.html's .section#connect. */
+.guide-sec#connect {
+  background: var(--paper); color: var(--ink);
+  --fg: var(--ink); --bg: var(--paper); --surface: var(--canvas);
+  --line: rgba(23, 23, 26, 0.14); --line-soft: rgba(23, 23, 26, 0.08);
+}
+.guide-sec#connect .lede { color: var(--signal); }
+
 /* copy buttons (JS-injected): a positioned wrapper + a Copy button top-right of
    any .codeblock/.callout marked .copyable. The inner box gets right padding so
    content never slides under the button. No-JS → no wrapper, no button. */

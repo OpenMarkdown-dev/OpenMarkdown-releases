@@ -138,14 +138,18 @@ stdio — no arguments, no network:
 
 ## Finally: your first note
 
-With the tools live, **"open my first note" means one specific thing**: your agent
-creates a fresh, curated **Welcome** note — a real keeper file at
-`~/OpenMarkdown/Welcome_to_openmd_agent.md` — and uses it to show you co-editing.
-Not your oldest existing file; a new note made for this moment.
+You don't have to make one. On its first launch OpenMarkdown already seeded **a
+curated Welcome note** — a real file at `~/OpenMarkdown/Welcome.md` — and opened
+it: a two-part walkthrough you can work through on your own, whose second half
+hands your agent *"copy this to your agent"* prompts. So **"open my first note"
+means one specific thing**: your agent **opens that same file** — not a new one,
+not your oldest existing note — and, when you ask, demos any section right inside
+it, you and it writing in the same file while the app just renders it.
 
-The script it follows is the canonical, host-neutral first-run guide — shipped
+The steps it follows are the canonical, host-neutral first-run guide — shipped
 verbatim in the Claude Code plugin skill, and available inline on the /install page
-for every other host: a consent gate, then a three-beat co-edit loop. The agent
-writes into the note while you watch (`write_section`), waits for you to write a
-line back (`wait_for_change` + `read_section`), and reads it back to you. It
-degrades gracefully and never sits in an unbounded wait.
+for every other host: a consent gate, then open the seeded `Welcome.md`
+(`open_file` + `reveal`) and hand off. The felt moment happens on demand — when you
+ask it to run a section (say, turn a CSV into a table), it edits in place
+(`read_section` / `write_section`) or moves your view (`reveal`). It never
+authors its own note and never sits in an unbounded wait.
