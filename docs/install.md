@@ -64,7 +64,7 @@ tools); the skill is Claude Code–only. The runtime is identical either way: pl
 `openmd mcp` — the local app you installed a moment ago, no new binary downloaded.
 The Claude Code plugin adds Markdown only (a skill + three slash commands): **no
 hooks, no scripts that run on their own, no network calls**, and no "run any shell
-command" tool — the seven tools touch only your Markdown files and the app's own
+command" tool — the eight tools touch only your Markdown files and the app's own
 menu commands. It's all open:
 [read the `plugin/` source](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/tree/main/plugin)
 before you install it — that's the front door, not a detour. A careful agent that

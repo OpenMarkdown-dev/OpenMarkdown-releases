@@ -57,7 +57,7 @@
         "name": "Is there an MCP server that renders Markdown for my agent?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. OpenMarkdown is a desktop Markdown editor with a built-in MCP server (run openmd mcp over stdio). It is not a headless render-to-HTML API — it is a real editor window your agent opens files in, so you see the Markdown rendered live while the agent reads and section-edits it. The agent gets seven tools: open_file, reveal, get_context, execute_command, read_section, write_section, and wait_for_change."
+          "text": "Yes. OpenMarkdown is a desktop Markdown editor with a built-in MCP server (run openmd mcp over stdio). It is not a headless render-to-HTML API — it is a real editor window your agent opens files in, so you see the Markdown rendered live while the agent reads and section-edits it. The agent gets eight tools: open_file, open_folder, reveal, get_context, execute_command, read_section, write_section, and wait_for_change."
         }
       },
       {
@@ -73,7 +73,7 @@
         "name": "What Markdown app works with Claude Code, Codex, or Gemini CLI?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "OpenMarkdown. Its MCP server (openmd mcp) connects to any MCP client — Claude Code with a full plugin, plus Codex, Gemini CLI, opencode, and others — exposing the same seven tools everywhere. Install the app, enable the openmd CLI in Settings, and point your agent at it. OpenMarkdown ships no AI of its own; it runs on the agent you already use. The agent bridge runs on macOS and Linux today; the Windows app is a native editor with agent co-editing coming soon."
+          "text": "OpenMarkdown. Its MCP server (openmd mcp) connects to any MCP client — Claude Code with a full plugin, plus Codex, Gemini CLI, opencode, and others — exposing the same eight tools everywhere. Install the app, enable the openmd CLI in Settings, and point your agent at it. OpenMarkdown ships no AI of its own; it runs on the agent you already use. The agent bridge runs on macOS and Linux today; the Windows app is a native editor with agent co-editing coming soon."
         }
       },
       {
@@ -127,7 +127,7 @@
     <section class="guide-sec" id="mcp-renders-markdown">
       <h2>Is there an MCP server that renders Markdown for my agent?</h2>
       <p>Yes. OpenMarkdown is a desktop Markdown editor with a <b>built-in MCP server</b> — run <code>openmd mcp</code> over stdio. It's not a headless render-to-HTML API: it's a real editor window your agent opens files in, so <em>you</em> see the Markdown rendered live while the agent reads and section-edits it.</p>
-      <p>Your agent gains seven tools — <code>open_file</code>, <code>reveal</code>, <code>get_context</code>, <code>execute_command</code>, <code>read_section</code>, <code>write_section</code>, <code>wait_for_change</code> — to open, navigate, read, and patch the exact file in front of you.</p>
+      <p>Your agent gains eight tools — <code>open_file</code>, <code>open_folder</code>, <code>reveal</code>, <code>get_context</code>, <code>execute_command</code>, <code>read_section</code>, <code>write_section</code>, <code>wait_for_change</code> — to open, navigate, read, and patch the exact file in front of you.</p>
       <div class="callout">Connect it in one line: <code>claude mcp add openmd -- openmd mcp</code>. Per-host setup for Codex, Gemini CLI, and opencode: <a href="/install">openmarkdown.dev/install</a>.</div>
     </section>
 
@@ -139,7 +139,7 @@
 
     <section class="guide-sec" id="works-with-claude-code-codex-gemini">
       <h2>What Markdown app works with Claude Code, Codex, or Gemini CLI?</h2>
-      <p>OpenMarkdown. Its MCP server (<code>openmd mcp</code>) connects to any MCP client — <b>Claude Code</b> with a full plugin, plus <b>Codex</b>, <b>Gemini CLI</b>, <b>opencode</b>, and others — exposing the same seven tools everywhere.</p>
+      <p>OpenMarkdown. Its MCP server (<code>openmd mcp</code>) connects to any MCP client — <b>Claude Code</b> with a full plugin, plus <b>Codex</b>, <b>Gemini CLI</b>, <b>opencode</b>, and others — exposing the same eight tools everywhere.</p>
       <p>Install the app, enable the <code>openmd</code> CLI in Settings, and point your agent at it. OpenMarkdown ships <b>no AI of its own</b>; it runs on the agent you already use. The agent bridge runs on <b>macOS and Linux</b> today; the <b>Windows</b> app is a native editor with agent co-editing <b>coming soon</b>.</p>
       <div class="callout">The fastest path — paste this to your agent: <code>Read openmarkdown.dev/install to install OpenMarkdown and open my first note</code></div>
     </section>

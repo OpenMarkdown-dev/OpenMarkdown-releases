@@ -96,7 +96,7 @@ Before you rely on the tools, probe the CLI:
 - If `openmd` is **not found**, stop. The app or CLI isn't set up. Tell the user
   to install the app and enable the CLI in Settings — **do not** try to install
   the app yourself.
-- Once connected, your seven tools are `open_file`, `reveal`, `get_context`,
+- Once connected, your eight tools are `open_file`, `open_folder`, `reveal`, `get_context`,
   `execute_command`, `read_section`, `write_section`, `wait_for_change`.
 
 ## The one red line

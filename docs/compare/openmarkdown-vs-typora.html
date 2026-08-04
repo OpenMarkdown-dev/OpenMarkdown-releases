@@ -70,7 +70,7 @@
             <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, Windows, Linux</td></tr>
             <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie</td></tr>
             <tr><td>Live preview</td><td>Live-preview / source / reading, one button cycles</td><td>Seamless inline WYSIWYG (renders in place)</td></tr>
-            <tr><td>Agent co-editing over MCP</td><td>Built-in MCP server, seven tools, section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>—</td></tr>
+            <tr><td>Agent co-editing over MCP</td><td>Built-in MCP server, eight tools, section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>—</td></tr>
             <tr><td>Export (PDF / Word / LaTeX / …)</td><td>— (keeps your plain <code>.md</code>; export elsewhere)</td><td>PDF, HTML, Word, LaTeX, Epub, and more</td></tr>
             <tr><td>Maturity</td><td>New (first public release 2026)</td><td>Established, actively developed for years</td></tr>
           </tbody>
@@ -92,7 +92,7 @@
     <section class="guide-sec" id="where-openmarkdown-wins">
       <h2>Where OpenMarkdown is different</h2>
       <p>One axis, and it's the whole reason OpenMarkdown exists: <b>your agent shares the file.</b></p>
-      <p>OpenMarkdown ships a built-in MCP server. Claude Code, Codex, Gemini CLI, opencode — any MCP client — can <code>open_file</code>, <code>reveal</code> a heading, <code>read_section</code>, and <code>write_section</code> on the exact document you're looking at, while the preview re-renders and scrolls to each change. Because writes are section-scoped with optimistic concurrency, if you and the agent edit the same section at once the agent's write is rejected as a <code>CONFLICT</code> — your unsaved work is protected. Typora has no agent integration; it's built for one writer at a time. OpenMarkdown is also free, and its Rust core opens a window in well under a second.</p>
+      <p>OpenMarkdown ships a built-in MCP server. Claude Code, Codex, Gemini CLI, opencode — any MCP client — can <code>open_file</code>, <code>open_folder</code>, <code>reveal</code> a heading, <code>read_section</code>, and <code>write_section</code> on the exact document you're looking at, while the preview re-renders and scrolls to each change. Because writes are section-scoped with optimistic concurrency, if you and the agent edit the same section at once the agent's write is rejected as a <code>CONFLICT</code> — your unsaved work is protected. Typora has no agent integration; it's built for one writer at a time. OpenMarkdown is also free, and its Rust core opens a window in well under a second.</p>
     </section>
 
     <section class="guide-sec" id="when-to-pick-typora">

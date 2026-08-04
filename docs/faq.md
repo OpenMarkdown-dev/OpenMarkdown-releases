@@ -37,7 +37,7 @@ run `openmd mcp` over stdio. It's not a headless render-to-HTML API: it's a real
 editor window your agent opens files in, so *you* see the Markdown rendered live
 while the agent reads and section-edits it.
 
-Your agent gains seven tools — `open_file`, `reveal`, `get_context`,
+Your agent gains eight tools — `open_file`, `open_folder`, `reveal`, `get_context`,
 `execute_command`, `read_section`, `write_section`, `wait_for_change` — to open,
 navigate, read, and patch the exact file in front of you. Connect it in one line:
 `claude mcp add openmd -- openmd mcp`. Per-host setup for Codex, Gemini CLI, and
@@ -57,7 +57,7 @@ section and retries. You edit alongside it, not after it.
 
 OpenMarkdown. Its MCP server (`openmd mcp`) connects to any MCP client — **Claude
 Code** with a full plugin, plus **Codex**, **Gemini CLI**, **opencode**, and
-others — exposing the same seven tools everywhere.
+others — exposing the same eight tools everywhere.
 
 Install the app once, enable the `openmd` CLI in Settings, and point your
 agent at it. OpenMarkdown ships **no AI of its own**; it runs on the agent you

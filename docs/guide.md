@@ -63,12 +63,14 @@ finds the rest.
 
 ## The `openmd` CLI
 
-Four commands, three flags. Every one talks to the app already running on your
-machine — nothing leaves your disk.
+A handful of commands, three flags. Every one talks to the app already running on
+your machine — nothing leaves your disk. For the exact, always-current list, see
+the [CLI reference](cli.md) or run `openmd --help`.
 
 | You run | It does |
 | --- | --- |
 | `openmd notes.md` | Opens the file in OpenMarkdown (`open` is implied; several files open several tabs) |
+| `openmd .` | Opens the folder as a workspace — a file tree in the sidebar (any existing directory) |
 | `openmd reveal plan.md "Auth"` | Opens the file and scrolls to the heading — exact match, then case-insensitive, then prefix; without a heading it just opens and activates |
 | `openmd status` | What's open right now — folder, tabs, active file. Never launches the app |
 | `openmd mcp` | Runs the MCP server on stdio, for agents to spawn: `claude mcp add openmd -- openmd mcp` |
@@ -92,10 +94,10 @@ open, reveal, and read the same file you're looking at.
    itself — <https://openmarkdown.dev/install> walks Claude Code, Codex, Gemini
    CLI, opencode, or any MCP client through it. For Claude Code by hand, add the
    marketplace and install the plugin — or wire the MCP server straight in:
-   `claude mcp add openmd -- openmd mcp`. Your agent gains seven tools —
-   `open_file`, `reveal`, `get_context`, `execute_command`, `read_section`,
-   `write_section`, `wait_for_change` — and, on Claude Code, a skill that teaches
-   it when to use them.
+   `claude mcp add openmd -- openmd mcp`. Your agent gains eight tools —
+   `open_file`, `open_folder`, `reveal`, `get_context`, `execute_command`,
+   `read_section`, `write_section`, `wait_for_change` — and, on Claude Code, a
+   skill that teaches it when to use them.
 
 Everything runs on plain files, locally. The CLI and MCP server forward to the app
 on your machine — nothing leaves your disk, and your agent reads exactly the page
