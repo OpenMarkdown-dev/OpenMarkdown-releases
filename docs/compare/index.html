@@ -32,6 +32,46 @@
   <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
+
+  <!-- Structured data. headline/description/url mirror the visible
+       <title>/meta description/canonical; honesty-gated (public-claim-integrity):
+       no cross-platform over-claim, no fact not already on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "OpenMarkdown compared — vs Typora, Obsidian, VS Code, Apple Notes & more",
+        "description": "Honest comparisons between OpenMarkdown and the tools you might already use — Typora, Obsidian, Marked 2, iA Writer, VS Code, and Apple Notes — including where each of them wins.",
+        "url": "https://openmarkdown.dev/compare/",
+        "inLanguage": "en",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "OpenMarkdown",
+          "url": "https://openmarkdown.dev/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://openmarkdown.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://openmarkdown.dev/compare/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 

@@ -32,6 +32,71 @@
   <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
+
+  <!-- Structured data. headline/description/url mirror the visible
+       <title>/meta description/canonical; honesty-gated (public-claim-integrity):
+       no cross-platform over-claim, no fact not already on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "OpenMarkdown vs Typora — a free, agent-native Markdown editor",
+        "description": "OpenMarkdown vs Typora: Typora is a mature, cross-platform WYSIWYG editor with rich export; OpenMarkdown is free and native on macOS, Linux, and Windows; on macOS and Linux it lets your coding agent co-edit the same file over MCP. An honest comparison.",
+        "url": "https://openmarkdown.dev/compare/openmarkdown-vs-typora",
+        "image": "https://openmarkdown.dev/assets/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Xueyan Zhang"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "OpenMarkdown",
+          "url": "https://openmarkdown.dev/"
+        },
+        "inLanguage": "en",
+        "about": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "OpenMarkdown"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Typora"
+          }
+        ],
+        "isPartOf": {
+          "@type": "CollectionPage",
+          "name": "OpenMarkdown comparisons",
+          "url": "https://openmarkdown.dev/compare/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://openmarkdown.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://openmarkdown.dev/compare/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "OpenMarkdown vs Typora"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -99,6 +164,7 @@
       <h2>When to pick Typora instead</h2>
       <div class="callout"><b>Choose Typora</b> if you want the most polished solo WYSIWYG writing experience, or you need rich export (PDF, Word, LaTeX). <b>Choose OpenMarkdown</b> if the point is to watch and co-edit the <code>.md</code> your coding agent is working on — a plan, a spec, a shared scratchpad — rather than write alone (agent co-editing on macOS and Linux today; the Windows app is a native editor with it coming soon).</div>
       <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>Related comparisons: <a href="/compare/openmarkdown-vs-ia-writer">OpenMarkdown vs iA Writer</a> · <a href="/compare/openmarkdown-vs-marked-2">OpenMarkdown vs Marked 2</a></p>
       <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
       <a class="back-home" href="/compare/">← all comparisons</a>
     </section>

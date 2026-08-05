@@ -32,6 +32,71 @@
   <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
+
+  <!-- Structured data. headline/description/url mirror the visible
+       <title>/meta description/canonical; honesty-gated (public-claim-integrity):
+       no cross-platform over-claim, no fact not already on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "OpenMarkdown vs VS Code — a dedicated Markdown surface vs an IDE",
+        "description": "OpenMarkdown vs VS Code: VS Code is a full Electron IDE where Markdown is a side preview pane; OpenMarkdown is a feather-light native renderer where the rendered file is the surface and your agent co-edits it over MCP. Often used alongside VS Code, not instead of it.",
+        "url": "https://openmarkdown.dev/compare/openmarkdown-vs-vscode",
+        "image": "https://openmarkdown.dev/assets/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Xueyan Zhang"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "OpenMarkdown",
+          "url": "https://openmarkdown.dev/"
+        },
+        "inLanguage": "en",
+        "about": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "OpenMarkdown"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Visual Studio Code"
+          }
+        ],
+        "isPartOf": {
+          "@type": "CollectionPage",
+          "name": "OpenMarkdown comparisons",
+          "url": "https://openmarkdown.dev/compare/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://openmarkdown.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://openmarkdown.dev/compare/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "OpenMarkdown vs VS Code"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -100,6 +165,7 @@
       <h2>When to pick VS Code instead</h2>
       <div class="callout"><b>Choose VS Code</b> if you want to edit Markdown source right next to your code in a full IDE — especially since your agent may already run there, and its built-in preview is one shortcut away. <b>Choose OpenMarkdown</b> when you want a fast, dedicated rendered view of the shared file that follows your agent's edits — frequently open <em>alongside</em> VS Code, not instead of it.</div>
       <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>Related comparisons: <a href="/compare/openmarkdown-vs-obsidian">OpenMarkdown vs Obsidian</a> · <a href="/compare/openmarkdown-vs-apple-notes">OpenMarkdown vs Apple Notes</a></p>
       <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
       <a class="back-home" href="/compare/">← all comparisons</a>
     </section>

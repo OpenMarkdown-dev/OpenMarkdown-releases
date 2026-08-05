@@ -32,6 +32,71 @@
   <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
+
+  <!-- Structured data. headline/description/url mirror the visible
+       <title>/meta description/canonical; honesty-gated (public-claim-integrity):
+       no cross-platform over-claim, no fact not already on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "OpenMarkdown vs Marked 2 — edit and co-edit, not just preview",
+        "description": "OpenMarkdown vs Marked 2: Marked 2 is a mature macOS previewer that watches your file and re-renders on save; OpenMarkdown lets you edit in the same window and lets your coding agent co-edit it over MCP. An honest comparison.",
+        "url": "https://openmarkdown.dev/compare/openmarkdown-vs-marked-2",
+        "image": "https://openmarkdown.dev/assets/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Xueyan Zhang"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "OpenMarkdown",
+          "url": "https://openmarkdown.dev/"
+        },
+        "inLanguage": "en",
+        "about": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "OpenMarkdown"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Marked 2"
+          }
+        ],
+        "isPartOf": {
+          "@type": "CollectionPage",
+          "name": "OpenMarkdown comparisons",
+          "url": "https://openmarkdown.dev/compare/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://openmarkdown.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://openmarkdown.dev/compare/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "OpenMarkdown vs Marked 2"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -99,6 +164,7 @@
       <h2>When to pick Marked 2 instead</h2>
       <div class="callout"><b>Choose Marked 2</b> (or its successor, Marked 3) if you have a text editor you love and just want a first-class preview window beside it — with export, custom styles, and readability tools. <b>Choose OpenMarkdown</b> if you want to edit and watch in one window, and you want your coding agent to co-edit the file with structured, conflict-safe tools rather than blindly writing to disk.</div>
       <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>Related comparisons: <a href="/compare/openmarkdown-vs-typora">OpenMarkdown vs Typora</a> · <a href="/compare/openmarkdown-vs-ia-writer">OpenMarkdown vs iA Writer</a></p>
       <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
       <a class="back-home" href="/compare/">← all comparisons</a>
     </section>

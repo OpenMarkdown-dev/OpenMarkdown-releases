@@ -32,6 +32,71 @@
   <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
+
+  <!-- Structured data. headline/description/url mirror the visible
+       <title>/meta description/canonical; honesty-gated (public-claim-integrity):
+       no cross-platform over-claim, no fact not already on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "OpenMarkdown vs Apple Notes — plain Markdown files your agent can edit",
+        "description": "OpenMarkdown vs Apple Notes: Apple Notes is a superb built-in notes app, but it keeps notes in a proprietary database; OpenMarkdown keeps each note as a plain .md file on disk that your coding agent can co-edit over MCP. An honest comparison.",
+        "url": "https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes",
+        "image": "https://openmarkdown.dev/assets/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Xueyan Zhang"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "OpenMarkdown",
+          "url": "https://openmarkdown.dev/"
+        },
+        "inLanguage": "en",
+        "about": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "OpenMarkdown"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Apple Notes"
+          }
+        ],
+        "isPartOf": {
+          "@type": "CollectionPage",
+          "name": "OpenMarkdown comparisons",
+          "url": "https://openmarkdown.dev/compare/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://openmarkdown.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://openmarkdown.dev/compare/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "OpenMarkdown vs Apple Notes"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -100,6 +165,7 @@
       <h2>When to pick Apple Notes instead</h2>
       <div class="callout"><b>Choose Apple Notes</b> for everyday personal notes — quick capture, photos, handwriting, scans, and effortless sync across your Apple devices. It's free, it's already there, and for that job nothing here beats it. <b>Choose OpenMarkdown</b> when the note needs to be a plain <code>.md</code> file on disk that your coding agent can co-edit — a plan, a spec, a shared scratchpad — which a note living in Apple's database can't be.</div>
       <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>Related comparisons: <a href="/compare/openmarkdown-vs-obsidian">OpenMarkdown vs Obsidian</a> · <a href="/compare/openmarkdown-vs-vscode">OpenMarkdown vs VS Code</a></p>
       <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
       <a class="back-home" href="/compare/">← all comparisons</a>
     </section>

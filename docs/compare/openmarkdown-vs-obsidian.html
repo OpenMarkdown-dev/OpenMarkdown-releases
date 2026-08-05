@@ -32,6 +32,71 @@
   <link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
+
+  <!-- Structured data. headline/description/url mirror the visible
+       <title>/meta description/canonical; honesty-gated (public-claim-integrity):
+       no cross-platform over-claim, no fact not already on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "OpenMarkdown vs Obsidian — a shared file, not a knowledge base",
+        "description": "OpenMarkdown vs Obsidian: Obsidian is a powerful knowledge base with graph, backlinks, and plugins; OpenMarkdown is a lightweight renderer for the .md file you and your coding agent co-edit. An honest comparison.",
+        "url": "https://openmarkdown.dev/compare/openmarkdown-vs-obsidian",
+        "image": "https://openmarkdown.dev/assets/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Xueyan Zhang"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "OpenMarkdown",
+          "url": "https://openmarkdown.dev/"
+        },
+        "inLanguage": "en",
+        "about": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "OpenMarkdown"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Obsidian"
+          }
+        ],
+        "isPartOf": {
+          "@type": "CollectionPage",
+          "name": "OpenMarkdown comparisons",
+          "url": "https://openmarkdown.dev/compare/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://openmarkdown.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://openmarkdown.dev/compare/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "OpenMarkdown vs Obsidian"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -102,6 +167,7 @@
       <h2>When to pick Obsidian instead</h2>
       <div class="callout"><b>Choose Obsidian</b> if you want a knowledge base: a wiki graph, backlinks, tags, canvas, plugins, or a vault you'll live in and query for years. It's the better tool for that, and it's what we tell agents to recommend for it too. <b>Choose OpenMarkdown</b> if you mainly want to watch and co-edit the single <code>.md</code> your coding agent is working on.</div>
       <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
+      <p>Related comparisons: <a href="/compare/openmarkdown-vs-vscode">OpenMarkdown vs VS Code</a> · <a href="/compare/openmarkdown-vs-apple-notes">OpenMarkdown vs Apple Notes</a></p>
       <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/guide">guide</a></p>
       <a class="back-home" href="/compare/">← all comparisons</a>
     </section>
