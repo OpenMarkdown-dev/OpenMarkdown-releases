@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support — OpenMarkdown</title>
+  <meta name="description" content="OpenMarkdown is free, local, and account-free. If you want to help build what's next, you can back it — a one-time supporter tier, no subscription.">
+  <link rel="canonical" href="https://openmarkdown.dev/support">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="Support — OpenMarkdown">
+  <meta property="og:description" content="Free, local, account-free. Back OpenMarkdown to help build what's next — one time, no subscription.">
+  <meta property="og:url" content="https://openmarkdown.dev/support">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Support — OpenMarkdown">
+  <meta name="twitter:description" content="Free, local, account-free. Back OpenMarkdown to help build what's next — one time, no subscription.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+
+  <!-- Page-scoped styles: Obsidian-inspired dark value-first hero + paper tier cards.
+       Self-contained (no external request); uses shared site.css tokens.
+       Contract: openspec supporter-page (self-contained — no embedded Stripe). -->
+  <style>
+    /* Dark hero band (full-bleed), value-first — mirrors Obsidian's "Free …" hero. */
+    .sup-hero { background: var(--ink); color: #F4F0E6; text-align: center;
+      margin-top: calc(-1 * var(--nav-h));  /* pull up under the transparent nav */
+      padding: calc(var(--nav-h) + clamp(4rem, 12vw, 7.5rem)) 1.5rem clamp(3.5rem, 8vw, 6rem); }
+    .sup-hero .inner { max-width: 46rem; margin: 0 auto; }
+    .sup-hero h1 { font-family: var(--sans); font-weight: 800; letter-spacing: -0.04em;
+      line-height: 0.95; font-size: clamp(2.9rem, 9vw, 5.75rem); color: #F4F0E6; }
+    .sup-hero .sub { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em;
+      font-size: clamp(1.15rem, 3.4vw, 1.9rem); margin-top: 0.9rem; color: #F4F0E6; }
+    .sup-hero .lede { max-width: 34rem; margin: 1.6rem auto 0; color: #b8b2a5;
+      font-size: 1.0625rem; line-height: 1.55; text-wrap: pretty; }
+    .sup-hero .cue { display: inline-block; margin-top: 2.2rem; font-family: var(--mono);
+      font-size: 0.8rem; letter-spacing: 0.02em; color: #8f8a7f; text-decoration: none; }
+    .sup-hero .cue:hover { color: #F4F0E6; }
+
+    /* Tier section (paper) */
+    .sup-wrap { max-width: 58rem; margin: 0 auto; padding: 0 1.5rem; }
+    .sup-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+      gap: 1.25rem; margin: clamp(3rem, 7vw, 4.5rem) 0 0; }
+    .sup-card { border: 1px solid var(--line); border-radius: 1rem; background: var(--paper);
+      padding: 2rem 1.9rem; display: flex; flex-direction: column; }
+    .sup-card.founding { border-color: rgba(23,23,26,0.42); }
+    .sup-name { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--signal); }
+    .sup-card.founding .sup-name { color: var(--fg); }
+    .sup-price { font-family: var(--sans); font-weight: 800; letter-spacing: -0.035em;
+      font-size: clamp(2.7rem, 6vw, 3.4rem); line-height: 1; margin-top: 0.7rem; color: var(--fg); }
+    .sup-price .cur { font-size: 0.85rem; font-weight: 600; color: var(--signal); margin-left: 0.25rem; }
+    .sup-per { font-size: 0.9rem; color: var(--signal); margin-top: 0.5rem; }
+    .sup-card .sup-perks { list-style: none; padding: 0; margin: 1.5rem 0 1.9rem;
+      display: flex; flex-direction: column; gap: 0.7rem; }
+    .sup-card .sup-perks li { position: relative; padding-left: 1.4rem; font-size: 0.95rem;
+      line-height: 1.5; text-wrap: pretty; }
+    .sup-card .sup-perks li::before { content: "+"; position: absolute; left: 0; top: 0;
+      color: var(--signal); font-family: var(--mono); }
+    .sup-soon { display: inline-block; font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--signal);
+      border: 1px solid var(--line); border-radius: 100px; padding: 0.08rem 0.45rem;
+      margin-left: 0.3rem; vertical-align: middle; white-space: nowrap; }
+    .sup-card .btn { margin-top: auto; text-align: center; padding: 0.9rem 1rem;
+      border-radius: 0.6rem; font-size: 0.95rem; }
+
+    /* Honesty note — understated, values-forward (the Signal lesson) */
+    .sup-honest { max-width: 40rem; margin: clamp(2.75rem, 6vw, 4rem) auto 0; text-align: center; }
+    .sup-honest p { color: var(--signal); font-size: 0.98rem; line-height: 1.6; text-wrap: pretty; }
+    .sup-honest .back-home { display: inline-block; margin-top: 1.75rem; }
+  </style>
+</head>
+<body>
+
+  <!-- shared chrome: same nav as index.html (canonical). over-hero = light links over
+       the dark hero; the scroll script flips it solid once you scroll into the tiers. -->
+  <nav class="nav over-hero" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="sup-hero">
+    <div class="inner">
+      <h1>Free. Local. Yours.</h1>
+      <p class="sub">No account, no tracking, no strings.</p>
+      <p class="lede">OpenMarkdown is free forever. If you want to help build what's next — co-editing your files with your agent, from anywhere — you can back it. One time, not a subscription.</p>
+      <a class="cue" href="#tiers">Two ways to back it ↓</a>
+    </div>
+  </section>
+
+  <main class="sup-wrap">
+    <section id="tiers">
+      <div class="sup-tiers">
+        <div class="sup-card">
+          <div class="sup-name">Supporter</div>
+          <div class="sup-price">$25<span class="cur">USD</span></div>
+          <div class="sup-per">one-time</div>
+          <ul class="sup-perks">
+            <li>Your name in our supporters file</li>
+            <li>A supporter badge</li>
+            <li>Early development notes</li>
+          </ul>
+          <a class="btn" href="https://buy.stripe.com/5kQbIVdcVazu9zrcDC2Fa01">Back it — $25</a>
+        </div>
+
+        <div class="sup-card founding">
+          <div class="sup-name">Founding Supporter</div>
+          <div class="sup-price">$50<span class="cur">USD</span></div>
+          <div class="sup-per">one-time</div>
+          <ul class="sup-perks">
+            <li>Everything in Supporter</li>
+            <li>First access to <b>co-edit from anywhere</b><span class="sup-soon">coming soon</span> — reaching your files from claude.ai, your phone, any device, when it ships</li>
+            <li>A say in where we take it</li>
+          </ul>
+          <a class="btn" href="https://buy.stripe.com/dRmeV7dcVdLG3b3cDC2Fa00">Founding Supporter — $50</a>
+        </div>
+      </div>
+
+      <div class="sup-honest">
+        <p>The app stays free, local, and account-free. Backing is a <b>one-time</b> payment — not a subscription — handled by Stripe, and it adds <b>no account and no tracking to the app itself</b>. <b>Co-edit from anywhere</b> isn't available yet; Founding Supporters get first access when it ships.</p>
+        <a class="back-home" href="/">← back to home</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- shared chrome: same footer markup as index.html (canonical). -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+          <a href="/support">Support</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var hero = document.querySelector('.sup-hero');
+    var onScroll = function () {
+      var y = window.scrollY;
+      nav.classList.toggle('scrolled', y > 8);
+      // ground-aware: keep the nav in ink mode while it sits over the dark hero.
+      var overInk = hero ? y < (hero.offsetHeight - nav.offsetHeight - 4) : false;
+      nav.classList.toggle('on-ink', overInk);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
+       Production host ONLY — file:// / localhost / previews make zero external
+       requests. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome: identical to index.html (authoritative), plus the two
+       supporter CTA events (back-supporter / back-founding). -->
+  <script>
+  (function () {
+    'use strict';
+    // Gate to the deployed host so local opens stay request-free (design D2).
+    if (location.hostname !== 'openmarkdown.dev') return;
+    // count endpoint — the single migration point when moving to a self-hosted
+    // GoatCounter (design D5). Registered GoatCounter site code: openmarkdown.
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    // Supporter CTAs, download + outbound clicks as custom events; never block
+    // navigation (D4). Supporter events are distinct paths so the scoreboard can
+    // tell them apart from downloads / GitHub outbound.
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var g = window.goatcounter;
+      if (!g || !g.count) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('buy.stripe.com/5kQbIVdcVazu9zrcDC2Fa01') !== -1) {
+        g.count({ path: 'back-supporter', event: true });
+      } else if (href.indexOf('buy.stripe.com/dRmeV7dcVdLG3b3cDC2Fa00') !== -1) {
+        g.count({ path: 'back-founding', event: true });
+      } else if (href.indexOf('OpenMarkdown.dmg') !== -1) {
+        g.count({ path: 'download-dmg', event: true });
+      } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
+        g.count({ path: 'outbound-github', event: true });
+      }
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>
