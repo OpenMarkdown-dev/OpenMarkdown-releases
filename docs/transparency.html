@@ -74,7 +74,12 @@
     <!-- ————— the network ————— -->
     <section class="guide-sec" id="network">
       <h2>The network</h2>
-      <p>The app has no AI inside it and sends no telemetry. The only thing it ever puts on the network is a check for a newer version — a request to the GitHub releases where OpenMarkdown is published, which, like any web request, lets that server see your IP. There is no account and no identifier. Your files, your keystrokes, and how you use the app never leave your machine.</p>
+      <p>The app has no AI inside it and sends no telemetry — nothing about how you use it is collected or sent in the background. It makes only two kinds of network request, both of which you can see:</p>
+      <ul>
+        <li><b>A version check</b> — automatically, on launch: a request to the GitHub releases where OpenMarkdown is published, which (like any web request) lets that server see your IP. There is no account and no identifier.</li>
+        <li><b>Feedback you send</b> — only when you choose “Send feedback,” write a note, and press Send. It transmits exactly what is on screen: your message, the small context block shown with it (your app version, OS, and channel — which you can edit or delete before sending), and your email if you added one. Nothing hidden, nothing in the background.</li>
+      </ul>
+      <p>Apart from those, your files, your keystrokes, and how you use the app never leave your machine.</p>
     </section>
 
     <!-- ————— your shell ($VISUAL) ————— -->
@@ -112,6 +117,7 @@ export VISUAL="openmd --wait --source claude"
     <section class="guide-sec" id="this-website">
       <h2>This website</h2>
       <p>This site counts page views with a privacy-friendly analytics tool: no cookies, no personal data, no consent banner — just aggregate views, referrer, and country. The home page also shows a Product Hunt badge, which loads a small image from Product Hunt — so, like any web request, that server sees your IP; there is no account and no cookie. Both run only on the live site, so if you open these pages from a file the browser makes no external requests at all.</p>
+      <p>The feedback page at <a href="/feedback">/feedback</a> is different: it makes no request when it loads, not even the analytics one. Only when you write a note and press Send does it post that note — and your email, if you added one — to the feedback intake endpoint. That request is one you trigger, not an automatic one, so it is not part of the two above.</p>
     </section>
 
     <!-- ————— no warranty ————— -->

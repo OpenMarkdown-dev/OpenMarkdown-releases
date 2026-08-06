@@ -308,6 +308,13 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
       btn.addEventListener('click', function () {
         var code = box.querySelector('code');
         var text = (code ? code.textContent : box.textContent) || '';
+        // Intent signal: someone copied an install command (the command-line
+        // installers who never click a .dmg). Every .copyable on / and /install
+        // is install-context today; scope this if a non-install copyable is ever
+        // added. Prod-gated: window.goatcounter is only set on the deployed host
+        // (contract: landing-page-analytics 复制安装命令计为意图事件).
+        var g = window.goatcounter;
+        if (g && g.count) g.count({ path: 'copy-install-cmd', event: true });
         navigator.clipboard.writeText(text).then(function () {
           btn.innerHTML = DONE;
           setTimeout(function () { btn.innerHTML = COPY; }, 1400);
@@ -321,11 +328,22 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
   <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
        Production host ONLY — file:// / localhost / previews make zero external
        requests. Contract: openspec landing-page-analytics + landing-page.
-       Shared chrome: identical to index.html (authoritative). -->
+       Shared chrome (nav/footer) mirrors index.html; the download branch
+       intentionally differs — this is the /install source, so downloads emit a
+       "-install" suffix (index.html emits the bare hero event + the "-menu"
+       variant). Keep the host gate / test-path guard / copy-event in sync. -->
   <script>
   (function () {
     'use strict';
     if (location.hostname !== 'openmarkdown.dev') return;
+    // Data hygiene: keep known internal test paths out of the production
+    // property (same guard as index.html; contract: landing-page-analytics
+    // 已知测试路径不计入生产统计). Returning null from the path hook cancels the pageview.
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
     var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
     var s = document.createElement('script');
     s.async = true;
@@ -338,14 +356,17 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
       var g = window.goatcounter;
       if (!g || !g.count) return;
       var href = a.getAttribute('href') || '';
-      // Per-platform download events (specific filenames before the generic
-      // github outbound check — see site/index.html for the rationale).
-      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
-        g.count({ path: 'download-dmg', event: true });
-      } else if (href.indexOf('OpenMarkdown-setup.exe') !== -1) {
-        g.count({ path: 'download-windows', event: true });
-      } else if (href.indexOf('OpenMarkdown.AppImage') !== -1) {
-        g.count({ path: 'download-linux', event: true });
+      // This is the /install page: every download here is the "install" CTA
+      // source, so downloads get a "-install" suffix. Specific filenames before
+      // the generic github outbound check — see site/index.html for rationale.
+      var platform = href.indexOf('OpenMarkdown.dmg') !== -1 ? 'dmg'
+                   : href.indexOf('OpenMarkdown-setup.exe') !== -1 ? 'windows'
+                   : href.indexOf('OpenMarkdown.AppImage') !== -1 ? 'linux'
+                   : '';
+      if (platform) {
+        g.count({ path: 'download-' + platform + '-install', event: true });
+      } else if (href.indexOf('producthunt.com') !== -1) {
+        g.count({ path: 'outbound-producthunt', event: true });
       } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
         g.count({ path: 'outbound-github', event: true });
       }

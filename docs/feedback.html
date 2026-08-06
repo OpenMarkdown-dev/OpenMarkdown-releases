@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Send feedback — OpenMarkdown</title>
+  <meta name="description" content="Send feedback to OpenMarkdown. A plain box — write a note, optionally leave your email for a reply, and send. Nothing is sent until you press Send.">
+  <link rel="canonical" href="https://openmarkdown.dev/feedback">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="Send feedback — OpenMarkdown">
+  <meta property="og:description" content="Write a note, optionally leave your email for a reply, and send. Nothing leaves your browser until you press Send.">
+  <meta property="og:url" content="https://openmarkdown.dev/feedback">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Send feedback — OpenMarkdown">
+  <meta name="twitter:description" content="Write a note, optionally leave your email for a reply, and send.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+
+  <!-- Feedback-form styling only (the rest is shared site.css). Uses the site's
+       existing design tokens; plain literal CSS, no external requests. -->
+  <style>
+    .fb-form { margin-top: 1.6rem; max-width: 44rem; display: grid; gap: 1.1rem; }
+    .fb-field { display: grid; gap: 0.4rem; }
+    .fb-label { font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); }
+    .fb-optional { text-transform: none; opacity: 0.8; }
+    .fb-textarea, .fb-input {
+      width: 100%; font-family: var(--sans); font-size: 1rem; color: var(--fg);
+      background: var(--bg); border: 1px solid var(--line); border-radius: 0.6rem;
+      padding: 0.85rem 1rem; line-height: 1.5;
+    }
+    .fb-textarea { min-height: 12rem; resize: vertical; }
+    .fb-textarea:focus, .fb-input:focus { outline: none; border-color: var(--fg); }
+    .fb-turnstile { min-height: 0; }
+    .fb-turnstile:not(:empty) { margin-top: 0.2rem; }
+    .fb-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .fb-status { font-size: 0.9rem; text-wrap: pretty; }
+    .fb-status.err { color: var(--flame); }
+    .fb-status.ok { color: var(--emerald); }
+    .fb-note { font-size: 0.85rem; color: var(--signal); max-width: 44rem; text-wrap: pretty; }
+    .btn[disabled] { opacity: 0.5; cursor: default; }
+    .btn[disabled]:active { transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- shared chrome: same nav structure as index.html (the canonical copy),
+       minus over-hero (this page opens on paper). Cross-page links are
+       root-absolute extensionless (/, /#agents). No aria-current (Feedback has
+       no top-nav link). -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/#agents">Agents</a>
+        <a href="/#hands-on">Features</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <header class="guide-hero">
+      <h1>Send feedback</h1>
+      <p class="lede">A plain box. Write a note, optionally leave your email if you want a reply, and press Send. Nothing leaves your browser until you do.</p>
+      <a class="back-home" href="/">← back to home</a>
+    </header>
+
+    <section class="guide-sec" id="feedback">
+      <h2>Your note</h2>
+      <p>Markdown is welcome — write it however you like. This box shows no live preview; it just sends what you type.</p>
+
+      <form class="fb-form" id="fbForm" novalidate>
+        <div class="fb-field">
+          <label class="fb-label" for="fbBody">Feedback</label>
+          <textarea class="fb-textarea" id="fbBody" name="body" required
+            placeholder="What's working, what isn't, what you wish it did…"></textarea>
+        </div>
+
+        <div class="fb-field">
+          <label class="fb-label" for="fbEmail">Email <span class="fb-optional">(optional — only if you'd like a reply)</span></label>
+          <input class="fb-input" id="fbEmail" name="email" type="email" autocomplete="email"
+            placeholder="you@example.com">
+        </div>
+
+        <!-- Turnstile widget mounts here on first interaction (production host
+             only), so the page itself loads with ZERO network requests. -->
+        <div class="fb-turnstile" id="fbTurnstile"></div>
+
+        <div class="fb-actions">
+          <button class="btn" type="submit" id="fbSend">Send feedback</button>
+          <span class="fb-status" id="fbStatus" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <p class="fb-note">Feedback goes to <code>feedback@openmarkdown.dev</code>. If you leave your email, a reply may come back to it; if not, it's a one-way note. See <a href="/transparency">what OpenMarkdown touches</a>.</p>
+    </section>
+
+  </main>
+
+  <!-- shared chrome: same footer markup as index.html (the canonical copy).
+       #footFlat stays empty here — only index's JS fills it. -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer>
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-flat" id="footFlat"></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- Feedback form logic. Deliberately makes ZERO network requests on load:
+       Turnstile is lazy-loaded on first interaction (production host only), and
+       the POST fires ONLY on Send (spec: feedback-intake + site-transparency —
+       "/feedback loads with zero requests"). No analytics on this page. -->
+  <script>
+  (function () {
+    'use strict';
+
+    // ── DEPLOY-TIME config ───────────────────────────────────────────────────
+    // Paste the deployed Worker route here (see workers/feedback/README.md).
+    var FEEDBACK_ENDPOINT = 'https://feedback.openmarkdown.dev/submit'; // prod: intake Worker custom domain
+    // Cloudflare Turnstile SITE key (the public one). Paste after creating the
+    // widget; leave as-is until then.
+    var TURNSTILE_SITE_KEY = '0x4AAAAAAEHsIGt26iyuMPg4'; // Cloudflare Turnstile site key (public), widget: openmarkdown-feedback
+    var PROD_HOST = 'openmarkdown.dev';
+
+    var isProd = location.hostname === PROD_HOST;
+    var form = document.getElementById('fbForm');
+    var bodyEl = document.getElementById('fbBody');
+    var emailEl = document.getElementById('fbEmail');
+    var sendBtn = document.getElementById('fbSend');
+    var statusEl = document.getElementById('fbStatus');
+    var turnstileHost = document.getElementById('fbTurnstile');
+
+    var turnstileToken = '';
+    var turnstileWidgetId = null;
+    var turnstileRequested = false;
+
+    function setStatus(msg, kind) {
+      statusEl.textContent = msg || '';
+      statusEl.className = 'fb-status' + (kind ? ' ' + kind : '');
+    }
+
+    // Lazy-load Turnstile on first interaction — never on page load. Off the
+    // production host (file:// / localhost) it never loads, so local opens stay
+    // request-free; verification then runs only on the live site.
+    function ensureTurnstile() {
+      if (turnstileRequested || !isProd) return;
+      turnstileRequested = true;
+      window.onTurnstileLoad = function () {
+        if (!window.turnstile) return;
+        turnstileWidgetId = window.turnstile.render(turnstileHost, {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: function (tok) { turnstileToken = tok; },
+          'error-callback': function () { turnstileToken = ''; },
+          'expired-callback': function () { turnstileToken = ''; }
+        });
+      };
+      var s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit';
+      s.async = true; s.defer = true;
+      document.head.appendChild(s);
+    }
+
+    form.addEventListener('focusin', ensureTurnstile, { once: true });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var body = bodyEl.value.trim();
+      var email = emailEl.value.trim();
+
+      if (!body) { setStatus('Write something before sending.', 'err'); bodyEl.focus(); return; }
+      if (isProd && !turnstileToken) {
+        ensureTurnstile();
+        setStatus('Please complete the verification just below, then Send.', 'err');
+        return;
+      }
+
+      var payload = { body: body, source: 'site' };
+      if (email) payload.email = email;
+      if (turnstileToken) payload.turnstileToken = turnstileToken;
+
+      sendBtn.disabled = true;
+      setStatus('Sending…', '');
+
+      fetch(FEEDBACK_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          return { ok: res.ok, data: data };
+        });
+      }).then(function (r) {
+        if (r.ok && r.data && r.data.ok) {
+          setStatus('Thanks — your feedback was sent.' + (email ? ' If a reply is warranted, it will come to your email.' : ''), 'ok');
+          form.reset();
+        } else {
+          var msg = (r.data && r.data.message) || 'Something went wrong. Please try again.';
+          setStatus(msg, 'err');
+          sendBtn.disabled = false;
+        }
+        if (window.turnstile && turnstileWidgetId !== null) {
+          turnstileToken = '';
+          window.turnstile.reset(turnstileWidgetId);
+        }
+      }).catch(function () {
+        setStatus('Could not reach the server. Check your connection and try again.', 'err');
+        sendBtn.disabled = false;
+      });
+    });
+  })();
+  </script>
+
+</body>
+</html>

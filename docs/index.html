@@ -44,7 +44,7 @@
     "description": "A feather-light, local-first Markdown editor built for you and your agent.",
     "url": "https://openmarkdown.dev/",
     "downloadUrl": "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
-    "softwareVersion": "0.13.7",
+    "softwareVersion": "0.13.8",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Xueyan Zhang" }
   }
@@ -1329,6 +1329,13 @@
       btn.addEventListener('click', function () {
         var code = box.querySelector('code');
         var text = (code ? code.textContent : box.textContent) || '';
+        // Intent signal: someone copied an install command (the command-line
+        // installers who never click a .dmg). Every .copyable on / and /install
+        // is install-context today; scope this if a non-install copyable is ever
+        // added. Prod-gated: window.goatcounter is only set on the deployed host
+        // (contract: landing-page-analytics 复制安装命令计为意图事件).
+        var g = window.goatcounter;
+        if (g && g.count) g.count({ path: 'copy-install-cmd', event: true });
         navigator.clipboard.writeText(text).then(function () {
           btn.innerHTML = DONE;
           setTimeout(function () { btn.innerHTML = COPY; }, 1400);
@@ -1347,6 +1354,16 @@
     'use strict';
     // Gate to the deployed host so local opens stay request-free (design D2).
     if (location.hostname !== 'openmarkdown.dev') return;
+    // Data hygiene: keep known internal test paths (e.g. an agent smoke test
+    // that reaches the prod host) out of the production property. count.js reads
+    // this window.goatcounter.path hook on load; returning null cancels that
+    // pageview. Versioned + grep-able here, unlike GoatCounter's dashboard
+    // "ignore paths" setting (contract: landing-page-analytics 已知测试路径不计入生产统计).
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
     // count endpoint — the single migration point when moving to a self-hosted
     // GoatCounter (design D5). Registered GoatCounter site code: openmarkdown.
     var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
@@ -1365,17 +1382,24 @@
       var g = window.goatcounter;
       if (!g || !g.count) return;
       var href = a.getAttribute('href') || '';
-      // Per-platform download events — the specific filename checks MUST precede
-      // the generic github outbound check (all three download URLs are on
-      // github.com/OpenMarkdown-dev, so the generic branch would otherwise
-      // swallow Windows/Linux as plain outbound and hide cross-platform
-      // conversion). 'download-dmg' label kept stable for existing dashboards.
-      if (href.indexOf('OpenMarkdown.dmg') !== -1) {
-        g.count({ path: 'download-dmg', event: true });
-      } else if (href.indexOf('OpenMarkdown-setup.exe') !== -1) {
-        g.count({ path: 'download-windows', event: true });
-      } else if (href.indexOf('OpenMarkdown.AppImage') !== -1) {
-        g.count({ path: 'download-linux', event: true });
+      // Per-platform base name from the asset filename — the specific filename
+      // checks MUST precede the generic github outbound check (all three
+      // download URLs are on github.com/OpenMarkdown-dev, so the generic branch
+      // would otherwise swallow Windows/Linux as plain outbound).
+      var platform = href.indexOf('OpenMarkdown.dmg') !== -1 ? 'dmg'
+                   : href.indexOf('OpenMarkdown-setup.exe') !== -1 ? 'windows'
+                   : href.indexOf('OpenMarkdown.AppImage') !== -1 ? 'linux'
+                   : '';
+      if (platform) {
+        // Attribute the download to its CTA source: the primary button
+        // (.dl-main) keeps the bare, dashboard-stable event name; platform-menu
+        // rows (.dl-row) get a "-menu" suffix. So "download-dmg" now means
+        // hero-only — see the docs/growth scoreboard cutover note; the platform
+        // total = bare + "-menu" + "-install" (/install has its own snippet).
+        var suffix = a.classList && a.classList.contains('dl-row') ? '-menu' : '';
+        g.count({ path: 'download-' + platform + suffix, event: true });
+      } else if (href.indexOf('producthunt.com') !== -1) {
+        g.count({ path: 'outbound-producthunt', event: true });
       } else if (href.indexOf('github.com/OpenMarkdown-dev') !== -1) {
         g.count({ path: 'outbound-github', event: true });
       }
