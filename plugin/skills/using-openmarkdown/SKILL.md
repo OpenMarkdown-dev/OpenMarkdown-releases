@@ -1,6 +1,6 @@
 ---
 name: using-openmarkdown
-description: Use when producing or editing markdown documents for a user who has OpenMarkdown installed — put documents in front of them via open_file/reveal, sense what they are looking at via get_context, edit notes they may have open section-by-section via read_section/write_section instead of whole-file rewrites, respond correctly to running:false/degraded/NO_WINDOW states instead of retrying or guessing, and — only when the user asks you to watch — hold a file open as a live inbox with wait_for_change instead of polling.
+description: Use when producing or editing markdown documents for a user who has OpenMarkdown installed — put documents in front of them via open_file/reveal, sense what they are looking at via get_context, edit notes they may have open section-by-section via read_section/write_section instead of whole-file rewrites, respond correctly to running:false/degraded/NO_WINDOW states instead of retrying or guessing, and — only when the user asks you to watch or listen — hold a file open as a live inbox, or their workspace sidebar open as an intercom, with wait_for_change instead of polling.
 ---
 
 # Using OpenMarkdown as a shared whiteboard
@@ -11,7 +11,7 @@ Ownership, so nothing drifts: the **tool descriptions** own the contract (parame
 
 ## The very first run
 
-Right after the plugin/MCP is first installed, your job is a 30-second live demo, not a feature tour: open a note, write in it while the user watches, then have them write back. **Follow `references/first-run-guide.md`** — the consent gate, the keeper note, the three beats, the graceful degrade. Don't improvise your own onboarding and don't skip it silently. Ask once before you open anything (unless the install request already said to open a note), and never sit in an unbounded `wait_for_change`.
+Right after the plugin/MCP is first installed, your job is small: **open the Welcome note the app already seeded** (`~/OpenMarkdown/Welcome.md`) and hand the user into it — you are not authoring an onboarding, the app did that on first launch. **Follow `references/first-run-guide.md`** — the consent gate, opening the seeded Welcome (never create your own, never open the user's oldest file to stand in for it), the handoff line, and demoing a section only when the user asks. Ask once before you open anything (unless the install request already said to open a note).
 
 ## When to reach for it (and where to go next)
 
@@ -20,6 +20,7 @@ Right after the plugin/MCP is first installed, your job is a 30-second live demo
 - You need to know what the user is working on, has selected, or is currently reading → `get_context` first, before asking them.
 - You're **editing** a file the user may have open → **see `references/write-back.md`** (section writes into the live buffer, not whole-file rewrites).
 - The user has **explicitly asked you to watch** a file → **see `references/watch-loop.md`** (the co-edit inbox loop, `@agent` markers). Never enter a watch on your own initiative.
+- The user has **explicitly asked you to listen** on their workspace sidebar → **see `references/intercom.md`** (the message loop and the rules for what you say back). Never enter it on your own initiative.
 - Something needs doing in the app that no dedicated tool covers → `execute_command`, but see the escape-hatch discipline below.
 
 ## Reading the states
