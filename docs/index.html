@@ -44,7 +44,7 @@
     "description": "A feather-light, local-first Markdown editor built for you and your agent.",
     "url": "https://openmarkdown.dev/",
     "downloadUrl": "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
-    "softwareVersion": "0.13.10",
+    "softwareVersion": "0.14.0",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Xueyan Zhang" }
   }
@@ -52,7 +52,7 @@
 </head>
 <body>
 
-  <!-- ————— nav ————— -->
+  <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav over-hero" id="nav">
     <div class="wrap">
       <a class="brand" href="#top">
@@ -61,14 +61,35 @@
         OpenMarkdown
       </a>
       <div class="links">
-        <a href="#agents">Agents</a>
-        <a href="#hands-on">Features</a>
+        <a href="/demo" id="navDemo">Demo</a>
+        <a href="/support">Pricing</a>
         <a href="/guide">Guide</a>
         <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
         <a class="btn" href="#download">Download</a>
       </div>
     </div>
   </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined. -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (!link) return;
+      link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
 
   <main id="top">
 
@@ -166,7 +187,18 @@
               </div>
             </div>
           </div>
-          <figcaption class="demo-cap"><a class="cap-link" href="/guide#syntax">More Markdown syntax →</a></figcaption>
+          <figcaption class="demo-cap">
+            <!-- The demo entry sits under the animation on purpose: this is the
+                 moment someone has just watched Markdown render and wants to
+                 try it. It does NOT replace Download — the demo exists so people
+                 understand the thing before paying the install cost, and the app
+                 is still where it all works (contract: landing-page / 落地页提供
+                 demo 入口). Hidden on narrow viewports: the demo needs a keyboard,
+                 and an entry that leads to a "come back on a laptop" page is a
+                 dead end on a phone. -->
+            <a class="btn demo-entry" href="/demo" id="tryDemo">Try the demo in your browser</a>
+            <a class="cap-link" href="/guide#syntax">More Markdown syntax →</a>
+          </figcaption>
         </figure>
       </div>
     </header>
@@ -796,6 +828,7 @@
 
   </main>
 
+  <!-- BEGIN site-footer (generated — do not edit) -->
   <div class="seam" aria-hidden="true"></div>
   <footer>
     <div class="wrap">
@@ -807,11 +840,11 @@
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>
-          <a href="/support">Support</a>
         </span>
       </div>
     </div>
   </footer>
+  <!-- END site-footer -->
 
   <script>
   /* Progressive enhancement only. Everything degrades to complete static content. */
@@ -1359,6 +1392,17 @@
     // this window.goatcounter.path hook on load; returning null cancels that
     // pageview. Versioned + grep-able here, unlike GoatCounter's dashboard
     // "ignore paths" setting (contract: landing-page-analytics 已知测试路径不计入生产统计).
+    // The demo entry is the top of a second funnel (understand → install), so
+    // it is counted the way the install-intent copy is
+    // (contract: landing-page-analytics / demo 入口计为意图事件).
+    var tryDemo = document.getElementById('tryDemo');
+    if (tryDemo) {
+      tryDemo.addEventListener('click', function () {
+        var gd = window.goatcounter;
+        if (gd && gd.count) gd.count({ path: 'try-demo', event: true });
+      });
+    }
+
     var TEST_PATHS = ['/agent-smoke-test'];
     window.goatcounter = window.goatcounter || {};
     window.goatcounter.path = function (p) {

@@ -1,0 +1,109 @@
+/* ==========================================================================
+   OpenMarkdown — shared chrome (nav + footer).
+   GENERATED from site-chrome/chrome.css — do not edit site/assets/chrome.css.
+
+   Two consumers: every site page (via `@import` at the top of site.css) and the
+   public demo, which links this file alone. That second consumer is why every
+   token here is read as `var(--x, <fallback>)` and why NOTHING is declared on
+   `:root` (spec: site-chrome / chrome.css 不落 :root, enforced by
+   `build-site-chrome.mjs --check`):
+
+     - on the site, site.css's :root supplies every token, so the fallbacks are
+       never used and this file provably cannot change how a page looks;
+     - in the demo this file lands on a page that is the app, whose own theme
+       owns :root. A token block here would fight it. The fallbacks carry the
+       values instead, scoped to the chrome's own subtree.
+
+   The fonts live here rather than in site.css so the demo gets them with the
+   same one <link>; their url()s are relative to THIS file, which sits beside
+   site.css in assets/, so they resolve identically for both consumers.
+   ========================================================================== */
+
+/* —— self-hosted brand fonts (relative paths, file://-safe) ——————————— */
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/space-grotesk-400.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/space-grotesk-500.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/space-grotesk-700.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/space-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/space-mono-700.woff2") format("woff2"); }
+
+/* —— nav ————————————————————————————————————————————————————— */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--nav-h, 3.75rem);
+  display: flex; align-items: center;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.2s ease;
+}
+.nav.scrolled {
+  background: color-mix(in srgb, var(--bg, #FBFAF7) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom-color: var(--line-soft, rgba(23, 23, 26, 0.08));
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 1rem; }
+.nav .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
+.nav .brand img { height: 1.4rem; width: auto; display: block; }
+.nav .links { display: flex; align-items: center; gap: 1.75rem; }
+.nav .links a { font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace); font-size: 0.8125rem; text-decoration: none; color: var(--signal, #9A9A9A); transition: color 0.15s ease; }
+.nav .links a:hover { color: var(--fg, #17171A); }
+.nav .links .btn { padding: 0.5rem 1rem; font-size: 0.8125rem; font-family: var(--sans, "Space Grotesk", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Helvetica, Arial, sans-serif); color: var(--bg, #FBFAF7); }
+@media (max-width: 52rem) { .nav .links a:not(.btn) { display: none; } }
+
+/* ground-aware nav (design D11): reversed whenever the ground under the nav's
+   bottom edge is ink — at the top over the hero (static .over-hero, the no-JS
+   state) or wherever JS toggles .on-ink (hero + §5 band). */
+.nav .brand .mark-rev { display: none; }
+.nav .brand .mark-pri { display: block; }
+.nav.over-hero:not(.scrolled) .brand .mark-pri,
+.nav.on-ink .brand .mark-pri { display: none; }
+.nav.over-hero:not(.scrolled) .brand .mark-rev,
+.nav.on-ink .brand .mark-rev { display: block; }
+.nav.over-hero:not(.scrolled),
+.nav.on-ink { color: #F4F0E6; }
+.nav.over-hero:not(.scrolled) .brand,
+.nav.on-ink .brand { color: #F4F0E6; }
+.nav.over-hero:not(.scrolled) .links a,
+.nav.on-ink .links a { color: rgba(244, 240, 230, 0.72); }
+.nav.over-hero:not(.scrolled) .links a:hover,
+.nav.on-ink .links a:hover { color: #F4F0E6; }
+.nav.over-hero:not(.scrolled) .links .btn,
+.nav.on-ink .links .btn { background: #F4F0E6; color: #17171A; border-color: #F4F0E6; }
+/* scrolled over ink: frosted ink glass instead of frosted paper */
+.nav.scrolled.on-ink {
+  background: color-mix(in srgb, var(--ink, #17171A) 82%, transparent);
+  border-bottom-color: rgba(244, 240, 230, 0.14);
+}
+
+
+/* —— what the chrome markup borrows from the page ————————————————————
+   `.wrap` and `.btn` are page-wide utilities that stay in site.css; these
+   NAV-QUALIFIED copies exist so the nav renders standalone where site.css is
+   absent (the demo). Same declarations, higher specificity — on the site they
+   resolve to the same pixels, so this file can never change how a page looks.
+   Keep them in step with site.css's `.wrap` / `.btn` if those ever change. */
+.nav .wrap { max-width: var(--col, 64rem); margin: 0 auto; padding: 0 1.5rem; }
+.nav .btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--fg, #17171A); color: var(--bg, #FBFAF7);
+  text-decoration: none; font-weight: 600; font-size: 1rem; line-height: 1.2;
+  border: 1px solid var(--fg, #17171A); border-radius: 0.5rem;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.nav .btn:hover { opacity: 0.88; }
+.nav .btn:active { transform: translateY(1px); }
+
+/* —— footer — the ink baseline (its own seam marks the crossing) —————— */
+footer {
+  background: var(--ink, #17171A);
+  --fg: #F4F0E6; --bg: var(--ink, #17171A); --line: rgba(244,240,230,0.22);
+  padding: 2.5rem 0 3.5rem; font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace); font-size: 0.8125rem; color: #cfc9bd;
+}
+footer .wrap { display: flex; justify-content: space-between; gap: 1.1rem 1.5rem; flex-wrap: wrap; align-items: center; }
+/* index footer stacks two full-width rows inside the same wrap flex —
+   guide.html's simpler footer (span + fnav, no rows) keeps working as is */
+.foot-row { flex: 1 0 100%; display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+footer .fnav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+footer a { color: inherit; text-decoration: none; }
+footer a:hover { color: var(--fg, #17171A); }

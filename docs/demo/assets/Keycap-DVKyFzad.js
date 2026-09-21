@@ -1,0 +1,1 @@
+import{j as o}from"./index-DCYZuUJm.js";import{c as n,T as s}from"./Button-Bm83S7xX.js";const e={inset:"px-1.5 py-0.5",minWidth:"min-w-[1.3rem]"};function i(){return n("rounded border border-border text-center leading-none",s.note,e.inset,e.minWidth)}function c({children:r,className:t}){return o.jsx("kbd",{className:n(i(),t),children:r})}export{c as K};

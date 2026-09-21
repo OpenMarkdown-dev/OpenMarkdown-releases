@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support — OpenMarkdown</title>
+  <!-- Titled for the question people arrive with. The nav calls this Pricing
+       because "what does this cost, what's the catch" is what brings someone
+       here, and the honest answer is the $0 card. The URL stays /support: it is
+       already linked from outside and the page's other half really is asking
+       for support (contract: supporter-page). -->
+  <title>Pricing — OpenMarkdown</title>
   <meta name="description" content="OpenMarkdown is free, local, and account-free. If you want to help build what's next, you can back it — a one-time supporter tier, no subscription.">
   <link rel="canonical" href="https://openmarkdown.dev/support">
   <meta name="theme-color" content="#17171A">
@@ -11,7 +16,7 @@
   <!-- Open Graph / social share -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OpenMarkdown">
-  <meta property="og:title" content="Support — OpenMarkdown">
+  <meta property="og:title" content="Pricing — OpenMarkdown">
   <meta property="og:description" content="Free, local, account-free. Back OpenMarkdown to help build what's next — one time, no subscription.">
   <meta property="og:url" content="https://openmarkdown.dev/support">
   <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
@@ -19,7 +24,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Support — OpenMarkdown">
+  <meta name="twitter:title" content="Pricing — OpenMarkdown">
   <meta name="twitter:description" content="Free, local, account-free. Back OpenMarkdown to help build what's next — one time, no subscription.">
   <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
   <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
@@ -54,12 +59,18 @@
     .sup-hero .cue:hover { color: #F4F0E6; }
 
     /* Tier section (paper) */
-    .sup-wrap { max-width: 58rem; margin: 0 auto; padding: 0 1.5rem; }
+    .sup-wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.5rem; }
     .sup-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
       gap: 1.25rem; margin: clamp(3rem, 7vw, 4.5rem) 0 0; }
     .sup-card { border: 1px solid var(--line); border-radius: 1rem; background: var(--paper);
       padding: 2rem 1.9rem; display: flex; flex-direction: column; }
     .sup-card.founding { border-color: rgba(23,23,26,0.42); }
+    /* the free tier sits on canvas rather than paper: it reads as the ground
+       you already stand on, not a third thing to buy */
+    .sup-card.free { background: var(--canvas); border-color: transparent; }
+    .sup-card.free .sup-price { font-size: clamp(2.7rem, 6vw, 3.4rem); }
+    .sup-card.free .sup-perks li::before { content: "✓"; color: var(--emerald); }
+    .sup-card.free code { font-family: var(--mono); font-size: 0.86em; }
     .sup-name { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.06em;
       text-transform: uppercase; color: var(--signal); }
     .sup-card.founding .sup-name { color: var(--fg); }
@@ -88,8 +99,7 @@
 </head>
 <body>
 
-  <!-- shared chrome: same nav as index.html (canonical). over-hero = light links over
-       the dark hero; the scroll script flips it solid once you scroll into the tiers. -->
+  <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav over-hero" id="nav">
     <div class="wrap">
       <a class="brand" href="/">
@@ -98,27 +108,68 @@
         OpenMarkdown
       </a>
       <div class="links">
-        <a href="/#agents">Agents</a>
-        <a href="/#hands-on">Features</a>
+        <a href="/demo" id="navDemo">Demo</a>
+        <a href="/support" aria-current="page">Pricing</a>
         <a href="/guide">Guide</a>
         <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
         <a class="btn" href="/#download">Download</a>
       </div>
     </div>
   </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined. -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (!link) return;
+      link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
 
   <section class="sup-hero">
     <div class="inner">
       <h1>Free. Local. Yours.</h1>
       <p class="sub">No account, no tracking, no strings.</p>
       <p class="lede">OpenMarkdown is free forever. If you want to help build what's next — co-editing your files with your agent, from anywhere — you can back it. One time, not a subscription.</p>
-      <a class="cue" href="#tiers">Two ways to back it ↓</a>
+      <a class="cue" href="#tiers">What it costs ↓</a>
     </div>
   </section>
 
   <main class="sup-wrap">
     <section id="tiers">
       <div class="sup-tiers">
+        <!-- The free tier is a CARD, not a sentence. The page has always said
+             "free forever" in its lede, but a tier row showing only $25 and $50
+             reads as two prices — the one number people came for was the one
+             thing left as prose. Its CTA is Download because that is the honest
+             next step for someone who arrived via the nav's "Pricing"
+             (contract: supporter-page / 免费档以并排档位卡呈现). It lists what
+             you get, never what a paid tier would add: nothing in the app is
+             held back. -->
+        <div class="sup-card free">
+          <div class="sup-name">The app</div>
+          <div class="sup-price">$0</div>
+          <div class="sup-per">forever, no account</div>
+          <ul class="sup-perks">
+            <li>The whole app — nothing held back</li>
+            <li>No account, no tracking, no strings</li>
+            <li>Your notes stay plain <code>.md</code> files on your own disk</li>
+          </ul>
+          <a class="btn" href="/#download">Download</a>
+        </div>
+
         <div class="sup-card">
           <div class="sup-name">Supporter</div>
           <div class="sup-price">$25<span class="cur">USD</span></div>
@@ -151,7 +202,7 @@
     </section>
   </main>
 
-  <!-- shared chrome: same footer markup as index.html (canonical). -->
+  <!-- BEGIN site-footer (generated — do not edit) -->
   <div class="seam" aria-hidden="true"></div>
   <footer>
     <div class="wrap">
@@ -163,12 +214,11 @@
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>
-          <a href="/support">Support</a>
         </span>
       </div>
-      <div class="foot-flat" id="footFlat"></div>
     </div>
   </footer>
+  <!-- END site-footer -->
 
   <script>
   (function () {

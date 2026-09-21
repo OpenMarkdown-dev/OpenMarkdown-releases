@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenMarkdown</title>
+    <script>
+      // Earliest possible JS mark; perf.ts marks build on the same timeline.
+      performance.mark("om:html-parsed");
+    </script>
+    <script>
+      // Pre-paint theme (spec: theme-activation / 首帧即为生效主题). Inline and
+      // BEFORE the stylesheet so the very first painted frame is already the
+      // right ground — the app's own bundle boots far too late for this, and a
+      // light frame ahead of a dark app is exactly the flash we are killing.
+      //
+      // Reads the localStorage MIRROR of the last effective theme, never the
+      // preference: the mirror answers "which class" with no resolution step,
+      // which is all this script may spend time on. settings.json stays the
+      // canon — src/lib/theme.ts confirms or corrects this within a frame or
+      // two once the window reports its real theme (design D1). Keep the value
+      // vocabulary in sync with THEME_MIRROR_KEY / readMirror over there.
+      try {
+        var t = localStorage.getItem("om.theme.effective");
+        if (t === "dark") document.documentElement.classList.add("dark");
+      } catch (e) {
+        // Private mode / storage disabled: fall through with no class and let
+        // the app correct once, rather than blocking the boot on a cache.
+      }
+    </script>
+    <script type="module" crossorigin src="/demo/assets/index-DCYZuUJm.js"></script>
+    <link rel="stylesheet" crossorigin href="/demo/assets/index-Cb-EKEwJ.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <style>body { display: flex; flex-direction: column; }
+#root { height: auto; flex: 1 1 auto; min-height: 0; }
+.nav {
+  position: static; flex: 0 0 auto;
+  background: var(--ink, #17171A);
+  border-bottom: 1px solid rgba(244, 240, 230, 0.14);
+}</style>
+  </head>
+
+  <body>
+      <!-- BEGIN site-nav (generated — do not edit) -->
+  <nav class="nav over-hero" id="nav">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+        <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+        OpenMarkdown
+      </a>
+      <div class="links">
+        <a href="/demo" aria-current="page" id="navDemo">Demo</a>
+        <a href="/support">Pricing</a>
+        <a href="/guide">Guide</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined. -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (!link) return;
+      link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
+
+  <div id="root"></div>
+  </body>
+</html>

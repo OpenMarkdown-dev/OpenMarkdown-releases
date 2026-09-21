@@ -5,12 +5,10 @@
    Self-contained: fonts bundled locally, no external requests, no build step.
    ========================================================================== */
 
-/* —— self-hosted brand fonts (relative paths, file://-safe) ——————————— */
-@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/space-grotesk-400.woff2") format("woff2"); }
-@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/space-grotesk-500.woff2") format("woff2"); }
-@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/space-grotesk-700.woff2") format("woff2"); }
-@font-face { font-family: "Space Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/space-mono-400.woff2") format("woff2"); }
-@font-face { font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/space-mono-700.woff2") format("woff2"); }
+/* Shared chrome (nav + footer) — generated, single-sourced from site-chrome/.
+   Must stay the first rule in the file: @import is only valid before others. */
+@import url("chrome.css");
+
 
 :root {
   --ink:    #17171A;
@@ -97,55 +95,6 @@ a { color: inherit; }
 .btn.ghost { background: transparent; color: inherit; border-color: var(--line); font-weight: 500; }
 .btn.ghost:hover { background: var(--surface); opacity: 1; }
 
-/* —— nav ————————————————————————————————————————————————————— */
-.nav {
-  position: sticky; top: 0; z-index: 50;
-  height: var(--nav-h);
-  display: flex; align-items: center;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.2s ease;
-}
-.nav.scrolled {
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: saturate(1.4) blur(12px);
-  -webkit-backdrop-filter: saturate(1.4) blur(12px);
-  border-bottom-color: var(--line-soft);
-}
-.nav .wrap { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 1rem; }
-.nav .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
-.nav .brand img { height: 1.4rem; width: auto; display: block; }
-.nav .links { display: flex; align-items: center; gap: 1.75rem; }
-.nav .links a { font-family: var(--mono); font-size: 0.8125rem; text-decoration: none; color: var(--signal); transition: color 0.15s ease; }
-.nav .links a:hover { color: var(--fg); }
-.nav .links .btn { padding: 0.5rem 1rem; font-size: 0.8125rem; font-family: var(--sans); color: var(--bg); }
-@media (max-width: 52rem) { .nav .links a:not(.btn) { display: none; } }
-
-/* ground-aware nav (design D11): reversed whenever the ground under the nav's
-   bottom edge is ink — at the top over the hero (static .over-hero, the no-JS
-   state) or wherever JS toggles .on-ink (hero + §5 band). */
-.nav .brand .mark-rev { display: none; }
-.nav .brand .mark-pri { display: block; }
-.nav.over-hero:not(.scrolled) .brand .mark-pri,
-.nav.on-ink .brand .mark-pri { display: none; }
-.nav.over-hero:not(.scrolled) .brand .mark-rev,
-.nav.on-ink .brand .mark-rev { display: block; }
-.nav.over-hero:not(.scrolled),
-.nav.on-ink { color: #F4F0E6; }
-.nav.over-hero:not(.scrolled) .brand,
-.nav.on-ink .brand { color: #F4F0E6; }
-.nav.over-hero:not(.scrolled) .links a,
-.nav.on-ink .links a { color: rgba(244, 240, 230, 0.72); }
-.nav.over-hero:not(.scrolled) .links a:hover,
-.nav.on-ink .links a:hover { color: #F4F0E6; }
-.nav.over-hero:not(.scrolled) .links .btn,
-.nav.on-ink .links .btn { background: #F4F0E6; color: #17171A; border-color: #F4F0E6; }
-/* scrolled over ink: frosted ink glass instead of frosted paper */
-.nav.scrolled.on-ink {
-  background: color-mix(in srgb, var(--ink) 82%, transparent);
-  border-bottom-color: rgba(244, 240, 230, 0.14);
-}
-
 /* —— page-load reveal ———————————————————————————————————————— */
 @keyframes rise { from { opacity: 0; transform: translateY(0.6rem); } to { opacity: 1; transform: none; } }
 .rise { animation: rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both; }
@@ -210,6 +159,16 @@ a { color: inherit; }
 .demo-live { padding: 0.5rem 0 0; }
 /* the blink caret is shared by the palette, TUI typing, and the §C agent caret */
 @keyframes blink { 0%,50% { opacity: 1; } 50.01%,100% { opacity: 0; } }
+/* Demo entry: a real button above the caption link, and gone on narrow
+   viewports (contract: landing-page / 窄视口下不呈现入口 — the demo itself
+   blocks below 820px, so an entry there would lead nowhere). */
+/* Its own line, above the syntax link. `inline-block` put them side by side
+   whenever both fitted — the margin-bottom below was already reaching for two
+   lines and never got them. A block-level flex box keeps .btn's inner layout
+   while taking a line of its own; width:fit-content stops it stretching. */
+.demo-cap .demo-entry { display: flex; width: fit-content; margin: 0 auto 0.9rem; }
+@media (max-width: 819px) { .demo-cap .demo-entry { display: none; } }
+
 .demo-cap { margin-top: 1.1rem; font-family: var(--mono); font-size: 0.8125rem; color: var(--signal); text-align: center; }
 /* "What's Markdown?" — the syntax lesson lives in the guide */
 .demo-cap .cap-link { color: #F4F0E6; text-decoration: none; border-bottom: 1px solid rgba(244,240,230,0.35); white-space: nowrap; }
@@ -1128,23 +1087,6 @@ a.dl-row:hover { background: var(--surface); }
 .dl-row .dl-tag { font-family: var(--mono); font-size: 0.75rem; font-weight: 400; color: var(--signal); }
 .dl-row.dl-soon { color: var(--signal); cursor: default; }
 
-/* —— footer — the ink baseline (its own seam marks the crossing) —————— */
-footer {
-  background: var(--ink);
-  --fg: #F4F0E6; --bg: var(--ink); --line: rgba(244,240,230,0.22);
-  padding: 2.5rem 0 3.5rem; font-family: var(--mono); font-size: 0.8125rem; color: #cfc9bd;
-}
-footer .wrap { display: flex; justify-content: space-between; gap: 1.1rem 1.5rem; flex-wrap: wrap; align-items: center; }
-/* index footer stacks two full-width rows inside the same wrap flex —
-   guide.html's simpler footer (span + fnav, no rows) keeps working as is */
-.foot-row { flex: 1 0 100%; display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
-footer .fnav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-footer a { color: inherit; text-decoration: none; }
-footer a:hover { color: var(--fg); }
-/* the flat toggle's own row — JS-filled; empty (no JS) it takes no space,
-   not even the flex gap */
-.foot-flat { flex: 1 0 100%; }
-.foot-flat:empty { display: none; }
 
 /* —— guide page ————————————————————————————————————————————————— */
 .guide-hero { padding: 3.5rem 0 1rem; }

@@ -36,10 +36,7 @@
 </head>
 <body>
 
-  <!-- shared chrome: same nav structure as index.html (the canonical copy),
-       minus over-hero (this page opens on paper). Install is not in the fixed
-       nav set (Agents / Features / Guide / GitHub / Download), so no link here
-       is aria-current. Cross-page links are root-absolute extensionless. -->
+  <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
       <a class="brand" href="/">
@@ -48,14 +45,35 @@
         OpenMarkdown
       </a>
       <div class="links">
-        <a href="/#agents">Agents</a>
-        <a href="/#hands-on">Features</a>
+        <a href="/demo" id="navDemo">Demo</a>
+        <a href="/support">Pricing</a>
         <a href="/guide">Guide</a>
         <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
         <a class="btn" href="/#download">Download</a>
       </div>
     </div>
   </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined. -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (!link) return;
+      link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
 
   <main class="wrap">
 
@@ -225,8 +243,7 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
 
   </main>
 
-  <!-- shared chrome: same footer markup as index.html (the canonical copy);
-       #footFlat stays empty here — only index's JS fills it -->
+  <!-- BEGIN site-footer (generated — do not edit) -->
   <div class="seam" aria-hidden="true"></div>
   <footer>
     <div class="wrap">
@@ -238,12 +255,11 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>
-          <a href="/support">Support</a>
         </span>
       </div>
-      <div class="foot-flat" id="footFlat"></div>
     </div>
   </footer>
+  <!-- END site-footer -->
 
   <script>
   (function () {

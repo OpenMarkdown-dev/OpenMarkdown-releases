@@ -1,0 +1,1 @@
+import{c as t}from"./react-rhDzC2ZM.js";import"./index-DCYZuUJm.js";const s=t(e=>({open:!1,openSettings:()=>e({open:!0}),closeSettings:()=>e({open:!1}),toggleSettings:()=>e(o=>({open:!o.open}))}));export{s as useSettingsPanelStore};

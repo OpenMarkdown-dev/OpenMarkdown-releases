@@ -1,0 +1,1 @@
+import{r,j as s,a as e}from"./index-DCYZuUJm.js";import{H as n,I as o}from"./workspace-C_P6fFA8.js";function p({path:t,className:a}){return r.useSyncExternalStore(n,()=>o(t),()=>!1)?s.jsx("span",{role:"img","aria-label":e("workspace.agentActive"),title:e("workspace.agentActive"),className:`h-1.5 w-1.5 shrink-0 rounded-full bg-agent ${a??""}`}):null}export{p as A};
