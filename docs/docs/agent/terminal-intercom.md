@@ -6,9 +6,10 @@ OpenMarkdown has a terminal of its own, and a small panel next to it, the **inte
 
 ## Start an agent
 
-1. [Connect the agent](/docs/start/connect/) once.
-2. Press <kbd>⇧⌘A</kbd> to open the agent sidebar.
-3. Press **Start Claude Code** (or your [default agent](/docs/using/settings/#agent)). The menu next to it lists the other agents found on this computer.
+1. Press <kbd>⇧⌘A</kbd> to open the agent sidebar. It lists the agents found on this computer, one row each; the one you used last comes first, marked **Last used**.
+2. Click one. A row that still needs OpenMarkdown says so under its name ("Connects OpenMarkdown first"), and the click runs that in the terminal before starting the agent. **See what runs** shows the commands. Gemini CLI and opencode are [connected by hand](/docs/start/connect/) first.
+
+When the sidebar is short (the terminal open beside it), the rows go to one line each, then to one **Start** button whose ▾ lists every agent.
 
 The agent starts in a terminal tab, in the current Home's folder, already listening on the intercom. Each session gets an animal name (`fox`, `owl`, …): the tab shows it, and the intercom uses it.
 

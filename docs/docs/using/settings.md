@@ -23,7 +23,7 @@ macOS and Linux.
 
 | Setting | What it does |
 | --- | --- |
-| Default agent | The agent the intercom's **Start** button starts. Follows whichever you started last, until you pick one. |
+| Default agent | The agent listed first in the intercom, marked **Last used**. Follows whichever you started last, until you pick one. |
 
 ## System integration
 

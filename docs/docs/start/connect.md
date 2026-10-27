@@ -4,9 +4,18 @@ Your agent reaches OpenMarkdown through its MCP server, `openmd mcp`. It is the 
 
 This works on macOS and Linux. Agents in your own terminal also need the [command-line tool turned on](/docs/start/install/#turn-on-the-command-line-tool).
 
+## From the intercom
+
+On macOS and Linux, the quickest way is the app itself. Press <kbd>⇧⌘A</kbd> to open the intercom: it lists the agents installed on this computer, one row each. A row that still needs OpenMarkdown says so under its name. Clicking it connects OpenMarkdown in the sidebar terminal, then starts the agent:
+
+- Claude Code: installs the plugin (the two commands under [Claude Code](#claude-code) below).
+- Codex: registers the MCP server (`codex mcp add openmd -- openmd mcp`).
+
+**See what runs** shows the exact commands before you click, with how to remove them. Gemini CLI and opencode start as they are: connect them by hand below first.
+
 ## Let your agent do it
 
-Paste this to any agent that can read a web page:
+For an agent you run in your own terminal, paste this to it (any agent that can read a web page):
 
 ```text
 Read openmarkdown.dev/install to install OpenMarkdown and open my first note

@@ -26,7 +26,7 @@ openmd status
 
 ## The intercom doesn't reach my agent
 
-The intercom only talks to agents running in OpenMarkdown's terminal. Start the agent from the intercom (**Start …**), not in another terminal. If its state says **disconnected**, look at its terminal tab: the agent may be waiting for you there.
+The intercom only talks to agents running in OpenMarkdown's terminal. Start the agent from the intercom (click its row), not in another terminal. If its state says **disconnected**, look at its terminal tab: the agent may be waiting for you there.
 
 ## My agent's edit didn't land
 

@@ -21,15 +21,11 @@ Create a note from the sidebar (**New note**) and type:
 
 Each line renders once your cursor moves off it, and the boxes are clickable. The file on disk is exactly what you typed.
 
-## 3. Connect your agent
+## 3. Start your agent in the sidebar
 
-Follow [Connect your agent](/docs/start/connect/) for yours. For Claude Code it is two commands; for other agents, one.
+Press <kbd>⇧⌘A</kbd> to open the agent sidebar, then click your agent. If it still needs OpenMarkdown, its row says so, and the click connects it first. It starts in a terminal tab inside OpenMarkdown, in this workspace's folder. Other agents and other ways: [Connect your agent](/docs/start/connect/).
 
-## 4. Start it in the sidebar
-
-Press <kbd>⇧⌘A</kbd> to open the agent sidebar, then **Start Claude Code** (or whichever agent you connected). It starts in a terminal tab inside OpenMarkdown, in this workspace's folder.
-
-## 5. Ask it something about your note
+## 4. Ask it something about your note
 
 Select the checklist, then type in the intercom:
 

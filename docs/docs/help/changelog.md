@@ -2,6 +2,15 @@
 
 What changed in each release, newest first. Download the latest from the [home page](/#download).
 
+## 0.15.3
+
+### What's new
+
+**Intercom**
+
+- Improved intercom UI
+- Fixed codex mcp
+
 ## 0.15.2
 
 ### What's new
