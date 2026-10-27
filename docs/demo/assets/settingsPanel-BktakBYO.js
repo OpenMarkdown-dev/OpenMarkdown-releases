@@ -1,0 +1,1 @@
+import{c as t}from"./index-Xw5G8W17.js";const p=t(e=>({open:!1,openSettings:()=>e({open:!0}),closeSettings:()=>e({open:!1}),toggleSettings:()=>e(o=>({open:!o.open}))}));export{p as useSettingsPanelStore};

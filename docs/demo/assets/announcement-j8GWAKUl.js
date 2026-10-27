@@ -1,0 +1,1 @@
+import{c as l}from"./index-Xw5G8W17.js";const t=l(e=>({open:!1,record:!1,notes:null,show:({record:o,notes:n})=>e({open:!0,record:o,notes:n??null}),close:()=>e({open:!1,notes:null})}));export{t as useAnnouncementStore};

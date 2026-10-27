@@ -35,6 +35,7 @@ on Windows the app is the editor without them.
 ## Download
 - [Latest macOS release (.dmg)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg): universal (Apple Silicon + Intel), free.
 - [Releases](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases): all versions and release notes.
+- [Pricing](https://openmarkdown.dev/support): the whole app is free, with no account and nothing held back. Backing it is optional — a one-time payment, not a subscription.
 
 ## Optional
 - [Home](https://openmarkdown.dev/): product overview.

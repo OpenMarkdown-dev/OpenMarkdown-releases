@@ -1,1 +1,0 @@
-import{r as s}from"./index-Dmea47K6.js";import{p as f}from"./overlayStack-B30Zv3FA.js";function p({modal:r,onDismiss:e,ref:n,active:t=!0}){const u=s.useRef(e);u.current=e,s.useEffect(()=>{if(t)return f({modal:r,dismiss:()=>u.current?.(),element:()=>n?.current??null})},[r,t])}export{p as u};

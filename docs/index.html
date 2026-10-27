@@ -923,6 +923,11 @@
             </div>
           </details>
         </div>
+        <!-- mainland China mirror (Aliyun OSS Hong Kong): one quiet line, never a
+             second button, no geo-redirect. Base MUST equal MIRROR_BASE in
+             scripts/lib/releaseMirror.mjs — gate: scripts/check-site-mirror.mjs.
+             Spec: release-pipeline 站点同步与 Pages. -->
+        <span class="platform">Mainland China mirror · <span lang="zh-CN">中国大陆镜像</span> — <a href="https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown.dmg">macOS</a> · <a href="https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown-setup.exe">Windows</a> · <a href="https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown.AppImage">Linux</a></span>
         <span class="platform">macOS (universal, signed &amp; notarized) · Windows (x64) · Linux (AppImage). Agent co-editing runs on macOS and Linux today; the Windows app is a native editor with it coming soon.</span>
         <span class="platform">On Windows and want agent co-editing now? Run the Linux build under <a href="https://learn.microsoft.com/windows/wsl/install" rel="nofollow">WSL</a>.</span>
         <span class="platform">Weighing it up? <a href="/compare/">See how it compares</a> · <a href="/faq">FAQ</a></span>
@@ -1593,7 +1598,11 @@
         // rows (.dl-row) get a "-menu" suffix. So "download-dmg" now means
         // hero-only — see the docs/growth scoreboard cutover note; the platform
         // total = bare + "-menu" + "-install" (/install has its own snippet).
-        var suffix = a.classList && a.classList.contains('dl-row') ? '-menu' : '';
+        // Mirror links (the "Mainland China mirror" line, served from Aliyun
+        // OSS) add "-mirror": they are not GitHub downloads, so they stay out
+        // of the GitHub-asset reconciliation sum (docs/growth/README.md).
+        var suffix = a.classList && a.classList.contains('dl-row') ? '-menu'
+                   : href.indexOf('.aliyuncs.com/') !== -1 ? '-mirror' : '';
         g.count({ path: 'download-' + platform + suffix, event: true });
       } else if (href.indexOf('producthunt.com') !== -1) {
         g.count({ path: 'outbound-producthunt', event: true });

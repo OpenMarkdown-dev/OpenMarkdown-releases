@@ -101,7 +101,8 @@ Before you rely on the tools, probe the CLI:
 
 ## The one red line
 
-OpenMarkdown does not put an agent *inside* the app. You stay in your own window;
-you collaborate with the human through the shared file. If a request only makes
-sense as "an AI living inside the editor," this is the wrong tool — see "when not
-to" above.
+OpenMarkdown ships no AI of its own. You may run in your own terminal, or in a
+terminal tab inside the app (macOS and Linux) — either way you are the CLI the
+human installed, not part of the editor. You collaborate with the human through
+the shared file. If a request only makes sense as "an AI built into the editor,"
+this is the wrong tool — see "when not to" above.

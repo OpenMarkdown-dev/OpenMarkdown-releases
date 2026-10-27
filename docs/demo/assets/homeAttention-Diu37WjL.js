@@ -1,0 +1,1 @@
+import{c as e}from"./index-Xw5G8W17.js";function m(t,o,i){if(o.kind==="enter"){if(!t[o.home])return t;const n={...t};return delete n[o.home],n}return o.home===i||t[o.home]?t:{...t,[o.home]:!0}}const c=e(t=>({lit:{},apply:(o,i)=>t(n=>{const r=m(n.lit,o,i);return r===n.lit?n:{lit:r}})}));export{m as nextAttention,c as useHomeAttention};

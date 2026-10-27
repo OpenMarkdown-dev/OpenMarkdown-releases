@@ -40,6 +40,10 @@ up from there.
    [macOS (.dmg, drag to Applications)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg),
    [Linux (AppImage)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage),
    or [Windows (.exe)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe).
+   In mainland China, use the mirror (中国大陆镜像) —
+   [macOS](https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown.dmg) ·
+   [Linux](https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown.AppImage) ·
+   [Windows](https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown-setup.exe).
    **The agent steps below are macOS and Linux** — on Windows the app is the
    editor without them (run the Linux build under WSL to work with an agent).
 2. **Turn on the `openmd` CLI.** In the app, turn on **Settings → System

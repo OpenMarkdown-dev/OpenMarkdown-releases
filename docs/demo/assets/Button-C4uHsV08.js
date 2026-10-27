@@ -1,0 +1,1 @@
+import{j as n}from"./index-Xw5G8W17.js";import{w as m,c as u,b as i}from"./buttonClasses-BYPO6xRt.js";function p({weight:t,tone:s,size:o,className:r,...a}){return n.jsx("button",{className:u(i({weight:t,tone:s,size:o}),r),...a,...m(t)})}export{p as B};
