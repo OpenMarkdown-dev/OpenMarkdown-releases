@@ -1,0 +1,1 @@
+const n="data-om-terminal-session";function e(){if(typeof document>"u")return null;const t=document.activeElement?.closest?.(`[${n}]`)?.getAttribute(n);return t?Number(t):null}function o(){return e()!==null}export{n as T,e as f,o as t};

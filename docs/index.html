@@ -44,7 +44,7 @@
     "description": "A feather-light, local-first Markdown editor built for you and your agent.",
     "url": "https://openmarkdown.dev/",
     "downloadUrl": "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
-    "softwareVersion": "0.14.0",
+    "softwareVersion": "0.15.2",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Xueyan Zhang" }
   }
@@ -63,7 +63,7 @@
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
-        <a href="/guide">Guide</a>
+        <a href="/docs/">Docs</a>
         <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
         <a class="btn" href="#download">Download</a>
       </div>
@@ -197,7 +197,7 @@
                  and an entry that leads to a "come back on a laptop" page is a
                  dead end on a phone. -->
             <a class="btn demo-entry" href="/demo" id="tryDemo">Try the demo in your browser</a>
-            <a class="cap-link" href="/guide#syntax">More Markdown syntax →</a>
+            <a class="cap-link" href="/docs/reference/markdown/">More Markdown syntax →</a>
           </figcaption>
         </figure>
       </div>
@@ -335,14 +335,20 @@
         </div>
       </div>
 
+    </section>
+
+    <!-- §A on paper — the three ownership bands sit on their own light ground
+         between the two ink bands (alternating grounds; a seam at every switch) -->
+    <div class="seam" aria-hidden="true"></div>
+    <section class="own-sec" id="ownership" aria-label="Your agent, your file, your memory">
       <!-- §A · positioning block — three horizontal ownership bands, one claim each:
            your agent (bring your own; it runs on the agent you already have) ·
            your file (local-first; every note is a plain .md you own) ·
            your memory (the file is the memory; agents change, it doesn't).
            text left / visual right; the three `your …` phrases form a scannable
            left spine. No seam between the bands, tightened rhythm (D7); §A sets
-           no entry seam either. Right-hand visuals are light macOS objects on the ink
-           desk (D3) — a works-with reel, a Finder icon view, a Get Info panel +
+           no entry seam either. Right-hand visuals are light macOS objects on the paper
+           ground — a works-with reel, a Finder icon view, a Get Info panel +
            memory timeline — all ambient CSS loops, none an in-app agent (red
            line): the tile is a neighbouring app mark, Finder / Get Info are OS
            objects, never OpenMarkdown's own window hosting an agent. -->
@@ -377,7 +383,7 @@
                     </span>
                   </span>
                 </div>
-                <a class="ob-link" href="/guide#agents">Full setup guide &rarr;</a>
+                <a class="ob-link" href="/docs/start/connect/">Connect your agent &rarr;</a>
               </div>
               <div class="ob-stage">
                 <div class="works" role="img" aria-label="OpenMarkdown works with Claude Code, ChatGPT Codex, Gemini CLI, GitHub Copilot, Cursor, opencode, or any MCP client">
@@ -491,139 +497,260 @@
         </div>
       </div>
 
-      <!-- §B · your file as a wiki — the ask-then-open reveal (real animation).
-           A centered agent window: you ask, it searches, then opens the file —
-           and the OpenMarkdown window opens below it, scrolling your view to the
-           right heading. reveal-only, honest: no clickable nav, the agent just
-           opens the file and scrolls. Default HTML is the frozen end-frame. -->
-      <div class="band-sec" id="read">
-        <div class="seam band-seam" aria-hidden="true"></div>
-        <div class="wrap feat-grid">
-          <div class="feat-copy">
-            <div class="head">
-              <h2 class="md-h">Your file as Wiki.</h2>
-              <p class="lede">Throw your files at the model.<br>When you ask, <b>your agent opens the right one</b> and takes you to the spot.</p>
-              <p>No summary, no paraphrase — you read your own words, on the page.</p>
+    </section>
+
+    <!-- the second ink band: the showcase -->
+    <section class="band" id="together">
+      <div class="seam" aria-hidden="true"></div>
+
+      <!-- showcase · five verbs, one window (replaces §B reveal + §C no-paste).
+           A native scroll-snap row: swipe, shift+wheel or arrow keys move it with
+           no JS; JS adds the verb tabs, prev/next and the animations. Every slide
+           is ONE OpenMarkdown window — your note on the left, the sidebar on the
+           right with a terminal tab running YOUR CLI (named for it) and, on Talk,
+           the intercom. Red line (landing-page 「agent 演示不呈现内置 AI」): no
+           built-in AI chat, no "ask AI" button, no sparkle, no model picker; the
+           copy says no AI ships. Only the active, visible slide animates; default
+           HTML is every slide's end frame. Blue / a tick = your hand, flame = the
+           agent's. -->
+      <div class="band-sec" id="showcase">
+        <div class="wrap">
+          <div class="sc-head">
+            <h2 class="md-h">Your notes, worked on together.</h2>
+            <p class="lede">Your agent runs in a terminal tab <b>right in the sidebar</b> &mdash; the one you installed. It reads, finds and writes on the page you&rsquo;re looking at.</p>
+            <p class="feat-note">No AI ships inside OpenMarkdown. Terminal and intercom: macOS and Linux.</p>
+          </div>
+          <!-- JS-only controls (hidden until the controller wires them) -->
+          <div class="sc-nav" hidden>
+            <div class="sc-tabs" role="tablist" aria-label="Showcase">
+              <button class="sc-tab on" type="button" role="tab" aria-selected="true" data-to="0">Find</button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-to="1">Read</button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-to="2">Write</button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-to="3">Co-edit</button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-to="4">Talk</button>
             </div>
           </div>
-          <div class="feat-visual">
-            <figure class="g-stage" id="gStage" aria-label="You ask what you decided about the launch date; your agent searches, opens the meeting note, and scrolls your view to its Decisions heading">
-              <!-- the agent window, centered — you ask here; it searches, then opens -->
-              <div class="window term g-term">
-                <div class="titlebar" aria-hidden="true">
-                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                  <span class="filename">claude code</span>
-                </div>
-                <div class="term-body">
-                  <div class="f-tui-box"><div class="tl g-q">&gt; <span class="g-qt">what did we land on for the launch date?</span></div></div>
-                  <!-- one line that steps: "✻ searching…" → "✦ opening …" → "✦ opened …" -->
-                  <div class="tl dim g-line" data-run="searching notes…" data-open="opening meetings/2026-07-07.md…" data-done="✦ opened meetings/2026-07-07.md">✦ opened meetings/2026-07-07.md</div>
-                </div>
-              </div>
-              <!-- the file the agent opened — pops open below, then scrolls to the heading;
-                   before it opens (beats 0–2) its slot holds a dashed placeholder box -->
-              <div class="g-appslot">
-                <span class="win-holder" aria-hidden="true"></span>
-                <div class="window app g-app">
-                  <div class="titlebar" aria-hidden="true">
-                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                    <span class="app-title">OpenMarkdown</span>
-                  </div>
-                  <div class="toolbar g-tabs" aria-hidden="true">
-                    <span class="g-tab g-tp">2026-07-07.md</span>
-                  </div>
-                  <div class="g-clip">
-                    <div class="fs-doc g-doc g-doc-page">
-                      <div class="g-scroll" id="gScroll">
+
+          <!-- one slide at a time; prev / next sit on either side (JS only) -->
+          <div class="sc-stage">
+        <div class="sc-row" tabindex="0" aria-label="Five things your agent does with you — scroll sideways">
+
+          <!-- 1 · Find — reveal: you ask; it opens the right note at the right heading -->
+          <article class="sc-slide" id="scFind" data-verb="find" aria-roledescription="slide" aria-label="1 of 5: Find">
+            <div class="sc-copy">
+              <span class="eyebrow">Find</span>
+              <h3>Ask, don&rsquo;t hunt.</h3>
+              <p>Ask where something is. Your agent opens the right note and takes you to the heading &mdash; you read your own words, not a summary.</p>
+            </div>
+            <figure class="window app sc-win" aria-label="You ask what you decided about the launch date; your agent opens the meeting note and scrolls to its Decisions heading">
+              <div class="titlebar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="app-title">OpenMarkdown</span></div>
+              <div class="sc-body">
+                <div class="sc-doc">
+                  <div class="toolbar sc-tabsbar" aria-hidden="true"><span class="sc-ftab">launch-plan.md</span><span class="sc-ftab on sc-new">2026-07-07.md</span></div>
+                  <div class="sc-clip">
+                    <div class="fs-doc sc-layer sc-before">
+                      <h4>Launch plan</h4>
+                      <p>Everything for v1.0 lives in this one file.</p>
+                      <ul class="tasks"><li class="done"><span class="box"></span><span>Write the release notes</span></li><li><span class="box"></span><span>Pick the launch date</span></li></ul>
+                    </div>
+                    <div class="fs-doc sc-layer sc-after">
+                      <div class="sc-scroll">
                         <h4>Launch sync — Jul 7</h4>
                         <h5>Notes</h5>
                         <p>Staging is green; docs site still pending Mia&rsquo;s QA pass — the long pole.</p>
-                        <h5 id="gHit"><span class="g-hl">Decisions</span></h5>
+                        <h5 class="sc-hit"><span class="sc-hl">Decisions</span></h5>
                         <div class="bullet"><span class="bl">•</span><span>Launch date: <b>Friday, Jul 10</b> — go/no-go Thursday 4 pm.</span></div>
                         <div class="bullet"><span class="bl">•</span><span>Docs can ship the morning of.</span></div>
                         <h5>Action items</h5>
                         <div class="bullet"><span class="bl">•</span><span>Sam — cut the release branch Wed.</span></div>
                         <div class="bullet"><span class="bl">•</span><span>Mia — final QA pass Thu.</span></div>
-                        <div class="bullet"><span class="bl">•</span><span>Dan — draft the go/no-go checklist.</span></div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="sc-side">
+                  <div class="sc-card sc-term">
+                    <div class="sc-ttabs" aria-hidden="true"><span class="sc-ttab on">Claude Code</span><span class="sc-ttab">zsh</span></div>
+                    <div class="term-body">
+                      <div class="tl sc-q">&gt; <span class="sc-qt" data-text="what did we land on for the launch date?">what did we land on for the launch date?</span></div>
+                      <div class="tl dim sc-line" data-run="searching notes…" data-run2="opening meetings/2026-07-07.md…">⏺ opened meetings/2026-07-07.md</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </figure>
-          </div>
-        </div>
-      </div>
+          </article>
 
-      <!-- §C · show, don't paste — no-paste, in place (real animation).
-           Two windows, one file: a visible pointer drag-selects a messy list in
-           the app (selection blue = your hand), you ask your agent in the
-           terminal, and it reformats the selection into a table in place (flame =
-           the agent's hand). No copy, no paste. Default HTML is the end-frame:
-           the finished table, settled. -->
-      <div class="band-sec" id="write">
-        <div class="wrap feat-grid">
-          <div class="feat-copy">
-            <div class="head">
-              <h2 class="md-h">Agent reads your highlight.</h2>
-              <p class="lede">Drag to select, then ask. Your agent reads <b>exactly what you selected</b> and reworks it in place — no copy, no paste through a chat box.</p>
-              <p>And it&rsquo;s still your file — saved on your disk, same as always.</p>
+          <!-- 2 · Read — get_context: you select; it reads exactly that and reworks it -->
+          <article class="sc-slide" id="scRead" data-verb="read" aria-roledescription="slide" aria-label="2 of 5: Read">
+            <div class="sc-copy">
+              <span class="eyebrow">Read</span>
+              <h3>Show, don&rsquo;t paste.</h3>
+              <p>Select a passage and ask. Your agent reads <b>exactly what you selected</b> and reworks it in place &mdash; nothing to copy into a chat box.</p>
             </div>
-          </div>
-          <div class="feat-visual">
-            <figure class="c-stage" id="cStage" aria-label="A pointer drag-selects a messy list; you ask 'make this a table'; your agent reformats it into a table, in place">
-              <div class="window app">
-                <div class="titlebar" aria-hidden="true">
-                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                  <span class="app-title">OpenMarkdown</span>
-                </div>
-                <div class="toolbar" aria-hidden="true"><span class="tb-file">vendors.md</span></div>
-                <div class="fs-doc c-doc">
-                  <h4>Vendor options</h4>
-                  <div class="c-clip">
-                    <!-- state 1: your rough list; a pointer drags a blue selection over it -->
-                    <div class="c-list">
-                      <span class="c-band" aria-hidden="true"></span>
-                      <div class="bullet"><span class="bl">•</span><span>Acme — <code>$12/mo</code>, fast, no SSO</span></div>
-                      <div class="bullet"><span class="bl">•</span><span>Globex — <code>$9/mo</code>, slow, has SSO</span></div>
-                      <div class="bullet"><span class="bl">•</span><span>Initech — <code>$15/mo</code>, fast, has SSO</span></div>
+            <figure class="window app sc-win" aria-label="A pointer selects a messy list; you ask 'make this a table'; your agent rewrites it as a table, in place">
+              <div class="titlebar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="app-title">OpenMarkdown</span></div>
+              <div class="sc-body">
+                <div class="sc-doc">
+                  <div class="toolbar sc-tabsbar" aria-hidden="true"><span class="sc-ftab on">vendors.md</span></div>
+                  <div class="fs-doc">
+                    <h4>Vendor options</h4>
+                    <div class="sc-clip sc-rclip">
+                      <div class="sc-layer sc-before sc-list">
+                        <span class="sc-sel" aria-hidden="true"></span>
+                        <div class="bullet"><span class="bl">•</span><span>Acme — <code>$12/mo</code>, fast, no SSO</span></div>
+                        <div class="bullet"><span class="bl">•</span><span>Globex — <code>$9/mo</code>, slow, has SSO</span></div>
+                        <div class="bullet"><span class="bl">•</span><span>Initech — <code>$15/mo</code>, fast, has SSO</span></div>
+                      </div>
+                      <div class="sc-layer sc-after sc-table">
+                        <table>
+                          <thead><tr><th>Vendor</th><th>Price</th><th>Speed</th><th>SSO</th></tr></thead>
+                          <tbody>
+                            <tr><td>Acme</td><td><code>$12/mo</code></td><td>fast</td><td>—</td></tr>
+                            <tr><td>Globex</td><td><code>$9/mo</code></td><td>slow</td><td>✓</td></tr>
+                            <tr><td>Initech</td><td><code>$15/mo</code></td><td>fast</td><td>✓</td></tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                    <!-- state 2: the table your agent wrote in place (flame while fresh) -->
-                    <div class="c-table" aria-hidden="true">
-                      <table>
-                        <thead><tr><th>Vendor</th><th>Price</th><th>Speed</th><th>SSO</th></tr></thead>
-                        <tbody>
-                          <tr><td>Acme</td><td><code>$12/mo</code></td><td>fast</td><td>—</td></tr>
-                          <tr><td>Globex</td><td><code>$9/mo</code></td><td>slow</td><td>✓</td></tr>
-                          <tr><td>Initech</td><td><code>$15/mo</code></td><td>fast</td><td>✓</td></tr>
-                        </tbody>
-                      </table>
+                  </div>
+                </div>
+                <div class="sc-side">
+                  <div class="sc-card sc-term">
+                    <div class="sc-ttabs" aria-hidden="true"><span class="sc-ttab on">Claude Code</span><span class="sc-ttab">zsh</span></div>
+                    <div class="term-body">
+                      <div class="tl sc-q">&gt; <span class="sc-qt" data-text="make this a table">make this a table</span></div>
+                      <div class="tl ok sc-line" data-run="reading your selection…">✓ formatted in place</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- the agent's TUI — hidden behind a dashed placeholder during the
-                   selection beats (0–3); it rises into place when you ask (beat 4) -->
-              <div class="c-termslot">
-                <span class="win-holder" aria-hidden="true"></span>
-                <div class="window term">
-                  <div class="titlebar" aria-hidden="true">
-                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                    <span class="filename">claude code</span>
-                  </div>
-                  <div class="term-body">
-                    <div class="f-tui-box"><div class="tl">&gt; <span class="c-qt">make this a table</span></div></div>
-                    <!-- one line that flips in place: "✻ formatting…" → "✓ formatted in place" -->
-                    <div class="tl ok c-line" data-run="formatting…" data-done="✓ formatted in place">✓ formatted in place</div>
-                  </div>
-                </div>
-              </div>
-              <!-- the pointer lives at stage level so it can drag over the list
-                   to demonstrate the highlight, then fade out — its only job -->
-              <span class="c-cursor" aria-hidden="true">
-                <svg viewBox="0 0 12 18" fill="currentColor"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
-              </span>
+              <span class="sc-cursor" aria-hidden="true"><svg viewBox="0 0 12 18" fill="currentColor"><path d="M0 0l0 14 3.2-3.1 2.1 4.6 2.2-1 -2.1-4.5 4.4 0z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
             </figure>
+          </article>
+
+          <!-- 3 · Write — write_section: only the section you named changes -->
+          <article class="sc-slide" id="scWrite" data-verb="write" aria-roledescription="slide" aria-label="3 of 5: Write">
+            <div class="sc-copy">
+              <span class="eyebrow">Write</span>
+              <h3>One section, not the whole file.</h3>
+              <p>Ask for a draft under a heading. Only that section changes &mdash; the rest of your note stays exactly as you left it.</p>
+            </div>
+            <figure class="window app sc-win" aria-label="You ask for an announcement draft; your agent writes it under the Announcement heading and leaves the rest of the note untouched">
+              <div class="titlebar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="app-title">OpenMarkdown</span></div>
+              <div class="sc-body">
+                <div class="sc-doc">
+                  <div class="toolbar sc-tabsbar" aria-hidden="true"><span class="sc-ftab on">launch-plan.md</span></div>
+                  <div class="fs-doc">
+                    <h4>Launch plan</h4>
+                    <h5>Checklist</h5>
+                    <ul class="tasks"><li class="done"><span class="box"></span><span>Write the release notes</span></li><li><span class="box"></span><span>Pick the launch date</span></li></ul>
+                    <h5>Announcement</h5>
+                    <div class="sc-written">
+                      <p class="sc-w">v1.0 is out. OpenMarkdown now opens in under a second.</p>
+                      <p class="sc-w">Your agent can work right in the sidebar.</p>
+                      <p class="sc-w">Download it free at openmarkdown.dev.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="sc-side">
+                  <div class="sc-card sc-term">
+                    <div class="sc-ttabs" aria-hidden="true"><span class="sc-ttab on">Claude Code</span><span class="sc-ttab">zsh</span></div>
+                    <div class="term-body">
+                      <div class="tl sc-q">&gt; <span class="sc-qt" data-text="draft the announcement under Announcement">draft the announcement under Announcement</span></div>
+                      <div class="tl ok sc-line" data-run="writing one section…">✓ wrote 1 section · launch-plan.md</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </article>
+
+          <!-- 4 · Co-edit — wait_for_change: you edit; it picks up from there -->
+          <article class="sc-slide" id="scCo" data-verb="co-edit" aria-roledescription="slide" aria-label="4 of 5: Co-edit">
+            <div class="sc-copy">
+              <span class="eyebrow">Co-edit</span>
+              <h3>Your turn, then its turn.</h3>
+              <p>Tick a box or fix a line. Your agent sees the change and picks up from there &mdash; no need to explain what you did.</p>
+            </div>
+            <figure class="window app sc-win" aria-label="You tick 'Pick the launch date'; your agent notices and writes the next step under it">
+              <div class="titlebar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="app-title">OpenMarkdown</span></div>
+              <div class="sc-body">
+                <div class="sc-doc">
+                  <div class="toolbar sc-tabsbar" aria-hidden="true"><span class="sc-ftab on">launch-plan.md</span></div>
+                  <div class="fs-doc">
+                    <h4>Launch plan</h4>
+                    <h5>Checklist</h5>
+                    <ul class="tasks">
+                      <li class="done"><span class="box"></span><span>Write the release notes</span></li>
+                      <li class="done sc-tick"><span class="box"></span><span>Pick the launch date</span></li>
+                      <li><span class="box"></span><span>Decide who announces</span></li>
+                    </ul>
+                    <p class="sc-reply">Date set: Fri, Jul 10. Next up: who announces &mdash; Sam or Mia?</p>
+                  </div>
+                </div>
+                <div class="sc-side">
+                  <div class="sc-card sc-term">
+                    <div class="sc-ttabs" aria-hidden="true"><span class="sc-ttab on">Claude Code</span><span class="sc-ttab">zsh</span></div>
+                    <div class="term-body">
+                      <div class="tl dim">⏺ waiting for your edit · launch-plan.md</div>
+                      <div class="tl ok sc-line" data-run="reading your change…">✓ saw your tick — next: who announces</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </article>
+
+          <!-- 5 · Talk — the intercom: it answers in the sidebar -->
+          <article class="sc-slide" id="scTalk" data-verb="talk" aria-roledescription="slide" aria-label="5 of 5: Talk">
+            <div class="sc-copy">
+              <span class="eyebrow">Talk</span>
+              <h3>It answers in the sidebar.</h3>
+              <p>Type to your agent in the intercom; it replies in a line or two &mdash; never its working notes.</p>
+            </div>
+            <figure class="sc-talk" aria-label="You type 'tidy the checklist' in the intercom; your agent replies in a line or two">
+              <div class="window app sc-win">
+                <div class="titlebar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="app-title">OpenMarkdown</span></div>
+                <div class="sc-body">
+                  <div class="sc-doc">
+                    <div class="toolbar sc-tabsbar" aria-hidden="true"><span class="sc-ftab on">launch-plan.md</span></div>
+                    <div class="fs-doc">
+                      <h4>Launch plan</h4>
+                      <h5>Checklist</h5>
+                      <ul class="tasks">
+                        <li class="done"><span class="box"></span><span>Write the release notes</span></li>
+                        <li class="done"><span class="box"></span><span>Record the demo video</span></li>
+                        <li><span class="box"></span><span>Pick the launch date</span></li>
+                        <li><span class="box"></span><span>Decide who announces</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="sc-side">
+                    <!-- the intercom: what you said, what it said back — never terminal output -->
+                    <div class="sc-card sc-icom">
+                      <div class="sc-ihead"><span class="sc-idot" aria-hidden="true"></span><span class="sc-iname">Claude Code</span><span class="sc-istate">listening</span></div>
+                      <div class="sc-msgs">
+                        <div class="sc-msg you">tidy the checklist</div>
+                        <div class="sc-msg agent">Done. Two items need your call: the date and who announces.</div>
+                      </div>
+                      <div class="sc-input"><span class="sc-it" data-text="tidy the checklist"></span><span class="sc-ph">Say something…</span></div>
+                    </div>
+                    <div class="sc-card sc-term sc-term-mini">
+                      <div class="sc-ttabs" aria-hidden="true"><span class="sc-ttab on">Claude Code</span></div>
+                      <div class="term-body"><div class="tl dim">⏺ write_section · launch-plan.md</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </article>
+
+        </div>
+            <div class="sc-arrows" hidden>
+              <button class="sc-arrow sc-prev" type="button" data-step="-1" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg></button>
+              <button class="sc-arrow sc-next" type="button" data-step="1" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg></button>
+            </div>
           </div>
         </div>
       </div>
@@ -767,25 +894,10 @@
           <div class="gcard"><h4>Just Markdown files</h4><p>Byte-for-byte. OpenMarkdown never reflows, trims, or reformats your text — open and close, the file is unchanged.</p></div>
           <div class="gcard"><h4>Safe by default</h4><p>Delete moves files to the system Trash. Autosave when you pause, without nagging. Tabs, folder, and cursor come back after a crash.</p></div>
           <div class="gcard"><h4>No account, no cloud</h4><p>No telemetry, nothing phones home. Your agent reads the same file on the same disk — no third party in between.</p></div>
-          <div class="gcard"><h4>The keys you already know</h4><p>Standard Mac shortcuts — and ⌘P opens a palette for every command. <a href="/guide#shortcuts">Full list →</a></p></div>
+          <div class="gcard"><h4>The keys you already know</h4><p>Standard Mac shortcuts — and ⌘P opens a palette for every command. <a href="/docs/reference/shortcuts/">Full list →</a></p></div>
           <div class="gcard"><h4>中文 · 日本語 · English</h4><p>Full trilingual UI. Missing your language? <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/discussions">Open a discussion.</a></p></div>
           <div class="gcard"><h4>The <code>openmd</code> CLI</h4><p>Open files from your terminal. Install it in one click from Settings.</p></div>
         </div>
-      </div>
-    </section>
-
-    <!-- ═══════════ connect your agent ═══════════
-         Landing keeps only the automatic path: the one universal sentence (with
-         a copy button). The per-host manual commands live on /install — the
-         sentence works for every agent because the runbook branches, not the
-         sentence (src/lib/agentHosts.ts, spec agent-install-runbook). -->
-    <div class="seam" aria-hidden="true"></div>
-    <section class="section" id="connect">
-      <div class="wrap">
-        <h2 class="md-h">Bring your agent.</h2>
-        <p class="lede">To install, paste this into your agent</p>
-        <div class="callout copyable"><code>Read openmarkdown.dev/install to install OpenMarkdown and open my first note</code></div>
-        <p class="connect-more"><a class="btn" href="/install">Full install guide →</a></p>
       </div>
     </section>
 
@@ -826,11 +938,23 @@
       </div>
     </section>
 
+    <div class="seam" aria-hidden="true"></div>
+    <!-- support — one quiet entry after the download (contract: landing-page
+         首页 support 小节): a question, one sentence, one link. No price, no
+         banner, nothing repeated elsewhere on the page. Paper ground. -->
+    <section class="section support-ask" id="back-it" aria-label="Support OpenMarkdown">
+      <div class="wrap">
+        <h2>Like OpenMarkdown?</h2>
+        <p>It&rsquo;s free, and it stays free. If it earns a place in your day, you can back it.</p>
+        <p><a class="btn ghost" href="/support">Support OpenMarkdown &rarr;</a></p>
+      </div>
+    </section>
+
   </main>
 
   <!-- BEGIN site-footer (generated — do not edit) -->
   <div class="seam" aria-hidden="true"></div>
-  <footer>
+  <footer class="site-footer">
     <div class="wrap">
       <div class="foot-row">
         <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
@@ -859,13 +983,14 @@
        footer). The nav flips to reversed colors whenever the ground under its
        bottom edge is ink — i.e. exactly as it crosses a seam into or out of an
        ink zone. Order down the page: hero (reversed) → speed (primary) → agent
-       band (reversed) → hands-on / CTA (primary) → ink footer (reversed). */
+       band (reversed) → §A (primary) → showcase band (reversed) → hands-on
+       (primary) → CTA (reversed) → support (primary) → ink footer (reversed). */
     var nav = document.getElementById('nav');
     if (nav) {
       var inkZones = [];
-      ['.hero', '.band', '#connect', 'footer'].forEach(function (sel) {
-        var el = document.querySelector(sel);
-        if (el) inkZones.push(el);
+      // every ink ground: hero, both agent bands, the download CTA, the footer
+      Array.prototype.forEach.call(document.querySelectorAll('.hero, .band, .cta, footer'), function (el) {
+        inkZones.push(el);
       });
       var onNavScroll = function () {
         nav.classList.toggle('scrolled', window.scrollY > 8);
@@ -972,155 +1097,190 @@
     /* the Claude-style thinking spinner prefix, shared by §B and §C */
     var SPIN = ['·', '✢', '✳', '✻', '✽', '✻', '✳', '✢'];
 
-    /* —— §B · your file as a wiki — the ask-then-open reveal (animation G).
-       Plays when the block scrolls into view; freezes to the end-frame (file
-       open, scrolled to ## Decisions, settled tint) otherwise. JS only sets
-       data-beat + the result line's text; every visual is CSS keyed off the
-       beat. Beats: 0 rewind · 1 question · 2 searching · 3 opening (file window
-       rises in) · 4 scroll to ## Decisions · 5 bloom + ✦ opened. */
-    var gStage = document.getElementById('gStage');
-    var gRunning = false, gInView = true, gTimers = [];
-    var gSpinT = null, gSpinI = 0;
-    var gScroll, gHit, gLine, gQt;
-    var G_Q = 'what did we land on for the launch date?';
-    function gAfter(ms, fn) { var t = setTimeout(fn, ms); gTimers.push(t); return t; }
-    function gBeat(n) { gStage.setAttribute('data-beat', n); }
-    var gRunText = '';
-    function gRunLine(attr) {                 // spins on data-run ("searching") or data-open ("opening")
-      gRunText = gLine.getAttribute(attr || 'data-run');
-      gLine.className = 'tl k-live g-line';
-      gSpinI = 0;
-      gLine.textContent = SPIN[0] + ' ' + gRunText;
-      if (gSpinT) { clearInterval(gSpinT); }
-      gSpinT = setInterval(function () {
-        gSpinI = (gSpinI + 1) % SPIN.length;
-        gLine.textContent = SPIN[gSpinI] + ' ' + gRunText;
-      }, 140);
-    }
-    function gDoneLine(flip) {
-      if (gSpinT) { clearInterval(gSpinT); gSpinT = null; }
-      gLine.className = flip ? 'tl dim g-line k-flip' : 'tl dim g-line';
-      gLine.textContent = gLine.getAttribute('data-done');
-    }
-    function gEndFrame() {
-      gTimers.forEach(clearTimeout); gTimers = [];
-      gStage.classList.remove('g-run');
-      gStage.removeAttribute('data-beat');
-      gQt.textContent = G_Q; gQt.classList.remove('f-typing');
-      gDoneLine(false);
-    }
-    function gPlay() {
-      gEndFrame(); // clear timers + spinner, then re-arm
-      gStage.classList.add('g-run');
-      gBeat(0); // rewind: file window closed, question empty, line hidden
-      gQt.textContent = '';
-      /* measure the true scroll offset while the note sits untranslated */
-      gStage.style.setProperty('--g-off',
-        (gHit.getBoundingClientRect().top - gScroll.getBoundingClientRect().top) + 'px');
-      gAfter(150, function () {
-        gBeat(1);
-        typeInto(gQt, G_Q, 18, 20, gAfter, function () {
-          gRunLine('data-run');                                          // "searching notes…"
-          gAfter(500,  function () { gBeat(2); });                       // searching
-          gAfter(1350, function () { gBeat(3); gRunLine('data-open'); }); // "opening…" + file window rises in
-          gAfter(2250, function () { gBeat(4); });                       // scroll to ## Decisions
-          gAfter(2950, function () { gBeat(5); gDoneLine(true); });      // arrival bloom + ✦ opened
-          gAfter(7000, function () { if (gRunning) gPlay(); });          // hold, then loop
+    /* —— showcase · five verbs, one window (replaces §B reveal + §C no-paste).
+       One controller owns the gate: a slide plays only while the row is in
+       view AND it is the active slide AND motion is allowed; otherwise its
+       timers clear and it snaps to its end frame (the default HTML). No
+       auto-advance — slides move only when the visitor moves them. Each slide
+       is a small beat script: JS sets data-beat + terminal text, CSS draws.
+       Reuses typeInto + SPIN. */
+    var scRow = document.querySelector('.sc-row');
+    function scSlide(el, script) {
+      var timers = [], spinT = null, live = false;
+      var api = {
+        el: el,
+        after: function (ms, fn) { var t = setTimeout(fn, ms); timers.push(t); return t; },
+        beat: function (n) { el.setAttribute('data-beat', n); },
+        type: function (node, done, cps) { typeInto(node, node.getAttribute('data-text'), cps || 32, 30, api.after, done); },
+        spin: function (line, attr) {              // the in-progress line: glyph spins, text holds
+          var text = line.getAttribute(attr || 'data-run'), i = 0;
+          if (spinT) clearInterval(spinT);
+          line.classList.add('k-live'); line.classList.remove('k-flip');
+          line.textContent = SPIN[0] + ' ' + text;
+          spinT = setInterval(function () { i = (i + 1) % SPIN.length; line.textContent = SPIN[i] + ' ' + text; }, 140);
+        },
+        settle: function (line, flip) {           // back to the end-frame text
+          if (spinT) { clearInterval(spinT); spinT = null; }
+          line.classList.remove('k-live');
+          line.classList.toggle('k-flip', !!flip);
+          line.textContent = line.getAttribute('data-done');
+        },
+        loop: function (ms) { api.after(ms, function () { if (live) play(); }); }
+      };
+      el.querySelectorAll('.sc-line').forEach(function (l) { l.setAttribute('data-done', l.textContent); });
+      function end() {
+        timers.forEach(clearTimeout); timers = [];
+        if (spinT) { clearInterval(spinT); spinT = null; }
+        el.classList.remove('sc-run'); el.removeAttribute('data-beat');
+        el.querySelectorAll('[data-text]').forEach(function (n) {
+          n.classList.remove('f-typing');
+          n.textContent = n.classList.contains('sc-it') ? '' : n.getAttribute('data-text');
         });
-      });
-    }
-    function gGate() {
-      if (!gStage) return;
-      var run = !reduce && gInView;
-      if (run && !gRunning) { gRunning = true; gPlay(); }
-      else if (!run && gRunning) { gRunning = false; gEndFrame(); }
-    }
-    if (gStage) {
-      gScroll = document.getElementById('gScroll');
-      gHit    = document.getElementById('gHit');
-      gLine   = gStage.querySelector('.g-line');
-      gQt     = gStage.querySelector('.g-qt');
-      onInView(gStage, 0.3, function (vis) { gInView = vis; gGate(); });
-      gGate();
-    }
-
-    /* —— §C · agent reads your highlight — drag-select a messy list, then hand
-       it off. Plays when in view: a visible pointer drags a blue selection over
-       the list (its only job — demonstrating the highlight), then fades out; you
-       type the ask, and the list swaps for a table (flame). Freezes to the
-       end-frame (finished table, ✓ line) otherwise. JS sets data-beat + text;
-       every visual is CSS. Blue = your hand, flame = the agent's. Reuses
-       typeInto + SPIN. */
-    var cStage = document.getElementById('cStage');
-    var cRunning = false, cInView = true, cTimers = [];
-    var cSpinT = null, cSpinI = 0, cLine, cQt;
-    var C_Q = 'make this a table';
-    function cAfter(ms, fn) { var t = setTimeout(fn, ms); cTimers.push(t); return t; }
-    function cBeat(n) { cStage.setAttribute('data-beat', n); }
-    function cRunLine() {
-      cLine.className = 'tl k-live c-line';
-      cSpinI = 0;
-      cLine.textContent = SPIN[0] + ' ' + cLine.getAttribute('data-run');
-      cSpinT = setInterval(function () {
-        cSpinI = (cSpinI + 1) % SPIN.length;
-        cLine.textContent = SPIN[cSpinI] + ' ' + cLine.getAttribute('data-run');
-      }, 140);
-    }
-    function cDoneLine(flip) {
-      if (cSpinT) { clearInterval(cSpinT); cSpinT = null; }
-      cLine.className = flip ? 'tl ok c-line k-flip' : 'tl ok c-line';
-      cLine.textContent = cLine.getAttribute('data-done');
-    }
-    function cEndFrame() {
-      cTimers.forEach(clearTimeout); cTimers = [];
-      if (cSpinT) { clearInterval(cSpinT); cSpinT = null; }
-      cStage.classList.remove('c-run');
-      cStage.removeAttribute('data-beat');
-      cQt.textContent = C_Q; cQt.classList.remove('f-typing');
-      cDoneLine(false);
-    }
-    function cPlay() {
-      cEndFrame(); // clear timers + spinner, then re-arm
-      cStage.classList.add('c-run');
-      cBeat(0);                 // rewind: the messy list, no pointer, no selection
-      cQt.textContent = '';
-      /* measure the drag anchors while the list sits laid-out (beat 0): the
-         pointer tip starts at the first item's text and ends at the last, so it
-         tracks the real list across viewports (replaces hard-coded rem, D-fix) */
-      var cList = cStage.querySelector('.c-list');
-      var cRows = cList ? cList.querySelectorAll('.bullet') : [];
-      if (cRows.length) {
-        var cBase = cStage.getBoundingClientRect();
-        var aStart = cRows[0].lastElementChild.getBoundingClientRect();
-        var aEnd = cRows[cRows.length - 1].lastElementChild.getBoundingClientRect();
-        cStage.style.setProperty('--c-x0', (aStart.left - cBase.left) + 'px');
-        cStage.style.setProperty('--c-y0', (aStart.top - cBase.top) + 'px');
-        cStage.style.setProperty('--c-x1', (aEnd.right - cBase.left) + 'px');
-        cStage.style.setProperty('--c-y1', (aEnd.bottom - cBase.top) + 'px');
+        el.querySelectorAll('.sc-line').forEach(function (l) { api.settle(l, false); });
       }
-      cAfter(250,  function () { cBeat(1); });   // the pointer appears at the list's start
-      cAfter(900,  function () { cBeat(2); });   // it drags down; the blue selection sweeps
-      cAfter(1950, function () { cBeat(3); });   // selection held — the pointer fades out in place
-      cAfter(2750, function () {
-        cBeat(4);                                // pointer gone — you type the ask
-        typeInto(cQt, C_Q, 55, 40, cAfter, function () {
-          cRunLine();
-          cAfter(750,  function () { cBeat(5); cDoneLine(true); }); // list → table, ✓ in place
-          cAfter(4600, function () { if (cRunning) cPlay(); });     // hold, then loop
+      function play() { end(); el.classList.add('sc-run'); api.beat(0); script(api); }
+      return {
+        set: function (on) {
+          if (on && !live) { live = true; play(); }
+          else if (!on && live) { live = false; end(); }
+        }
+      };
+    }
+    if (scRow) {
+      var scEls = Array.prototype.slice.call(scRow.querySelectorAll('.sc-slide'));
+      var q = function (el, sel) { return el.querySelector(sel); };
+      var scripts = {
+        scFind: function (a) {                     // ask → searching → opening → open + scroll → bloom
+          var el = a.el, qt = q(el, '.sc-qt'), line = q(el, '.sc-line');
+          var scroll = q(el, '.sc-scroll'), hit = q(el, '.sc-hit');
+          el.style.setProperty('--sc-off', (hit.offsetTop - scroll.offsetTop) + 'px');
+          qt.textContent = '';
+          a.after(200, function () {
+            a.beat(1);
+            a.type(qt, function () {
+              a.beat(2); a.spin(line, 'data-run');
+              a.after(1000, function () { a.spin(line, 'data-run2'); });
+              a.after(1800, function () { a.beat(3); });
+              a.after(2500, function () { a.beat(4); });
+              a.after(3200, function () { a.beat(5); a.settle(line, true); });
+              a.loop(8000);
+            });
+          });
+        },
+        scRead: function (a) {                     // pointer drags a selection → ask → table in place
+          var el = a.el, fig = q(el, '.sc-win'), qt = q(el, '.sc-qt'), line = q(el, '.sc-line');
+          var rows = el.querySelectorAll('.sc-list .bullet');
+          var base = fig.getBoundingClientRect();
+          var r0 = rows[0].lastElementChild.getBoundingClientRect();
+          var r1 = rows[rows.length - 1].lastElementChild.getBoundingClientRect();
+          fig.style.setProperty('--sc-x0', (r0.left - base.left) + 'px');
+          fig.style.setProperty('--sc-y0', (r0.top - base.top) + 'px');
+          fig.style.setProperty('--sc-x1', (r1.right - base.left) + 'px');
+          fig.style.setProperty('--sc-y1', (r1.bottom - base.top) + 'px');
+          qt.textContent = '';
+          a.after(300, function () { a.beat(1); });
+          a.after(950, function () { a.beat(2); });
+          a.after(2000, function () { a.beat(3); });
+          a.after(2700, function () {
+            a.beat(4);
+            a.type(qt, function () {
+              a.spin(line);
+              a.after(900, function () { a.beat(5); a.settle(line, true); });
+              a.loop(5600);
+            }, 55);
+          });
+        },
+        scWrite: function (a) {                    // ask → writing → the section fills in, line by line
+          var el = a.el, qt = q(el, '.sc-qt'), line = q(el, '.sc-line');
+          qt.textContent = '';
+          a.after(200, function () {
+            a.beat(1);
+            a.type(qt, function () {
+              a.beat(2); a.spin(line);
+              a.after(800, function () { a.beat(3); });
+              a.after(1350, function () { a.beat(4); });
+              a.after(1900, function () { a.beat(5); a.settle(line, true); });
+              a.loop(6500);
+            });
+          });
+        },
+        scCo: function (a) {                       // your tick → the agent reads it → its next line
+          var el = a.el, line = q(el, '.sc-line');
+          a.after(900, function () { a.beat(1); });                   // you tick the box
+          a.after(1500, function () { a.beat(2); a.spin(line); });    // it reads your change
+          a.after(2700, function () { a.beat(3); a.settle(line, true); });
+          a.loop(7500);
+        },
+        scTalk: function (a) {                     // you type → sent → its reply
+          var el = a.el, it = q(el, '.sc-it');
+          it.textContent = '';
+          a.after(400, function () {
+            a.beat(1);
+            a.type(it, function () {
+              it.textContent = '';
+              a.beat(2);                                              // your message lands
+              a.after(1600, function () { a.beat(3); });              // its reply
+              a.loop(6500);
+            }, 60);
+          });
+        }
+      };
+      var scCtl = scEls.map(function (el) { return scSlide(el, scripts[el.id]); });
+      var scActive = 0, scInView = false;
+      var scTabs = Array.prototype.slice.call(document.querySelectorAll('.sc-tab'));
+      var scArrows = document.querySelectorAll('.sc-arrow');
+      function scGate() {
+        scCtl.forEach(function (c, i) { c.set(!reduce && scInView && i === scActive); });
+      }
+      function scMark() {
+        scTabs.forEach(function (t, i) {
+          var on = i === scActive;
+          t.classList.toggle('on', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
         });
+        if (scArrows.length) { scArrows[0].disabled = scActive === 0; scArrows[1].disabled = scActive === scEls.length - 1; }
+      }
+      function scFindActive() {               // the slide whose left edge is nearest the snap line
+        // the snap line sits where the first slide rests (the row's padding,
+        // which is a max()/calc() that getComputedStyle won't resolve)
+        var x = scRow.getBoundingClientRect().left + scEls[0].offsetLeft, best = 0, d = Infinity;
+        scEls.forEach(function (el, i) {
+          var dd = Math.abs(el.getBoundingClientRect().left - x);
+          if (dd < d) { d = dd; best = i; }
+        });
+        return best;
+      }
+      function scGo(i) {
+        i = Math.max(0, Math.min(scEls.length - 1, i));
+        // .sc-row is the offsetParent; the first slide's offset is the snap padding
+        scRow.scrollTo({ left: scEls[i].offsetLeft - scEls[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+      }
+      var scT = null;
+      scRow.addEventListener('scroll', function () {
+        if (scT) clearTimeout(scT);
+        scT = setTimeout(function () {
+          var i = scFindActive();
+          if (i !== scActive) {
+            scActive = i; scMark(); scGate();
+            // only a visitor moves the row, so every change here is theirs; the
+            // analytics block (prod host only) counts each slide once per visit
+            document.dispatchEvent(new CustomEvent('showcase:visit', { detail: scEls[i].getAttribute('data-verb') }));
+          }
+        }, 90);
+      }, { passive: true });
+      scTabs.forEach(function (t) { t.addEventListener('click', function () { scGo(+t.getAttribute('data-to')); }); });
+      Array.prototype.forEach.call(scArrows, function (b) { b.addEventListener('click', function () { scGo(scActive + (+b.getAttribute('data-step'))); }); });
+      scRow.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); scGo(scActive + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); scGo(scActive - 1); }
       });
-    }
-    function cGate() {
-      if (!cStage) return;
-      var run = !reduce && cInView;
-      if (run && !cRunning) { cRunning = true; cPlay(); }
-      else if (!run && cRunning) { cRunning = false; cEndFrame(); }
-    }
-    if (cStage) {
-      cLine = cStage.querySelector('.c-line');
-      cQt   = cStage.querySelector('.c-qt');
-      onInView(cStage, 0.3, function (vis) { cInView = vis; cGate(); });
-      cGate();
+      var scNav = document.querySelector('.sc-nav');
+      if (scNav) scNav.hidden = false;
+      var scArrowBox = document.querySelector('.sc-arrows');
+      if (scArrowBox) scArrowBox.hidden = false;
+      scMark();
+      onInView(scRow, 0.35, function (vis) { scInView = vis; scGate(); });
     }
 
     /* §A · positioning bands — the works-with reel, memory timeline and odometer
@@ -1340,45 +1500,6 @@
   })();
   </script>
 
-  <!-- copy buttons: progressive enhancement for boxes marked .copyable. Wraps
-       each in a positioned .copybox and drops a Copy button top-right. No-JS or
-       no clipboard API → no button, box stays selectable. Mirrors install.html. -->
-  <script>
-  (function () {
-    var boxes = document.querySelectorAll('.copyable');
-    if (!boxes.length || !navigator.clipboard) return;
-    var COPY = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-    var DONE = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
-    Array.prototype.forEach.call(boxes, function (box) {
-      var wrap = document.createElement('div');
-      wrap.className = 'copybox';
-      box.parentNode.insertBefore(wrap, box);
-      wrap.appendChild(box);
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'copy-btn';
-      btn.setAttribute('aria-label', 'Copy');
-      btn.innerHTML = COPY;
-      btn.addEventListener('click', function () {
-        var code = box.querySelector('code');
-        var text = (code ? code.textContent : box.textContent) || '';
-        // Intent signal: someone copied an install command (the command-line
-        // installers who never click a .dmg). Every .copyable on / and /install
-        // is install-context today; scope this if a non-install copyable is ever
-        // added. Prod-gated: window.goatcounter is only set on the deployed host
-        // (contract: landing-page-analytics 复制安装命令计为意图事件).
-        var g = window.goatcounter;
-        if (g && g.count) g.count({ path: 'copy-install-cmd', event: true });
-        navigator.clipboard.writeText(text).then(function () {
-          btn.innerHTML = DONE;
-          setTimeout(function () { btn.innerHTML = COPY; }, 1400);
-        }).catch(function () {});
-      });
-      wrap.appendChild(btn);
-    });
-  })();
-  </script>
-
   <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
        Production host ONLY — file:// / localhost / previews make zero external
        requests. Contract: openspec landing-page-analytics + landing-page. -->
@@ -1401,6 +1522,38 @@
         var gd = window.goatcounter;
         if (gd && gd.count) gd.count({ path: 'try-demo', event: true });
       });
+    }
+
+    // The redesign's three questions (contract: landing-page-analytics /
+    // 首页改版的三个读数): does the support section send anyone to /support,
+    // does anyone move the showcase (and to which slide), and how many reach the
+    // download at all. Each fires at most once per page view.
+    function once(path) {
+      var sent = false, tries = 0;
+      function fire() {
+        if (sent) return;
+        var g = window.goatcounter;
+        if (g && g.count) { g.count({ path: path, event: true }); sent = true; }
+        else if (++tries < 6) setTimeout(fire, 1000);   // count.js still loading
+      }
+      return fire;
+    }
+    var backIt = document.querySelector('#back-it a[href="/support"]');
+    if (backIt) backIt.addEventListener('click', once('support-home'));
+    var seen = {};
+    document.addEventListener('showcase:visit', function (e) {
+      var verb = e.detail;
+      if (!verb || seen[verb]) return;
+      seen[verb] = once('showcase-' + verb);
+      seen[verb]();
+    });
+    var dl = document.getElementById('download');
+    if (dl && 'IntersectionObserver' in window) {
+      var reached = once('reach-download');
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { reached(); io.disconnect(); }
+      }, { threshold: 0.4 });
+      io.observe(dl);
     }
 
     var TEST_PATHS = ['/agent-smoke-test'];

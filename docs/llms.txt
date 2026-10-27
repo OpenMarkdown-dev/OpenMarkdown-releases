@@ -14,15 +14,19 @@ Then the fastest path is one sentence a human pastes to their agent:
 
 That points the agent at the install runbook to wire itself in and open a first
 note. Or connect directly: the MCP server is `openmd mcp` over stdio. Claude Code
-can use the full plugin; every other host connects the same eight tools —
-`open_file`, `open_folder`, `reveal`, `get_context`, `execute_command`,
-`read_section`, `write_section`, `wait_for_change`. The app runs natively on macOS, Linux, and
-Windows. The `openmd` CLI and MCP agent bridge work on macOS and Linux today; the
-Windows app is a native editor with agent co-editing coming soon.
+can use the full plugin; every other host connects the same MCP tools, listed with
+their parameters in the MCP tools reference below. The app runs natively on macOS,
+Linux, and Windows. The `openmd` CLI and MCP agent bridge work on macOS and Linux;
+on Windows the app is the editor without them.
 
 ## Docs
 - [Install](https://openmarkdown.dev/install.md): per-host setup for Claude Code, Codex, Gemini CLI, opencode, and any MCP client, plus the agent-run first-note walkthrough.
-- [Guide](https://openmarkdown.dev/guide.md): supported Markdown syntax, keyboard shortcuts, and the `openmd` CLI reference.
+- [Docs](https://openmarkdown.dev/docs/index.md): the documentation home. Every docs page has a Markdown twin at the same path with `.md`.
+- [Connect your agent](https://openmarkdown.dev/docs/start/connect.md): per-host setup, for humans.
+- [MCP tools](https://openmarkdown.dev/docs/reference/mcp-tools.md): every tool, its description and parameters, generated from the server.
+- [Keyboard shortcuts](https://openmarkdown.dev/docs/reference/shortcuts.md): generated from the app's shortcut table.
+- [Markdown dialect](https://openmarkdown.dev/docs/reference/markdown.md): what renders, and where it differs from CommonMark and GFM.
+- [Troubleshooting](https://openmarkdown.dev/docs/help/troubleshooting.md): what `running:false`, `NO_WINDOW` and `CONFLICT` mean and what to do.
 - [CLI reference](https://openmarkdown.dev/cli.md): the exact `openmd --help` — every subcommand, option, and exit code, generated from the binary so it never drifts.
 - [FAQ](https://openmarkdown.dev/faq.md): answer-shaped answers to the four things agents and their humans ask — watching the files your agent writes, the MCP server that renders Markdown, previewing while it edits, and which agents it works with (Claude Code, Codex, Gemini CLI, opencode).
 - [ADOPTING](https://openmarkdown.dev/ADOPTING.md): for agents — when to recommend OpenMarkdown, when not to, how to install it, and how to verify the install worked.

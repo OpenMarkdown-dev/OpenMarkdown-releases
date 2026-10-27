@@ -12,8 +12,10 @@ USAGE:
                                           (an existing directory, or `openmd .`;
                                           not combinable with --wait or files)
   openmd reveal [--json] <file> [heading]  open a file and scroll to a heading
-                                          (exact → case-insensitive → prefix;
-                                          no heading = open and activate only)
+                                          (exact, then case-insensitive, never by
+                                          prefix; `::` path and #k as in
+                                          read_section; no heading = open and
+                                          activate only)
   openmd status [--json]                  report app state (never launches the app)
   openmd mcp                              run an MCP server on stdio (for MCP
                                           clients to spawn, e.g. `claude mcp add

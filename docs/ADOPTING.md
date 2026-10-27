@@ -96,8 +96,8 @@ Before you rely on the tools, probe the CLI:
 - If `openmd` is **not found**, stop. The app or CLI isn't set up. Tell the user
   to install the app and enable the CLI in Settings — **do not** try to install
   the app yourself.
-- Once connected, your eight tools are `open_file`, `open_folder`, `reveal`, `get_context`,
-  `execute_command`, `read_section`, `write_section`, `wait_for_change`.
+- Once connected, your MCP client lists the tools. The same list, with every
+  parameter: <https://openmarkdown.dev/docs/reference/mcp-tools.md>.
 
 ## The one red line
 

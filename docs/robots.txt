@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://openmarkdown.dev/sitemap.xml
+Sitemap: https://openmarkdown.dev/docs/sitemap-index.xml

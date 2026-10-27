@@ -7,94 +7,57 @@
   Voice: docs/brand/verbal-identity.md. Honesty gate (public-claim-integrity):
   every claim here must be reproducible or true as written — no over-claiming
   cross-platform, no invented numbers.
+
+  Contract: spec agent-discovery-corpus (公开 README). Two rules that keep it
+  true over time:
+  - Images are screenshots of the real app in site/assets/screens/. The sync
+    copies site/ to the releases repo's docs/, so this README loads them by the
+    repo-relative path docs/assets/screens/ — GitHub serves them from the repo
+    itself, not from the website. Never sync this README while any image below
+    is missing from site/assets/screens/.
+  - No tool count. Say what the agent can do; the number of MCP tools drifts.
 -->
 # OpenMarkdown
 
-**Feather-light. Light-speed.**
-A local-first Markdown editor — native on macOS, Windows, and Linux — built for you and your agent.
+**Feather-light. Light-speed.** A local-first Markdown editor — built for you and your agent.
 
-Open a `.md` file — it just opens. No account, no cloud, no lock-in: every note
-is a plain file on your disk. The twist: OpenMarkdown is also where **you and your
-coding agent share one file**. Your agent writes into the note; your preview
-scrolls to the change. You're both looking at the same page — literally.
+**[⬇︎ macOS](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg)** (universal, signed & notarized) ·
+**[⬇︎ Windows](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe)** (x64) ·
+**[⬇︎ Linux](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage)** (AppImage, x64) — free, no account.
 
-> **No AI inside. That's the point.** OpenMarkdown ships no model and no
-> assistant. It runs on the agent you already use — Claude Code, Codex, Gemini
-> CLI, opencode, or any MCP client — and gives it a place to render, read, and
-> edit the same file you're looking at.
-
-## Download
-
-- **[⬇︎ macOS](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg)** — universal (Apple Silicon + Intel), signed & notarized. Free.
-- **[⬇︎ Windows](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe)** — x64 installer. Free.
-- **[⬇︎ Linux](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage)** — AppImage, x64. Free.
-
-Agent co-editing runs on **macOS and Linux** today; the **Windows** app is a native editor with agent co-editing coming soon (or run the Linux build under [WSL](https://learn.microsoft.com/windows/wsl/install) to get it today).
-
-## Put your agent on the same page
-
-**Bring your agent.** Once the app is installed, the fastest way in — paste this
-into your agent:
-
-```
-Read openmarkdown.dev/install to install OpenMarkdown and open my first note
-```
-
-It reads the install page, wires itself in, and opens your first note. That one
-sentence works for every agent (Claude Code, Codex, Gemini CLI, opencode, any MCP
-client) — the runbook branches per host, the sentence doesn't. Your agent gains
-seven tools — `open_file`, `reveal`, `get_context`, `execute_command`,
-`read_section`, `write_section`, `wait_for_change` — to open, navigate, read, and
-patch the exact file you have in front of you.
-
-**Prefer to wire it by hand?** For Claude Code, the full plugin (the seven tools
-*plus* a skill that teaches it when to use them):
-
-```
-/plugin marketplace add OpenMarkdown-dev/OpenMarkdown-releases
-/plugin install openmarkdown
-```
-
-Any other MCP host connects the same server: `openmd mcp` over stdio, e.g.
-`claude mcp add openmd -- openmd mcp`. Full per-host setup (Codex, Gemini CLI,
-opencode, and more): **[openmarkdown.dev/install](https://openmarkdown.dev/install)**.
-
-Requires the `openmd` command line tool (install it from OpenMarkdown's Settings).
-To pick up a newer plugin version later, run `/plugin marketplace update`.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/screens/hero-dark.png">
+  <img alt="OpenMarkdown: a Markdown file rendered live, with its folder in the sidebar" src="docs/assets/screens/hero-light.png">
+</picture>
 
 ## What it does
 
-- **Live-preview Markdown** — renders as you type; cycle live-preview / source /
-  reading with one button. Anything it doesn't recognise falls back to a plain
-  code block, so your text is never eaten.
-- **Fast** — a native Rust core; the window is there before you let go of the
-  mouse (cold start under a second, P50, on the maintainer's machine).
-- **Local-first** — plain `.md` files on your disk. No account, no sync, no
-  telemetry. See **[Transparency](https://openmarkdown.dev/transparency)** for
-  exactly what touches the network.
-- **Keyboard-first** — `⌘P` opens a command palette for files, commands, and
-  headings.
-- **中文 · 日本語 · English** interface, following your system language.
+**Live preview.** Type Markdown, see it rendered in place. One button cycles live / source / reading.
+
+<img alt="Note, Tip, Important, Warning and Caution callouts rendered in place" src="docs/assets/screens/live-preview.png" width="640">
+
+**Your agent, in the sidebar.** Start Claude Code, Codex, Gemini CLI, or opencode in a terminal tab inside the window. It answers you in the sidebar; when it finishes or replies while you're elsewhere, the menu-bar icon gets a dot. macOS and Linux.
+
+<img alt="A note beside a terminal tab in the sidebar" src="docs/assets/screens/terminal.png" width="640">
+
+**⌘P for everything.** Files, headings, commands — one palette, no mouse.
+
+<img alt="The command palette filtered to agent commands: open the agent sidebar, undo the agent's last edit, start an agent in the terminal" src="docs/assets/screens/palette.png" width="640">
+
+**Plain files on your disk.** Every note is a `.md` file. No account, no sync, no telemetry — [here's exactly what touches the network](https://openmarkdown.dev/transparency).
+
+<img alt="A folder of plain .md files in the sidebar" src="docs/assets/screens/files.png" width="640">
+
+No AI inside. OpenMarkdown ships no model; it runs on the agent you already use. Once connected ([openmarkdown.dev/install](https://openmarkdown.dev/install)), your agent can open your file, take you to a heading, read what you selected, edit one section, and answer you in the sidebar.
+
+Agent co-editing runs on macOS and Linux; on Windows the app is a native editor and co-editing is coming soon (or run the Linux build under [WSL](https://learn.microsoft.com/windows/wsl/install)).
 
 ## Is it for you?
 
-OpenMarkdown is deliberately narrow — a fast renderer for plain files you and an
-agent share, not a knowledge platform. If you want a wiki graph, backlinks, or an
-infinite canvas, a tool like Obsidian fits the job better. It's native on macOS,
-Windows, and Linux; if you need the agent co-editing on Windows specifically,
-that's coming soon (it's here on macOS and Linux today). Agents deciding whether
-to recommend it: read
-**[ADOPTING.md](https://openmarkdown.dev/ADOPTING)** — it says plainly when to and
-when not to.
+It's a fast editor for plain files you share with an agent — not a knowledge platform. Want backlinks, a graph, or an infinite canvas? Obsidian fits better. Agents deciding whether to recommend it: **[ADOPTING.md](https://openmarkdown.dev/ADOPTING)**.
 
 ## Links
 
-- **Website** — [openmarkdown.dev](https://openmarkdown.dev/)
-- **Guide** — [openmarkdown.dev/guide](https://openmarkdown.dev/guide) (syntax, shortcuts, the CLI)
-- **Install** — [openmarkdown.dev/install](https://openmarkdown.dev/install)
-- **Transparency** — [openmarkdown.dev/transparency](https://openmarkdown.dev/transparency)
-- **For agents** — [openmarkdown.dev/llms.txt](https://openmarkdown.dev/llms.txt) · [ADOPTING.md](https://openmarkdown.dev/ADOPTING)
+[Website](https://openmarkdown.dev/) · [Releases](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases) · [Docs](https://openmarkdown.dev/docs/) · [Install](https://openmarkdown.dev/install) · [Transparency](https://openmarkdown.dev/transparency) · [llms.txt](https://openmarkdown.dev/llms.txt) · [Issues](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues)
 
-## Feedback
-
-Found a bug or have a request? **[Open an issue](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues)**.
+Free, and it stays free. If it earns a place in your day, you can [back it](https://openmarkdown.dev/support).

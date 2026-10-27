@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-g5ptsecz"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>MCP tools | OpenMarkdown Docs</title><link rel="canonical" href="https://openmarkdown.dev/docs/reference/mcp-tools/"/><link rel="sitemap" href="/docs/sitemap-index.xml"/><link rel="stylesheet" href="/assets/chrome.css"/><script>(function(){if(location.hostname!=='openmarkdown.dev')return;var s=document.createElement('script');s.async=true;s.setAttribute('data-goatcounter','https://openmarkdown.goatcounter.com/count');s.src='https://gc.zgo.at/count.js';document.head.appendChild(s);})();</script><link rel="shortcut icon" href="/docs/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.3.8"/><meta name="generator" content="Starlight v0.42.6"/><meta property="og:title" content="MCP tools"/><meta property="og:type" content="article"/><meta property="og:url" content="https://openmarkdown.dev/docs/reference/mcp-tools/"/><meta property="og:locale" content="en"/><meta property="og:description" content="The nine tools OpenMarkdown's MCP server gives your agent."/><meta property="og:site_name" content="OpenMarkdown Docs"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="The nine tools OpenMarkdown's MCP server gives your agent."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/docs/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/docs/_astro/common.CkOjFiiW.css"><script type="module" src="/docs/_astro/page.cNngjUgL.js"></script></head><body class="astro-g5ptsecz"><a class="sl-skip-link astro-qb7clj6f" href="#_top">Skip to content</a><div class="page sl-flex astro-yntsjkba"><header class="header astro-yntsjkba"><div class="om-sitenav"><!-- BEGIN site-nav (generated — do not edit) -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+      <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+      OpenMarkdown
+    </a>
+    <div class="links">
+      <a href="/demo" id="navDemo">Demo</a>
+      <a href="/support">Pricing</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+      <a class="btn" href="/#download">Download</a>
+    </div>
+  </div>
+</nav>
+<!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+     first. They sit on the same page, so nothing downstream — referrer, landing
+     path — can tell them apart, and one shared event would permanently lose
+     which entry actually works. So they count separately, the way /support's two
+     CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+     Lives here rather than in each page's own script block because the nav is on
+     every page: the alternative is fourteen copies of this listener, which is
+     the thing this file exists to prevent. Attaches only — no request is made
+     here, and none at all off the production host, where window.goatcounter is
+     never defined. -->
+<script>
+  (function () {
+    var link = document.getElementById('navDemo');
+    if (!link) return;
+    link.addEventListener('click', function () {
+      var gc = window.goatcounter;
+      if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+    });
+  })();
+</script>
+<!-- END site-nav --></div><div class="om-docbar"><div class="header astro-by6fddyj"><div class="title-wrapper sl-flex astro-by6fddyj"><a href="/docs/" class="site-title sl-flex astro-6rvad3va"><span class="astro-6rvad3va" translate="no">OpenMarkdown Docs</span></a></div><div class="sl-flex print:hidden astro-by6fddyj"><site-search class="astro-by6fddyj astro-b5kgnn7o" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-b5kgnn7o"><svg aria-hidden="true" class="astro-b5kgnn7o astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-b5kgnn7o" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-b5kgnn7o" style="display: none;"><kbd class="astro-b5kgnn7o">Ctrl</kbd><kbd class="astro-b5kgnn7o">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-b5kgnn7o"><div class="dialog-frame sl-flex astro-b5kgnn7o"><button data-close-modal class="sl-flex md:sl-hidden astro-b5kgnn7o">Cancel</button><div class="search-container astro-b5kgnn7o"><div id="starlight__search" class="astro-b5kgnn7o"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/docs/_astro/Search.astro_astro_type_script_index_0_lang.DUdEi80m.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-by6fddyj"><div class="sl-flex social-icons astro-by6fddyj"></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-2z5xp7gb"><span class="sr-only astro-2z5xp7gb">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-2z5xp7gb"><option value="dark" class="astro-2z5xp7gb">Dark</option><option value="light" class="astro-2z5xp7gb">Light</option><option value="auto" selected class="astro-2z5xp7gb">Auto</option></select><svg aria-hidden="true" class="icon caret astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></div><script type="module">var e=document.getElementById(`nav`),t=()=>e?.classList.toggle(`on-ink`,document.documentElement.dataset.theme===`dark`);t(),new MutationObserver(t).observe(document.documentElement,{attributes:!0,attributeFilter:[`data-theme`]});</script></header><nav class="sidebar print:hidden astro-yntsjkba" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-r2osgdlg"><svg aria-hidden="true" class="open-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-r2osgdlg">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-yntsjkba"><div class="sidebar-content sl-flex astro-yntsjkba"><sl-sidebar-state-persist data-hash="0lsvlzp" class="astro-ipdry5cl"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-rmhv4bp6"><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Getting started</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Introduction</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/start/install/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Install</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/start/quick-start/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Quick start</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/start/connect/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Connect your agent</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Using OpenMarkdown</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/using/editor/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Editor and live preview</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/using/files/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Files, workspaces and Homes</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/using/command-palette/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Command palette</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/using/outline-find/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Outline, find and spellcheck</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/using/images/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Images and attachments</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/using/themes-language/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Themes and language</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/using/settings/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Settings</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Working with your agent</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/agent/editor-handoff/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">$EDITOR handoff</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/agent/terminal-intercom/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Sidebar terminal and intercom</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/agent/co-edit/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Co-edit</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/agent/plugin-skills/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Plugin skills</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Reference</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/reference/cli/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">CLI</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/reference/mcp-tools/" aria-current="page" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">MCP tools</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/reference/shortcuts/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Keyboard shortcuts</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/reference/markdown/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Markdown dialect</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/reference/platforms/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Platform support</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Concepts</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/concepts/principles/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Design principles</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/concepts/architecture/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Architecture</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/concepts/privacy/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Privacy and transparency</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Help</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/help/faq/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">FAQ</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/help/troubleshooting/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Troubleshooting</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/help/changelog/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Changelog</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-p4azlveh"><div class="social-icons astro-p4azlveh"></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-2z5xp7gb"><span class="sr-only astro-2z5xp7gb">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-2z5xp7gb"><option value="dark" class="astro-2z5xp7gb">Dark</option><option value="light" class="astro-2z5xp7gb">Light</option><option value="auto" selected class="astro-2z5xp7gb">Auto</option></select><svg aria-hidden="true" class="icon caret astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-yntsjkba"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-lrzkfocr"><aside class="right-sidebar-container print:hidden astro-lrzkfocr"><div class="right-sidebar astro-lrzkfocr"><div class="lg:sl-hidden astro-qok35upx"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-66cqc7ze"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-66cqc7ze"><details id="starlight__mobile-toc" class="astro-66cqc7ze"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-66cqc7ze"><span class="toggle sl-flex astro-66cqc7ze">On this page<svg aria-hidden="true" class="caret astro-66cqc7ze astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-66cqc7ze"></span></summary><div class="dropdown astro-66cqc7ze"><ul class="isMobile astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Overview</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#at-a-glance" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">At a glance</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#open_file" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">open_file</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#open_folder" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">open_folder</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#reveal" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">reveal</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#get_context" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">get_context</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#execute_command" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">execute_command</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#read_section" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">read_section</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#write_section" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">write_section</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#wait_for_change" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">wait_for_change</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#post_message" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">post_message</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/docs/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-qok35upx"><div class="sl-container astro-qok35upx"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Overview</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#at-a-glance" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">At a glance</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#open_file" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">open_file</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#open_folder" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">open_folder</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#reveal" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">reveal</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#get_context" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">get_context</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#execute_command" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">execute_command</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#read_section" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">read_section</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#write_section" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">write_section</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#wait_for_change" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">wait_for_change</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#post_message" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">post_message</span></a></li></ul></nav></starlight-toc><script type="module" src="/docs/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-lrzkfocr"><main data-pagefind-body class="astro-g5ptsecz" lang="en" dir="ltr"><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><h1 id="_top" class="astro-bebwqqxs">MCP tools</h1></div></div><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><div class="sl-markdown-content"><!-- GENERATED from src-tauri/crates/openmd-cli/src/mcp.rs (tool_schemas) by scripts/build-docs-reference.mjs — do not edit. -->
+<p>OpenMarkdown's MCP server is <code dir="auto">openmd mcp</code>: the app you installed, answering over stdio. It gives your agent <strong>nine tools</strong>. Their names, descriptions and parameters below are exactly what the server sends your agent when it asks for its tools.</p>
+<p>To connect an agent, see <a href="/docs/start/connect/">Connect your agent</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="at-a-glance">At a glance</h2><a class="sl-anchor-link" href="#at-a-glance"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “At a glance”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use it to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#open_file"><code dir="auto">open_file</code></a></td>
+<td>Open a markdown file in OpenMarkdown, the user's markdown app.</td>
+</tr>
+<tr>
+<td><a href="#open_folder"><code dir="auto">open_folder</code></a></td>
+<td>Open a folder as a workspace in OpenMarkdown.</td>
+</tr>
+<tr>
+<td><a href="#reveal"><code dir="auto">reveal</code></a></td>
+<td>Scroll the user's OpenMarkdown view to a heading.</td>
+</tr>
+<tr>
+<td><a href="#get_context"><code dir="auto">get_context</code></a></td>
+<td>See what the user has open in OpenMarkdown: folder, tabs, active file, selected text, the heading currently in view (visibleHeading — its section anchor, pass it unchanged as read_section's heading), and executable command ids.</td>
+</tr>
+<tr>
+<td><a href="#execute_command"><code dir="auto">execute_command</code></a></td>
+<td>Run an OpenMarkdown command by id (pick from get_context's availableCommands).</td>
+</tr>
+<tr>
+<td><a href="#read_section"><code dir="auto">read_section</code></a></td>
+<td>Read one section of a markdown note.</td>
+</tr>
+<tr>
+<td><a href="#write_section"><code dir="auto">write_section</code></a></td>
+<td>Update one section of a markdown note in place.</td>
+</tr>
+<tr>
+<td><a href="#wait_for_change"><code dir="auto">wait_for_change</code></a></td>
+<td>Block until the next thing happens, so you can react to the user's whiteboard without polling.</td>
+</tr>
+<tr>
+<td><a href="#post_message"><code dir="auto">post_message</code></a></td>
+<td>Say one line back to the user in OpenMarkdown's agent sidebar.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="open_file">open_file</h2><a class="sl-anchor-link" href="#open_file"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “open_file”</span></a></div>
+<p>Open a markdown file in OpenMarkdown, the user's markdown app — use to put a file in front of the user. Launches the app if it is not running; creates the file if it does not exist.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Path to the file (absolute preferred; relative resolves against the MCP server's cwd).</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="open_folder">open_folder</h2><a class="sl-anchor-link" href="#open_folder"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “open_folder”</span></a></div>
+<p>Open a folder as a workspace in OpenMarkdown — use to put a whole project/notes directory in front of the user (a file tree in the sidebar), not a single file. Launches the app if it is not running. The path must be an existing directory.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Path to an existing directory (absolute preferred; relative resolves against the MCP server's cwd).</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="reveal">reveal</h2><a class="sl-anchor-link" href="#reveal"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “reveal”</span></a></div>
+<p>Scroll the user's OpenMarkdown view to a heading — use after editing a section the user should look at. Opens the file (launching the app if needed); omit heading to just open and activate.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Path to an existing file (absolute preferred).</td>
+</tr>
+<tr>
+<td><code dir="auto">heading</code></td>
+<td>string</td>
+<td>no</td>
+<td>Heading text or <code dir="auto">::</code>-separated ancestor path, the same anchor read_section takes; matched exact then case-insensitive, never by prefix (several matches scroll to the first; a trailing #k picks the k-th when the rest names several sections; a literal #, : or \ in heading text is written \#, \: or \\).</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="get_context">get_context</h2><a class="sl-anchor-link" href="#get_context"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “get_context”</span></a></div>
+<p>See what the user has open in OpenMarkdown: folder, tabs, active file, selected text, the heading currently in view (visibleHeading — its section anchor, pass it unchanged as read_section's heading), and executable command ids. Read-only — never launches the app; returns {"running":false} when it is not running. {"degraded":true} means the app is running without an open window (or the UI did not answer): only a possibly-stale folder/tabs/active snapshot is available, and live fields (selection, visibleHeading, availableCommands) stay unavailable until the user opens a window — retrying will not help. Every response includes version (the installed OpenMarkdown version).</p>
+<p>No parameters.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="execute_command">execute_command</h2><a class="sl-anchor-link" href="#execute_command"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “execute_command”</span></a></div>
+<p>Run an OpenMarkdown command by id (pick from get_context's availableCommands) — the escape hatch for actions without a dedicated tool. Acts on the user's live window; fails with NOT_RUNNING when the app is not running and NO_WINDOW when it is running tray-resident without a window.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">id</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Command id, e.g. "file.openTodayNote".</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="read_section">read_section</h2><a class="sl-anchor-link" href="#read_section"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “read_section”</span></a></div>
+<p>Read one section of a markdown note — use before editing a section, and to see the user's unsaved edits when the file is open in OpenMarkdown (your own file tools only see the stale disk copy). Returns the section content, its line range, and baseHash — the concurrency token write_section needs. Omit heading for the outline (each section's anchor, ready to pass as heading) plus whole content. Read-only; fails with NOT_RUNNING when the app is not running (then your own file tools are the right fallback).</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Path to an existing markdown file (absolute preferred).</td>
+</tr>
+<tr>
+<td><code dir="auto">heading</code></td>
+<td>string</td>
+<td>no</td>
+<td>Heading text or <code dir="auto">::</code>-separated ancestor path (e.g. "会议记录::行动项"); matched exact then case-insensitive, never by prefix; a trailing #k picks the k-th section when the rest names several, otherwise it is part of the text. A literal #, : or \ in heading text is written \#, \: or \\ (heading <code dir="auto">a::b</code> is <code dir="auto">a\::b</code>). Anchors from the outline, AMBIGUOUS_HEADING candidates and get_context are already escaped — pass them unchanged. Omit for outline + whole document.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="write_section">write_section</h2><a class="sl-anchor-link" href="#write_section"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “write_section”</span></a></div>
+<p>Update one section of a markdown note in place — prefer this over rewriting the whole file whenever OpenMarkdown may have it open: the change lands inside the user's live buffer without touching what they are typing elsewhere. append/prepend insert at the section body's end/start (no heading = document end/start); replace swaps the section body (heading line stays) and requires baseHash from read_section — on CONFLICT you get the current content and a fresh baseHash to retry with. Fails with NOT_RUNNING when the app is not running (then editing the file directly is safe — no live buffer to protect).</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Path to an existing markdown file (absolute preferred). Never creates files.</td>
+</tr>
+<tr>
+<td><code dir="auto">heading</code></td>
+<td>string</td>
+<td>no</td>
+<td>Target section: heading text or <code dir="auto">::</code>-separated ancestor path, the same anchor read_section takes (pass its outline / candidate anchors unchanged); exact then case-insensitive, never by prefix; a trailing #k picks the k-th section when the rest names several; a literal #, : or \ in heading text is written \#, \: or \\. Omit to append/prepend at document level (prepend lands after YAML frontmatter; document-level replace is rejected).</td>
+</tr>
+<tr>
+<td><code dir="auto">operation</code></td>
+<td><code dir="auto">"append"</code> or <code dir="auto">"prepend"</code> or <code dir="auto">"replace"</code></td>
+<td>yes</td>
+<td>append/prepend = insert at body end/start; replace = swap the section body (children included), keeping the heading line.</td>
+</tr>
+<tr>
+<td><code dir="auto">content</code></td>
+<td>string</td>
+<td>yes</td>
+<td>Markdown to write. Blank-line separation towards surrounding content is added automatically.</td>
+</tr>
+<tr>
+<td><code dir="auto">baseHash</code></td>
+<td>string</td>
+<td>no</td>
+<td>Concurrency token from read_section. Required for replace; optional for append/prepend.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="wait_for_change">wait_for_change</h2><a class="sl-anchor-link" href="#wait_for_change"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “wait_for_change”</span></a></div>
+<p>Block until the next thing happens, so you can react to the user's whiteboard without polling. TWO WAKE SOURCES, and you choose which by what you pass (at least one is required): path = that file's content changed (the user saved an edit, or another writer touched it); workspace = the user sent you a message from that workspace's agent sidebar (the intercom). Pass both to wait on either. WHO GETS A MESSAGE: each intercom message is assigned to the ONE agent session the user selected in the intercom — not to whoever waited first — and only agents running in OpenMarkdown's own in-app terminal (the sidebar terminal) can receive intercom messages at all. A wait from an agent anywhere else is never woken by the intercom (its file changes and timeouts work exactly as usual), so listening only makes sense from inside the app's terminal. The two are accounted separately — an auto-save NEVER wakes a workspace-only wait, which is the point: a sidebar send is the user's explicit "I'm done typing", so it wakes you immediately with no settle delay, while file changes are debounced until writing goes quiet. Use in a loop: wake → see which source → re-read the file (never act on what you cached before the wait) → act → wait again. Returns {"changed":true,"exists":true} on a real content change (a delete is a change with exists:false), {"messages":[{"text":…,"context":…}]} on sidebar messages, {"changed":false,"timedOut":true} on timeout, or {"changed":false,"cancelled":true} when the user interrupted you while you were waiting — all normal returns, not errors; when you passed a workspace, "source" also names the wake source outright ("file" / "message" / "timeout" / "cancelled"). TIMEOUT AND CANCELLED CALL FOR OPPOSITE THINGS: a timeout means nothing happened yet, so wait again; cancelled means the user reached in and stopped you, so LEAVE THE LOOP — waiting again would undo what they just did. <code dir="auto">messages</code> is ALWAYS a list, and may hold MORE THAN ONE: anything the user said while you were busy is batched into a single wake, in the order they said it. Read them all before acting — consecutive lines usually amend each other ("change this bit" … "actually change that one instead"), so treat them as one request, not as N independent tasks. Each message's context carries POSITION ONLY (file path, section heading, selection line range) — never the quoted text, so read_section it yourself to see the current content rather than a stale snapshot. Blocks THIS server: other OpenMarkdown tool calls queue behind it until it returns, so make it the last call in a loop iteration. Fails with NOT_RUNNING when the app is not running (poll with your own file tools instead) and NOT_FOUND when a given path does not exist.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td>string</td>
+<td>no</td>
+<td>Path to an existing markdown file (absolute preferred). Wakes on that file's content changing.</td>
+</tr>
+<tr>
+<td><code dir="auto">workspace</code></td>
+<td>string</td>
+<td>no</td>
+<td>Workspace root directory (the folder the user has open; get_context's <code dir="auto">folder</code>). Wakes on a message the user sends from that workspace's agent sidebar.</td>
+</tr>
+<tr>
+<td><code dir="auto">name</code></td>
+<td>string</td>
+<td>no</td>
+<td>What you call yourself, e.g. "codex". Display only: the intercom names you by your terminal session (e.g. "cat"); for an agent the user started by hand in a shell tab this is shown after that name ("cat · codex"). The app stores nothing and infers nothing from it.</td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_seconds</code></td>
+<td>integer</td>
+<td>no</td>
+<td>Max seconds to block before returning timedOut (default 120, max 600).</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="post_message">post_message</h2><a class="sl-anchor-link" href="#post_message"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “post_message”</span></a></div>
+<p>Say one line back to the user in OpenMarkdown's agent sidebar — for answers that do NOT change a file ("that syntax is fine", "done, but the third item needs your call"), which would otherwise have nowhere to go but the document. Touches no file. It lands in the intercom of the home whose in-app terminal you are running in, attributed to your session — never in whatever the user happens to be looking at. Fire-and-forget with NO delivery guarantee: if the app is not running, the sidebar is unavailable, or you are not running in OpenMarkdown's own terminal (an agent outside the app is not on the intercom), the message is dropped silently and this still succeeds — never retry, and if it truly matters, write it into the file instead. Say the RESULT, not the work: no tool names, no step-by-step, no thinking, no restating the text you just wrote (the user can see the document). One or two sentences; if you need a decision from the user, ask for it and stop.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">text</code></td>
+<td>string</td>
+<td>yes</td>
+<td>The line to show, plain text. Only inline <code dir="auto">code</code> and line breaks render; every other markdown mark shows as literal text.</td>
+</tr>
+</tbody>
+</table>
+</div><footer class="sl-flex astro-ddtxxk7k"><div class="meta sl-flex astro-ddtxxk7k"></div><div class="pagination-links print:hidden astro-b5raizh3" dir="ltr"><a href="/docs/reference/cli/" rel="prev" class="astro-b5raizh3"><svg aria-hidden="true" class="astro-b5raizh3 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-b5raizh3">Previous<br class="astro-b5raizh3"><span class="link-title astro-b5raizh3">CLI</span></span></a><a href="/docs/reference/shortcuts/" rel="next" class="astro-b5raizh3"><svg aria-hidden="true" class="astro-b5raizh3 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-b5raizh3">Next<br class="astro-b5raizh3"><span class="link-title astro-b5raizh3">Keyboard shortcuts</span></span></a></div></footer></div></div></main></div></div><div class="om-sitefooter"><!-- BEGIN site-footer (generated — do not edit) -->
+<div class="seam" aria-hidden="true"></div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-row">
+      <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+      <span class="fnav">
+        <a href="/faq">FAQ</a>
+        <a href="/compare/">Compare</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a href="/transparency">Transparency</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<!-- END site-footer --></div></div></div></body></html>

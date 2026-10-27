@@ -1,0 +1,1 @@
+function L(n,t){return t===null?n>=150?"full":"compact":n>=196+52*t?"full":n>=92+36*t?"compact":"minimal"}function a(n,t,T,c=!0){if(t==="full")return{icon:!0,title:!0,hint:!0,secondary:!0};const l=T===null||t==="minimal"?28:36*T;let r=n-16-l;const o=e=>r>=e?(r-=e,!0):!1,u=o(26),s=c&&o(48);return{icon:!1,title:o(28),hint:u,secondary:s}}export{L as a,a as e};

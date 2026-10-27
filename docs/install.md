@@ -11,7 +11,12 @@
 # OpenMarkdown — Install
 
 Hand one sentence to your agent and it sets OpenMarkdown up for you — checks your
-machine, wires in the tools, and opens your first note. Or do any of it by hand.
+machine, wires in the tools, and opens your first note. This page is the runbook it
+reads.
+
+Setting up by hand? The step-by-step guide is in the docs:
+[Install](https://openmarkdown.dev/docs/start/install/) and
+[Connect your agent](https://openmarkdown.dev/docs/start/connect/).
 
 ## Paste one sentence
 
@@ -35,17 +40,16 @@ up from there.
    [macOS (.dmg, drag to Applications)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg),
    [Linux (AppImage)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage),
    or [Windows (.exe)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe).
-   **The agent steps below are macOS and Linux** — on Windows the app is a native
-   editor with agent co-editing coming soon (or run the Linux build under WSL to
-   get it today).
-2. **Turn on the `openmd` CLI.** In the app: **Settings → System integration →
-   Install the command-line tool**. That drops `openmd` on your PATH.
+   **The agent steps below are macOS and Linux** — on Windows the app is the
+   editor without them (run the Linux build under WSL to work with an agent).
+2. **Turn on the `openmd` CLI.** In the app, turn on **Settings → System
+   integration → Command-line tool (openmd)**. That puts `openmd` on your PATH.
 3. **Check it.** Run `openmd status` — it should answer.
 
 **If `openmd` isn't on your PATH yet,** one of two things is true — both quick to fix:
 
-- **You have the app, but the CLI is off** → open OpenMarkdown → **Settings →
-  System integration → Install the command-line tool**.
+- **You have the app, but the CLI is off** → open OpenMarkdown → turn on
+  **Settings → System integration → Command-line tool (openmd)**.
 - **You don't have the app yet** → install it (step 1 above), then turn on the CLI.
 
 Once `openmd status` answers, paste the sentence again and your agent carries on. A
@@ -55,16 +59,16 @@ points you back here rather than guess or try to install the app itself.
 
 ## Then: connect your agent
 
-**Claude Code** gets the full plugin — the seven MCP tools *and* a skill that
+**Claude Code** gets the full plugin — the MCP tools *and* a skill that
 teaches it when to use them. Every other agent connects the same MCP server (the
 tools); the skill is Claude Code–only. The runtime is identical either way: plain
 `openmd mcp` over stdio.
 
 **What you're actually installing.** The MCP wiring just points your agent at
 `openmd mcp` — the local app you installed a moment ago, no new binary downloaded.
-The Claude Code plugin adds Markdown only (a skill + three slash commands): **no
+The Claude Code plugin adds Markdown only (a skill and slash commands): **no
 hooks, no scripts that run on their own, no network calls**, and no "run any shell
-command" tool — the eight tools touch only your Markdown files and the app's own
+command" tool — the tools touch only your Markdown files and the app's own
 menu commands. It's all open:
 [read the `plugin/` source](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/tree/main/plugin)
 before you install it — that's the front door, not a detour. A careful agent that
