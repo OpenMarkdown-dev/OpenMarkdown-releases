@@ -48,6 +48,7 @@ Inside the sidebar terminal, <kbd>⌃</kbd> combinations go to the terminal, exc
 | Toggle the Terminal panel | <kbd>⌃`</kbd> | <kbd>Ctrl+`</kbd> |
 | Open agent sidebar | <kbd>⇧⌘A</kbd> | <kbd>Shift+Ctrl+A</kbd> |
 | Keep window on top | <kbd>⌥⌘P</kbd> | <kbd>Alt+Ctrl+P</kbd> |
+| Mini window / restore | <kbd>⌥⌘M</kbd> | <kbd>Alt+Ctrl+M</kbd> |
 | Zoom in | <kbd>⌘=</kbd> or <kbd>⇧⌘+</kbd> | <kbd>Ctrl+=</kbd> or <kbd>Shift+Ctrl++</kbd> |
 | Zoom out | <kbd>⌘-</kbd> | <kbd>Ctrl+-</kbd> |
 | Reset zoom | <kbd>⌘0</kbd> | <kbd>Ctrl+0</kbd> |

@@ -20,7 +20,7 @@ To connect an agent, see [Connect your agent](/docs/start/connect/).
 
 ## open_file
 
-Open a markdown file in OpenMarkdown, the user's markdown app — use to put a file in front of the user. Launches the app if it is not running; creates the file if it does not exist.
+Open a markdown file in OpenMarkdown, the user's markdown app — use to put a file in front of the user. An image (png, jpg, gif, webp, svg) opens read-only in the viewer beside the document instead of as a tab — use it to show a chart or screenshot you produced. Launches the app if it is not running; creates a missing markdown file, but a missing image is an error.
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |

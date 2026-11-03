@@ -19,22 +19,21 @@ Open Settings with the gear in the window's top bar. Changes apply as you make t
 
 ## Agent
 
-macOS and Linux.
+macOS and Linux. On Windows the row is there and says agent co-editing is coming.
 
 | Setting | What it does |
 | --- | --- |
-| Default agent | The agent listed first in the intercom, marked **Last used**. Follows whichever you started last, until you pick one. |
+| Default agent | The agent listed first in the intercom, marked **Last used**. Follows whichever you started last, until you pick one. If no agent is found it is greyed out and points you to [Connect your agent](/docs/start/connect/). |
 
 ## System integration
 
 | Setting | What it does |
 | --- | --- |
-| Warm start | Keeps OpenMarkdown running in the menu bar (the system tray on Linux and Windows) after you close the window, so files reopen instantly. |
-| Show in menu bar only | No Dock icon once the window is closed. macOS only. |
+| Stay in menu bar | Keeps OpenMarkdown running in the menu bar (the system tray on Linux and Windows) after you close the window, so files reopen instantly. |
 | Command-line tool (openmd) | Puts `openmd` on your PATH, for agents and scripts in your own terminal. macOS and Linux. |
-| $VISUAL editor | Adds `export VISUAL="openmd --wait --source claude"` to your shell's startup file, in a marked block it can remove again. New terminals then open OpenMarkdown when a tool asks for an editor (Claude Code's <kbd>⌃G</kbd>, for one). It never overwrites a `VISUAL` you set yourself. See [`$EDITOR` handoff](/docs/agent/editor-handoff/). macOS and Linux. |
+| Write agents' long prompts in OpenMarkdown (⌃G) | Makes Claude Code's and Codex's <kbd>⌃G</kbd> open the prompt in OpenMarkdown. It writes into each agent's own config (`~/.claude/settings.json`, `~/.codex/.env`), not your shell, so `git commit` keeps its editor. An editor you set yourself is left alone. See [`$EDITOR` handoff](/docs/agent/editor-handoff/). macOS and Linux. |
+| Editor for every terminal tool | Adds `VISUAL` (and `EDITOR`, unless you set your own) pointing at `openmd --wait` to your shell's startup file, in a marked block it can remove again. Every tool in a new terminal that asks for an editor then opens OpenMarkdown — `git commit` included. It never overwrites a `VISUAL` you set yourself. Needs the command-line tool. macOS and Linux. |
 | Default app for .md | Makes OpenMarkdown open `.md` files when you double-click them. Turning it off hands them back to the app before. macOS only. |
-| Connect your agent | The sentence and commands from [Connect your agent](/docs/start/connect/), ready to copy. macOS and Linux. |
 
 ## Help & about
 

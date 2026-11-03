@@ -6,8 +6,7 @@
 | Editor, tabs, Homes, find, outline | ✓ | ✓ | ✓ |
 | Themes, languages, updates | ✓ | ✓ | ✓ |
 | Spellcheck | ✓ | — | — |
-| Warm start (menu bar / tray) | ✓ | ✓ | ✓ |
-| Show in menu bar only | ✓ | — | — |
+| Stay in menu bar (menu bar / tray) | ✓ | ✓ | ✓ |
 | Default app for `.md` from Settings | ✓ | — | set by the installer |
 | `openmd` command-line tool | ✓ | ✓ | — |
 | MCP server (`openmd mcp`) | ✓ | ✓ | — |

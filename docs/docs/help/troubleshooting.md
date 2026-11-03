@@ -12,7 +12,7 @@ The tools answer `running: false` or `NOT_RUNNING` when the app is closed. Open 
 
 ## My agent says there is no window
 
-`degraded: true` or `NO_WINDOW` means the app is running in the menu bar (Warm start) with its window closed. Click the menu-bar icon, or open any file, and ask again. Retrying without a window does not help.
+`degraded: true` or `NO_WINDOW` means the app is running in the menu bar (Stay in menu bar) with its window closed. Click the menu-bar icon, or open any file, and ask again. Retrying without a window does not help.
 
 ## My agent doesn't have the tools
 

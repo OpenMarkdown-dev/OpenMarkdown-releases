@@ -21,7 +21,7 @@ For an agent you run in your own terminal, paste this to it (any agent that can 
 Read openmarkdown.dev/install to install OpenMarkdown and open my first note
 ```
 
-It checks that `openmd` is there, connects itself, and opens your Welcome note. If `openmd` is missing, it stops and tells you what to turn on. The same sentence is in the app under **Settings → Connect your agent**.
+It checks that `openmd` is there, connects itself, and opens your Welcome note. If `openmd` is missing, it stops and tells you what to turn on.
 
 Or connect by hand:
 

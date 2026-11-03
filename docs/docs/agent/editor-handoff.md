@@ -6,13 +6,23 @@ macOS and Linux.
 
 ## Set it up
 
-Turn on **Settings → System integration → $VISUAL editor**. It needs the [command-line tool](/docs/start/install/#turn-on-the-command-line-tool) on first. New terminals then have:
+**Just for your agents.** Turn on **Settings → System integration → Write agents' long prompts in OpenMarkdown**. It writes the editor into each agent's own config, so only the agent uses it:
+
+| Agent | Key | Written to |
+| --- | --- | --- |
+| Claude Code | <kbd>⌃G</kbd> | `~/.claude/settings.json` → `env.VISUAL` |
+| Codex | <kbd>⌃G</kbd> | `~/.codex/.env` → `VISUAL=` |
+
+Only agents you have installed are touched. New agent sessions pick it up. An editor you set yourself, in the agent's config or as `VISUAL` in your shell, is left alone, and turning the switch off removes only what it wrote.
+
+**For every tool.** Turn on **Settings → System integration → Editor for every terminal tool** instead. It needs the [command-line tool](/docs/start/install/#turn-on-the-command-line-tool) on first. New terminals then have:
 
 ```sh
 export VISUAL="openmd --wait --source claude"
+export EDITOR="openmd --wait --source claude"
 ```
 
-The line goes into `~/.zshrc` (and `~/.bash_profile` or `~/.bashrc` if you have one), inside a marked block. Turning the switch off removes the block and nothing else. A `VISUAL` you set yourself is left alone.
+The lines go into `~/.zshrc` (and `~/.bash_profile` or `~/.bashrc` if you have one), inside a marked block. `EDITOR` is left out when you already set your own. Turning the switch off removes the block and nothing else. A `VISUAL` you set yourself is left alone.
 
 To do it by hand, for one tool, or for `EDITOR` instead:
 

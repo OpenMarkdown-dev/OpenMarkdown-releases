@@ -84,12 +84,21 @@
       line-height: 1.5; text-wrap: pretty; }
     .sup-card .sup-perks li::before { content: "+"; position: absolute; left: 0; top: 0;
       color: var(--signal); font-family: var(--mono); }
-    .sup-soon { display: inline-block; font-family: var(--mono); font-size: 0.62rem;
-      letter-spacing: 0.06em; text-transform: uppercase; color: var(--signal);
-      border: 1px solid var(--line); border-radius: 100px; padding: 0.08rem 0.45rem;
-      margin-left: 0.3rem; vertical-align: middle; white-space: nowrap; }
     .sup-card .btn { margin-top: auto; text-align: center; padding: 0.9rem 1rem;
       border-radius: 0.6rem; font-size: 0.95rem; }
+
+    /* Where the money goes / other ways to help — two quiet panels under the tiers */
+    .sup-more { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+      gap: 1.25rem; margin: clamp(2.5rem, 6vw, 3.5rem) 0 0; }
+    .sup-panel { border-top: 1px solid var(--line); padding: 1.6rem 0.25rem 0; }
+    .sup-panel h2 { font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--signal); }
+    .sup-panel ul { list-style: none; padding: 0; margin: 1.1rem 0 0;
+      display: flex; flex-direction: column; gap: 0.65rem; }
+    .sup-panel li { position: relative; padding-left: 1.4rem; font-size: 0.95rem;
+      line-height: 1.5; text-wrap: pretty; }
+    .sup-panel li::before { content: "·"; position: absolute; left: 0.35rem; top: 0;
+      color: var(--signal); font-family: var(--mono); }
 
     /* Honesty note — understated, values-forward (the Signal lesson) */
     .sup-honest { max-width: 40rem; margin: clamp(2.75rem, 6vw, 4rem) auto 0; text-align: center; }
@@ -142,7 +151,7 @@
     <div class="inner">
       <h1>Free. Local. Yours.</h1>
       <p class="sub">No account, no tracking, no strings.</p>
-      <p class="lede">OpenMarkdown is free forever. If you want to help build what's next — co-editing your files with your agent, from anywhere — you can back it. One time, not a subscription.</p>
+      <p class="lede">OpenMarkdown is free forever. If you want to help build what's next, you can back it. One time, not a subscription.</p>
       <a class="cue" href="#tiers">What it costs ↓</a>
     </div>
   </section>
@@ -151,7 +160,7 @@
     <section id="tiers">
       <div class="sup-tiers">
         <!-- The free tier is a CARD, not a sentence. The page has always said
-             "free forever" in its lede, but a tier row showing only $25 and $50
+             "free forever" in its lede, but a tier row showing only the two paid tiers
              reads as two prices — the one number people came for was the one
              thing left as prose. Its CTA is Download because that is the honest
              next step for someone who arrived via the nav's "Pricing"
@@ -172,14 +181,14 @@
 
         <div class="sup-card">
           <div class="sup-name">Supporter</div>
-          <div class="sup-price">$25<span class="cur">USD</span></div>
+          <div class="sup-price">$10<span class="cur">USD</span></div>
           <div class="sup-per">one-time</div>
           <ul class="sup-perks">
             <li>Your name in our supporters file</li>
             <li>A supporter badge</li>
             <li>Early development notes</li>
           </ul>
-          <a class="btn" href="https://buy.stripe.com/5kQbIVdcVazu9zrcDC2Fa01">Back it — $25</a>
+          <a class="btn" href="https://buy.stripe.com/bJe00dfl3cHCaDv3322Fa02">Back it — $10</a>
         </div>
 
         <div class="sup-card founding">
@@ -188,15 +197,40 @@
           <div class="sup-per">one-time</div>
           <ul class="sup-perks">
             <li>Everything in Supporter</li>
-            <li>First access to <b>co-edit from anywhere</b><span class="sup-soon">coming soon</span> — reaching your files from claude.ai, your phone, any device, when it ships</li>
+            <li>Try new features first — experimental builds before they ship</li>
+            <li>Development updates and a direct line to us</li>
             <li>A say in where we take it</li>
           </ul>
           <a class="btn" href="https://buy.stripe.com/dRmeV7dcVdLG3b3cDC2Fa00">Founding Supporter — $50</a>
         </div>
       </div>
 
+      <!-- Costs list names only what we pay for today; a future hosted
+           feature gets a line here when it exists, not before
+           (contract: supporter-page / 钱花在哪只列当下真实开销). -->
+      <div class="sup-more">
+        <section class="sup-panel" aria-labelledby="sup-costs">
+          <h2 id="sup-costs">Where the money goes</h2>
+          <ul>
+            <li>Apple developer account — signing and notarizing the macOS app</li>
+            <li>The openmarkdown.dev domain</li>
+            <li>Download mirror servers, so the app downloads fast where GitHub is slow</li>
+            <li>Whatever's left goes into building what's next</li>
+          </ul>
+        </section>
+        <section class="sup-panel" aria-labelledby="sup-free">
+          <h2 id="sup-free">Other ways to help — free</h2>
+          <ul>
+            <li><a href="https://www.producthunt.com/products/openmarkdown" target="_blank" rel="noopener noreferrer">Upvote or review us on Product Hunt</a></li>
+            <li><a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">Star us on GitHub</a></li>
+            <li>Tell a friend who lives in Markdown</li>
+            <li><a href="/feedback">Send us bugs and ideas</a></li>
+          </ul>
+        </section>
+      </div>
+
       <div class="sup-honest">
-        <p>The app stays free, local, and account-free. Backing is a <b>one-time</b> payment — not a subscription — handled by Stripe, and it adds <b>no account and no tracking to the app itself</b>. <b>Co-edit from anywhere</b> isn't available yet; Founding Supporters get first access when it ships.</p>
+        <p>The app stays free, local, and account-free. Backing is a <b>one-time</b> payment — not a subscription — handled by Stripe, and it adds <b>no account and no tracking to the app itself</b>.</p>
         <a class="back-home" href="/">← back to home</a>
       </div>
     </section>
@@ -265,7 +299,7 @@
       var g = window.goatcounter;
       if (!g || !g.count) return;
       var href = a.getAttribute('href') || '';
-      if (href.indexOf('buy.stripe.com/5kQbIVdcVazu9zrcDC2Fa01') !== -1) {
+      if (href.indexOf('buy.stripe.com/bJe00dfl3cHCaDv3322Fa02') !== -1) {
         g.count({ path: 'back-supporter', event: true });
       } else if (href.indexOf('buy.stripe.com/dRmeV7dcVdLG3b3cDC2Fa00') !== -1) {
         g.count({ path: 'back-founding', event: true });

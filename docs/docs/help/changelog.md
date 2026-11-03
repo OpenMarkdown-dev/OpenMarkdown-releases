@@ -2,6 +2,28 @@
 
 What changed in each release, newest first. Download the latest from the [home page](/#download).
 
+## 0.15.6
+
+The window comes to the desktop you're on
+- One setup card: open .md files here, install openmd, write agent prompts with ⌃G
+- Menu-bar icon: left-click summons the window to your desktop, right-click shows the menu
+- ⌥⌘M shrinks the window to a mini size; narrow windows get a compact top row
+- Tables now show strikethrough and math inside cells
+
+## 0.15.5
+
+Images open beside your document + a new Welcome guide
+- Images open in a viewer next to the document
+-  ⌘⇧T now brings closed folders from the home list
+- Fixed: pinyin in an empty list item, code fonts, the window bouncing on hard scroll
+
+## 0.15.4
+
+Change card is now available
+- Korean is now a full UI language
+- Right-click in the file tree for the folder's menu
+- Updates now route by region
+
 ## 0.15.3
 
 ### What's new

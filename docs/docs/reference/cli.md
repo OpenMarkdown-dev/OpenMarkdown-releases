@@ -6,7 +6,7 @@
 
 | Command | What it does |
 | --- | --- |
-| `openmd [open] [OPTIONS] <file>...` | open file(s) in OpenMarkdown |
+| `openmd [open] [OPTIONS] <file>...` | open file(s) in OpenMarkdown; an image (png, jpg, gif, webp, svg) opens read-only in the viewer beside the document and is never created |
 | `openmd [open] <folder>` | open a folder as a workspace (an existing directory, or `openmd .`; not combinable with --wait or files) |
 | `openmd reveal [--json] <file> [heading]` | open a file and scroll to a heading (exact, then case-insensitive, never by prefix; `::` path and #k as in read_section; no heading = open and activate only) |
 | `openmd status [--json]` | report app state (never launches the app) |
@@ -28,5 +28,5 @@
 | --- | --- |
 | `0` | success; with --wait: the user finished (content saved to disk) |
 | `1` | runtime error (connection failed, timeout, channel closed mid-wait, heading not found — the file is still opened; a folder path written with a trailing '/' that does not exist) |
-| `2` | usage error (unknown command/flag; --wait or extra files with a folder) |
+| `2` | usage error (unknown command/flag; --wait or extra files with a folder; --wait with an image) |
 | `3` | with --wait: the user explicitly discarded the session |

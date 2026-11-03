@@ -151,7 +151,7 @@
 </tbody>
 </table>
 <div class="sl-heading-wrapper level-h2"><h2 id="agent">Agent</h2><a class="sl-anchor-link" href="#agent"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Agent”</span></a></div>
-<p>macOS and Linux.</p>
+<p>macOS and Linux. On Windows the row is there and says agent co-editing is coming.</p>
 <table>
 <thead>
 <tr>
@@ -162,7 +162,7 @@
 <tbody>
 <tr>
 <td>Default agent</td>
-<td>The agent listed first in the intercom, marked <strong>Last used</strong>. Follows whichever you started last, until you pick one.</td>
+<td>The agent listed first in the intercom, marked <strong>Last used</strong>. Follows whichever you started last, until you pick one. If no agent is found it is greyed out and points you to <a href="/docs/start/connect/">Connect your agent</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -176,28 +176,24 @@
 </thead>
 <tbody>
 <tr>
-<td>Warm start</td>
+<td>Stay in menu bar</td>
 <td>Keeps OpenMarkdown running in the menu bar (the system tray on Linux and Windows) after you close the window, so files reopen instantly.</td>
-</tr>
-<tr>
-<td>Show in menu bar only</td>
-<td>No Dock icon once the window is closed. macOS only.</td>
 </tr>
 <tr>
 <td>Command-line tool (openmd)</td>
 <td>Puts <code dir="auto">openmd</code> on your PATH, for agents and scripts in your own terminal. macOS and Linux.</td>
 </tr>
 <tr>
-<td>$VISUAL editor</td>
-<td>Adds <code dir="auto">export VISUAL="openmd --wait --source claude"</code> to your shell's startup file, in a marked block it can remove again. New terminals then open OpenMarkdown when a tool asks for an editor (Claude Code's <kbd>⌃G</kbd>, for one). It never overwrites a <code dir="auto">VISUAL</code> you set yourself. See <a href="/docs/agent/editor-handoff/"><code dir="auto">$EDITOR</code> handoff</a>. macOS and Linux.</td>
+<td>Write agents' long prompts in OpenMarkdown (⌃G)</td>
+<td>Makes Claude Code's and Codex's <kbd>⌃G</kbd> open the prompt in OpenMarkdown. It writes into each agent's own config (<code dir="auto">~/.claude/settings.json</code>, <code dir="auto">~/.codex/.env</code>), not your shell, so <code dir="auto">git commit</code> keeps its editor. An editor you set yourself is left alone. See <a href="/docs/agent/editor-handoff/"><code dir="auto">$EDITOR</code> handoff</a>. macOS and Linux.</td>
+</tr>
+<tr>
+<td>Editor for every terminal tool</td>
+<td>Adds <code dir="auto">VISUAL</code> (and <code dir="auto">EDITOR</code>, unless you set your own) pointing at <code dir="auto">openmd --wait</code> to your shell's startup file, in a marked block it can remove again. Every tool in a new terminal that asks for an editor then opens OpenMarkdown — <code dir="auto">git commit</code> included. It never overwrites a <code dir="auto">VISUAL</code> you set yourself. Needs the command-line tool. macOS and Linux.</td>
 </tr>
 <tr>
 <td>Default app for .md</td>
 <td>Makes OpenMarkdown open <code dir="auto">.md</code> files when you double-click them. Turning it off hands them back to the app before. macOS only.</td>
-</tr>
-<tr>
-<td>Connect your agent</td>
-<td>The sentence and commands from <a href="/docs/start/connect/">Connect your agent</a>, ready to copy. macOS and Linux.</td>
 </tr>
 </tbody>
 </table>

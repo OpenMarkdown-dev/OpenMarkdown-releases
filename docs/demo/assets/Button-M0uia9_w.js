@@ -1,0 +1,1 @@
+import{j as m}from"./index-CNKzQmxV.js";import{t as u,w as i,c,b as e}from"./buttonClasses-CcK2MU_a.js";function b({weight:t,tone:r,size:a,className:o,tip:s,...n}){return m.jsx("button",{className:c(e({weight:t,tone:r,size:a}),o),...n,...i(t),...s?u(s):{}})}export{b as B};

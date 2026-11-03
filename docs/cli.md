@@ -7,7 +7,10 @@
 openmd — OpenMarkdown CLI
 
 USAGE:
-  openmd [open] [OPTIONS] <file>...       open file(s) in OpenMarkdown
+  openmd [open] [OPTIONS] <file>...       open file(s) in OpenMarkdown; an image
+                                          (png, jpg, gif, webp, svg) opens
+                                          read-only in the viewer beside the
+                                          document and is never created
   openmd [open] <folder>                  open a folder as a workspace
                                           (an existing directory, or `openmd .`;
                                           not combinable with --wait or files)
@@ -35,6 +38,7 @@ EXIT CODES:
   1  runtime error (connection failed, timeout, channel closed mid-wait,
      heading not found — the file is still opened; a folder path written with
      a trailing '/' that does not exist)
-  2  usage error (unknown command/flag; --wait or extra files with a folder)
+  2  usage error (unknown command/flag; --wait or extra files with a folder;
+     --wait with an image)
   3  with --wait: the user explicitly discarded the session
 ```

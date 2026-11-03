@@ -1,0 +1,1 @@
+import{enqueueCards as r}from"./startupCards-umYY7YOF.js";import{c as a}from"./index-CNKzQmxV.js";const s=a(u=>({queue:[],enqueue:e=>u(t=>({queue:r(t.queue,e)})),dismissHead:()=>u(e=>({queue:e.queue.slice(1)}))})),d=()=>s.getState().queue[0]??null;export{d as startupCardHead,s as useStartupCardStore};
