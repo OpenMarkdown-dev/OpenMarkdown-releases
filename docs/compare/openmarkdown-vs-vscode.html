@@ -6,6 +6,7 @@
   <title>OpenMarkdown vs VS Code — a dedicated Markdown surface vs an IDE</title>
   <meta name="description" content="OpenMarkdown vs VS Code: VS Code is a full Electron IDE where Markdown is a side preview pane; OpenMarkdown is a feather-light native renderer where the rendered file is the surface and your agent co-edits it over MCP. Often used alongside VS Code, not instead of it.">
   <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-vscode">
+  <link rel="alternate" type="text/markdown" href="/compare/openmarkdown-vs-vscode.md">
   <meta name="theme-color" content="#17171A">
 
   <meta property="og:type" content="article">
@@ -103,11 +104,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -126,12 +129,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });
@@ -147,6 +151,13 @@
       <a class="back-home" href="/compare/">← all comparisons</a>
     </header>
 
+    <!-- BEGIN compare-media (generated — do not edit) -->
+    <figure class="compare-media">
+      <img src="media/openmarkdown-vs-vscode.webp" width="1200" height="750" alt="OpenMarkdown with meeting-notes.md open and the in-app terminal panel on the right." loading="lazy" decoding="async">
+      <figcaption>A light Markdown window with a terminal tab for your agent — not a full IDE.</figcaption>
+    </figure>
+    <!-- END compare-media -->
+
     <section class="guide-sec" id="at-a-glance">
       <h2>At a glance</h2>
       <div class="tbl-scroll">
@@ -156,15 +167,15 @@
             <tr><td>Price</td><td>Free</td><td>Free — a tie</td></tr>
             <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, Windows, Linux</td></tr>
             <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie</td></tr>
-            <tr><td>Weight &amp; startup</td><td>Feather-light native Rust renderer; window in under a second (P50, maintainer's machine)</td><td>Full Electron IDE — around 300&nbsp;MB+ of RAM</td></tr>
+            <tr><td>Weight &amp; startup</td><td>Feather-light native Rust renderer; window in under a second (P50, maintainer's machine)</td><td>Full Electron IDE — hundreds of MB of RAM is typical</td></tr>
             <tr><td>What it is</td><td>A dedicated Markdown renderer you and your agent share</td><td>A complete code editor / IDE — Markdown is one file type among many</td></tr>
             <tr><td>Markdown view</td><td>Live-preview / source / reading — the rendered page is the surface, and it scrolls to each change</td><td>Source-first, with a built-in preview pane (<code>⌘⇧V</code>)</td></tr>
-            <tr><td>How your agent touches the file</td><td>Built-in MCP server drives this rendered view — <code>read_section</code>, <code>write_section</code>, <code>reveal</code>, with section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>Agents (Copilot, Claude Code, Cursor) run in the editor and edit source; no rendered-view co-edit surface of this kind</td></tr>
+            <tr><td>How your agent touches the file</td><td>Built-in MCP server drives this rendered view — <code>read_section</code>, <code>write_section</code>, <code>reveal</code>, with section-level conflict protection — macOS and Linux today; Windows coming soon</td><td>Agents (Copilot, Claude, Codex) run in the editor and edit source; no rendered-view co-edit surface of this kind</td></tr>
             <tr><td>Extensions &amp; language support</td><td>— (just Markdown, on purpose)</td><td>Vast marketplace; every language, debugging, git, terminal</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="lede">Facts checked 2026-07-19; VS Code is free and cross-platform, an Electron app with a built-in Markdown preview. Details change — see <a href="https://code.visualstudio.com/docs/languages/markdown" rel="nofollow">code.visualstudio.com</a>.</p>
+      <p class="lede">Facts checked 2026-11-06; VS Code is free and cross-platform, an Electron app with a built-in Markdown preview. Details change — see <a href="https://code.visualstudio.com/docs/languages/markdown" rel="nofollow">code.visualstudio.com</a>.</p>
     </section>
 
     <section class="guide-sec" id="where-vscode-wins">
@@ -173,14 +184,15 @@
       <ul>
         <li><b>Everything a developer needs.</b> Every language, debugging, git, a terminal, and a vast extension marketplace. OpenMarkdown renders Markdown and nothing else.</li>
         <li><b>On Windows, still the agent's home.</b> Both run natively on Windows now, but OpenMarkdown's agent bridge isn't on Windows yet (coming soon) — so on Windows, VS Code is where your agent works and OpenMarkdown is just a fast viewer beside it.</li>
-        <li><b>It's where your agent likely already lives.</b> Copilot, Claude Code and Cursor all run inside VS Code, editing your source directly.</li>
+        <li><b>It's where your agent likely already lives.</b> Copilot, Claude and Codex agents all run inside VS Code (and Cursor is built on it), editing your source directly.</li>
       </ul>
     </section>
 
     <section class="guide-sec" id="where-openmarkdown-wins">
       <h2>Where OpenMarkdown is different</h2>
-      <p>Not by being a better editor — by being a different surface. In VS Code, a <code>.md</code> is source with an optional preview pane. In OpenMarkdown, the <b>rendered page is the thing you look at</b>, on a native Rust core that opens in well under a second rather than a ~300&nbsp;MB Electron process.</p>
+      <p>Not by being a better editor — by being a different surface. In VS Code, a <code>.md</code> is source with an optional preview pane. In OpenMarkdown, the <b>rendered page is the thing you look at</b>, on a native Rust core that opens in well under a second rather than a full Electron IDE.</p>
       <p>And the agent participates through that rendered view: OpenMarkdown's built-in MCP server lets it <code>reveal</code> a heading, <code>read_section</code> and <code>write_section</code> with section-level conflict protection, while your preview scrolls to each change. So the natural setup isn't OpenMarkdown <em>instead of</em> VS Code — it's your agent working in VS Code (or any terminal) while the shared plan or spec renders live in OpenMarkdown for you to watch and edit alongside it.</p>
+          <p><a href="/#together">See it on the home page: your note, and your agent working on it, in one window →</a></p>
     </section>
 
     <section class="guide-sec" id="when-to-pick-vscode">

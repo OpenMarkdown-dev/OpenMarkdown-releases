@@ -6,6 +6,7 @@
   <title>OpenMarkdown vs Apple Notes — plain Markdown files your agent can edit</title>
   <meta name="description" content="OpenMarkdown vs Apple Notes: Apple Notes is a superb built-in notes app, but it keeps notes in a proprietary database; OpenMarkdown keeps each note as a plain .md file on disk that your coding agent can co-edit over MCP. An honest comparison.">
   <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes">
+  <link rel="alternate" type="text/markdown" href="/compare/openmarkdown-vs-apple-notes.md">
   <meta name="theme-color" content="#17171A">
 
   <meta property="og:type" content="article">
@@ -103,11 +104,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -126,12 +129,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });
@@ -146,6 +150,13 @@
       <p class="lede">Apple Notes is where most of your quick notes probably live — and it should be. This isn't a case for switching. It's about one specific thing Apple Notes can't be: a plain <code>.md</code> file on disk that your coding agent can open and edit with you.</p>
       <a class="back-home" href="/compare/">← all comparisons</a>
     </header>
+
+    <!-- BEGIN compare-media (generated — do not edit) -->
+    <figure class="compare-media">
+      <img src="media/openmarkdown-vs-apple-notes.webp" width="1200" height="750" alt="OpenMarkdown with a folder of plain .md files in the sidebar and reading-list.md open." loading="lazy" decoding="async">
+      <figcaption>Your notes are ordinary .md files in a folder you choose.</figcaption>
+    </figure>
+    <!-- END compare-media -->
 
     <section class="guide-sec" id="at-a-glance">
       <h2>At a glance</h2>
@@ -164,7 +175,7 @@
           </tbody>
         </table>
       </div>
-      <p class="lede">Facts checked 2026-07-19; Apple Notes gained Markdown import/export in macOS&nbsp;26 / iOS&nbsp;26. Features change — see <a href="https://www.apple.com/notes/" rel="nofollow">apple.com/notes</a> for current details.</p>
+      <p class="lede">Facts checked 2026-11-06; Apple Notes gained Markdown import/export in macOS&nbsp;26 / iOS&nbsp;26. Features change — see <a href="https://support.apple.com/guide/notes/welcome/mac" rel="nofollow">Apple's Notes guide</a> for current details.</p>
     </section>
 
     <section class="guide-sec" id="where-apple-notes-wins">
@@ -180,7 +191,8 @@
     <section class="guide-sec" id="where-openmarkdown-wins">
       <h2>Where OpenMarkdown is different</h2>
       <p>This is the one comparison where "local-first" genuinely is the difference — not a tie.</p>
-      <p>Apple Notes keeps your writing inside a proprietary database (<code>NoteStore.sqlite</code>). Markdown, added in macOS&nbsp;26, is a <em>conversion</em> at the import and export edges — the note itself is never a plain file you own. In OpenMarkdown, the plain <code>.md</code> file on disk <b>is</b> the note. That's exactly what lets a coding agent take part: its built-in MCP server hands Claude Code, Codex, Gemini CLI or opencode structured tools — <code>read_section</code>, <code>write_section</code>, <code>reveal</code> — to co-edit the file live, with section-level conflict protection so your unsaved edits survive. There's nothing in a locked Apple Notes database for an agent to open that way. Different jobs: Apple Notes for your life; OpenMarkdown for the file you and your agent build together.</p>
+      <p>Apple Notes keeps your writing inside a proprietary database. Markdown, added in macOS&nbsp;26, is a <em>conversion</em> at the import and export edges — the note itself is never a plain file you own. In OpenMarkdown, the plain <code>.md</code> file on disk <b>is</b> the note. That's exactly what lets a coding agent take part: its built-in MCP server hands Claude Code, Codex, Gemini CLI or opencode structured tools — <code>read_section</code>, <code>write_section</code>, <code>reveal</code> — to co-edit the file live, with section-level conflict protection so your unsaved edits survive. There's nothing in a locked Apple Notes database for an agent to open that way. Different jobs: Apple Notes for your life; OpenMarkdown for the file you and your agent build together.</p>
+          <p><a href="/#together">See it on the home page: your note, and your agent working on it, in one window →</a></p>
     </section>
 
     <section class="guide-sec" id="when-to-pick-apple-notes">

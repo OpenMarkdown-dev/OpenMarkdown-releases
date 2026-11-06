@@ -64,11 +64,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -87,12 +89,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });

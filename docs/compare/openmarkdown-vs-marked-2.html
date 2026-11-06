@@ -6,6 +6,7 @@
   <title>OpenMarkdown vs Marked 2 — edit and co-edit, not just preview</title>
   <meta name="description" content="OpenMarkdown vs Marked 2: Marked 2 is a mature macOS previewer that watches your file and re-renders on save; OpenMarkdown lets you edit in the same window and lets your coding agent co-edit it over MCP. An honest comparison.">
   <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-marked-2">
+  <link rel="alternate" type="text/markdown" href="/compare/openmarkdown-vs-marked-2.md">
   <meta name="theme-color" content="#17171A">
 
   <meta property="og:type" content="article">
@@ -103,11 +104,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -126,12 +129,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });
@@ -147,13 +151,20 @@
       <a class="back-home" href="/compare/">← all comparisons</a>
     </header>
 
+    <!-- BEGIN compare-media (generated — do not edit) -->
+    <figure class="compare-media">
+      <img src="media/openmarkdown-vs-marked-2.webp" width="1200" height="750" alt="A callouts.md file rendered in OpenMarkdown: Note, Tip, Important, Warning and Caution callouts." loading="lazy" decoding="async">
+      <figcaption>GitHub-style callouts render as you edit — no separate preview window.</figcaption>
+    </figure>
+    <!-- END compare-media -->
+
     <section class="guide-sec" id="at-a-glance">
       <h2>At a glance</h2>
       <div class="tbl-scroll">
         <table class="doc">
           <thead><tr><th></th><th>OpenMarkdown</th><th>Marked 2</th></tr></thead>
           <tbody>
-            <tr><td>Price</td><td>Free</td><td>$13.99 (Mac App Store)</td></tr>
+            <tr><td>Price</td><td>Free</td><td>$14.99 one-time</td></tr>
             <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS only</td></tr>
             <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie</td></tr>
             <tr><td>Watches the file &amp; re-renders</td><td>Yes</td><td>Yes — its whole purpose (updates on save)</td></tr>
@@ -164,14 +175,14 @@
           </tbody>
         </table>
       </div>
-      <p class="lede">Competitor facts checked 2026-07-19; note that <b>Marked 3</b> is the newer, actively developed successor. Pricing and features change — see <a href="https://marked2app.com/" rel="nofollow">marked2app.com</a> for current details.</p>
+      <p class="lede">Competitor facts checked 2026-11-06; note that <b>Marked 3</b> is the newer, actively developed successor. Pricing and features change — see <a href="https://marked2app.com/" rel="nofollow">marked2app.com</a> for current details.</p>
     </section>
 
     <section class="guide-sec" id="where-marked-wins">
       <h2>Where Marked 2 wins</h2>
       <ul>
         <li><b>It pairs with any editor.</b> Marked's model is "keep writing in the editor you love; I'll render it." If you're attached to Vim, VS Code, or anything else, Marked slots in beside it — OpenMarkdown asks you to edit in <em>its</em> window.</li>
-        <li><b>Export and styles.</b> HTML, PDF and Word out, nine-plus preview styles, unlimited custom CSS. OpenMarkdown doesn't export at all.</li>
+        <li><b>Export and styles.</b> HTML, PDF and Word out, a range of built-in preview styles, and your own custom CSS. OpenMarkdown doesn't export at all.</li>
         <li><b>Writing analysis.</b> Readability scores and sentence tooling built in. OpenMarkdown has none of that.</li>
       </ul>
     </section>
@@ -180,6 +191,7 @@
       <h2>Where OpenMarkdown is different</h2>
       <p><b>You edit in the same window</b> — Marked can only preview, so watching and changing a file means bouncing between two apps. In OpenMarkdown the preview <em>is</em> the editor.</p>
       <p><b>And your agent is a first-class participant.</b> Marked watches raw file saves; it doesn't know a coding agent exists. OpenMarkdown gives the agent a built-in MCP server with structured tools — <code>read_section</code>, <code>write_section</code>, <code>reveal</code> — and section-level conflict protection, so the agent edits precisely and your unsaved work is never clobbered. That's the difference between "previewing a file that happens to change" and "co-editing a file with your agent."</p>
+          <p><a href="/#together">See it on the home page: your note, and your agent working on it, in one window →</a></p>
     </section>
 
     <section class="guide-sec" id="when-to-pick-marked">

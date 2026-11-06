@@ -56,6 +56,20 @@ $$
 - **On GitHub:** rendered as math too.
 - **In plain text:** the TeX source, with its `$` delimiters.
 
+### Mermaid diagrams
+
+A fenced code block whose info string is `mermaid` renders as a diagram.
+
+````markdown
+```mermaid
+flowchart LR
+  You --> File[notes.md] --> Agent
+```
+````
+
+- **On GitHub:** rendered as a diagram too.
+- **In plain text:** an ordinary fenced code block; the diagram source reads line by line.
+
 ### Agent mentions
 
 `@agent` and `@agent(name)` are highlighted, so a request to your agent stands out in a note.

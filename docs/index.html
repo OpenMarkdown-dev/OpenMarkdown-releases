@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OpenMarkdown — Feather-light. Light-speed.</title>
+  <title>OpenMarkdown — local-first Markdown editor for you and your agent</title>
   <meta name="description" content="A feather-light, local-first Markdown editor built for you and your agent.">
   <link rel="canonical" href="https://openmarkdown.dev/">
+  <link rel="alternate" type="text/markdown" href="/index.md">
   <meta name="theme-color" content="#17171A">
 
   <!-- Open Graph / social share -->
@@ -34,18 +35,41 @@
   <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/site.css">
 
+  <!-- Structured data (scripts/check-site-corpus.mjs parses it and holds
+       downloadUrl to the installer table, STABLE_ASSETS in
+       scripts/lib/releaseMirror.mjs). softwareVersion is written by
+       scripts/bump-version.mjs. Claims stay plain facts already on the page
+       (public-claim-integrity). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "OpenMarkdown",
-    "applicationCategory": "Productivity",
+    "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "Markdown editor",
     "operatingSystem": "macOS, Windows, Linux",
     "description": "A feather-light, local-first Markdown editor built for you and your agent.",
     "url": "https://openmarkdown.dev/",
-    "downloadUrl": "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
+    "downloadUrl": [
+      "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg",
+      "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage",
+      "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe"
+    ],
     "softwareVersion": "0.15.6",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "Native app for macOS, Windows and Linux",
+      "Live preview, source and reading modes over plain .md files",
+      "Built-in MCP server (openmd mcp): a coding agent opens, reads and writes sections of the file you are looking at (macOS and Linux)",
+      "Section-scoped agent writes; a write that collides with your edit is rejected, not merged over it",
+      "Local-first: plain files on your disk, no account, no telemetry",
+      "Command palette, outline jump and fuzzy file search",
+      "Free"
+    ],
+    "sameAs": [
+      "https://github.com/OpenMarkdown-dev/OpenMarkdown-releases",
+      "https://www.producthunt.com/products/openmarkdown"
+    ],
     "author": { "@type": "Person", "name": "Xueyan Zhang" }
   }
   </script>
@@ -55,11 +79,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav over-hero" id="nav">
     <div class="wrap">
-      <a class="brand" href="#top">
-        <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="#top">
+          <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -78,12 +104,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });
@@ -792,7 +819,7 @@
                   <li><span class="pj">&gt;</span><span>run any command</span></li>
                 </ul>
               </div>
-            <div class="palette-wrap">
+            <div class="palette-wrap" data-twin="omit">
               <div class="palette" id="paletteDemo" aria-label="Command palette demo cycling outline, file, and command modes">
                 <div class="pinput"><span class="prompt" id="palPrompt">@</span><span id="palQuery">auth</span><span class="caret" style="background:var(--signal)"></span></div>
                 <div class="chips" id="palChips">
@@ -842,7 +869,7 @@
                 </div>
               </div>
 
-              <div class="mode-view">
+              <div class="mode-view" data-twin="omit">
                 <div class="window app">
                   <div class="titlebar" aria-hidden="true">
                     <span class="dot"></span><span class="dot"></span><span class="dot"></span>

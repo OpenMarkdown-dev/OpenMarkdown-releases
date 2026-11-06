@@ -6,6 +6,7 @@
   <title>OpenMarkdown compared — vs Typora, Obsidian, VS Code, Apple Notes &amp; more</title>
   <meta name="description" content="Honest comparisons between OpenMarkdown and the tools you might already use — Typora, Obsidian, Marked 2, iA Writer, VS Code, and Apple Notes — including where each of them wins.">
   <link rel="canonical" href="https://openmarkdown.dev/compare/">
+  <link rel="alternate" type="text/markdown" href="/compare/index.md">
   <meta name="theme-color" content="#17171A">
 
   <meta property="og:type" content="website">
@@ -78,11 +79,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -101,12 +104,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });

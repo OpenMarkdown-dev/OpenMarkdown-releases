@@ -6,6 +6,7 @@
   <title>OpenMarkdown vs iA Writer — agent co-editing vs a focused writing app</title>
   <meta name="description" content="OpenMarkdown vs iA Writer: iA Writer is a beautiful, cross-platform focused writing app with signature typography; OpenMarkdown is a free renderer native on macOS, Linux, and Windows; on macOS and Linux it lets your coding agent co-edit the same file over MCP. An honest comparison.">
   <link rel="canonical" href="https://openmarkdown.dev/compare/openmarkdown-vs-ia-writer">
+  <link rel="alternate" type="text/markdown" href="/compare/openmarkdown-vs-ia-writer.md">
   <meta name="theme-color" content="#17171A">
 
   <meta property="og:type" content="article">
@@ -103,11 +104,13 @@
   <!-- BEGIN site-nav (generated — do not edit) -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
-        <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
-        OpenMarkdown
-      </a>
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="../assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="../assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+      </div>
       <div class="links">
         <a href="/demo" id="navDemo">Demo</a>
         <a href="/support">Pricing</a>
@@ -126,12 +129,13 @@
        every page: the alternative is fourteen copies of this listener, which is
        the thing this file exists to prevent. Attaches only — no request is made
        here, and none at all off the production host, where window.goatcounter is
-       never defined. -->
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
   <script>
     (function () {
       var link = document.getElementById('navDemo');
-      if (!link) return;
-      link.addEventListener('click', function () {
+      if (link) link.addEventListener('click', function () {
         var gc = window.goatcounter;
         if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
       });
@@ -147,6 +151,13 @@
       <a class="back-home" href="/compare/">← all comparisons</a>
     </header>
 
+    <!-- BEGIN compare-media (generated — do not edit) -->
+    <figure class="compare-media">
+      <img src="media/openmarkdown-vs-ia-writer.webp" width="1200" height="750" alt="OpenMarkdown in dark mode showing launch-plan.md with a tip callout, checklist and table." loading="lazy" decoding="async">
+      <figcaption>Plain Markdown in a quiet, native window, light or dark.</figcaption>
+    </figure>
+    <!-- END compare-media -->
+
     <section class="guide-sec" id="at-a-glance">
       <h2>At a glance</h2>
       <div class="tbl-scroll">
@@ -154,7 +165,7 @@
           <thead><tr><th></th><th>OpenMarkdown</th><th>iA Writer</th></tr></thead>
           <tbody>
             <tr><td>Price</td><td>Free</td><td>$49.99 Mac · $29.99 Windows (one-time, per platform)</td></tr>
-            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, iPadOS, iOS, Android, Windows</td></tr>
+            <tr><td>Platforms</td><td>macOS, Linux, Windows</td><td>macOS, iPadOS, iOS, Windows</td></tr>
             <tr><td>Local-first, plain <code>.md</code>, no account</td><td>Yes</td><td>Yes — a tie (plain text files; iCloud sync optional)</td></tr>
             <tr><td>Typography &amp; focus mode</td><td>—</td><td>Yes — its signature craft, plus Style Check</td></tr>
             <tr><td>Live preview</td><td>Live-preview / source / reading, one button cycles</td><td>Styled editor with an on-demand preview</td></tr>
@@ -164,14 +175,14 @@
           </tbody>
         </table>
       </div>
-      <p class="lede">Competitor facts checked 2026-07-19; pricing and platforms change — see <a href="https://ia.net/writer" rel="nofollow">ia.net/writer</a> for current details.</p>
+      <p class="lede">Competitor facts checked 2026-11-06; pricing and platforms change — see <a href="https://ia.net/writer" rel="nofollow">ia.net/writer</a> for current details.</p>
     </section>
 
     <section class="guide-sec" id="where-ia-wins">
       <h2>Where iA Writer wins</h2>
       <ul>
         <li><b>The writing experience.</b> Signature typography, focus mode that dims everything but the current sentence, and Style Check for tightening prose. If your goal is to write well, iA is crafted for exactly that; OpenMarkdown isn't.</li>
-        <li><b>Mobile, and iCloud sync.</b> Mac, iPad, iPhone, Android, and Windows, synced over iCloud. OpenMarkdown is desktop-only — native on macOS, Linux, and Windows, but no mobile app or built-in sync.</li>
+        <li><b>Mobile, and iCloud sync.</b> Mac, iPad and iPhone synced over iCloud, plus a Windows app that works with your cloud folders. OpenMarkdown is desktop-only — native on macOS, Linux, and Windows, but no mobile app or built-in sync.</li>
         <li><b>Export.</b> PDF, Word and HTML with themed output. OpenMarkdown doesn't export.</li>
       </ul>
     </section>
@@ -180,11 +191,12 @@
       <h2>Where OpenMarkdown is different</h2>
       <p>iA Writer is built for one person writing. OpenMarkdown is built for <b>you and your agent sharing the file.</b></p>
       <p>Its built-in MCP server lets Claude Code, Codex, Gemini CLI or opencode open, reveal, read and <code>write_section</code> on the document you're watching, with section-level conflict protection so your unsaved edits survive. The preview re-renders and scrolls to each change the agent makes. iA Writer has no agent integration of this kind — and OpenMarkdown is free, with a Rust core that opens a window in well under a second. Different tools for different moments: iA for drafting prose, OpenMarkdown for watching a plan or spec fill in as your agent works.</p>
+          <p><a href="/#together">See it on the home page: your note, and your agent working on it, in one window →</a></p>
     </section>
 
     <section class="guide-sec" id="when-to-pick-ia">
       <h2>When to pick iA Writer instead</h2>
-      <div class="callout"><b>Choose iA Writer</b> if you want a focused, beautiful writing environment for your own prose — especially across Mac and mobile, with export and style tooling. <b>Choose OpenMarkdown</b> if the point is to watch and co-edit the <code>.md</code> your coding agent is working on, live (agent co-editing on macOS and Linux today; Windows coming soon).</div>
+      <div class="callout"><b>Choose iA Writer</b> if you want a focused, beautiful writing environment for your own prose — especially across Mac, iPad and iPhone, with export and style tooling. <b>Choose OpenMarkdown</b> if the point is to watch and co-edit the <code>.md</code> your coding agent is working on, live (agent co-editing on macOS and Linux today; Windows coming soon).</div>
       <p><a class="btn" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg">⬇︎ Download OpenMarkdown</a></p>
       <p>Related comparisons: <a href="/compare/openmarkdown-vs-typora">OpenMarkdown vs Typora</a> · <a href="/compare/openmarkdown-vs-marked-2">OpenMarkdown vs Marked 2</a></p>
       <p>More: <a href="/compare/">all comparisons</a> · <a href="/faq">FAQ</a> · <a href="/docs/">docs</a></p>

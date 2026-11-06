@@ -1,0 +1,1 @@
+import{l,b as r}from"./index--CHe54i9.js";const s=500,o=new Map;function a(e){const t=l(e);return o.delete(t),o.set(t,e),o.size>s&&o.delete(o.keys().next().value),t}function c(e){return o.get(e)??null}const i=r(e=>({zoom:"fit",path:null,set:(t,n)=>e({path:t,zoom:n})}));function f(e,t){return t!==null&&e.path===t?e.zoom:"fit"}export{a,c as l,i as u,f as z};

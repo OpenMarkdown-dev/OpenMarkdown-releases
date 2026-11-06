@@ -26,6 +26,18 @@
 @font-face { font-family: "Space Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/space-mono-400.woff2") format("woff2"); }
 @font-face { font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/space-mono-700.woff2") format("woff2"); }
 
+/* —— the content column: ONE width for the whole site ———————————————
+   The single definition (spec: site-chrome / 全站一个内容栏宽). Registered
+   rather than declared, because this file may not touch :root (see above):
+   @property gives every element an initial --site-col without a cascade value
+   that could fight a host page's tokens. The syntax is "*" on purpose: a typed
+   "<length>" registration rejects a rem initial-value (not computationally
+   independent) and the WHOLE rule silently drops, leaving every column
+   unbounded. site.css and the editor site's
+   site.css derive their --col from it, the nav and footer read it directly;
+   `build-site-chrome.mjs` fails if either sheet hardcodes a --col again. */
+@property --site-col { syntax: "*"; inherits: true; initial-value: 64rem; }
+
 /* —— nav ————————————————————————————————————————————————————— */
 .nav {
   position: sticky; top: 0; z-index: 50;
@@ -48,7 +60,45 @@
 .nav .links a { font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace); font-size: 0.8125rem; text-decoration: none; color: var(--signal, #9A9A9A); transition: color 0.15s ease; }
 .nav .links a:hover { color: var(--fg, #17171A); }
 .nav .links .btn { padding: 0.5rem 1rem; font-size: 0.8125rem; font-family: var(--sans, "Space Grotesk", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Helvetica, Arial, sans-serif); color: var(--bg, #FBFAF7); }
-@media (max-width: 52rem) { .nav .links a:not(.btn) { display: none; } }
+@media (max-width: 52rem) { .nav .links a:not(.btn), .nav .links .pending { display: none; } }
+/* A launch-gated target (spec: editor-site): reads as a link-shaped label but is
+   not one, so it never takes the hover colour or a pointer. */
+.nav .links .pending { font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace); font-size: 0.8125rem; color: var(--signal, #9A9A9A); opacity: 0.7; cursor: default; }
+
+/* —— product toggle (spec: site-chrome / 导航栏的产品切换开关) ——————————
+   Two plain links drawn as one pill, right after the brand: the current
+   product's segment filled, the other an ordinary link. No script. The pair of
+   colours is local to the toggle so each ground sets it once: paper (default),
+   ink (reversed nav, below) and the docs' own scheme (docs.css). */
+.nav .brand-row { display: flex; align-items: center; gap: 1rem; min-width: 0; }
+.nav .product-toggle {
+  --pt-fg: var(--fg, #17171A); --pt-bg: var(--bg, #FBFAF7);
+  display: inline-flex; flex: none; padding: 2px; gap: 2px;
+  border: 1px solid color-mix(in srgb, var(--pt-fg) 22%, transparent); border-radius: 999px;
+}
+.nav .product-toggle a {
+  padding: 0.22rem 0.7rem; border-radius: 999px;
+  font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.75rem; line-height: 1.3; text-decoration: none;
+  color: color-mix(in srgb, var(--pt-fg) 62%, transparent);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav .product-toggle a:hover { color: var(--pt-fg); background: color-mix(in srgb, var(--pt-fg) 8%, transparent); }
+.nav .product-toggle a[aria-current] { background: var(--pt-fg); color: var(--pt-bg); }
+.nav .product-toggle a:focus-visible { outline: 2px solid #4a7fd6; outline-offset: 2px; }
+/* Phone width: the toggle is the only way across in the nav, so it stays and
+   shrinks; the wordmark yields first (still read out — the toggle names the
+   product on screen). */
+@media (max-width: 52rem) {
+  .nav .brand-row { gap: 0.6rem; }
+  .nav .product-toggle a { padding: 0.18rem 0.55rem; font-size: 0.6875rem; }
+}
+@media (max-width: 30rem) {
+  .nav .brand .brand-name {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+}
 
 /* ground-aware nav (design D11): reversed whenever the ground under the nav's
    bottom edge is ink — at the top over the hero (static .over-hero, the no-JS
@@ -65,10 +115,14 @@
 .nav.on-ink .brand { color: #F4F0E6; }
 .nav.over-hero:not(.scrolled) .links a,
 .nav.on-ink .links a { color: rgba(244, 240, 230, 0.72); }
+.nav.over-hero:not(.scrolled) .links .pending,
+.nav.on-ink .links .pending { color: rgba(244, 240, 230, 0.72); }
 .nav.over-hero:not(.scrolled) .links a:hover,
 .nav.on-ink .links a:hover { color: #F4F0E6; }
 .nav.over-hero:not(.scrolled) .links .btn,
 .nav.on-ink .links .btn { background: #F4F0E6; color: #17171A; border-color: #F4F0E6; }
+.nav.over-hero:not(.scrolled) .product-toggle,
+.nav.on-ink .product-toggle { --pt-fg: #F4F0E6; --pt-bg: #17171A; }
 /* scrolled over ink: frosted ink glass instead of frosted paper */
 .nav.scrolled.on-ink {
   background: color-mix(in srgb, var(--ink, #17171A) 82%, transparent);
@@ -82,7 +136,7 @@
    absent (the demo). Same declarations, higher specificity — on the site they
    resolve to the same pixels, so this file can never change how a page looks.
    Keep them in step with site.css's `.wrap` / `.btn` if those ever change. */
-.nav .wrap { max-width: var(--col, 64rem); margin: 0 auto; padding: 0 1.5rem; }
+.nav .wrap { max-width: var(--site-col); margin: 0 auto; padding: 0 1.5rem; }
 .nav .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.8rem 1.5rem;
@@ -105,7 +159,7 @@
 /* NAV-QUALIFIED .wrap's twin, for the same reason (see above). The footer is
    addressed by class, never as a bare `footer`: the docs have footers of their
    own (page navigation) that must not turn into an ink band. */
-.site-footer .wrap { max-width: var(--col, 64rem); margin: 0 auto; padding: 0 1.5rem; }
+.site-footer .wrap { max-width: var(--site-col); margin: 0 auto; padding: 0 1.5rem; }
 .site-footer {
   background: var(--ink, #17171A);
   --fg: #F4F0E6; --bg: var(--ink, #17171A); --line: rgba(244,240,230,0.22);
@@ -118,3 +172,16 @@
 .site-footer .fnav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .site-footer a { color: inherit; text-decoration: none; }
 .site-footer a:hover { color: var(--fg, #17171A); }
+/* Products row — both products again at the foot of every page (spec: site-chrome). */
+.site-footer .flabel { color: #F4F0E6; }
+.site-footer small { font-size: inherit; opacity: 0.6; }
+
+/* First-load lift for a page's hero (the app home and the editor home): each
+   .rise element floats up and fades in once; .rise-N staggers them. Lives here,
+   not in a page stylesheet, because chrome.css is the one file both products'
+   pages load — so both heroes move the same way from one definition. */
+@keyframes rise { from { opacity: 0; transform: translateY(0.6rem); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both; }
+.rise-2 { animation-delay: 0.07s; } .rise-3 { animation-delay: 0.14s; }
+.rise-4 { animation-delay: 0.22s; } .rise-5 { animation-delay: 0.30s; }
+@media (prefers-reduced-motion: reduce) { .rise { animation: none; } }

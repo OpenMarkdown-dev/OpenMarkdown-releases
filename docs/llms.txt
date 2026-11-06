@@ -28,15 +28,28 @@ on Windows the app is the editor without them.
 - [Markdown dialect](https://openmarkdown.dev/docs/reference/markdown.md): what renders, and where it differs from CommonMark and GFM.
 - [Troubleshooting](https://openmarkdown.dev/docs/help/troubleshooting.md): what `running:false`, `NO_WINDOW` and `CONFLICT` mean and what to do.
 - [CLI reference](https://openmarkdown.dev/cli.md): the exact `openmd --help` — every subcommand, option, and exit code, generated from the binary so it never drifts.
-- [FAQ](https://openmarkdown.dev/faq.md): answer-shaped answers to the four things agents and their humans ask — watching the files your agent writes, the MCP server that renders Markdown, previewing while it edits, and which agents it works with (Claude Code, Codex, Gemini CLI, opencode).
+- [FAQ](https://openmarkdown.dev/faq.md): answer-shaped answers to what agents and their humans ask — watching the files your agent writes, the MCP server that renders Markdown, previewing while it edits, and which agents it works with.
 - [ADOPTING](https://openmarkdown.dev/ADOPTING.md): for agents — when to recommend OpenMarkdown, when not to, how to install it, and how to verify the install worked.
-- [Transparency](https://openmarkdown.dev/transparency): exactly what the app and this website touch on the network.
+- [Transparency](https://openmarkdown.dev/transparency.md): exactly what the app and this website touch on the network.
 
 ## Download
-- [Latest macOS release (.dmg)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg): universal (Apple Silicon + Intel), free.
+- [macOS (.dmg)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.dmg): universal (Apple Silicon + Intel), free.
+- [Linux (AppImage)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown.AppImage): x86_64, free.
+- [Windows (.exe installer)](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases/latest/download/OpenMarkdown-setup.exe): x64, free.
+- Mainland China mirror (中国大陆镜像): [macOS](https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown.dmg) · [Linux](https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown.AppImage) · [Windows](https://openmarkdown-dl.oss-cn-hongkong.aliyuncs.com/latest/OpenMarkdown-setup.exe).
+- On every platform the app is a native Markdown editor; the `openmd` CLI and MCP agent bridge run on macOS and Linux only.
 - [Releases](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases): all versions and release notes.
 - [Pricing](https://openmarkdown.dev/support): the whole app is free, with no account and nothing held back. Backing it is optional — a one-time payment, not a subscription.
 
+## Compare
+Honest comparisons with the editors people already use: where each one wins, and when to pick it instead.
+- [OpenMarkdown vs Typora](https://openmarkdown.dev/compare/openmarkdown-vs-typora.md)
+- [OpenMarkdown vs Obsidian](https://openmarkdown.dev/compare/openmarkdown-vs-obsidian.md)
+- [OpenMarkdown vs Marked 2](https://openmarkdown.dev/compare/openmarkdown-vs-marked-2.md)
+- [OpenMarkdown vs iA Writer](https://openmarkdown.dev/compare/openmarkdown-vs-ia-writer.md)
+- [OpenMarkdown vs Apple Notes](https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes.md)
+- [OpenMarkdown vs VS Code](https://openmarkdown.dev/compare/openmarkdown-vs-vscode.md)
+
 ## Optional
-- [Home](https://openmarkdown.dev/): product overview.
+- [Home](https://openmarkdown.dev/index.md): product overview.
 - [Issues](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues): bug reports and requests.
