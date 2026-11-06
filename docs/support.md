@@ -40,6 +40,8 @@ one-time
 
 [Founding Supporter — $50](https://buy.stripe.com/dRmeV7dcVdLG3b3cDC2Fa00)
 
+Prefer GitHub? [Sponsor us on GitHub](https://github.com/sponsors/XueyanZhang?frequency=one-time)
+
 ### Where the money goes
 
 - Apple developer account — signing and notarizing the macOS app
@@ -54,6 +56,6 @@ one-time
 - Tell a friend who lives in Markdown
 - [Send us bugs and ideas](https://openmarkdown.dev/feedback)
 
-The app stays free, local, and account-free. Backing is a **one-time** payment — not a subscription — handled by Stripe, and it adds **no account and no tracking to the app itself**.
+The app stays free, local, and account-free. Backing is a **one-time** payment — not a subscription — handled by Stripe or GitHub, and it adds **no account and no tracking to the app itself**.
 
 [← back to home](https://openmarkdown.dev/)

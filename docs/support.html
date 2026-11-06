@@ -110,6 +110,9 @@
     .sup-card .btn { margin-top: auto; text-align: center; padding: 0.9rem 1rem;
       border-radius: 0.6rem; font-size: 0.95rem; }
 
+    /* Secondary payment route under the tiers — a quiet line, not a card */
+    .sup-alt { text-align: center; margin: 1.5rem 0 0; font-size: 0.95rem; color: var(--signal); }
+
     /* Where the money goes / other ways to help — two quiet panels under the tiers */
     .sup-more { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
       gap: 1.25rem; margin: clamp(2.5rem, 6vw, 3.5rem) 0 0; }
@@ -230,6 +233,12 @@
           <a class="btn" href="https://buy.stripe.com/dRmeV7dcVdLG3b3cDC2Fa00">Founding Supporter — $50</a>
         </div>
       </div>
+      <!-- A second way to pay, one line, not a fourth card: Sponsors amounts are
+           custom, so it cannot honestly carry a price. frequency=one-time opens
+           GitHub on the one-time tab, so "one-time, not a subscription" holds on
+           arrival (contract: supporter-page / GitHub Sponsors 是次要入口).
+           Personal page until the OpenMarkdown-dev org page is approved. -->
+      <p class="sup-alt">Prefer GitHub? <a href="https://github.com/sponsors/XueyanZhang?frequency=one-time">Sponsor us on GitHub</a></p>
 
       <!-- Costs list names only what we pay for today; a future hosted
            feature gets a line here when it exists, not before
@@ -256,7 +265,7 @@
       </div>
 
       <div class="sup-honest">
-        <p>The app stays free, local, and account-free. Backing is a <b>one-time</b> payment — not a subscription — handled by Stripe, and it adds <b>no account and no tracking to the app itself</b>.</p>
+        <p>The app stays free, local, and account-free. Backing is a <b>one-time</b> payment — not a subscription — handled by Stripe or GitHub, and it adds <b>no account and no tracking to the app itself</b>.</p>
         <a class="back-home" href="/">← back to home</a>
       </div>
     </section>
