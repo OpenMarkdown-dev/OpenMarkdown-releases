@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Contract: openspec editor-site (演示页承载完整实时编辑器). The live editor,
+       mounted through the package's public entry only, plus the developer panel:
+       what an embedder's code sees (getDoc, the byte diff, the host calls). -->
+  <title>Demo: OpenMarkdown Editor</title>
+  <meta name="description" content="Try @openmarkdown-dev/editor in your browser: live preview over plain Markdown with tables, math, Mermaid and callouts, and a panel that shows the document string, its byte diff and every host call.">
+  <link rel="canonical" href="https://openmarkdown.dev/editor/demo/">
+  <meta name="theme-color" content="#FBFAF7">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown Editor demo">
+  <meta property="og:description" content="Try @openmarkdown-dev/editor in your browser: live preview over plain Markdown, and a panel that shows the document string, its byte diff and every host call.">
+  <meta property="og:url" content="https://openmarkdown.dev/editor/demo/">
+  <script type="module" crossorigin src="/editor/assets/demo-DxS2VKlO.js"></script>
+  <link rel="modulepreload" crossorigin href="/editor/assets/site-oQ_3JMic.js">
+  <link rel="modulepreload" crossorigin href="/editor/assets/preload-helper-BE6tXj1V.js">
+  <link rel="modulepreload" crossorigin href="/editor/assets/index-DJtWu5tj.js">
+  <link rel="stylesheet" crossorigin href="/editor/assets/site-DA_NJUL0.css">
+  <link rel="stylesheet" crossorigin href="/editor/assets/demo-CrK9a3tb.css">
+  <meta property="og:image" content="https://openmarkdown.dev/editor/og-editor.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown Editor: a Markdown editor that edits the text, not a tree.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Demo: OpenMarkdown Editor">
+  <meta name="twitter:description" content="Try @openmarkdown-dev/editor in your browser: live preview over plain Markdown with tables, math, Mermaid and callouts, and a panel that shows the document string, its byte diff and every host call.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/editor/og-editor.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "OpenMarkdown Editor",
+    "alternateName": "@openmarkdown-dev/editor",
+    "description": "Try @openmarkdown-dev/editor in your browser: live preview over plain Markdown with tables, math, Mermaid and callouts, and a panel that shows the document string, its byte diff and every host call.",
+    "url": "https://openmarkdown.dev/editor/demo/",
+    "license": "https://opensource.org/licenses/MIT",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Browser",
+    "codeRepository": "https://github.com/OpenMarkdown-dev/OpenMarkdown-editor",
+    "targetProduct": {
+      "@type": "SoftwareApplication",
+      "name": "@openmarkdown-dev/editor",
+      "url": "https://www.npmjs.com/package/@openmarkdown-dev/editor",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (web browser)"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Xueyan Zhang"
+    }
+  }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/chrome.css">
+</head>
+<body class="page">
+
+  <!-- BEGIN site-nav (generated — do not edit) -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <div class="brand-row">
+        <a class="brand" href="/editor/">
+          <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown Editor</span>
+        </a>
+        <span class="product-toggle" role="group" aria-label="OpenMarkdown products">
+          <a class="pt-app" href="/">App</a>
+          <a class="pt-editor" href="/editor/" aria-current="true">Editor</a>
+        </span>
+      </div>
+      <div class="links">
+        <a href="/editor/demo/">Demo</a>
+        <a href="/editor/examples/">Examples</a>
+        <a href="/editor/docs/">Docs</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-editor">GitHub</a>
+        <a class="btn" href="/editor/docs/getting-started/install/">Get started</a>
+      </div>
+    </div>
+  </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (link) link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
+
+  <main class="demo">
+    <h1 class="sr-only">OpenMarkdown Editor demo</h1>
+    <div class="demo-grid">
+      <section class="ed-frame" id="editor-frame" aria-label="Live editor">
+        <div class="ed-bar" role="toolbar" aria-label="Editor">
+          <div class="seg" role="group" aria-label="Mode">
+            <button type="button" data-mode="live" aria-pressed="true">Live</button>
+            <button type="button" data-mode="source" aria-pressed="false">Source</button>
+            <button type="button" data-mode="reading" aria-pressed="false">Reading</button>
+          </div>
+          <span class="spacer"></span>
+          <button type="button" id="find">Find</button>
+          <button type="button" id="theme">Dark</button>
+          <button type="button" id="reset">Reset</button>
+        </div>
+        <div class="ed-editor" id="editor">
+          <noscript><p>The editor runs in JavaScript. Turn it on to try the demo.</p></noscript>
+        </div>
+      </section>
+
+      <details class="dev" id="dev-panel" open>
+        <summary>What your code sees</summary>
+        <div class="dev-body">
+          <section class="dev-block" aria-labelledby="dev-diff-h">
+            <h2 id="dev-diff-h">Against the file as loaded</h2>
+            <p class="dev-diff" id="dev-diff" data-identical="true">0 bytes changed</p>
+            <details class="dev-unified" id="dev-unified" hidden>
+              <summary>Unified diff</summary>
+              <pre id="dev-unified-text"></pre>
+            </details>
+          </section>
+          <section class="dev-block" aria-labelledby="dev-log-h">
+            <h2 id="dev-log-h">Host calls</h2>
+            <ol class="dev-log" id="dev-log" aria-live="polite"></ol>
+            <p class="dev-empty" id="dev-log-empty">Paste an image or Cmd/Ctrl+click a link.</p>
+          </section>
+          <section class="dev-block dev-doc-block" aria-labelledby="dev-doc-h">
+            <h2 id="dev-doc-h"><code>editor.getDoc()</code></h2>
+            <pre class="dev-doc" id="dev-doc" tabindex="0"></pre>
+          </section>
+        </div>
+      </details>
+    </div>
+    <p class="ed-hint">What you type stays in this tab.</p>
+  </main>
+
+  <!-- BEGIN site-footer (generated — do not edit) -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-row foot-products">
+        <span class="flabel">Products</span>
+        <span class="fnav">
+          <a href="/">OpenMarkdown <small>the note app for people and agents</small></a>
+          <a href="/editor/">OpenMarkdown Editor <small>the embeddable editor</small></a>
+        </span>
+      </div>
+    </div>
+  </footer>
+  <!-- END site-footer -->
+
+</body>
+</html>

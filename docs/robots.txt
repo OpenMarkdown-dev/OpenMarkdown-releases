@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://openmarkdown.dev/sitemap.xml
 Sitemap: https://openmarkdown.dev/docs/sitemap-index.xml
+Sitemap: https://openmarkdown.dev/editor/docs/sitemap-index.xml

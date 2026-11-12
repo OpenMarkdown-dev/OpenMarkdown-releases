@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Contract: openspec editor-site (编辑器首页以动图说明优势). Build output lands in
+       site/editor/ (git-ignored); source is this file. Markers are filled at build
+       time by src/editorSite/siteBuild.ts; nav, footer, favicons and chrome.css are
+       injected by vite.editor-site.config.ts from the site-chrome source.
+       The home page does NOT mount the editor (design D1): the live editor is on
+       /editor/demo/. Body text stays under 120 words (page.gate.test.ts). -->
+  <title>OpenMarkdown Editor: a Markdown editor for your app</title>
+  <meta name="description" content="@openmarkdown-dev/editor is an MIT live-preview Markdown editor on CodeMirror 6. It edits the Markdown text itself, for a lossless round-trip: open and save without editing, and the file is byte-for-byte what it was.">
+  <link rel="canonical" href="https://openmarkdown.dev/editor/">
+  <meta name="theme-color" content="#FBFAF7">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown Editor">
+  <meta property="og:description" content="A live-preview Markdown editor that edits the text, not a tree. MIT.">
+  <meta property="og:url" content="https://openmarkdown.dev/editor/">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="module" crossorigin src="/editor/assets/home-D-d1Y_iu.js"></script>
+  <link rel="modulepreload" crossorigin href="/editor/assets/site-oQ_3JMic.js">
+  <link rel="stylesheet" crossorigin href="/editor/assets/site-DA_NJUL0.css">
+  <link rel="stylesheet" crossorigin href="/editor/assets/home-uW83CCrQ.css">
+  <meta property="og:image" content="https://openmarkdown.dev/editor/og-editor.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown Editor: a Markdown editor that edits the text, not a tree.">
+  <meta name="twitter:title" content="OpenMarkdown Editor: a Markdown editor for your app">
+  <meta name="twitter:description" content="@openmarkdown-dev/editor is an MIT live-preview Markdown editor on CodeMirror 6. It edits the Markdown text itself, for a lossless round-trip: open and save without editing, and the file is byte-for-byte what it was.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/editor/og-editor.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "OpenMarkdown Editor",
+    "alternateName": "@openmarkdown-dev/editor",
+    "description": "@openmarkdown-dev/editor is an MIT live-preview Markdown editor on CodeMirror 6. It edits the Markdown text itself, for a lossless round-trip: open and save without editing, and the file is byte-for-byte what it was.",
+    "url": "https://openmarkdown.dev/editor/",
+    "license": "https://opensource.org/licenses/MIT",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Browser",
+    "codeRepository": "https://github.com/OpenMarkdown-dev/OpenMarkdown-editor",
+    "targetProduct": {
+      "@type": "SoftwareApplication",
+      "name": "@openmarkdown-dev/editor",
+      "url": "https://www.npmjs.com/package/@openmarkdown-dev/editor",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (web browser)"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Xueyan Zhang"
+    }
+  }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/chrome.css">
+</head>
+<body class="page">
+
+  <!-- BEGIN site-nav (generated — do not edit) -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <div class="brand-row">
+        <a class="brand" href="/editor/">
+          <img class="mark-rev" src="/assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="/assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown Editor</span>
+        </a>
+        <span class="product-toggle" role="group" aria-label="OpenMarkdown products">
+          <a class="pt-app" href="/">App</a>
+          <a class="pt-editor" href="/editor/" aria-current="true">Editor</a>
+        </span>
+      </div>
+      <div class="links">
+        <a href="/editor/demo/">Demo</a>
+        <a href="/editor/examples/">Examples</a>
+        <a href="/editor/docs/">Docs</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-editor">GitHub</a>
+        <a class="btn" href="/editor/docs/getting-started/install/">Get started</a>
+      </div>
+    </div>
+  </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (link) link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
+
+  <main class="home">
+    <header class="h-hero">
+      <div class="wrap">
+        <p class="h-pkg rise"><code>@openmarkdown-dev/editor</code> <span>MIT</span></p>
+        <h1 class="rise rise-2">A Markdown editor that edits the text, not a tree.</h1>
+        <div class="h-install rise rise-3">
+          <div class="h-cmd" data-copy="install"><pre><code>npm i @openmarkdown-dev/editor</code></pre></div>
+          
+        </div>
+        <p class="h-actions rise rise-4">
+          <a class="btn primary" href="/editor/demo/" data-event="editor-home-demo">Demo</a>
+          <a class="btn" href="/editor/docs/" data-event="editor-home-docs">Docs</a>
+        </p>
+      </div>
+    </header>
+
+    <section class="h-strengths" aria-label="What it does">
+      <div class="wrap">
+        <figure class="h-strength" id="fidelity">
+          <video class="h-clip" data-clip="fidelity" muted loop playsinline controls preload="none" poster="media/fidelity.jpg" aria-label="Left: this editor opens a file and saves it, and diff shows nothing. Right: a tree-based editor saves the same file and the diff fills the screen."><source src="media/fidelity.webm" type="video/webm"><source src="media/fidelity.mp4" type="video/mp4"></video>
+          <figcaption><span class="h-line">Lossless round-trip: open and save without editing, and the file is byte-for-byte what it was.</span> <a class="h-more" href="/editor/docs/fidelity/">Learn more →</a></figcaption>
+        </figure>
+        <figure class="h-strength" id="tables">
+          <video class="h-clip" data-clip="tables" muted loop playsinline controls preload="none" poster="media/tables.jpg" aria-label="A cursor clicks into a table cell, types, and tabs to the next cell."><source src="media/tables.webm" type="video/webm"><source src="media/tables.mp4" type="video/mp4"></video>
+          <figcaption><span class="h-line">Edit tables in place, cell by cell.</span> <a class="h-more" href="/editor/docs/fidelity/#what-the-exceptions-look-like">Learn more →</a></figcaption>
+        </figure>
+        <figure class="h-strength" id="images">
+          <video class="h-clip" data-clip="images" muted loop playsinline controls preload="none" poster="media/images.jpg" aria-label="An image is dropped into the document, then resized by dragging its corner."><source src="media/images.webm" type="video/webm"><source src="media/images.mp4" type="video/mp4"></video>
+          <figcaption><span class="h-line">Drop in an image, then drag a corner to resize it.</span> <a class="h-more" href="/editor/docs/guides/images/">Learn more →</a></figcaption>
+        </figure>
+        <figure class="h-strength" id="diagrams">
+          <video class="h-clip" data-clip="diagrams" muted loop playsinline controls preload="none" poster="media/diagrams.jpg" aria-label="A Mermaid code block and a LaTeX formula render as a diagram and as math."><source src="media/diagrams.webm" type="video/webm"><source src="media/diagrams.mp4" type="video/mp4"></video>
+          <figcaption><span class="h-line">Mermaid diagrams and math render where you write them.</span> <a class="h-more" href="/editor/docs/getting-started/install/#what-else-comes-with-it">Learn more →</a></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="h-section" id="compare" aria-labelledby="compare-h">
+      <div class="wrap">
+        <h2 id="compare-h">Open, then save, side by side</h2>
+        <!-- Built from comparison.json at build time (comparison.ts, compact form).
+             With status "pending" the placeholder ships; no figure is typed in here. -->
+        <div class="slot" id="comparison" data-state="ready"><div class="cmp-scroll"><table class="cmp-table"><thead><tr><th>Editor</th><th>Edits</th><th>Open, then save</th><th>Diff lines</th></tr></thead>
+<tbody><tr data-model="source"><th scope="row"><span class="cmp-name">OpenMarkdown</span><span class="cmp-pkg">@openmarkdown-dev/editor f897917 (unpublished)</span></th><td>the text</td><td data-result="identical">Byte-identical</td><td>0</td></tr>
+<tr data-model="source"><th scope="row"><span class="cmp-name">Atomic Editor</span><span class="cmp-pkg">@atomic-editor/editor 0.6.2</span></th><td>the text</td><td data-result="identical">Byte-identical</td><td>0</td></tr>
+<tr data-model="tree"><th scope="row"><span class="cmp-name">Milkdown Crepe</span><span class="cmp-pkg">@milkdown/crepe 7.22.3</span></th><td>a tree</td><td data-result="lost">13 of 22 changed, 2 lost</td><td>30</td></tr>
+<tr data-model="tree"><th scope="row"><span class="cmp-name">Toast UI Editor</span><span class="cmp-pkg">@toast-ui/editor 3.2.2</span></th><td>a tree</td><td data-result="lost">15 of 22 changed, 8 lost</td><td>40</td></tr>
+<tr data-model="tree"><th scope="row"><span class="cmp-name">Tiptap</span><span class="cmp-pkg">@tiptap/markdown 3.32.0</span></th><td>a tree</td><td data-result="lost">17 of 22 changed, 3 lost</td><td>41</td></tr>
+<tr data-model="tree"><th scope="row"><span class="cmp-name">MDXEditor</span><span class="cmp-pkg">@mdxeditor/editor 4.3.3</span></th><td>a tree</td><td data-result="refused">Refused the file: a reference link stopped its parser</td><td>—</td></tr></tbody></table></div>
+<p class="cmp-summary">Atomic Editor ties with us: it also edits the text. The test file uses valid but uncommon syntax on purpose.</p>
+<a class="h-more" href="/editor/docs/fidelity/method/">How we tested →</a></div><!-- /comparison -->
+      </div>
+    </section>
+
+    <section class="h-section" id="embed" aria-labelledby="embed-h">
+      <div class="wrap">
+        <h2 id="embed-h">Put it on a page</h2>
+        <div class="code" data-copy="script"><pre><code>&lt;div id="editor"&gt;&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import { createEditorState, mountEditor } from "https://esm.sh/@openmarkdown-dev/editor@0.1.0";
+
+  const editor = mountEditor(
+    document.getElementById("editor"),
+    createEditorState({ doc: "# Hello\n\nStart typing.\n" }),
+  );
+  // editor.getDoc() returns the Markdown, byte for byte.
+&lt;/script&gt;</code></pre></div>
+        <p class="h-next"><a href="/editor/examples/">More examples</a></p>
+        
+        <p class="h-invite">Using it? Add yourself to <a class="ext" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-editor/blob/main/ADOPTERS.md" rel="noopener">ADOPTERS.md</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN site-footer (generated — do not edit) -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-row">
+        <span>OpenMarkdown — Open .md with OpenMarkdown.</span>
+        <span class="fnav">
+          <a href="/faq">FAQ</a>
+          <a href="/compare/">Compare</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="/transparency">Transparency</a>
+        </span>
+      </div>
+      <div class="foot-row foot-products">
+        <span class="flabel">Products</span>
+        <span class="fnav">
+          <a href="/">OpenMarkdown <small>the note app for people and agents</small></a>
+          <a href="/editor/">OpenMarkdown Editor <small>the embeddable editor</small></a>
+        </span>
+      </div>
+    </div>
+  </footer>
+  <!-- END site-footer -->
+
+  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner), the same
+       snippet as every site page. Production host ONLY. Contract: openspec
+       landing-page-analytics + editor-site. Events: editor-copy-<install|script>
+       when a code block is copied, and the data-event links. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+    var count = function (path) {
+      var g = window.goatcounter;
+      if (g && g.count) g.count({ path: path, event: true });
+    };
+    document.addEventListener('om-copied', function (e) {
+      if (e.detail) count('editor-copy-' + e.detail);
+    });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[data-event]') : null;
+      if (a) count(a.getAttribute('data-event'));
+    }, true);
+  })();
+  </script>
+
+</body>
+</html>

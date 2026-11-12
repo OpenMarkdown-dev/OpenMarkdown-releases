@@ -1,0 +1,2603 @@
+# OpenMarkdown Editor: full documentation
+
+> Every guide and the API reference of `@openmarkdown-dev/editor`, concatenated. Index: https://openmarkdown.dev/editor/llms.txt
+
+# OpenMarkdown Editor
+
+URL: https://openmarkdown.dev/editor/docs/
+
+`@openmarkdown-dev/editor` is a live-preview Markdown editor built on [CodeMirror 6](https://codemirror.net/).
+Headings, lists, tables, math, Mermaid diagrams, callouts and YAML properties render in place,
+and the Markdown shows under the caret. It edits the Markdown source text itself, for a
+lossless round-trip: open and save without editing, and the file is byte-for-byte what it was.
+When you edit, only what you touched changes, with a few exceptions, each pinned by a test.
+
+It is the editor inside the [OpenMarkdown](https://openmarkdown.dev) app, extracted as an MIT library.
+
+## Start here
+
+1. [Install](https://openmarkdown.dev/editor/docs/getting-started/install/) the package and its CodeMirror peers.
+2. [Mount your first editor](https://openmarkdown.dev/editor/docs/getting-started/first-editor/) in plain JavaScript.
+3. Use it [in React](https://openmarkdown.dev/editor/docs/getting-started/react/) or [in any other framework](https://openmarkdown.dev/editor/docs/getting-started/any-framework/).
+
+## Guides
+
+- [The host: `EditorHost`](https://openmarkdown.dev/editor/docs/guides/host/): the per-document callbacks (changes, links, images, outline).
+- [The environment: `EditorEnvironment`](https://openmarkdown.dev/editor/docs/guides/environment/): the once-per-page capabilities (color scheme, clipboard, links, spelling, keys).
+- [Theming](https://openmarkdown.dev/editor/docs/guides/theming/): the `--ome-*` custom properties.
+- [UI language](https://openmarkdown.dev/editor/docs/guides/language/): English, Chinese, Japanese and Korean.
+- [Images](https://openmarkdown.dev/editor/docs/guides/images/): showing, pasting, dropping and resizing.
+- [Untrusted content](https://openmarkdown.dev/editor/docs/guides/untrusted-content/): what the editor does with a document written by someone else.
+- [Server-side rendering](https://openmarkdown.dev/editor/docs/guides/ssr/): importing on the server, mounting in the browser.
+- [Self-hosting](https://openmarkdown.dev/editor/docs/guides/self-hosting/): building the editor into static files, without a bundler or a CDN, under a strict CSP.
+
+## Fidelity
+
+- [What the editor changes in your file](https://openmarkdown.dev/editor/docs/fidelity/), and what it never changes.
+- [How we compared it with other editors](https://openmarkdown.dev/editor/docs/fidelity/method/): method, an example diff, the run date and the caveats.
+
+## Reference and examples
+
+- The [API reference](https://openmarkdown.dev/editor/docs/api/) is generated from the package's type declarations.
+- [Examples](https://openmarkdown.dev/editor/examples/): small projects you can run, one per task.
+- [Live demo](https://openmarkdown.dev/editor/demo/): the editor with a showcase document.
+
+## Code and app
+
+The editor's source is in its public repository, and the same editor ships inside the
+OpenMarkdown app for macOS, Windows and Linux. To see it with files, folders and an agent
+around it, [get the app](https://openmarkdown.dev/#download) or
+[try the whole app in your browser](https://openmarkdown.dev/demo).
+
+# Install
+
+URL: https://openmarkdown.dev/editor/docs/getting-started/install/
+
+```sh
+npm install @openmarkdown-dev/editor
+```
+
+npm 7 and later also install the editor's **peer dependencies**, CodeMirror and Lezer. With
+another package manager, or to pin them yourself, install them explicitly:
+
+```sh
+npm install @openmarkdown-dev/editor @codemirror/state @codemirror/view @codemirror/commands \
+  @codemirror/language @codemirror/language-data @codemirror/lang-markdown \
+  @codemirror/search @codemirror/autocomplete @lezer/highlight @lezer/markdown
+```
+
+## Why peers
+
+Your page must hold exactly one copy of `@codemirror/state`. Two copies break CodeMirror:
+extensions from one copy are not recognised by the other ("Unrecognized extension value").
+Because CodeMirror is a peer, an app that already uses CodeMirror shares its copy with the
+editor.
+
+## What else comes with it
+
+- `temml` (math) and `mermaid` (diagrams) are regular dependencies. The editor loads them
+  with `import()` only when a document contains math or a diagram, and your bundler splits
+  them into separate chunks. A document without either never downloads them.
+- `@openmarkdown-dev/editor/no-diagrams` is the same editor without diagram support: nothing
+  it imports reaches Mermaid, so your bundler emits no Mermaid chunks, and a ```` ```mermaid ````
+  block stays code. It has the same API; import from it instead of the main entry. (npm still
+  installs `mermaid`, a dependency of the main entry.)
+- There is no CSS file to import. The editor injects its styles, and every color and font is
+  a `--ome-*` custom property you can override ([Theming](https://openmarkdown.dev/editor/docs/guides/theming/)).
+
+## No bundler?
+
+Framework-free is not build-free. The package is ES modules with bare imports
+(`@codemirror/state`, …), which a browser cannot resolve on its own: a page loads it either from
+a CDN that rewrites them (once the package is published there) or from files you build once
+and serve yourself. [Self-hosting](https://openmarkdown.dev/editor/docs/guides/self-hosting/) gives that build, for a
+server-rendered app with no bundler or a page that may not use a CDN.
+
+## Requirements
+
+- The package is ES2022 JavaScript with TypeScript declarations included.
+- Importing it needs no DOM, so it is safe in server code ([SSR](https://openmarkdown.dev/editor/docs/guides/ssr/)).
+  Mounting an editor needs a browser DOM.
+- Every build is tested by mounting, typing, rendering math and a diagram, and switching mode
+  and scheme in headless Chromium, WebKit (Safari's engine) and Firefox.
+
+Next: [your first editor](https://openmarkdown.dev/editor/docs/getting-started/first-editor/).
+
+# Your first editor
+
+URL: https://openmarkdown.dev/editor/docs/getting-started/first-editor/
+
+Two calls make an editor: `createEditorState` builds one document, and `mountEditor` shows it
+in an element. When the document is a file, two more read and write its bytes:
+
+```html
+<div id="editor" style="height: 480px"></div>
+```
+
+```ts
+import { createEditorState, mountEditor, openMarkdownFile, saveMarkdownFile } from "@openmarkdown-dev/editor";
+
+let file = openMarkdownFile(new Uint8Array(await (await fetch("/notes.md")).arrayBuffer()));
+const editor = mountEditor(document.getElementById("editor")!, createEditorState({ doc: file.text }));
+
+const bytes = saveMarkdownFile(editor.getDoc(), file); // write these back
+```
+
+Give the parent element a height. The editor fills it and scrolls inside it.
+
+Fetch the file as bytes (`arrayBuffer()`), not as text: `openMarkdownFile` keeps the file's BOM
+and line endings, refuses bytes that are not UTF-8, and `saveMarkdownFile` gives back the
+original bytes when nothing was edited. Decoding with `response.text()` first would already have
+dropped the BOM and the line endings the save needs. See [Fidelity](https://openmarkdown.dev/editor/docs/fidelity/) for what
+they keep.
+
+After a save, make the bytes you wrote the new baseline, so that `editor.getDoc() !== file.text`
+means "unsaved edits":
+
+```ts
+file = openMarkdownFile(bytes);
+```
+
+## Read and write the document as a string
+
+When there is no file, only text (a form field, local storage), give the editor a string. It
+keeps the document as a string in `\n`, so `editor.getDoc()` is the text.
+
+```ts
+import { createEditorState, mountEditor } from "@openmarkdown-dev/editor";
+
+const state = createEditorState({
+  doc: localStorage.getItem("notes.md") ?? "# Notes\n",
+  host: {
+    // isUserEdit is false for setDoc and other programmatic changes.
+    onChange: (doc, isUserEdit) => {
+      if (isUserEdit) localStorage.setItem("notes.md", doc);
+    },
+  },
+});
+const editor = mountEditor(document.getElementById("editor")!, state);
+
+editor.getDoc(); // the current Markdown, as a string
+editor.setDoc("# Replaced\n"); // new text, for example after the file changed on disk; scroll position kept
+```
+
+`host` holds the per-document callbacks. Every one is optional; see [the host](https://openmarkdown.dev/editor/docs/guides/host/).
+
+## Modes
+
+```ts
+editor.setMode("source"); // "live" | "source" | "reading"
+editor.mode(); // "source"
+editor.view.focus(); // setMode does not move focus
+```
+
+- `live` (the default) renders Markdown in place and shows the source under the caret.
+- `source` is the plain text, colored.
+- `reading` is rendered and read-only.
+
+Switching mode keeps the document, the selection and the undo history. It does not move
+focus: when a button of yours calls `setMode`, the focus stays on that button, so call
+`editor.view.focus()` afterwards if the user should be able to type right away. To start in
+another mode, pass `mode` to `createEditorState`.
+
+## Once per page: the environment
+
+Window-wide capabilities, such as the color scheme, the clipboard and the UI language, are set
+once, before the first editor mounts:
+
+```ts
+import { configureEditorEnvironment } from "@openmarkdown-dev/editor";
+
+const media = matchMedia("(prefers-color-scheme: dark)");
+configureEditorEnvironment({
+  language: "en",
+  colorScheme: {
+    current: () => (media.matches ? "dark" : "light"),
+    subscribe: (cb) => {
+      const on = () => cb(media.matches ? "dark" : "light");
+      media.addEventListener("change", on);
+      return () => media.removeEventListener("change", on);
+    },
+  },
+  copyText: (text) => navigator.clipboard.writeText(text),
+});
+```
+
+Without it the editor is light, English, and has no clipboard, external-link or spelling
+behaviour. See [the environment](https://openmarkdown.dev/editor/docs/guides/environment/).
+
+## Clean up
+
+```ts
+editor.destroy(); // when the editor leaves the page
+```
+
+`destroy` removes the view and stops following the color scheme.
+
+## Several documents in one view
+
+One state is one document, with its undo history, folds and mode. A host with several
+documents (tabs, for example) can keep one state each and swap them into one view:
+
+```ts
+editor.view.setState(otherState);
+editor.syncAmbient(); // re-apply the current light or dark scheme
+```
+
+Next: [React](https://openmarkdown.dev/editor/docs/getting-started/react/), or [any other framework](https://openmarkdown.dev/editor/docs/getting-started/any-framework/).
+
+# Use it in React
+
+URL: https://openmarkdown.dev/editor/docs/getting-started/react/
+
+There is no React wrapper to install. Mount the editor in an effect, and destroy it in the
+effect's cleanup:
+
+```tsx
+import { useEffect, useRef } from "react";
+import { createEditorState, mountEditor, type MarkdownEditor } from "@openmarkdown-dev/editor";
+
+export function MarkdownField({ value, onChange }: { value: string; onChange: (doc: string) => void }) {
+  const parent = useRef<HTMLDivElement>(null);
+  const editor = useRef<MarkdownEditor | null>(null);
+  const latest = useRef(onChange);
+  latest.current = onChange;
+
+  useEffect(() => {
+    const state = createEditorState({
+      doc: value,
+      host: { onChange: (doc, isUserEdit) => isUserEdit && latest.current(doc) },
+    });
+    editor.current = mountEditor(parent.current!, state);
+    return () => editor.current?.destroy();
+    // Mount once; later `value` changes are pushed in below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (editor.current && editor.current.getDoc() !== value) editor.current.setDoc(value);
+  }, [value]);
+
+  return <div ref={parent} style={{ height: 480 }} />;
+}
+```
+
+## Why it is written this way
+
+- **Mount once.** Rebuilding the editor on every render would lose the caret, the selection
+  and the undo history. The effect has no dependencies, and later `value` changes go in through
+  `setDoc`.
+- **Callbacks through a ref.** The editor reads `host` through the object on every call, so
+  you can mutate it, or read the latest props through a ref as above, without rebuilding the
+  state.
+- **Only user edits go up.** `setDoc` is not a user edit, so `isUserEdit` keeps a `value`
+  pushed in from props from being echoed back to `onChange`.
+- **Strict Mode** runs the effect twice in development. `destroy` in the cleanup removes the
+  first editor before the second mounts.
+
+## Next.js and other server renderers
+
+Importing the package on the server is safe, and the effect only runs in the browser, so the
+component above works in a server-rendered page as it is. See [SSR](https://openmarkdown.dev/editor/docs/guides/ssr/).
+
+# Use it in any framework
+
+URL: https://openmarkdown.dev/editor/docs/getting-started/any-framework/
+
+The editor is plain TypeScript and DOM. Any framework that gives you an element after it is in
+the page, and a hook for when it leaves, can host it. The pattern is always the same:
+
+1. When the element is mounted, call `createEditorState` and `mountEditor`.
+2. When the element is removed, call `editor.destroy()`.
+3. Send changes up from `host.onChange`. Push outside changes in with `editor.setDoc`, only when
+   they differ from `editor.getDoc()`.
+
+## Vue
+
+```vue
+<script setup lang="ts">
+import { onMounted, onBeforeUnmount, ref, watch } from "vue";
+import { createEditorState, mountEditor, type MarkdownEditor } from "@openmarkdown-dev/editor";
+
+const props = defineProps<{ modelValue: string }>();
+const emit = defineEmits<{ "update:modelValue": [doc: string] }>();
+const el = ref<HTMLDivElement>();
+let editor: MarkdownEditor | null = null;
+
+onMounted(() => {
+  const state = createEditorState({
+    doc: props.modelValue,
+    host: { onChange: (doc, isUserEdit) => isUserEdit && emit("update:modelValue", doc) },
+  });
+  editor = mountEditor(el.value!, state);
+});
+watch(() => props.modelValue, (doc) => {
+  if (editor && editor.getDoc() !== doc) editor.setDoc(doc);
+});
+onBeforeUnmount(() => editor?.destroy());
+</script>
+
+<template>
+  <div ref="el" style="height: 480px" />
+</template>
+```
+
+## Svelte
+
+```svelte
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { createEditorState, mountEditor } from "@openmarkdown-dev/editor";
+
+  export let doc = "";
+  let el: HTMLDivElement;
+
+  onMount(() => {
+    const editor = mountEditor(el, createEditorState({
+      doc,
+      host: { onChange: (next, isUserEdit) => { if (isUserEdit) doc = next; } },
+    }));
+    return () => editor.destroy();
+  });
+</script>
+
+<div bind:this={el} style="height: 480px"></div>
+```
+
+## Web component
+
+```ts
+import { createEditorState, mountEditor, type MarkdownEditor } from "@openmarkdown-dev/editor";
+
+class MarkdownEditorElement extends HTMLElement {
+  private editor: MarkdownEditor | null = null;
+
+  connectedCallback() {
+    const state = createEditorState({
+      doc: this.textContent ?? "",
+      host: {
+        onChange: (doc, isUserEdit) => {
+          if (isUserEdit) this.dispatchEvent(new CustomEvent("change", { detail: doc }));
+        },
+      },
+    });
+    this.textContent = "";
+    this.editor = mountEditor(this, state);
+  }
+
+  disconnectedCallback() {
+    this.editor?.destroy();
+    this.editor = null;
+  }
+}
+customElements.define("markdown-editor", MarkdownEditorElement);
+```
+
+## A plain `<script>` tag
+
+Without a bundler, load the package and its peers from a CDN that resolves bare imports, for
+example [esm.sh](https://esm.sh):
+
+```html
+<div id="editor" style="height: 480px"></div>
+<script type="module">
+  import { createEditorState, mountEditor } from "https://esm.sh/@openmarkdown-dev/editor";
+
+  mountEditor(document.getElementById("editor"), createEditorState({ doc: "# Hello\n" }));
+</script>
+```
+
+# The host: `EditorHost`
+
+URL: https://openmarkdown.dev/editor/docs/guides/host/
+
+`EditorHost` is what the editor calls back into, for one document. Pass it as `host` to
+`createEditorState`. Every callback is optional: leave one out and that feature is switched off
+quietly. Nothing errors, and the rest of the editor carries on.
+
+```ts
+import { createEditorState, type EditorHost } from "@openmarkdown-dev/editor";
+
+const host: EditorHost = {
+  onChange: (doc, isUserEdit) => {
+    if (isUserEdit) save(doc);
+  },
+  resolveImage: (src) => (src.startsWith("https://") ? src : null),
+};
+const state = createEditorState({ doc, docPath: "/notes/today.md", host });
+```
+
+| Callback | Called when | Without it |
+| --- | --- | --- |
+| `onChange(doc, isUserEdit, docPath)` | The document changed. `isUserEdit` is false for `setDoc` and other programmatic changes. | Nothing happens. |
+| `resolveImage(src)` | An image is shown. Return a URL the page may load, or `null` to show the source. Script-capable URLs are dropped whatever you return. | Only absolute `https:` images load, from any host. Pass `() => null` to load none ([images](https://openmarkdown.dev/editor/docs/guides/images/)). |
+| `openLink(absPath, fragment)` | A link to a local file was followed (Cmd/Ctrl+click; a plain click in reading mode). `fragment` is its `#fragment` without the `#`, or `null`. | Local links do nothing. |
+| `getFolder()` | Link completion needs the root of the user's files. | Completion uses the document's own directory. |
+| `listFiles(root)` | Link completion lists linkable files under `root` (root-relative paths). | Completion offers headings only. |
+| `saveAttachment(docPath, bytes, hint)` | An image is pasted or dropped. Store it and resolve the relative path to link, or `null`. | Pasting or dropping an image inserts nothing. |
+| `onUnsupportedPaste(reason, count)` | Images were pasted or dropped but could not be stored: `reason` is `"no-save-attachment"` or `"no-doc-path"`. A notice only; nothing was inserted. | The images are dropped silently. |
+| `onMoved()` | The selection or scroll position moved (debounced). Use it to remember the position. | Nothing happens. |
+| `onOutline(items)` | The heading outline changed (`OutlineItem[]`, or `null` when the view goes away). | Nothing happens. |
+
+## The host is read on every call
+
+The editor keeps the object, not its functions, and reads the member each time it needs one.
+You can mutate the object after creating the state, or forward to the latest props through a
+ref ([React](https://openmarkdown.dev/editor/docs/getting-started/react/)), without rebuilding the state.
+
+## `docPath`
+
+`docPath` is the document's absolute path, or `null` for an unsaved document. Relative links and
+image paths resolve against its directory, and `saveAttachment` is only called when there is a
+path to store beside. Change it after a rename with `editor.setDocPath(path)`; read it with
+`editor.docPath()`.
+
+The path does not have to be a file on disk. A web app can use any absolute, `/`-separated name
+(for example `/doc.md`) and resolve images in `resolveImage` from its own storage. See
+[Images](https://openmarkdown.dev/editor/docs/guides/images/).
+
+## Reading and writing the file
+
+The editor works on a string; the file on disk is bytes. Decode it with `openMarkdownFile` and
+encode `editor.getDoc()` with `saveMarkdownFile`, typically in `onChange` or on a save command:
+
+```ts
+import { createEditorState, openMarkdownFile, saveMarkdownFile } from "@openmarkdown-dev/editor";
+
+const file = openMarkdownFile(bytes); // throws InvalidUtf8Error for a file that is not UTF-8
+const state = createEditorState({
+  doc: file.text,
+  host: {
+    onChange: (doc, isUserEdit) => {
+      if (isUserEdit) writeFile(saveMarkdownFile(doc, file));
+    },
+  },
+});
+```
+
+Unedited, the bytes written are the bytes read; edited, the file keeps its BOM and its dominant
+line ending. See [Fidelity](https://openmarkdown.dev/editor/docs/fidelity/).
+
+## Window-wide capabilities live elsewhere
+
+The color scheme, the clipboard, external links, spelling, the UI language and host key
+bindings are the same for all editors on the page. They are set once with
+`configureEditorEnvironment`: see [the environment](https://openmarkdown.dev/editor/docs/guides/environment/).
+
+The full signatures are in the [API reference](https://openmarkdown.dev/editor/docs/api/interfaces/editorhost/).
+
+# The environment: `EditorEnvironment`
+
+URL: https://openmarkdown.dev/editor/docs/guides/environment/
+
+Some capabilities belong to the page, not to a document: the color scheme, the clipboard,
+external links, spelling, the UI language and the host's key bindings. Provide them once with
+`configureEditorEnvironment`, before the first editor mounts. A later call replaces the whole
+environment.
+
+Every member is optional. Without the call, the editor is light, English, and has no clipboard,
+external-link, spelling or host-key behaviour.
+
+| Member | What it does | Without it |
+| --- | --- | --- |
+| `language` | The editor's own UI words: `"en"`, `"zh"`, `"ja"` or `"ko"`. | English. |
+| `colorScheme` | `{ current(), subscribe(cb) }`: the page's `"light"` / `"dark"` scheme and its changes. | Always light. |
+| `copyText(text)` | Put text on the clipboard (the code-block copy button). | No copy button action. |
+| `openExternal(url)` | A web link was followed (Cmd/Ctrl+click; a plain click in reading mode). Your policy decides how it opens. | Web links do nothing. |
+| `refusedLink(url, scheme)` | The editor refused a script-capable link (`javascript:`, `data:` and similar). Use it to tell the user. Never open the URL. | The refusal is silent. |
+| `spell` | A `SpellService` that draws spelling squiggles and offers suggestions. | No spell checking. |
+| `handleKey(view, event)` | Sees each key before the editor's defaults. Return `true` to consume it. | The editor's keymap only. |
+
+## Follow the system color scheme
+
+```ts
+import { configureEditorEnvironment } from "@openmarkdown-dev/editor";
+
+const media = matchMedia("(prefers-color-scheme: dark)");
+configureEditorEnvironment({
+  colorScheme: {
+    current: () => (media.matches ? "dark" : "light"),
+    subscribe: (cb) => {
+      const on = () => cb(media.matches ? "dark" : "light");
+      media.addEventListener("change", on);
+      return () => media.removeEventListener("change", on);
+    },
+  },
+  copyText: (text) => navigator.clipboard.writeText(text),
+  openExternal: (url) => window.open(url, "_blank", "noopener"),
+});
+```
+
+A mounted editor subscribes while it lives and unsubscribes in `destroy`. A page with its own
+theme toggle implements `colorScheme` over that toggle instead.
+
+## Spelling: `SpellService`
+
+The editor draws its own spelling squiggles and suggestion menu; the checking is yours. A
+`SpellService` has six members:
+
+| Member | What it does |
+| --- | --- |
+| `isOn()` | Is spell checking on right now? |
+| `onChange(cb)` | Follow the on / off state. Returns the unsubscribe. |
+| `newDocument()` | A fresh spell-document number for one editor, so a checker can keep per-editor ignore lists. |
+| `check(doc, paragraphs)` | The misspellings (`SpellMiss`, UTF-16 `from` / `to` offsets) for each paragraph, in order, or `null` when the check could not run. |
+| `suggestions(doc, paragraph, from, to)` | Up to five suggestions for `paragraph.slice(from, to)`. |
+| `closeDocument(doc)` | The editor of `doc` is gone. |
+
+Pass `checkSpelling: false` to `createEditorState` for an editor that should never show
+squiggles, such as a small comment box.
+
+## Host key bindings
+
+`handleKey` sees every key the editor's keymap sees, before CodeMirror's defaults. Return `true`
+when your binding ran:
+
+```ts
+import { configureEditorEnvironment } from "@openmarkdown-dev/editor";
+
+configureEditorEnvironment({
+  handleKey: (view, event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === "s") {
+      save(view.state.doc.toString());
+      return true;
+    }
+    return false;
+  },
+});
+```
+
+The full signatures are in the [API reference](https://openmarkdown.dev/editor/docs/api/interfaces/editorenvironment/).
+
+# Theming
+
+URL: https://openmarkdown.dev/editor/docs/guides/theming/
+
+The editor paints only with `--ome-*` custom properties. Each one has a light and a dark
+default, and the editor switches between them with the environment's `colorScheme`
+([environment](https://openmarkdown.dev/editor/docs/guides/environment/)). There is no CSS file to import.
+
+To restyle the editor, set the properties **on `.cm-editor`**:
+
+```css
+.cm-editor {
+  --ome-bg: #fffdf7;
+  --ome-accent: #0b6bcb;
+  --ome-font: "Inter", system-ui, sans-serif;
+}
+```
+
+Setting them on `:root` has no effect. The editor declares its defaults on its own root at
+zero specificity, so any selector that targets `.cm-editor` wins, and an inherited value does
+not.
+
+## Light and dark
+
+The editor's root carries `data-ome-scheme="light"` or `data-ome-scheme="dark"`, and it changes
+when the environment's `colorScheme` does. Give each scheme its own values with that attribute:
+
+```css
+.cm-editor[data-ome-scheme="light"] { --ome-accent: #0b6bcb; }
+.cm-editor[data-ome-scheme="dark"] { --ome-accent: #6cb6ff; }
+```
+
+This attribute is the one supported way to tell the schemes apart. CodeMirror's own light and dark
+classes are generated names that change between builds, so do not select on them.
+
+## Tokens
+
+| Token | Used for |
+| --- | --- |
+| `--ome-bg` | The document surface: the editor's background. |
+| `--ome-fg` | Body text and the caret: the editor's text color. |
+| `--ome-muted` | Quiet surfaces. |
+| `--ome-muted-fg` | Secondary text: Markdown marks, placeholders, resting controls. |
+| `--ome-border` | Hairlines: table rules, quote bars, frames. |
+| `--ome-accent` | Links, selection, find hits, focus, list marks. |
+| `--ome-danger` | Errors, such as a search with no match. |
+| `--ome-agent` | The `@agent` mention. |
+| `--ome-spelling` | The spelling squiggle. |
+| `--ome-code-bg` | Inline code, code blocks, table headers (translucent). |
+| `--ome-callout-note`, `--ome-callout-tip`, `--ome-callout-important`, `--ome-callout-warning`, `--ome-callout-caution` | The five callout kinds. |
+| `--ome-state-hover`, `--ome-state-selected` | Hover and selected layers on controls. |
+| `--ome-radius` | The corner radius of controls. |
+| `--ome-font`, `--ome-font-mono` | The prose and code font stacks. No font files are shipped. |
+| `--ome-syntax-keyword`, `--ome-syntax-string`, `--ome-syntax-number`, `--ome-syntax-function`, `--ome-syntax-type`, `--ome-syntax-property` | Code highlighting. One value is used for both schemes. |
+
+## Size
+
+The editor fills its parent and scrolls inside it, so give the parent a height. Text is 16px at
+the editor's root, and every size inside the document is relative to it.
+
+## Beyond tokens
+
+Anything the tokens do not cover can be styled with CodeMirror's own theme extensions, passed
+through `extensions` on `createEditorState`. Class names inside the editor are not part of the
+public API and may change between versions; the tokens are.
+
+# UI language
+
+URL: https://openmarkdown.dev/editor/docs/guides/language/
+
+The editor draws a few words of its own: the find panel, the copy and fold buttons, the
+properties block, and image and link chips. They ship in four languages:
+
+| Code | Language |
+| --- | --- |
+| `"en"` | English (the default) |
+| `"zh"` | Chinese (Simplified) |
+| `"ja"` | Japanese |
+| `"ko"` | Korean |
+
+Choose one with the environment, before the first editor mounts:
+
+```ts
+import { configureEditorEnvironment } from "@openmarkdown-dev/editor";
+
+configureEditorEnvironment({ language: "ja" });
+```
+
+- The editor does not guess from the browser. Without `language`, or with a code it does not
+  ship, it speaks English, so it behaves the same in every host and your app stays the one place
+  that decides the language.
+- The language is read when a word is drawn. Words already on screen do not redraw when you call
+  `configureEditorEnvironment` again; mount the editor again (or reload) to switch a live page.
+- Your document text can be in any language. Only the editor's own controls are translated.
+  CJK text and emoji are edited and measured as written (table columns count them as two
+  columns wide).
+
+# Images
+
+URL: https://openmarkdown.dev/editor/docs/guides/images/
+
+The editor shows Markdown images (`![alt](src)`) in place, lets the user paste or drop new ones,
+and resizes them with a drag. Where image bytes come from and where they go is the host's
+decision, through two `EditorHost` callbacks.
+
+## Showing images: `resolveImage`
+
+`resolveImage(src)` gets the image target exactly as written and returns a URL the page may load,
+or `null` to show the source text instead.
+
+```ts
+import { createEditorState } from "@openmarkdown-dev/editor";
+
+const state = createEditorState({
+  doc,
+  docPath: "/notes/today.md",
+  host: {
+    resolveImage: (src) => {
+      if (src.startsWith("https://")) return src;
+      return `/files/notes/${src.replace(/^\.\//, "")}`; // your server serves the document's folder
+    },
+  },
+});
+```
+
+- Without `resolveImage`, absolute `https:` images load, from any host, and nothing else does.
+  The browser fetches them when the document is shown, which tells their server the document
+  was opened. For private documents, pass a `resolveImage` that allows only your own hosts, or
+  turn remote images off entirely:
+
+  ```ts
+  createEditorState({ doc, host: { resolveImage: () => null } }); // no image loads; the source shows
+  ```
+
+- Whatever you return, script-capable URLs (`javascript:` and similar) are dropped. See
+  [Untrusted content](https://openmarkdown.dev/editor/docs/guides/untrusted-content/).
+
+## Pasting and dropping: `saveAttachment`
+
+When the user pastes or drops an image, the editor calls
+`saveAttachment(docPath, bytes, hint)` with the image bytes and a file-name hint. Store the bytes
+and resolve the document-relative path to link; the editor inserts an image link to that path
+where the image was pasted or dropped, with the caret in its alt text.
+Resolve `null` when the save failed; the editor inserts nothing (report the failure yourself).
+
+```ts
+import { createEditorState } from "@openmarkdown-dev/editor";
+
+const urls = new Map<string, string>();
+let n = 0;
+
+const state = createEditorState({
+  doc: "",
+  docPath: "/draft.md", // paste and drop need a document path
+  host: {
+    saveAttachment: async (_docPath, bytes, hint) => {
+      const name = `attachments/pasted-${++n}.png`;
+      urls.set(name, URL.createObjectURL(new Blob([bytes.slice()], { type: "image/png" })));
+      return name;
+    },
+    resolveImage: (src) => urls.get(src) ?? (src.startsWith("https://") ? src : null),
+  },
+});
+```
+
+This keeps images in the browser tab only. A real app uploads the bytes and returns the path or
+URL it stored them under.
+
+`resolveImage` may be called more than once for the same image, so keep it free of side
+effects. When its answer changes, for example after the reader allows remote images, call
+`editor.refreshImages()` and every image is resolved again, including those in tables.
+
+- Without `saveAttachment`, pasting or dropping an image inserts nothing.
+- With `docPath` set to `null` (an unsaved document), there is nowhere to store beside, so the
+  editor does not call `saveAttachment`.
+- In both cases the editor stays silent. To tell the user, pass `onUnsupportedPaste`: it is
+  called with the reason (`"no-save-attachment"` or `"no-doc-path"`) and how many images were
+  dropped.
+
+```ts
+import { createEditorState } from "@openmarkdown-dev/editor";
+
+const state = createEditorState({
+  doc,
+  host: {
+    onUnsupportedPaste: (reason, count) => {
+      showToast(`${count} image(s) not added: this editor cannot store images.`);
+    },
+  },
+});
+```
+- `hint` is the file's name, or its MIME type when it has no name. It is a hint, not a checked
+  type: look at the bytes before you store or serve them.
+
+## Resizing
+
+Every image has a grip in its corner. Dragging it resizes the image, and on release the editor
+writes the width into the alt text as `|W`:
+
+```md
+![diagram|320](diagram.png)
+```
+
+Only that width changes in the file. In reading mode the grip is hidden.
+
+# Untrusted content
+
+URL: https://openmarkdown.dev/editor/docs/guides/untrusted-content/
+
+The editor is built to render documents written by someone else, such as a teammate or an AI
+agent. Rendering a document never runs its script:
+
+- **Raw HTML is shown as source**, never rendered.
+- **Math** (Temml, `trust: false`) and the editor's icons reach the DOM only through one sanitiser
+  with an allowlist of elements and attributes. Unknown elements make the formula fall back to
+  its source. Unknown attributes are dropped.
+- **Mermaid** runs with `securityLevel: "strict"` and no HTML labels. Its SVG goes through the same
+  allowlist.
+- **Links** are classified the way a browser reads them, after decoding entities and removing
+  control characters. `javascript:`, `vbscript:`, `livescript:` and `data:` links are never passed
+  to `openLink` or `openExternal`, however they are obfuscated. Your `refusedLink` is told
+  instead.
+- **Images**: without a `resolveImage`, only absolute `https:` images load. With one,
+  script-capable URLs are still dropped.
+
+## What stays your job
+
+- **Network policy.** An `https:` image in a document is loaded by the browser, which tells its
+  server the page was opened. If that matters, return `null` from `resolveImage` for hosts you do
+  not trust, or proxy images.
+- **Opening links.** `openExternal` and `openLink` receive URLs and paths the editor already
+  classified as safe to follow; your policy still decides whether and how to open them.
+- **Content Security Policy.** CodeMirror injects `<style>` elements, so a strict `style-src`
+  needs a nonce through CodeMirror's `EditorView.cspNonce`, passed with `extensions`:
+
+```ts
+import { EditorView } from "@codemirror/view";
+import { createEditorState } from "@openmarkdown-dev/editor";
+
+const state = createEditorState({ doc, extensions: EditorView.cspNonce.of(nonce) });
+```
+
+What a strict policy (`script-src 'self'; style-src 'self' 'nonce-…'`, no `'unsafe-inline'`)
+needs, exactly:
+
+- **The editor and math**: only that nonce. The editor writes no `style` attribute; a formula's
+  styles are applied through `element.style`, which the policy allows.
+- **Diagrams**: more. Mermaid draws each diagram once in the page to measure it, with `style`
+  attributes and `<style>` elements that carry no nonce. Without
+  `style-src-attr 'unsafe-inline'` and `style-src-elem 'self' 'unsafe-inline'` the browser
+  blocks them and reports violations. Either add those two directives, or pass
+  `diagrams: false` to `createEditorState` (or import `@openmarkdown-dev/editor/no-diagrams`,
+  which leaves Mermaid out of the build): `mermaid` blocks then stay code and Mermaid is
+  never loaded. [Self-hosting](https://openmarkdown.dev/editor/docs/guides/self-hosting/#diagrams-and-the-policy) gives both policies,
+  tested in a browser.
+
+## Known advisories
+
+`npm audit` reports one advisory in a fresh install; npm counts it as `3 low severity
+vulnerabilities`, one for each package on the path (`katex`, `mermaid` and this package). We
+assessed it, and it does not apply to the editor:
+
+- **GHSA-238p-pmpm-9mq7** (low; `katex`, installed through `mermaid` 11.17.2): "KaTeX: Existing
+  prototype pollution can bypass trust restrictions". Exploiting it needs a prototype pollution
+  already present in the page *and* KaTeX output inserted without sanitising. The editor renders
+  math with Temml, not KaTeX. Mermaid runs with `htmlLabels: false`, so its labels are plain SVG
+  text. Every piece of markup the editor inserts goes through its one sanitiser, which refuses
+  anything outside its allow-list. The fix exists only in Mermaid 12, which adds a dependency
+  under a license this package cannot take (EPL-2.0 OR GPL-3.0). With the `no-diagrams` entry,
+  neither Mermaid nor KaTeX reaches your bundle. Next review: 2027-02-04.
+
+The release check fails on any advisory that is not assessed here.
+
+## Reporting a vulnerability
+
+Report vulnerabilities privately through the repository's GitHub security advisories, not in a
+public issue.
+
+# Server-side rendering
+
+URL: https://openmarkdown.dev/editor/docs/guides/ssr/
+
+Importing `@openmarkdown-dev/editor` does not touch `window` or `document`, so the package can be
+imported by code that also runs on the server (Next.js, Nuxt, SvelteKit, Astro and the like).
+Every build checks this by importing the package in plain Node.
+
+Mounting needs a DOM. Create and mount the editor only in browser code: an effect, an
+`onMounted` hook, a client-only component.
+
+```tsx
+"use client";
+import { useEffect, useRef } from "react";
+import { createEditorState, mountEditor } from "@openmarkdown-dev/editor";
+
+export function Editor({ doc }: { doc: string }) {
+  const el = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const editor = mountEditor(el.current!, createEditorState({ doc }));
+    return () => editor.destroy();
+    // Mount once; see the React guide for pushing later changes in.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return <div ref={el} style={{ height: 480 }} />;
+}
+```
+
+## What the server can render
+
+The server renders the empty parent element. If the page should show the document before the
+script runs, render it yourself (as preformatted text or with any Markdown renderer) inside the
+parent and clear it when the editor mounts.
+
+## Bundle splitting
+
+Math (Temml) and diagrams (Mermaid) are loaded with `import()` the first time a document shows
+math or a diagram. Your bundler splits them into separate chunks; neither is in the first load
+of a page whose documents have none.
+
+# Self-hosting
+
+URL: https://openmarkdown.dev/editor/docs/guides/self-hosting/
+
+This guide is for pages that load JavaScript as plain files from their own server: a
+server-rendered app (Jinja, ERB, Go templates, PHP) with no bundler of its own, or a site whose
+policy rules out a CDN. You build the editor once with [esbuild](https://esbuild.github.io/),
+copy the output next to your other static files, and load it with one `<script type="module">`
+under a strict Content Security Policy.
+
+If your app already has a bundler (Vite, webpack, Rollup, esbuild), you do not need this page:
+import the package as in [your first editor](https://openmarkdown.dev/editor/docs/getting-started/first-editor/) and your
+bundler does the same splitting.
+
+## 1. Install
+
+In a small build project (it can live inside your app's repository), install the editor, its
+CodeMirror peers and esbuild:
+
+```sh
+npm install @openmarkdown-dev/editor @codemirror/state @codemirror/view @codemirror/commands \
+  @codemirror/language @codemirror/language-data @codemirror/lang-markdown \
+  @codemirror/search @codemirror/autocomplete @lezer/highlight @lezer/markdown
+npm install --save-dev esbuild
+```
+
+To build from a local package file instead of the registry (a tarball made with `npm pack`,
+for example before a release reaches npm), install the file by its path. npm 7 and later install
+the peers listed above with it:
+
+```sh
+npm install ./openmarkdown-dev-editor-0.1.0.tgz
+npm install --save-dev esbuild
+```
+
+## 2. The entry
+
+One module of your own imports the editor and mounts it. It reads the document from a
+`<textarea>` your template fills, copies the document back into it on each change (so an
+ordinary form post saves it), and hands CodeMirror the page's style nonce:
+
+```js selfhost-entry
+// src/editor.js
+import { EditorView } from "@codemirror/view";
+import { createEditorState, mountEditor } from "@openmarkdown-dev/editor";
+
+// The nonce the server put in this response's CSP header, read from the page.
+const nonce = document.querySelector('meta[property="csp-nonce"]')?.nonce ?? "";
+const source = document.getElementById("editor-doc");
+
+mountEditor(
+  document.getElementById("editor"),
+  createEditorState({
+    doc: source.value,
+    extensions: EditorView.cspNonce.of(nonce),
+    // Render ```mermaid blocks as diagrams. Set false to keep them as code and
+    // never load Mermaid; see "Diagrams and the policy" below.
+    diagrams: true,
+    host: { onChange: (doc) => { source.value = doc; } },
+  }),
+);
+```
+
+## 3. The build
+
+This script is the whole build. Run it with `node build.mjs`; it writes the editor into
+`static/editor/`:
+
+```js selfhost-config
+// build.mjs
+import { build } from "esbuild";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+const outdir = "static/editor";
+
+const result = await build({
+  entryPoints: ["src/editor.js"],
+  bundle: true,
+  format: "esm",
+  // Mermaid, Temml and each code language become chunks, fetched only when needed.
+  splitting: true,
+  outdir,
+  entryNames: "[name]",
+  chunkNames: "chunks/[name]-[hash]",
+  target: "es2022",
+  minify: true,
+  // Keep /*! … */ and @license comments in the file they came from.
+  legalComments: "eof",
+  metafile: true,
+  logLevel: "warning",
+});
+
+// Every package that went into the output, with its license text, in one file.
+const notices = new Map();
+for (const input of Object.keys(result.metafile.inputs)) {
+  const dir = /^(.*node_modules\/(?:@[^/]+\/)?[^/]+)\//.exec(input)?.[1];
+  if (!dir || notices.has(dir) || !existsSync(join(dir, "package.json"))) continue;
+  const pkg = JSON.parse(readFileSync(join(dir, "package.json"), "utf8"));
+  const file = readdirSync(dir).find((f) => /^(licen[cs]e|copying|notice)/i.test(f));
+  const text = file ? readFileSync(join(dir, file), "utf8") : `License: ${pkg.license}`;
+  notices.set(dir, `${pkg.name}@${pkg.version}\n\n${text.trim()}\n`);
+}
+const all = [...notices.values()].sort();
+writeFileSync(join(outdir, "THIRD_PARTY_LICENSES.txt"), all.join(`\n${"-".repeat(72)}\n\n`));
+```
+
+- `format: "esm"` with `splitting: true` keeps the editor's lazy `import()`s as separate files.
+  Without splitting, esbuild would inline Mermaid and every language into one large file that
+  every page downloads.
+- `legalComments: "eof"` keeps the license comments some packages put in their code. Most
+  packages do not, so the script also writes `THIRD_PARTY_LICENSES.txt` with the license file of
+  every package in the output. Serve it, or link it from your app's notices page: the MIT and
+  similar licenses require the notice to travel with the code.
+
+## 4. What it writes
+
+```text
+static/editor/
+├── editor.js                  the entry: the editor, CodeMirror and Lezer
+├── THIRD_PARTY_LICENSES.txt   the license of every package in the output
+└── chunks/
+    ├── chunk-….js             code shared between the entry and lazy chunks
+    ├── mermaid.core-….js      Mermaid, loaded on the first diagram
+    ├── flowDiagram-….js       one chunk per Mermaid diagram type (and so on)
+    ├── temml-….js             Temml, loaded on the first formula
+    ├── dist-….js              a CodeMirror language package
+    └── ruby-….js, shell-….js  a legacy-mode language, one per language
+```
+
+**Deploy every file.** The entry and the chunks find each other by relative URL, and which
+chunks a page needs depends on the documents it opens: a diagram type or a code language no
+one has used yet still has to be there the day someone uses it. Copy the whole directory,
+never a selection, and copy it again on every upgrade (the hashes in the chunk names change).
+
+## 5. The page
+
+The server makes a fresh nonce for every response, sends it in the CSP header and writes it
+into the page. This is the strict policy. It is all the editor, its icons and its formulas
+need; with `diagrams: false` in the entry it is all the page needs:
+
+```text selfhost-csp
+default-src 'self'; script-src 'self'; style-src 'self' 'nonce-{{ nonce }}'; img-src 'self' https:; object-src 'none'; base-uri 'none'
+```
+
+A page that renders diagrams uses this one instead (see
+[diagrams and the policy](#diagrams-and-the-policy)):
+
+```text selfhost-csp-diagrams
+default-src 'self'; script-src 'self'; style-src 'self' 'nonce-{{ nonce }}'; img-src 'self' https:; object-src 'none'; base-uri 'none'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'
+```
+
+```html selfhost-page
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Notes</title>
+    <meta property="csp-nonce" nonce="{{ nonce }}" />
+    <style nonce="{{ nonce }}">
+      #editor { height: 480px; }
+    </style>
+    <script type="module" src="/static/editor/editor.js"></script>
+  </head>
+  <body>
+    <form method="post">
+      <div id="editor"></div>
+      <textarea id="editor-doc" name="doc" hidden>{{ doc }}</textarea>
+      <button>Save</button>
+    </form>
+  </body>
+</html>
+```
+
+- `script-src 'self'` is enough for scripts: the editor and all its chunks are files from your
+  origin, and it runs no inline script and no `eval`.
+- `style-src 'self' 'nonce-…'`: CodeMirror and the editor inject their styles as `<style>`
+  elements, and `EditorView.cspNonce` stamps the nonce on them. The editor writes no `style`
+  attribute: what a formula needs is applied through `element.style`, which the policy allows.
+  Your own inline `<style>` needs the same nonce; `style="…"` attributes in your template are
+  blocked by this policy, so put such rules in a stylesheet.
+- `img-src https:` lets documents show images from the web. Narrow it, or drop it and pass a
+  `resolveImage` to the host (see [images](https://openmarkdown.dev/editor/docs/guides/images/) and
+  [untrusted content](https://openmarkdown.dev/editor/docs/guides/untrusted-content/)).
+- The nonce sits on a `<meta>` element's `nonce` attribute rather than in its `content`, the
+  same convention as Vite's: the browser hides the attribute from selectors, and the script
+  reads it from the `nonce` property.
+- Your template engine must escape the document it writes into the `<textarea>` (Jinja's
+  autoescape does). Serve `.js` files as `text/javascript`.
+
+## Diagrams and the policy
+
+The editor puts a diagram on the page without inline styles: its `<style>` gets the nonce and
+its style attributes are applied through `element.style`. Mermaid itself does not. To measure
+a diagram, it draws it once in the page, setting `style` attributes and adding `<style>`
+elements that carry no nonce. Under the strict policy the browser blocks those and reports
+each one as a violation (about 36 for a flowchart). The diagram still appears, but its text may
+be measured without its font settings.
+
+Pick one:
+
+- **Render diagrams**: send the diagram policy above. It is the strict policy plus
+  `style-src-elem 'self' 'unsafe-inline'` and `style-src-attr 'unsafe-inline'`. A nonce cannot
+  cover Mermaid's `<style>` elements, and browsers ignore `'unsafe-inline'` in a directive that
+  also has a nonce, so `style-src-elem` lists none. Inline styles are then allowed on the
+  page; scripts stay `'self'` only.
+- **No diagrams**: set `diagrams: false` in the entry and keep the strict policy. A
+  ```` ```mermaid ```` block shows as code, and the page never fetches Mermaid (its chunks are
+  still in the output, unused).
+- **No diagrams, and no Mermaid in the build**: import from the package's diagram-free entry
+  instead, and keep the strict policy. Change one line of the entry, and drop `diagrams` (that
+  entry ignores it):
+
+  ```js
+  import { createEditorState, mountEditor } from "@openmarkdown-dev/editor/no-diagrams";
+  ```
+
+  `@openmarkdown-dev/editor/no-diagrams` is the same editor with the same API, built from the
+  same code, minus the diagram support: nothing it imports reaches Mermaid, so esbuild writes no
+  Mermaid chunk and `THIRD_PARTY_LICENSES.txt` does not list it. A ```` ```mermaid ```` block
+  shows as code. npm still installs the `mermaid` package (it is a dependency of the main
+  entry); it just never reaches your output.
+
+## Native WebViews and static hosts
+
+A desktop or mobile app that shows the editor in a WebView (WKWebView, WebView2, Android
+WebView), or a site served as static files, has no server to template a page per response.
+The build above is the same; four things differ.
+
+- **Serve the files from an origin.** Module scripts and their chunk imports do not load from
+  `file://`. Serve the output through a custom scheme (`WKURLSchemeHandler`,
+  `WebResourceRequested`, `WebViewAssetLoader`) or a local origin, with `.js` as
+  `text/javascript`. Chunk imports are relative, so they resolve against that origin.
+- **Wait for the page, not for the load event.** A WebView can report the page loaded before
+  the module graph has run, so the first call from native code finds nothing to call. Send a
+  message as the entry's last statement and call into the page only after it arrives:
+
+  ```js
+  // last line of entry.js (WKWebView; use your WebView's bridge)
+  window.webkit?.messageHandlers?.editor?.postMessage({ type: "ready" });
+  ```
+
+- **The nonce needs a server.** A nonce only protects a page when it is new for every response;
+  a fixed one written into a static file protects nothing. Without a server, use
+  `style-src 'self' 'unsafe-inline'` (what diagrams need anyway), keep `script-src 'self'`,
+  limit `img-src` to the schemes your images come from, and set `connect-src 'none'` if the
+  page needs no network. The strict policy above is for a server that sends a fresh nonce.
+- **Only what is on screen is in the page.** The editor draws the lines in view and a margin
+  around them, not the whole document; this keeps long documents fast. Anything that reads the
+  page's DOM sees only that part: the WebView's own find, copying the rendered HTML, and
+  screen readers and other accessibility tools. Read the text with `editor.getDoc()`, and for
+  find use the editor's own panel (Cmd/Ctrl+F, or `openSearchPanel(editor.view)` from
+  `@codemirror/search`), which searches the whole document.
+
+## Loaded on demand
+
+The entry holds what every editor needs. The rest is fetched the first time a document needs
+it, and never otherwise:
+
+- **Mermaid** and the code for each diagram type, on the first `mermaid` code block of that type
+  (never, with `diagrams: false`; not in the output at all, with the `no-diagrams` entry);
+- **Temml**, on the first `$…$` or `$$…$$` formula;
+- **a code language's grammar**, on the first fenced block in that language.
+
+A document with none of these downloads only the entry and the chunks it shares.
+
+## Sizes
+
+Measured with the build above on the 0.1.0 package (minified, before compression):
+
+- the output is about 230 files and 5.3 MB on disk, almost all of it lazy chunks that most pages
+  never request;
+- an editor that mounts on a plain document fetches the entry and the chunks it imports, about
+  720 KB;
+- the first diagram adds Mermaid's core and that diagram type, about 760 KB for a flowchart;
+- the first formula adds Temml, about 210 KB; a code language adds from a few KB to about 50 KB;
+- a document with a diagram, math and a code language fetches about 37 files, 1.7 MB.
+
+Built from the `@openmarkdown-dev/editor/no-diagrams` entry instead, the output is about 125
+files and 1.9 MB on disk: no Mermaid chunks. What a page fetches is the same as above for
+documents without a diagram (the entry is the same size; a document with math and a code
+language fetches about 9 files, 950 KB). The saving is in what you build and deploy.
+
+Serve the files compressed (gzip or brotli); this JavaScript shrinks to roughly a third. The
+chunk names carry content hashes, so chunks can be cached for a long time; `editor.js` keeps its
+name and should be revalidated.
+
+# Fidelity
+
+URL: https://openmarkdown.dev/editor/docs/fidelity/
+
+Lossless round-trip: open a Markdown file and save it without editing, and the file is byte-for-byte what it was.
+
+Most rich Markdown editors parse your file into a tree and write a new file out of that tree when
+you save. That new file says the same thing in the editor's own style: your `_emphasis_` comes
+back as `*emphasis*`, your `+` list as `-`, your setext heading as `#`, and some constructs, such
+as frontmatter or callouts, can come back as something else.
+
+This editor edits the text itself. What you typed changes, and the rest of the file stays as you
+wrote it.
+
+## The claim
+
+This is the whole claim. Every sentence is backed by a test:
+
+> OpenMarkdown edits your Markdown source text directly; it never rebuilds the file from a document tree. Open and save without editing, and the file is byte-for-byte what it was: line endings (LF / CRLF), BOM, final newline, whitespace, tabs, escapes and Unicode spelling untouched. When you edit, only what you touched changes, with a few exceptions, each pinned by a test: a table you edit (or click into a cell of) is re-aligned as a whole when you leave it — alignment, cell text and escapes kept; table commands rewrite that table the same way; indenting a list item or pressing Enter in a numbered list renumbers the affected items; Enter in a list item drops trailing spaces before the cursor; a file with mixed line endings gets uniform ones once you edit it.
+
+The claim is about the file, so it holds when your host reads and writes the file with
+`openMarkdownFile` and `saveMarkdownFile`. The editor keeps the document as a string in `\n` with
+no BOM; these two keep what the string does not carry:
+
+```ts
+import { createEditorState, mountEditor, openMarkdownFile, saveMarkdownFile } from "@openmarkdown-dev/editor";
+
+const file = openMarkdownFile(bytes); // the file as read, a Uint8Array
+const editor = mountEditor(document.getElementById("editor")!, createEditorState({ doc: file.text }));
+
+const out = saveMarkdownFile(editor.getDoc(), file); // the bytes to write
+```
+
+- **Strict UTF-8.** Bytes that are not valid UTF-8 throw `InvalidUtf8Error` (its `code` is
+  `"INVALID_UTF8"`). Refuse to open the file: a lenient decode would replace the bad bytes with
+  U+FFFD, and the next save would write that damage to disk.
+- **Unedited, the original bytes.** While `editor.getDoc()` equals `file.text`, `saveMarkdownFile`
+  returns `file.bytes`: BOM, line endings (LF, CRLF, lone CR, or a mix of them), a missing final
+  newline and Unicode spelling exactly as they were.
+- **Edited, the file's conventions.** The BOM is written back if there was one, and every line
+  break is written as the file's dominant ending (`file.ending`: the most frequent one; on a tie,
+  the one that comes first). A file with mixed line endings gets uniform ones once you edit it.
+
+A host that does its own decoding has to keep the same three rules for the claim to hold. The
+OpenMarkdown app keeps them in its own (Rust) file layer. The
+[save-load example](https://openmarkdown.dev/editor/examples/) uses the two functions.
+
+## Check it yourself
+
+Run any Markdown file of yours through the package: open it, put it in an editor state, and save
+it without editing. Save this as `roundtrip.mjs` and run `node roundtrip.mjs notes.md`:
+
+```js roundtrip-check
+import { readFileSync } from "node:fs";
+import { createEditorState, openMarkdownFile, saveMarkdownFile } from "@openmarkdown-dev/editor";
+
+const bytes = readFileSync(process.argv[2]);
+const file = openMarkdownFile(bytes);
+const state = createEditorState({ doc: file.text }); // in the editor, no edits
+const saved = saveMarkdownFile(state.doc.toString(), file);
+
+console.log(Buffer.compare(bytes, saved) === 0 ? "byte-identical" : "changed");
+```
+
+For a UTF-8 file it prints `byte-identical` (other bytes throw `InvalidUtf8Error`, see above).
+The editor's own test suite runs this exact script on every test run
+(`src/editor/roundtripCheck.gate.test.ts` in the editor's repository), over a test file of valid
+but unusual Markdown (`fixtures/roundtrip/`: setext headings, `+` lists, reference links, odd
+YAML, unaligned tables, NFD Unicode, trailing spaces, tabs) and its CRLF, BOM, mixed line ending,
+lone CR and final newline variants.
+
+In a browser, the [live demo](https://openmarkdown.dev/editor/demo/) shows the same thing: its
+developer panel says `0 bytes changed` until you type.
+
+## What the exceptions look like
+
+Edit one cell of a table whose columns are not aligned, and the whole table is re-aligned. Column
+alignment colons, cell text and `\|` escapes are kept. This is the real diff from the comparison
+below, after changing `22` to `23`:
+
+```diff
+-| Left | Center | Right |
+-|:-----|:------:|------:|
+-| `a\|b` | pipe \| escaped | 1 |
+-|uneven|  cell | 23 |
++| Left   | Center          | Right |
++| :----- | :-------------: | ----: |
++| `a\|b` | pipe \| escaped | 1     |
++| uneven | cell            | 23    |
+```
+
+A table that is already aligned is left alone. Nothing else in the file moves.
+
+## Compared with other editors
+
+We opened the same 56-line Markdown file in six embeddable editors (their npm packages, in
+headless Chromium), saved it without editing, then changed one word and saved again:
+
+| Editor | Open → save, no edit | Change one word → save |
+| --- | --- | --- |
+| **@openmarkdown-dev/editor** (CodeMirror 6) | byte-identical | only that word changed |
+| **Atomic Editor** (CodeMirror 6) | byte-identical | only that word changed |
+| Milkdown Crepe (ProseMirror) | 13 of 22 tracked features changed | the same 30 changed lines, plus the word |
+| Toast UI Editor (ProseMirror) | 15 of 22 changed | the same changes, plus the word |
+| Tiptap + `@tiptap/markdown` (ProseMirror) | 17 of 22 changed | the same changes, plus the word |
+| MDXEditor (Lexical) | refused the file (reference links); 13 of 19 changed without them | the edit was lost on the full file |
+
+Atomic Editor ties with us here, because it is built the same way: the source is the document.
+The difference is with editors that rebuild Markdown from a tree. When we edited one table cell,
+both CodeMirror editors re-aligned that table. Ours kept the column alignment. Atomic's rewrote
+the delimiter row to `| --- |` and lost it.
+
+The method, an example diff, the run date and the caveats are on [the method page](https://openmarkdown.dev/editor/docs/fidelity/method/).
+
+# How we compared editors
+
+URL: https://openmarkdown.dev/editor/docs/fidelity/method/
+
+**Question:** if you open a Markdown file in an embeddable editor and save it, do you get your file
+back?
+
+**Run on 2026-11-04.** One test file (56 lines, 22 tracked features) went through six editors' npm
+packages in headless Chromium, and we diffed what each one would save. The results include ones
+that are bad for us; they are listed under [where OpenMarkdown did not win](#where-openmarkdown-did-not-win).
+
+## The editors
+
+| Editor | Package and version | Model | Configuration |
+| --- | --- | --- | --- |
+| OpenMarkdown | `@openmarkdown-dev/editor`, from source before its first npm release | CodeMirror 6, the source is the document | live-preview mode, no host |
+| Atomic Editor | `@atomic-editor/editor` 0.6.2 | CodeMirror 6, the source is the document | defaults |
+| Milkdown Crepe | `@milkdown/crepe` 7.22.3 | ProseMirror tree, serialized with remark | Crepe defaults (all features on) |
+| MDXEditor | `@mdxeditor/editor` 4.3.3 | Lexical tree, serialized with mdast | headings, lists, quote, thematic break, link, link dialog, table, frontmatter, code block, image, Markdown shortcuts |
+| Toast UI Editor | `@toast-ui/editor` 3.2.2 | ProseMirror tree, serialized with ToastMark | WYSIWYG mode, defaults otherwise |
+| Tiptap | `@tiptap/core` + `@tiptap/markdown` 3.32.0 | ProseMirror tree, serialized with marked | StarterKit + TableKit + Markdown |
+
+Every package was pinned to the newest release published at least two weeks before the run. All
+six ran from npm in one Vite project, one page per editor, each loaded with its own Markdown import
+and read back with its own export (`getDoc()` for OpenMarkdown, `getMarkdown()` for the others).
+No public demo page was used.
+
+## The tests
+
+1. **Open → save.** Load the file, wait two seconds, then export with no input at all.
+2. **One-word edit.** Double-click the word `quick` in a paragraph with a real mouse gesture, type
+   `slow`, and export. The expected output is the file with only that word replaced.
+3. **One table cell.** Click at the end of the cell `22`, press Backspace twice, type `23`, click
+   into a paragraph to leave the table, and export.
+
+**How a feature is scored.** Each of the 22 features is a verbatim snippet of the test file. A
+feature counts as "changed" when that exact snippet is missing from the export. Each change was then
+classified by reading the diff:
+
+- **rewritten**: the meaning is the same and the syntax is different;
+- **lost**: a GFM/CommonMark reader (or GitHub, for frontmatter and callouts) sees something
+  different when the saved file is reopened.
+
+## Results
+
+| Editor | Open → save, no edit | Change one word → save | Then edit one table cell |
+| --- | --- | --- | --- |
+| **OpenMarkdown** | byte-identical; 0 of 22 features changed | only the word changed | the whole table re-aligned (4 lines); alignment colons and `\|` kept |
+| **Atomic Editor** | byte-identical; 0 of 22 | only the word changed | 2 lines changed; the delimiter row became `\| --- \| --- \| --- \|`, so column alignment is lost |
+| Milkdown Crepe | 13 of 22 changed (2 lost, 11 rewritten); 30 diff lines | the same 30 lines plus the word | only the cell changed, in its already-rewritten table |
+| MDXEditor | refused the file: a reference link stopped its parser, and the edit never reached its export | edit lost | n/a |
+| MDXEditor, file without reference links | 13 of 19 changed (4 lost, 9 rewritten); 34 diff lines | the same plus the word | only the cell changed |
+| Toast UI Editor | 15 of 22 changed (8 lost, 7 rewritten); 40 diff lines | the same plus the word | only the cell changed |
+| Tiptap | 17 of 22 changed (3 lost, 14 rewritten); 41 diff lines | the same plus the word | only the cell changed |
+
+"Diff lines" counts the `+` and `-` lines of `diff -u`. For each tree-based editor, the one-word
+output is its open → save output with one word changed: a one-word edit saves the same 30 to 41
+changed lines that opening the file already caused.
+
+## Example diff
+
+Milkdown, open then save with no edit. The YAML frontmatter comes back as a horizontal rule and a
+heading:
+
+```diff
+----
++***
++
+ title: Round-trip corpus
+-tags: [a,b ,  c]
+----
++tags: \[a,b ,  c]
++-----------------
+```
+
+## Feature by feature (open → save)
+
+`kept` means the bytes are identical.
+
+| Feature (source) | OpenMarkdown | Atomic | Milkdown | MDXEditor¹ | Toast UI | Tiptap |
+| --- | --- | --- | --- | --- | --- | --- |
+| frontmatter `---`…`---` | kept | kept | lost: `***` + paragraph + setext h2 | kept | lost | lost: `---` + `## title: …` |
+| `*stars*` | kept | kept | kept | kept | kept | kept |
+| `_underscores_` | kept | kept | kept | rewritten `*…*` | rewritten `*…*` | rewritten `*…*` |
+| `__underscores__` | kept | kept | kept | rewritten `**…**` | rewritten `**…**` | rewritten `**…**` |
+| setext h1 (`====`) | kept | kept | rewritten `# …` | rewritten `# …` | rewritten, underline shortened | rewritten `# …` |
+| setext h2 (`----`) | kept | kept | rewritten `## …` | rewritten `## …` | rewritten `---` | rewritten `## …` |
+| table delimiter row | kept | kept | rewritten (padded) | rewritten (padded) | rewritten | rewritten (padded) |
+| table row with `` `a\|b` `` and `\|` | kept | kept | rewritten (padding; escapes kept) | rewritten (padding) | lost: the bare pipe splits the cell on reopen | rewritten (padding) |
+| unpadded table row | kept | kept | rewritten | rewritten | rewritten | rewritten |
+| `[the spec][spec]` | kept | kept | rewritten inline | refused | lost: never parsed as a link | rewritten inline |
+| `[Collapsed][]` | kept | kept | rewritten inline | refused | lost | rewritten inline |
+| link reference definitions | kept | kept | rewritten (deleted, inlined) | refused | lost | rewritten (deleted, inlined) |
+| `+` list marker | kept | kept | rewritten `*` | rewritten `*` | rewritten `*` | rewritten `-` |
+| `*` list marker | kept | kept | rewritten `-` | kept | kept | rewritten `-` |
+| two adjacent lists stay two | kept | kept | kept | lost: merged into one list | lost: one list on reopen | lost: one list on reopen |
+| ordered list starting at `3.` | kept | kept | kept | lost: renumbered `1.` | kept | kept |
+| backslash hard break `\` | kept | kept | kept | lost: soft break | lost: lines glued | rewritten as two trailing spaces |
+| trailing spaces (a hard break) | kept | kept | rewritten `\` | lost: soft break | lost: lines glued | rewritten (2 spaces) |
+| HTML block `<div align="center">` | kept | kept | kept | kept | lost: glued into the previous paragraph | lost: `**HTML block**` |
+| inline math `$E = mc^2$` | kept | kept | kept | rewritten `$E \= mc^2$` | kept | kept |
+| callout `> [!NOTE]` | kept | kept | lost: `> \[!NOTE]` | lost: `> \[!NOTE]` | kept | lost: `> \[!NOTE\]` |
+| CJK paragraph | kept | kept | kept | kept | kept | kept |
+| `\*not emphasis\*` | kept | kept | kept | kept | kept | kept |
+| final newline | kept | kept | kept | dropped | dropped | dropped |
+
+¹ MDXEditor values are from the run without the reference-link section. With the full file, it
+reports a parse error on the reference link and renders nothing after it.
+
+## Caveats
+
+- **Atomic Editor ties with us.** It is also built on CodeMirror and edits the text itself. The
+  split here is editing the text against editing a tree, not us against everyone.
+- **Table edits:** editing one cell in OpenMarkdown re-aligns that whole table (4 lines in this
+  file). Atomic changes 2 lines there, but drops the column alignment.
+- **The test file is ours.** It uses valid but less common syntax on purpose: setext headings, `+`
+  lists, reference links. A file written in one canonical style (ATX headings, `-` lists, `**`,
+  padded tables) loses much less in a tree editor. A fair summary is "tree editors normalize your
+  style and lose some constructs", not "they corrupt everything".
+- **Configuration matters.** Each tree-based editor can be extended with more plugins; some
+  community plugins (frontmatter, for example) could fix some rows. Rewriting `_` / `__`, setext
+  headings, list markers and table padding is a property of serializing a tree, not a missing
+  plugin.
+- **"Lost"** means a Markdown reader sees something different when the saved file is reopened;
+  **"changed"** includes harmless rewrites like `_a_` to `*a*`.
+- **One run per editor, in headless Chromium.** Results were identical across every run made while
+  building the test (six full runs).
+- **Single gestures.** The edit tests do not cover typing-heavy sessions, paste, undo or IME input.
+- **The editor alone.** OpenMarkdown was run from its source before the first npm release. The
+  app's disk layer (BOM, CRLF) is not involved for this LF, BOM-less file; the editor's own
+  fidelity tests cover it separately.
+
+## Where OpenMarkdown did not win
+
+- **The tie with Atomic Editor** on open → save and on a prose edit. Do not read these results as
+  "the one editor that keeps your file".
+- **Table edits** rewrite more bytes than Atomic's (4 lines against 2), by design.
+- **`\|` inside inline code in a table** displays as `a\|b` in OpenMarkdown. GFM reads that cell as
+  `a|b`, and Milkdown, MDXEditor and Toast UI display it that way. The bytes are kept, but the
+  display is wrong.
+- **Double-click inside a table cell** first opens the cell editor and places the caret, where the
+  other editors select the word. The table test uses click and Backspace for each editor, so the
+  numbers above are not affected, but a user would notice it.
+
+The round-trip test file and the test that runs it are in the editor's repository
+(`fixtures/roundtrip/`, `src/editor/roundtripCheck.gate.test.ts`). The comparison harness and its
+per-feature results are not public yet.
+
+# API reference
+
+URL: https://openmarkdown.dev/editor/docs/api/
+
+## Classes
+
+- [InvalidUtf8Error](https://openmarkdown.dev/editor/docs/api/classes/invalidutf8error/)
+
+## Interfaces
+
+- [EditorEnvironment](https://openmarkdown.dev/editor/docs/api/interfaces/editorenvironment/)
+- [EditorHost](https://openmarkdown.dev/editor/docs/api/interfaces/editorhost/)
+- [EditorStateOptions](https://openmarkdown.dev/editor/docs/api/interfaces/editorstateoptions/)
+- [MarkdownEditor](https://openmarkdown.dev/editor/docs/api/interfaces/markdowneditor/)
+- [MarkdownFile](https://openmarkdown.dev/editor/docs/api/interfaces/markdownfile/)
+- [SpellMiss](https://openmarkdown.dev/editor/docs/api/interfaces/spellmiss/)
+- [SpellService](https://openmarkdown.dev/editor/docs/api/interfaces/spellservice/)
+
+## Type Aliases
+
+- [ColorScheme](https://openmarkdown.dev/editor/docs/api/type-aliases/colorscheme/)
+- [EditorLang](https://openmarkdown.dev/editor/docs/api/type-aliases/editorlang/)
+- [EditorMode](https://openmarkdown.dev/editor/docs/api/type-aliases/editormode/)
+- [LineEnding](https://openmarkdown.dev/editor/docs/api/type-aliases/lineending/)
+- [OutlineItem](https://openmarkdown.dev/editor/docs/api/type-aliases/outlineitem/)
+
+## Functions
+
+- [configureEditorEnvironment](https://openmarkdown.dev/editor/docs/api/functions/configureeditorenvironment/)
+- [createEditorState](https://openmarkdown.dev/editor/docs/api/functions/createeditorstate/)
+- [mountEditor](https://openmarkdown.dev/editor/docs/api/functions/mounteditor/)
+- [openMarkdownFile](https://openmarkdown.dev/editor/docs/api/functions/openmarkdownfile/)
+- [saveMarkdownFile](https://openmarkdown.dev/editor/docs/api/functions/savemarkdownfile/)
+
+# InvalidUtf8Error
+
+URL: https://openmarkdown.dev/editor/docs/api/classes/invalidutf8error/
+
+Thrown by `openMarkdownFile` when the bytes are not valid UTF-8. Refuse to
+open the file in the editor: decoding it anyway would replace the bad bytes
+with U+FFFD, and the next save would write that damage to disk. Recognise it
+with `instanceof`, or by `code` (`"INVALID_UTF8"`) across bundles.
+
+## Extends
+
+- `Error`
+
+## Constructors
+
+### Constructor
+
+> **new InvalidUtf8Error**(`options?`): `InvalidUtf8Error`
+
+#### Parameters
+
+##### options?
+
+###### cause?
+
+`unknown`
+
+The decoder's own error.
+
+#### Returns
+
+`InvalidUtf8Error`
+
+#### Overrides
+
+`Error.constructor`
+
+## Properties
+
+### cause?
+
+> `optional` **cause?**: `unknown`
+
+#### Inherited from
+
+`Error.cause`
+
+***
+
+### code
+
+> `readonly` **code**: `"INVALID_UTF8"` = `"INVALID_UTF8"`
+
+Always `"INVALID_UTF8"`.
+
+***
+
+### message
+
+> **message**: `string`
+
+#### Inherited from
+
+`Error.message`
+
+***
+
+### name
+
+> **name**: `string`
+
+#### Inherited from
+
+`Error.name`
+
+***
+
+### stack?
+
+> `optional` **stack?**: `string`
+
+#### Inherited from
+
+`Error.stack`
+
+***
+
+### stackTraceLimit
+
+> `static` **stackTraceLimit**: `number`
+
+The `Error.stackTraceLimit` property specifies the number of stack frames
+collected by a stack trace (whether generated by `new Error().stack` or
+`Error.captureStackTrace(obj)`).
+
+The default value is `10` but may be set to any valid JavaScript number. Changes
+will affect any stack trace captured _after_ the value has been changed.
+
+If set to a non-number value, or set to a negative number, stack traces will
+not capture any frames.
+
+#### Inherited from
+
+`Error.stackTraceLimit`
+
+## Methods
+
+### captureStackTrace()
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Creates a `.stack` property on `targetObject`, which when accessed returns
+a string representing the location in the code at which
+`Error.captureStackTrace()` was called.
+
+```js
+const myObject = {};
+Error.captureStackTrace(myObject);
+myObject.stack;  // Similar to `new Error().stack`
+```
+
+The first line of the trace will be prefixed with
+`${myObject.name}: ${myObject.message}`.
+
+The optional `constructorOpt` argument accepts a function. If given, all frames
+above `constructorOpt`, including `constructorOpt`, will be omitted from the
+generated stack trace.
+
+The `constructorOpt` argument is useful for hiding implementation
+details of error generation from the user. For instance:
+
+```js
+function a() {
+  b();
+}
+
+function b() {
+  c();
+}
+
+function c() {
+  // Create an error without stack trace to avoid calculating the stack trace twice.
+  const { stackTraceLimit } = Error;
+  Error.stackTraceLimit = 0;
+  const error = new Error();
+  Error.stackTraceLimit = stackTraceLimit;
+
+  // Capture the stack trace above function b
+  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace
+  throw error;
+}
+
+a();
+```
+
+#### Parameters
+
+##### targetObject
+
+`object`
+
+##### constructorOpt?
+
+`Function`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`Error.captureStackTrace`
+
+***
+
+### prepareStackTrace()
+
+> `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
+
+#### Parameters
+
+##### err
+
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
+
+#### Returns
+
+`any`
+
+#### See
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+
+#### Inherited from
+
+`Error.prepareStackTrace`
+
+# configureEditorEnvironment
+
+URL: https://openmarkdown.dev/editor/docs/api/functions/configureeditorenvironment/
+
+> **configureEditorEnvironment**(`env`): `void`
+
+Provide the window-wide capabilities (`EditorEnvironment`). Call once at
+startup, before the first editor mounts; a later call replaces the whole
+environment. Optional: without it the editor is light, English, and has no
+clipboard, external-link, spelling or host-key behaviour.
+
+## Parameters
+
+### env
+
+[`EditorEnvironment`](https://openmarkdown.dev/editor/docs/api/interfaces/editorenvironment/)
+
+## Returns
+
+`void`
+
+# createEditorState
+
+URL: https://openmarkdown.dev/editor/docs/api/functions/createeditorstate/
+
+> **createEditorState**(`options`): `EditorState`
+
+Build an editor state: the document, caret, undo history, folds and mode,
+with the whole editor (live preview, structure keys, find, folding, tables,
+math, diagrams) installed. Show it with `mountEditor`; a host with several
+documents keeps one state per document and swaps them into one view
+(`editor.view.setState(state)`, then `editor.syncAmbient()`).
+
+## Parameters
+
+### options
+
+[`EditorStateOptions`](https://openmarkdown.dev/editor/docs/api/interfaces/editorstateoptions/)
+
+## Returns
+
+`EditorState`
+
+# mountEditor
+
+URL: https://openmarkdown.dev/editor/docs/api/functions/mounteditor/
+
+> **mountEditor**(`parent`, `state`): [`MarkdownEditor`](https://openmarkdown.dev/editor/docs/api/interfaces/markdowneditor/)
+
+Mount `state` (from `createEditorState`) in a new editor view appended to
+`parent`, following the environment's color scheme while it lives. Returns
+the editor handle; call its `destroy` when done.
+
+## Parameters
+
+### parent
+
+`HTMLElement`
+
+### state
+
+`EditorState`
+
+## Returns
+
+[`MarkdownEditor`](https://openmarkdown.dev/editor/docs/api/interfaces/markdowneditor/)
+
+# openMarkdownFile
+
+URL: https://openmarkdown.dev/editor/docs/api/functions/openmarkdownfile/
+
+> **openMarkdownFile**(`bytes`): [`MarkdownFile`](https://openmarkdown.dev/editor/docs/api/interfaces/markdownfile/)
+
+Open a Markdown file's bytes for the editor. Decodes strict UTF-8 (invalid
+bytes throw `InvalidUtf8Error`; nothing is replaced), notes and strips a
+leading BOM, detects the line endings (LF, CRLF, lone CR, or a mix) and turns
+them into `\n`, and keeps a copy of the original bytes. Save with
+`saveMarkdownFile`.
+
+## Parameters
+
+### bytes
+
+`Uint8Array`
+
+The file as read from disk, a network response or a file input.
+
+## Returns
+
+[`MarkdownFile`](https://openmarkdown.dev/editor/docs/api/interfaces/markdownfile/)
+
+The text to edit, and what saving needs to write the file back.
+
+## Throws
+
+InvalidUtf8Error when `bytes` is not valid UTF-8.
+
+# saveMarkdownFile
+
+URL: https://openmarkdown.dev/editor/docs/api/functions/savemarkdownfile/
+
+> **saveMarkdownFile**(`doc`, `file`): `Uint8Array`
+
+The bytes to write for the editor's document. Unedited (`doc` equals
+`file.text`), they are the original bytes, exactly. Edited, they are `doc`
+encoded as UTF-8 with the file's BOM put back and every line break written
+as `file.ending`; a file with mixed line endings gets uniform ones.
+
+## Parameters
+
+### doc
+
+`string`
+
+The document to save, usually `editor.getDoc()`.
+
+### file
+
+[`MarkdownFile`](https://openmarkdown.dev/editor/docs/api/interfaces/markdownfile/)
+
+What `openMarkdownFile` returned for this file.
+
+## Returns
+
+`Uint8Array`
+
+The file's bytes.
+
+# EditorEnvironment
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/editorenvironment/
+
+The editor environment: window-wide capabilities the host provides once per
+page with `configureEditorEnvironment`. Per-document needs go through
+`EditorHost` instead.
+
+Every member is optional: what the host leaves out is switched off quietly —
+no error, no notice, no fallback of the editor's own. An editor mounted with
+no environment configured at all is light, English, editable, and has no
+copy, external-link, spelling or host-key behaviour.
+
+## Properties
+
+### colorScheme?
+
+> `optional` **colorScheme?**: `object`
+
+The window's light / dark scheme: its value now, and a subscription to changes (returns the unsubscribe).
+
+#### current()
+
+> **current**(): [`ColorScheme`](https://openmarkdown.dev/editor/docs/api/type-aliases/colorscheme/)
+
+##### Returns
+
+[`ColorScheme`](https://openmarkdown.dev/editor/docs/api/type-aliases/colorscheme/)
+
+#### subscribe()
+
+> **subscribe**(`cb`): () => `void`
+
+##### Parameters
+
+###### cb
+
+(`scheme`) => `void`
+
+##### Returns
+
+() => `void`
+
+***
+
+### copyText?
+
+> `optional` **copyText?**: (`text`) => `unknown`
+
+Put `text` on the clipboard (code-block copy button). The host reports success / failure itself.
+
+#### Parameters
+
+##### text
+
+`string`
+
+#### Returns
+
+`unknown`
+
+***
+
+### handleKey?
+
+> `optional` **handleKey?**: (`view`, `event`) => `boolean`
+
+Offered every key the editor's keymap sees, before CodeMirror's defaults:
+return true when the host ran a binding for it (the key is consumed).
+
+#### Parameters
+
+##### view
+
+`EditorView`
+
+##### event
+
+`KeyboardEvent`
+
+#### Returns
+
+`boolean`
+
+***
+
+### language?
+
+> `optional` **language?**: `"zh"` \| `"ja"` \| `"ko"` \| `"en"`
+
+The language of the editor's own UI words. Read whenever a word is drawn,
+so set it before the first editor mounts; already-drawn words do not redraw
+on a change. Left out, or not one the editor ships: English.
+
+***
+
+### openExternal?
+
+> `optional` **openExternal?**: (`url`) => `unknown`
+
+Open an external (non-file) link target, e.g. Cmd/Ctrl+click on `https://…`. The host owns the policy.
+
+#### Parameters
+
+##### url
+
+`string`
+
+#### Returns
+
+`unknown`
+
+***
+
+### refusedLink?
+
+> `optional` **refusedLink?**: (`url`, `scheme`) => `unknown`
+
+The editor refused to follow a script-capable link (`javascript:` /
+`vbscript:` / `data:` …, however obfuscated); `scheme` is the
+scheme as a browser reads it. For telling the user only: the URL MUST NOT
+be opened. Absent: the refusal is silent.
+
+#### Parameters
+
+##### url
+
+`string`
+
+##### scheme
+
+`string`
+
+#### Returns
+
+`unknown`
+
+***
+
+### spell?
+
+> `optional` **spell?**: [`SpellService`](https://openmarkdown.dev/editor/docs/api/interfaces/spellservice/)
+
+The spell-checking service behind the editor's own squiggles and suggestions. Absent: no spell checking.
+
+# EditorHost
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/editorhost/
+
+What the editor calls back into, per document: pass it as `host` to
+`createEditorState`. The editor reads each member through the object when it
+needs it, so you can change the object later without rebuilding the state.
+
+Every member is optional: a capability the host does not provide is switched
+off quietly (no error, no notice) and the rest of the editor carries on.
+Window-wide capabilities live in the editor environment
+(`configureEditorEnvironment`).
+
+## Properties
+
+### getFolder?
+
+> `optional` **getFolder?**: () => `string` \| `null`
+
+The root folder of the user's files, for link-target completion. A getter,
+read each time completion opens. Null, or absent: completion uses the
+document's own directory.
+
+#### Returns
+
+`string` \| `null`
+
+***
+
+### listFiles?
+
+> `optional` **listFiles?**: (`root`) => `Promise`\<`string`[]\>
+
+The linkable files under `root`, as root-relative paths (link-target
+completion). Absent: file completion offers nothing; heading completion is
+unaffected.
+
+#### Parameters
+
+##### root
+
+`string`
+
+#### Returns
+
+`Promise`\<`string`[]\>
+
+***
+
+### onChange?
+
+> `optional` **onChange?**: (`doc`, `isUserEdit`, `docPath`) => `void`
+
+The document changed; `doc` is the whole new source. `isUserEdit` is true for
+typing, pasting and other user actions, false for programmatic changes
+(`setDoc`). `docPath` is the document the change happened in, so a host that
+swaps documents can drop a change for one that is no longer shown.
+
+#### Parameters
+
+##### doc
+
+`string`
+
+##### isUserEdit
+
+`boolean`
+
+##### docPath
+
+`string` \| `null`
+
+#### Returns
+
+`void`
+
+***
+
+### onMoved?
+
+> `optional` **onMoved?**: () => `void`
+
+The selection, scroll position or document moved (debounced); use it to remember the position.
+
+#### Returns
+
+`void`
+
+***
+
+### onOutline?
+
+> `optional` **onOutline?**: (`outline`) => `void`
+
+The heading outline changed; null when the view is going away (clear yours).
+
+#### Parameters
+
+##### outline
+
+`Heading`[] \| `null`
+
+#### Returns
+
+`void`
+
+***
+
+### onUnsupportedPaste?
+
+> `optional` **onUnsupportedPaste?**: (`reason`, `count`) => `void`
+
+Images were pasted or dropped but could not be stored, so nothing was
+inserted: `reason` is `"no-save-attachment"` (no `saveAttachment`) or
+`"no-doc-path"` (the document has no path to store them beside); `count` is
+how many images. Only a notice — the editor itself stays silent and the
+document is unchanged. Use it to tell the user. Absent: nothing happens.
+
+#### Parameters
+
+##### reason
+
+`"no-save-attachment"` \| `"no-doc-path"`
+
+##### count
+
+`number`
+
+#### Returns
+
+`void`
+
+***
+
+### openLink?
+
+> `optional` **openLink?**: (`absPath`, `fragment`) => `void`
+
+A link to a local file was followed (Cmd/Ctrl+click; a plain click in reading
+mode): `absPath` is the target resolved against the document's directory, and
+`fragment` its decoded `#fragment` without the `#` (`other.md#setup` →
+`"setup"`), or null. The host decides whether the file exists, how to open it
+and whether to go to the fragment. Absent: local links do nothing.
+
+#### Parameters
+
+##### absPath
+
+`string`
+
+##### fragment
+
+`string` \| `null`
+
+#### Returns
+
+`void`
+
+***
+
+### resolveImage?
+
+> `optional` **resolveImage?**: (`src`) => `string` \| `null`
+
+Map an image target as written (`![](src)`) to a URL the page may load, or
+null to show the source instead. Script-capable URLs are dropped whatever
+this returns. Absent: only absolute `https:` images load. It may be called
+more than once for the same image, so keep it free of side effects; when its
+answer changes, call `editor.refreshImages()`.
+
+#### Parameters
+
+##### src
+
+`string`
+
+#### Returns
+
+`string` \| `null`
+
+***
+
+### saveAttachment?
+
+> `optional` **saveAttachment?**: (`docPath`, `bytes`, `hint`) => `Promise`\<`string` \| `null`\>
+
+Store pasted / dropped image bytes beside `docPath`. `hint` is the file's
+name, or its MIME type. Resolves the document-relative path to link, or null
+when the save failed (report it yourself); then the editor inserts nothing.
+Only called when the document has a path.
+Absent: image paste / drop stores nothing and inserts nothing.
+
+#### Parameters
+
+##### docPath
+
+`string`
+
+##### bytes
+
+`Uint8Array`
+
+##### hint
+
+`string` \| `null`
+
+#### Returns
+
+`Promise`\<`string` \| `null`\>
+
+# EditorStateOptions
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/editorstateoptions/
+
+What a new editor state starts with (`createEditorState`). Every field is optional.
+
+## Properties
+
+### checkSpelling?
+
+> `optional` **checkSpelling?**: `boolean`
+
+Draw spelling squiggles when the environment's spell service is on. Turn it
+off for an editor where a squiggle could not be fixed. Default true.
+
+***
+
+### diagrams?
+
+> `optional` **diagrams?**: `boolean`
+
+Render ```` ```mermaid ```` fences as diagrams. With `false`, they show as
+ordinary code blocks and Mermaid is never loaded — for a page that must not
+download it, or whose Content Security Policy cannot allow Mermaid's inline
+styles (see the self-hosting guide). Default true. Ignored by the
+`@openmarkdown-dev/editor/no-diagrams` entry, which never renders diagrams
+and does not contain Mermaid at all.
+
+***
+
+### doc?
+
+> `optional` **doc?**: `string`
+
+The Markdown source to edit. Default: the empty document.
+
+***
+
+### docPath?
+
+> `optional` **docPath?**: `string` \| `null`
+
+The document's absolute path, or null for an unsaved one. Relative links and images resolve against it, and pasted images are stored beside it. Default: null.
+
+***
+
+### extensions?
+
+> `optional` **extensions?**: `Extension`
+
+Your own CodeMirror extensions, installed in this state beside the editor's.
+They stay installed in every mode and travel with the state.
+
+***
+
+### host?
+
+> `optional` **host?**: [`EditorHost`](https://openmarkdown.dev/editor/docs/api/interfaces/editorhost/)
+
+The per-document callbacks (change, links, images, attachments, completion, outline). Default: none.
+
+***
+
+### mode?
+
+> `optional` **mode?**: [`EditorMode`](https://openmarkdown.dev/editor/docs/api/type-aliases/editormode/)
+
+Live preview (default), plain source, or read-only reading mode.
+
+***
+
+### selection?
+
+> `optional` **selection?**: `object`
+
+Where the caret starts (UTF-16 offsets into `doc`). Default: the start of the document.
+
+#### anchor
+
+> **anchor**: `number`
+
+#### head?
+
+> `optional` **head?**: `number`
+
+# MarkdownEditor
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/markdowneditor/
+
+A mounted editor (`mountEditor`): the CodeMirror view plus the operations a
+host needs. Call `destroy` when the editor leaves the page.
+
+## Properties
+
+### view
+
+> **view**: `EditorView`
+
+The underlying CodeMirror view — the escape hatch for anything not covered here.
+
+## Methods
+
+### destroy()
+
+> **destroy**(): `void`
+
+Tear the view down and drop the color-scheme subscription.
+
+#### Returns
+
+`void`
+
+***
+
+### docPath()
+
+> **docPath**(): `string` \| `null`
+
+The shown state's document path, or null for an unsaved document (it travels with the state).
+
+#### Returns
+
+`string` \| `null`
+
+***
+
+### getDoc()
+
+> **getDoc**(): `string`
+
+The current Markdown source, byte for byte what is being edited.
+
+#### Returns
+
+`string`
+
+***
+
+### mode()
+
+> **mode**(): [`EditorMode`](https://openmarkdown.dev/editor/docs/api/type-aliases/editormode/)
+
+The shown state's mode (it travels with the state).
+
+#### Returns
+
+[`EditorMode`](https://openmarkdown.dev/editor/docs/api/type-aliases/editormode/)
+
+***
+
+### refreshImages()
+
+> **refreshImages**(): `void`
+
+Ask the host's `resolveImage` again for every image, after its answer
+changed (the reader allowed remote images, say). An image that resolved to
+null showed its source; it now shows the picture if the new answer is a URL.
+
+#### Returns
+
+`void`
+
+***
+
+### setDoc()
+
+> **setDoc**(`doc`): `void`
+
+Make `doc` the document, for example after the file changed on disk. Only
+the range that differs is replaced, so the scroll position, selection and
+folds outside it stay where they were (an agent appending a line does not
+move the reader). The same text does nothing. Not an undo step, and not a
+user edit: `onChange` reports it with `isUserEdit` false.
+
+#### Parameters
+
+##### doc
+
+`string`
+
+#### Returns
+
+`void`
+
+***
+
+### setDocPath()
+
+> **setDocPath**(`path`): `void`
+
+The shown state's document moved (rename) or was given a path (empty state → note).
+
+#### Parameters
+
+##### path
+
+`string` \| `null`
+
+#### Returns
+
+`void`
+
+***
+
+### setMode()
+
+> **setMode**(`mode`): `void`
+
+Switch between live preview, source and reading mode; document, selection and history are kept.
+
+#### Parameters
+
+##### mode
+
+[`EditorMode`](https://openmarkdown.dev/editor/docs/api/type-aliases/editormode/)
+
+#### Returns
+
+`void`
+
+***
+
+### syncAmbient()
+
+> **syncAmbient**(): `void`
+
+After swapping a state in (`editor.view.setState(state)`): bring what is the
+window's, not the document's — the light / dark half of CodeMirror's base
+theme — in line with now. A parked state kept the value it had when it left.
+
+#### Returns
+
+`void`
+
+# MarkdownFile
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/markdownfile/
+
+A Markdown file opened with `openMarkdownFile`: the text to give the editor,
+plus what `saveMarkdownFile` needs to write it back.
+
+## Properties
+
+### bom
+
+> **bom**: `boolean`
+
+Whether the file started with a UTF-8 BOM (`EF BB BF`). An edited save writes it back.
+
+***
+
+### bytes
+
+> **bytes**: `Uint8Array`
+
+The file's original bytes (a copy of what was passed in).
+`saveMarkdownFile` returns them as they are while the text is unedited.
+
+***
+
+### ending
+
+> **ending**: [`LineEnding`](https://openmarkdown.dev/editor/docs/api/type-aliases/lineending/)
+
+The line ending an edited save writes: the file's most frequent one; on a
+tie, the one that comes first in the file. `"\n"` for a file with no line
+break.
+
+***
+
+### mixed
+
+> **mixed**: `boolean`
+
+Whether the file mixes line endings (two or more of LF, CRLF and lone CR).
+Unedited, it is saved as its original bytes, mix included; once edited,
+every line break is written as `ending`.
+
+***
+
+### text
+
+> **text**: `string`
+
+The text to edit: the file decoded as UTF-8, without a leading BOM, with
+every line ending turned into `\n`. Pass it as `doc` to `createEditorState`
+(or to `editor.setDoc`). Unicode is kept as written: nothing is normalized.
+
+# SpellMiss
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/spellmiss/
+
+One misspelling, UTF-16 offsets into the paragraph that was sent.
+
+## Properties
+
+### from
+
+> **from**: `number`
+
+***
+
+### to
+
+> **to**: `number`
+
+# SpellService
+
+URL: https://openmarkdown.dev/editor/docs/api/interfaces/spellservice/
+
+A spell checker keyed by "spell document" numbers (one per top-level editor,
+so the checker can keep per-editor ignore lists).
+
+## Methods
+
+### check()
+
+> **check**(`doc`, `paragraphs`): `Promise`\<[`SpellMiss`](https://openmarkdown.dev/editor/docs/api/interfaces/spellmiss/)[][] \| `null`\>
+
+Misspellings for each paragraph, in order; null when the check could not run.
+
+#### Parameters
+
+##### doc
+
+`number`
+
+##### paragraphs
+
+`string`[]
+
+#### Returns
+
+`Promise`\<[`SpellMiss`](https://openmarkdown.dev/editor/docs/api/interfaces/spellmiss/)[][] \| `null`\>
+
+***
+
+### closeDocument()
+
+> **closeDocument**(`doc`): `void`
+
+The editor of `doc` is gone.
+
+#### Parameters
+
+##### doc
+
+`number`
+
+#### Returns
+
+`void`
+
+***
+
+### isOn()
+
+> **isOn**(): `boolean`
+
+Is spell checking on right now?
+
+#### Returns
+
+`boolean`
+
+***
+
+### newDocument()
+
+> **newDocument**(): `number`
+
+A fresh spell-document number for a top-level editor.
+
+#### Returns
+
+`number`
+
+***
+
+### onChange()
+
+> **onChange**(`cb`): () => `void`
+
+Follow the on / off state; returns the unsubscribe.
+
+#### Parameters
+
+##### cb
+
+(`on`) => `void`
+
+#### Returns
+
+() => `void`
+
+***
+
+### suggestions()
+
+> **suggestions**(`doc`, `paragraph`, `from`, `to`): `Promise`\<`string`[]\>
+
+Up to five suggestions for `paragraph.slice(from, to)`, in the checker's order.
+
+#### Parameters
+
+##### doc
+
+`number`
+
+##### paragraph
+
+`string`
+
+##### from
+
+`number`
+
+##### to
+
+`number`
+
+#### Returns
+
+`Promise`\<`string`[]\>
+
+# ColorScheme
+
+URL: https://openmarkdown.dev/editor/docs/api/type-aliases/colorscheme/
+
+> **ColorScheme** = `"light"` \| `"dark"`
+
+The editor's light or dark look; it follows `EditorEnvironment.colorScheme`.
+
+# EditorLang
+
+URL: https://openmarkdown.dev/editor/docs/api/type-aliases/editorlang/
+
+> **EditorLang** = *typeof* `EDITOR_LANGS`\[`number`\]
+
+A language the editor's own UI words ship in (`EditorEnvironment.language`).
+
+# EditorMode
+
+URL: https://openmarkdown.dev/editor/docs/api/type-aliases/editormode/
+
+> **EditorMode** = `"live"` \| `"source"` \| `"reading"`
+
+How the editor shows the document: `live` renders Markdown in place and
+reveals the source under the caret; `source` is the plain text, colored;
+`reading` is rendered and read-only.
+
+# LineEnding
+
+URL: https://openmarkdown.dev/editor/docs/api/type-aliases/lineending/
+
+> **LineEnding** = "\\n" \| "\\r\\n" \| "\\r"
+
+A line ending as it appears in the file: LF, CRLF, or a lone CR.
+
+# OutlineItem
+
+URL: https://openmarkdown.dev/editor/docs/api/type-aliases/outlineitem/
+
+> **OutlineItem** = `Heading`
+
+One heading of the document, as `EditorHost.onOutline` reports it: its text,
+level, line range and offsets.

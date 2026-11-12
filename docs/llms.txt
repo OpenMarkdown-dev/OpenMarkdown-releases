@@ -50,6 +50,9 @@ Honest comparisons with the editors people already use: where each one wins, and
 - [OpenMarkdown vs Apple Notes](https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes.md)
 - [OpenMarkdown vs VS Code](https://openmarkdown.dev/compare/openmarkdown-vs-vscode.md)
 
+## Editor
+- [OpenMarkdown Editor](https://openmarkdown.dev/editor/llms.txt): `@openmarkdown-dev/editor`, the live-preview Markdown editor inside the app as an MIT library for your own web app. It edits the Markdown source text itself, for a lossless round-trip: open and save without editing, and the file is byte-for-byte what it was. Its own llms.txt has the install command, minimal usage, docs, examples and API reference.
+
 ## Optional
 - [Home](https://openmarkdown.dev/index.md): product overview.
 - [Issues](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/issues): bug reports and requests.

@@ -2,6 +2,13 @@
 
 What changed in each release, newest first. Download the latest from the [home page](/#download).
 
+## 0.16.0
+
+Diagrams in your notes, and notes you can share
+- Mermaid code blocks now draw as diagrams
+- Export a note as one HTML, PDF on macOS
+- Share through the macOS share sheet
+
 ## 0.15.6
 
 The window comes to the desktop you're on
