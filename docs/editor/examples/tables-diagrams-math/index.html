@@ -211,5 +211,25 @@ mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ do
   </footer>
   <!-- END site-footer -->
 
+  <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+  })();
+  </script>
 </body>
 </html>

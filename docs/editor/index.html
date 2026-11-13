@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Contract: openspec editor-site (编辑器首页以动图说明优势). Build output lands in
        site/editor/ (git-ignored); source is this file. Markers are filled at build
-       time by src/editorSite/siteBuild.ts; nav, footer, favicons and chrome.css are
+       time by src/editorSite/siteBuild.ts; nav, footer, analytics loader, favicons and chrome.css are
        injected by vite.editor-site.config.ts from the site-chrome source.
        The home page does NOT mount the editor (design D1): the live editor is on
        /editor/demo/. Body text stays under 120 words (page.gate.test.ts). -->
@@ -209,20 +209,36 @@
   </footer>
   <!-- END site-footer -->
 
-  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner), the same
-       snippet as every site page. Production host ONLY. Contract: openspec
-       landing-page-analytics + editor-site. Events: editor-copy-<install|script>
-       when a code block is copied, and the data-event links. -->
+  <!-- This page's analytics events (cookieless, no PII). The loader itself is
+       injected before   <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
   <script>
   (function () {
     'use strict';
     if (location.hostname !== 'openmarkdown.dev') return;
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
     var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
     var s = document.createElement('script');
     s.async = true;
     s.setAttribute('data-goatcounter', ENDPOINT);
     s.src = 'https://gc.zgo.at/count.js';
     document.head.appendChild(s);
+  })();
+  </script>
+</body> by vite.editor-site.config.ts from
+       site-chrome/analytics.html, the same one every site page carries.
+       Production host ONLY. Contract: openspec landing-page-analytics +
+       editor-site. Events: editor-copy-<install|script> when a code block is
+       copied, and the data-event links. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
     var count = function (path) {
       var g = window.goatcounter;
       if (g && g.count) g.count({ path: path, event: true });

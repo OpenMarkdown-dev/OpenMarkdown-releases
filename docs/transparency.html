@@ -211,26 +211,37 @@ export VISUAL="openmd --wait --source claude"
   })();
   </script>
 
-  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
-       Production host ONLY — file:// / localhost / previews make zero external
-       requests. Contract: openspec landing-page-analytics + landing-page.
+  <!-- BEGIN site-analytics (generated — do not edit) -->
+  <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+  })();
+  </script>
+  <!-- END site-analytics -->
+  <!-- This page's analytics events (the loader is the generated block above).
+       Production host ONLY, like the loader; they read window.goatcounter when
+       they fire. Contract: openspec landing-page-analytics + landing-page.
        Shared chrome: identical to index.html (authoritative). -->
   <script>
   (function () {
     'use strict';
     // Gate to the deployed host so local opens stay request-free (design D2).
     if (location.hostname !== 'openmarkdown.dev') return;
-    // count endpoint — the single migration point when moving to a self-hosted
-    // GoatCounter (design D5). Registered GoatCounter site code: openmarkdown.
-    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
-    var s = document.createElement('script');
-    s.async = true;
-    s.setAttribute('data-goatcounter', ENDPOINT);
-    // count.js is served from GoatCounter's shared CDN; the per-site subdomain
-    // path (…goatcounter.com/count.js) 404s. Beacons still go to ENDPOINT via
-    // the data-goatcounter attribute. Self-hosting later: point both here.
-    s.src = 'https://gc.zgo.at/count.js';
-    document.head.appendChild(s);
     // Download + outbound clicks as custom events; never block navigation (D4).
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('a[href]') : null;

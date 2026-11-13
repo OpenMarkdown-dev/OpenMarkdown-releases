@@ -1,4 +1,18 @@
-<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-g5ptsecz"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>How we compared editors | OpenMarkdown Editor Docs</title><link rel="canonical" href="https://openmarkdown.dev/editor/docs/fidelity/method/"/><link rel="sitemap" href="/editor/docs/sitemap-index.xml"/><link rel="stylesheet" href="/assets/chrome.css"/><script>(function(){if(location.hostname!=='openmarkdown.dev')return;var s=document.createElement('script');s.async=true;s.setAttribute('data-goatcounter','https://openmarkdown.goatcounter.com/count');s.src='https://gc.zgo.at/count.js';document.head.appendChild(s);})();</script><link rel="shortcut icon" href="/editor/docs/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.3.8"/><meta name="generator" content="Starlight v0.42.6"/><meta property="og:title" content="How we compared editors"/><meta property="og:type" content="article"/><meta property="og:url" content="https://openmarkdown.dev/editor/docs/fidelity/method/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Question: if you open a Markdown file in an embeddable editor and save it, do you get your file back?"/><meta property="og:site_name" content="OpenMarkdown Editor Docs"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Question: if you open a Markdown file in an embeddable editor and save it, do you get your file back?"/><script>
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-g5ptsecz"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>How we compared editors | OpenMarkdown Editor Docs</title><link rel="canonical" href="https://openmarkdown.dev/editor/docs/fidelity/method/"/><link rel="sitemap" href="/editor/docs/sitemap-index.xml"/><link rel="stylesheet" href="/assets/chrome.css"/><script>(function () {
+  'use strict';
+  if (location.hostname !== 'openmarkdown.dev') return;
+  var TEST_PATHS = ['/agent-smoke-test'];
+  window.goatcounter = window.goatcounter || {};
+  window.goatcounter.path = function (p) {
+    return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+  };
+  var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+  var s = document.createElement('script');
+  s.async = true;
+  s.setAttribute('data-goatcounter', ENDPOINT);
+  s.src = 'https://gc.zgo.at/count.js';
+  document.head.appendChild(s);
+})();</script><link rel="shortcut icon" href="/editor/docs/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.3.8"/><meta name="generator" content="Starlight v0.42.6"/><meta property="og:title" content="How we compared editors"/><meta property="og:type" content="article"/><meta property="og:url" content="https://openmarkdown.dev/editor/docs/fidelity/method/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Question: if you open a Markdown file in an embeddable editor and save it, do you get your file back?"/><meta property="og:site_name" content="OpenMarkdown Editor Docs"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Question: if you open a Markdown file in an embeddable editor and save it, do you get your file back?"/><script>
 	window.StarlightThemeProvider = (() => {
 		const storedTheme =
 			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');

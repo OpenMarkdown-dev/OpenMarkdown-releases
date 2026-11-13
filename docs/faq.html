@@ -220,20 +220,36 @@
   })();
   </script>
 
-  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
-       Production host ONLY — file:// / localhost / previews make zero external
-       requests. Contract: openspec landing-page-analytics + landing-page.
-       Shared chrome: identical to index.html (authoritative). -->
+  <!-- BEGIN site-analytics (generated — do not edit) -->
+  <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
   <script>
   (function () {
     'use strict';
     if (location.hostname !== 'openmarkdown.dev') return;
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
     var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
     var s = document.createElement('script');
     s.async = true;
     s.setAttribute('data-goatcounter', ENDPOINT);
     s.src = 'https://gc.zgo.at/count.js';
     document.head.appendChild(s);
+  })();
+  </script>
+  <!-- END site-analytics -->
+  <!-- This page's analytics events (the loader is the generated block above).
+       Production host ONLY, like the loader; they read window.goatcounter when
+       they fire. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome: identical to index.html (authoritative). -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('a[href]') : null;
       if (!a) return;

@@ -379,20 +379,14 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
   })();
   </script>
 
-  <!-- Privacy-friendly analytics (cookieless, no PII, no consent banner).
-       Production host ONLY — file:// / localhost / previews make zero external
-       requests. Contract: openspec landing-page-analytics + landing-page.
-       Shared chrome (nav/footer) mirrors index.html; the download branch
-       intentionally differs — this is the /install source, so downloads emit a
-       "-install" suffix (index.html emits the bare hero event + the "-menu"
-       variant). Keep the host gate / test-path guard / copy-event in sync. -->
+  <!-- BEGIN site-analytics (generated — do not edit) -->
+  <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
   <script>
   (function () {
     'use strict';
     if (location.hostname !== 'openmarkdown.dev') return;
-    // Data hygiene: keep known internal test paths out of the production
-    // property (same guard as index.html; contract: landing-page-analytics
-    // 已知测试路径不计入生产统计). Returning null from the path hook cancels the pageview.
     var TEST_PATHS = ['/agent-smoke-test'];
     window.goatcounter = window.goatcounter || {};
     window.goatcounter.path = function (p) {
@@ -404,6 +398,21 @@ When the user asks you to run one of the Welcome's sections (e.g. "turn this CSV
     s.setAttribute('data-goatcounter', ENDPOINT);
     s.src = 'https://gc.zgo.at/count.js';
     document.head.appendChild(s);
+  })();
+  </script>
+  <!-- END site-analytics -->
+  <!-- This page's analytics events (the loader is the generated block above).
+       Production host ONLY, like the loader; they read window.goatcounter when
+       they fire. Contract: openspec landing-page-analytics + landing-page.
+       Shared chrome (nav/footer) mirrors index.html; the download branch
+       intentionally differs — this is the /install source, so downloads emit a
+       "-install" suffix (index.html emits the bare hero event + the "-menu"
+       variant). Keep the host gate / copy-event in sync (the test-path guard is
+       in the generated loader). -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('a[href]') : null;
       if (!a) return;
