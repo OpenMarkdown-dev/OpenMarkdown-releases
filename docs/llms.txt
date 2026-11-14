@@ -23,7 +23,8 @@ on Windows the app is the editor without them.
 - [Install](https://openmarkdown.dev/install.md): per-host setup for Claude Code, Codex, Gemini CLI, opencode, and any MCP client, plus the agent-run first-note walkthrough.
 - [Docs](https://openmarkdown.dev/docs/index.md): the documentation home. Every docs page has a Markdown twin at the same path with `.md`.
 - [Connect your agent](https://openmarkdown.dev/docs/start/connect.md): per-host setup, for humans.
-- [MCP tools](https://openmarkdown.dev/docs/reference/mcp-tools.md): every tool, its description and parameters, generated from the server.
+- [Watch Claude Code edit your files live](https://openmarkdown.dev/docs/agent/watch-claude-code-live.md): three steps to see the Markdown Claude Code writes, rendered, as it writes it.
+- [OpenMarkdown MCP server](https://openmarkdown.dev/docs/reference/mcp-tools.md): every tool, its description and parameters, generated from the server.
 - [Keyboard shortcuts](https://openmarkdown.dev/docs/reference/shortcuts.md): generated from the app's shortcut table.
 - [Markdown dialect](https://openmarkdown.dev/docs/reference/markdown.md): what renders, and where it differs from CommonMark and GFM.
 - [Troubleshooting](https://openmarkdown.dev/docs/help/troubleshooting.md): what `running:false`, `NO_WINDOW` and `CONFLICT` mean and what to do.

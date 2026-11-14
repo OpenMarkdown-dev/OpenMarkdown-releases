@@ -85,6 +85,8 @@ Every note is a `.md` file. No account, no sync, no telemetry — [here's exactl
 
 No AI inside. OpenMarkdown ships no model; it runs on the agent you already use. Once connected ([openmarkdown.dev/install](https://openmarkdown.dev/install)), your agent can open your file, take you to a heading, read what you selected, edit one section, and answer you in the sidebar.
 
+**Watch Claude Code edit your files live:** install the plugin (`claude plugin marketplace add OpenMarkdown-dev/OpenMarkdown-releases`, then `claude plugin install openmarkdown@openmarkdown`) and ask Claude to open the file in OpenMarkdown. Each edit shows up rendered in the open tab as Claude makes it. [Three steps](https://openmarkdown.dev/docs/agent/watch-claude-code-live/).
+
 Agent co-editing runs on macOS and Linux; on Windows the app is a native editor and co-editing is coming soon (or run the Linux build under [WSL](https://learn.microsoft.com/windows/wsl/install)).
 
 ## Is it for you?

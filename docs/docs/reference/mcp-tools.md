@@ -1,4 +1,4 @@
-# MCP tools
+# OpenMarkdown MCP server
 
 OpenMarkdown's MCP server is `openmd mcp`: the app you installed, answering over stdio. It gives your agent **nine tools**. Their names, descriptions and parameters below are exactly what the server sends your agent when it asks for its tools.
 
