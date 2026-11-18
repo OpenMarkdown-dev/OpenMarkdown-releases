@@ -109,10 +109,11 @@ The heading outline changed; null when the view is going away (clear yours).
 > `optional` **onUnsupportedPaste?**: (`reason`, `count`) => `void`
 
 Images were pasted or dropped but could not be stored, so nothing was
-inserted: `reason` is `"no-save-attachment"` (no `saveAttachment`) or
-`"no-doc-path"` (the document has no path to store them beside); `count` is
-how many images. Only a notice — the editor itself stays silent and the
-document is unchanged. Use it to tell the user. Absent: nothing happens.
+inserted: `reason` is `"no-save-attachment"` (neither `saveAttachment`
+nor `uploadImage`) or `"no-doc-path"` (only `saveAttachment`, and the
+document has no path to store them beside); `count` is how many images.
+Only a notice — the editor itself stays silent and the document is
+unchanged. Use it to tell the user. Absent: nothing happens.
 
 #### Parameters
 
@@ -185,14 +186,45 @@ answer changes, call `editor.refreshImages()`.
 Store pasted / dropped image bytes beside `docPath`. `hint` is the file's
 name, or its MIME type. Resolves the document-relative path to link, or null
 when the save failed (report it yourself); then the editor inserts nothing.
-Only called when the document has a path.
-Absent: image paste / drop stores nothing and inserts nothing.
+Only called when the document has a path (for one without, see
+`uploadImage`). Absent: image paste / drop stores nothing and inserts
+nothing, unless `uploadImage` is given.
 
 #### Parameters
 
 ##### docPath
 
 `string`
+
+##### bytes
+
+`Uint8Array`
+
+##### hint
+
+`string` \| `null`
+
+#### Returns
+
+`Promise`\<`string` \| `null`\>
+
+***
+
+### uploadImage?
+
+> `optional` **uploadImage?**: (`bytes`, `hint`) => `Promise`\<`string` \| `null`\>
+
+Store pasted / dropped image bytes wherever the host keeps images (an upload
+endpoint, a CMS media library), for a document with or without a path.
+`hint` is the file's name, or its MIME type. Resolves the link target to
+write — any URL or path `resolveImage` will accept, valid as a Markdown link
+target (percent-encode spaces) — or null when the upload failed (report it
+yourself); then the editor inserts nothing. When the document has a path
+and `saveAttachment` is given too, `saveAttachment` is used instead.
+Absent (and no `saveAttachment` for a document with a path): image paste /
+drop stores nothing and inserts nothing.
+
+#### Parameters
 
 ##### bytes
 

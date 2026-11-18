@@ -2,7 +2,7 @@
 
 The editor shows Markdown images (`![alt](src)`) in place, lets the user paste or drop new ones,
 and resizes them with a drag. Where image bytes come from and where they go is the host's
-decision, through two `EditorHost` callbacks.
+decision, through `EditorHost` callbacks.
 
 ## Showing images: `resolveImage`
 
@@ -71,9 +71,36 @@ URL it stored them under.
 effects. When its answer changes, for example after the reader allows remote images, call
 `editor.refreshImages()` and every image is resolved again, including those in tables.
 
-- Without `saveAttachment`, pasting or dropping an image inserts nothing.
-- With `docPath` set to `null` (an unsaved document), there is nowhere to store beside, so the
-  editor does not call `saveAttachment`.
+## A document without a path: `uploadImage`
+
+A CMS field, a comment box or a database row has no file path, so there is nothing to store an
+image beside. Give `uploadImage(bytes, hint)` instead: store the bytes wherever you keep images
+and resolve the URL or path to write in the link, or `null` when the upload failed.
+
+```ts
+import { createEditorState } from "@openmarkdown-dev/editor";
+
+const state = createEditorState({
+  doc: "",
+  host: {
+    uploadImage: async (bytes, hint) => {
+      const res = await fetch("/api/media", { method: "POST", body: new Blob([bytes.slice()]), headers: { "x-name": hint ?? "image" } });
+      return res.ok ? (await res.json()).url : null; // e.g. "https://cdn.example.com/media/42.png"
+    },
+    resolveImage: (src) => (src.startsWith("https://cdn.example.com/") ? src : null),
+  },
+});
+```
+
+Return a target that is valid in a Markdown link (percent-encode spaces) and that your
+`resolveImage` accepts. When the document has a path and you give both, `saveAttachment` is
+used.
+
+## When an image cannot be stored
+
+- With neither `saveAttachment` nor `uploadImage`, pasting or dropping an image inserts nothing.
+- With only `saveAttachment` and `docPath` set to `null` (an unsaved document), there is nowhere
+  to store beside, so the editor does not call it.
 - In both cases the editor stays silent. To tell the user, pass `onUnsupportedPaste`: it is
   called with the reason (`"no-save-attachment"` or `"no-doc-path"`) and how many images were
   dropped.

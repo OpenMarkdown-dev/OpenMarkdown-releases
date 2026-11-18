@@ -12,9 +12,9 @@
       #modes { display: flex; gap: 6px; margin-bottom: 10px; font: 14px system-ui, sans-serif; }
       #modes [aria-pressed="true"] { font-weight: 700; }
       #editor { height: 340px; border: 1px solid #d9d6cf; border-radius: 8px; overflow: hidden; }
-      #editor .cm-editor { height: 100%; }
+      #editor .ome-root { height: 100%; }
     </style>
-  <script type="module" crossorigin src="/editor/assets/examples/read-only-C2_PRw3g.js"></script>
+  <script type="module" crossorigin src="/editor/assets/examples/read-only-DsFXCfIY.js"></script>
   <link rel="modulepreload" crossorigin href="/editor/assets/site-oQ_3JMic.js">
   <link rel="modulepreload" crossorigin href="/editor/assets/examplePage-PC8VH88A.js">
   <link rel="modulepreload" crossorigin href="/editor/assets/preload-helper-BE6tXj1V.js">
@@ -122,6 +122,7 @@
       <button type="button" data-mode="reading">Reading</button>
       <button type="button" data-mode="live">Live</button>
       <button type="button" data-mode="source">Source</button>
+      <label><input type="checkbox" id="lock" /> Locked (<code>editable: false</code>)</label>
     </div>
     <div id="editor"></div>
       </div>
@@ -139,6 +140,7 @@ edit with the preview, or to Source for the plain text.
 | 0.1.0 | First release |
 
 - [x] Tables, math and diagrams render here too
+- [ ] Tick me in reading mode; lock the editor and I stay as I am
 `;
 
 const editor = mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ doc, mode: &quot;reading&quot; }));
@@ -150,9 +152,19 @@ for (const b of buttons) {
     // The document, selection and undo history are kept across modes.
     editor.setMode(b.dataset.mode as EditorMode);
     show();
+
+// `editable: false` is separate from the mode: the document cannot change in any
+// mode, not even by a task checkbox (which reading mode lets you tick).
+const lock = document.getElementById(&quot;lock&quot;) as HTMLInputElement;
+lock.addEventListener(&quot;change&quot;, () =&gt; editor.setEditable(!lock.checked));
   });
 }
-show();</code></pre></section>
+show();
+
+// `editable: false` is separate from the mode: the document cannot change in any
+// mode, not even by a task checkbox (which reading mode lets you tick).
+const lock = document.getElementById(&quot;lock&quot;) as HTMLInputElement;
+lock.addEventListener(&quot;change&quot;, () =&gt; editor.setEditable(!lock.checked));</code></pre></section>
 <section role="tabpanel" id="file-1" aria-labelledby="tab-1" data-path="index.html"><pre><code>&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
   &lt;head&gt;
@@ -163,7 +175,7 @@ show();</code></pre></section>
       #modes { display: flex; gap: 6px; margin-bottom: 10px; font: 14px system-ui, sans-serif; }
       #modes [aria-pressed=&quot;true&quot;] { font-weight: 700; }
       #editor { height: 340px; border: 1px solid #d9d6cf; border-radius: 8px; overflow: hidden; }
-      #editor .cm-editor { height: 100%; }
+      #editor .ome-root { height: 100%; }
     &lt;/style&gt;
   &lt;/head&gt;
   &lt;body&gt;
@@ -171,6 +183,7 @@ show();</code></pre></section>
       &lt;button type=&quot;button&quot; data-mode=&quot;reading&quot;&gt;Reading&lt;/button&gt;
       &lt;button type=&quot;button&quot; data-mode=&quot;live&quot;&gt;Live&lt;/button&gt;
       &lt;button type=&quot;button&quot; data-mode=&quot;source&quot;&gt;Source&lt;/button&gt;
+      &lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;lock&quot; /&gt; Locked (&lt;code&gt;editable: false&lt;/code&gt;)&lt;/label&gt;
     &lt;/div&gt;
     &lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
     &lt;script type=&quot;module&quot; src=&quot;./main.ts&quot;&gt;&lt;/script&gt;
@@ -209,6 +222,7 @@ show();</code></pre></section>
         <span class="fnav">
           <a href="/faq">FAQ</a>
           <a href="/compare/">Compare</a>
+          <a href="/learn/">Learn</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>

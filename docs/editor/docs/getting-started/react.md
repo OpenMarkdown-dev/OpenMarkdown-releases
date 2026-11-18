@@ -45,6 +45,49 @@ export function MarkdownField({ value, onChange }: { value: string; onChange: (d
 - **Strict Mode** runs the effect twice in development. `destroy` in the cleanup removes the
   first editor before the second mounts.
 
+## Props that change: theme, read-only, keys
+
+Options that can change while the editor lives have a setter on the handle, so a prop maps to
+one effect. Each editor keeps its own values; two editors on one page can differ:
+
+```tsx
+import { useEffect, useRef } from "react";
+import { createEditorState, mountEditor, type MarkdownEditor } from "@openmarkdown-dev/editor";
+
+export function NoteEditor({ doc, dark, readOnly, onSave }: { doc: string; dark: boolean; readOnly: boolean; onSave: () => void }) {
+  const parent = useRef<HTMLDivElement>(null);
+  const editor = useRef<MarkdownEditor | null>(null);
+  const save = useRef(onSave);
+  save.current = onSave;
+
+  useEffect(() => {
+    editor.current = mountEditor(parent.current!, createEditorState({ doc, editable: !readOnly }));
+    return () => editor.current?.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => editor.current?.setEditable(!readOnly), [readOnly]);
+  useEffect(() => {
+    editor.current?.setEnvironment({
+      colorScheme: dark ? "dark" : "light",
+      handleKey: (_view, e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+          save.current();
+          return true;
+        }
+        return false;
+      },
+    });
+  }, [dark]);
+
+  return <div ref={parent} style={{ height: 480 }} />;
+}
+```
+
+`setEnvironment` replaces this editor's own environment (members you leave out fall back to the
+page's defaults from `configureEditorEnvironment`), and a new color scheme applies at once. See
+[the environment](/editor/docs/guides/environment/).
+
 ## Next.js and other server renderers
 
 Importing the package on the server is safe, and the effect only runs in the browser, so the

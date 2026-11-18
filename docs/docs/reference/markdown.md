@@ -56,6 +56,21 @@ $$
 - **On GitHub:** rendered as math too.
 - **In plain text:** the TeX source, with its `$` delimiters.
 
+### Math with `\(…\)` and `\[…\]`
+
+The TeX delimiters that AI chats often write also render as math: inline `\(…\)`, and a block `\[ … \]` that stands as its own paragraph.
+
+```markdown
+Inline \(E = mc^2\), and a block:
+
+\[
+\int_0^1 x^2\,dx = \frac{1}{3}
+\]
+```
+
+- **On GitHub:** not math. GitHub reads `\(` and `\[` as escapes, so you see `(E = mc^2)` and `[ … ]` with the backslashes hidden; the TeX text is still there.
+- **In plain text:** the TeX source, backslashes included.
+
 ### Mermaid diagrams
 
 A fenced code block whose info string is `mermaid` renders as a diagram.

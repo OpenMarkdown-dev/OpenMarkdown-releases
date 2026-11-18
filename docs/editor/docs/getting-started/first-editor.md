@@ -16,7 +16,9 @@ const editor = mountEditor(document.getElementById("editor")!, createEditorState
 const bytes = saveMarkdownFile(editor.getDoc(), file); // write these back
 ```
 
-Give the parent element a height. The editor fills it and scrolls inside it.
+Give the parent element a height. The editor fills it and scrolls inside it. For an editor that
+grows with its content instead, like a form field, pass `height: "auto"` (see
+[Theming](/editor/docs/guides/theming/#height)).
 
 Fetch the file as bytes (`arrayBuffer()`), not as text: `openMarkdownFile` keeps the file's BOM
 and line endings, refuses bytes that are not UTF-8, and `saveMarkdownFile` gives back the
@@ -61,7 +63,7 @@ editor.setDoc("# Replaced\n"); // new text, for example after the file changed o
 ```ts
 editor.setMode("source"); // "live" | "source" | "reading"
 editor.mode(); // "source"
-editor.view.focus(); // setMode does not move focus
+editor.focus(); // setMode does not move focus
 ```
 
 - `live` (the default) renders Markdown in place and shows the source under the caret.
@@ -70,13 +72,32 @@ editor.view.focus(); // setMode does not move focus
 
 Switching mode keeps the document, the selection and the undo history. It does not move
 focus: when a button of yours calls `setMode`, the focus stays on that button, so call
-`editor.view.focus()` afterwards if the user should be able to type right away. To start in
+`editor.focus()` afterwards if the user should be able to type right away. To start in
 another mode, pass `mode` to `createEditorState`.
 
-## Once per page: the environment
+To make the document read-only in every mode, pass `editable: false` (or call
+`editor.setEditable(false)`). Reading mode alone still lets the reader tick a task checkbox;
+`editable: false` does not.
 
-Window-wide capabilities, such as the color scheme, the clipboard and the UI language, are set
-once, before the first editor mounts:
+## Commands
+
+The handle runs the editor's own commands, so you need no CodeMirror import for them:
+
+```ts
+editor.undo(); // as Mod+Z; false when there was nothing to undo
+editor.redo();
+editor.openSearch(); // the find panel, as Mod+F
+editor.isSearchOpen(); // true
+editor.closeSearch();
+editor.revealText("## Setup"); // select its first occurrence and scroll to it
+```
+
+## The environment: per editor, with page defaults
+
+Capabilities that are not about the document, such as the color scheme, the clipboard and
+external links, can be given to each editor (`createEditorState({ environment })`) or set once
+for the whole page as defaults. The UI language is page-wide. Set the defaults before the
+first editor mounts:
 
 ```ts
 import { configureEditorEnvironment } from "@openmarkdown-dev/editor";

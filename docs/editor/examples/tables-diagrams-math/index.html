@@ -10,9 +10,9 @@
   <meta name="theme-color" content="#FBFAF7">
   <style>
       #editor { height: 460px; border: 1px solid #d9d6cf; border-radius: 8px; overflow: hidden; }
-      #editor .cm-editor { height: 100%; }
+      #editor .ome-root { height: 100%; }
     </style>
-  <script type="module" crossorigin src="/editor/assets/examples/tables-diagrams-math-Wt1j4Wwd.js"></script>
+  <script type="module" crossorigin src="/editor/assets/examples/tables-diagrams-math-B6JLYY-I.js"></script>
   <link rel="modulepreload" crossorigin href="/editor/assets/site-oQ_3JMic.js">
   <link rel="modulepreload" crossorigin href="/editor/assets/examplePage-PC8VH88A.js">
   <link rel="modulepreload" crossorigin href="/editor/assets/preload-helper-BE6tXj1V.js">
@@ -121,6 +121,8 @@
       <div class="ex-source" data-tabs>
         <div role="tablist" aria-label="Source files"><button type="button" role="tab" id="tab-0" aria-controls="file-0" aria-selected="true">main.ts</button><button type="button" role="tab" id="tab-1" aria-controls="file-1" aria-selected="false">index.html</button><button type="button" role="tab" id="tab-2" aria-controls="file-2" aria-selected="false">package.json</button></div>
 <section role="tabpanel" id="file-0" aria-labelledby="tab-0" data-path="main.ts"><pre><code>import { createEditorState, mountEditor } from &quot;@openmarkdown-dev/editor&quot;;
+// Optional: highlighted code blocks in ~100 languages. Install it beside the editor.
+import { languages } from &quot;@codemirror/language-data&quot;;
 
 const doc = `# Tables, diagrams and math
 
@@ -142,10 +144,15 @@ graph LR
   A[Markdown text] --&gt; B[Editor]
   B --&gt; C[Same text, saved]
 \`\`\`
+
+\`\`\`ts
+const answer: number = 42; // highlighted: a language from codeLanguages
+\`\`\`
 `;
 
-// Mermaid and the math renderer load the first time the document needs them.
-mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ doc }));</code></pre></section>
+// Mermaid, the math renderer and each code language load the first time the
+// document needs them.
+mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ doc, codeLanguages: languages }));</code></pre></section>
 <section role="tabpanel" id="file-1" aria-labelledby="tab-1" data-path="index.html"><pre><code>&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
   &lt;head&gt;
@@ -154,7 +161,7 @@ mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ do
     &lt;title&gt;OpenMarkdown editor: tables, diagrams and math&lt;/title&gt;
     &lt;style&gt;
       #editor { height: 460px; border: 1px solid #d9d6cf; border-radius: 8px; overflow: hidden; }
-      #editor .cm-editor { height: 100%; }
+      #editor .ome-root { height: 100%; }
     &lt;/style&gt;
   &lt;/head&gt;
   &lt;body&gt;
@@ -172,7 +179,8 @@ mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ do
     &quot;preview&quot;: &quot;vite preview&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;@openmarkdown-dev/editor&quot;: &quot;0.1.3&quot;
+    &quot;@openmarkdown-dev/editor&quot;: &quot;0.1.3&quot;,
+    &quot;@codemirror/language-data&quot;: &quot;^6.5.2&quot;
   },
   &quot;devDependencies&quot;: {
     &quot;typescript&quot;: &quot;~5.8.3&quot;,
@@ -195,6 +203,7 @@ mountEditor(document.getElementById(&quot;editor&quot;)!, createEditorState({ do
         <span class="fnav">
           <a href="/faq">FAQ</a>
           <a href="/compare/">Compare</a>
+          <a href="/learn/">Learn</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
           <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
           <a href="/transparency">Transparency</a>

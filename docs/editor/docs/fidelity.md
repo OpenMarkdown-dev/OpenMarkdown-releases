@@ -14,7 +14,7 @@ wrote it.
 
 This is the whole claim. Every sentence is backed by a test:
 
-> OpenMarkdown edits your Markdown source text directly; it never rebuilds the file from a document tree. Open and save without editing, and the file is byte-for-byte what it was: line endings (LF / CRLF), BOM, final newline, whitespace, tabs, escapes and Unicode spelling untouched. When you edit, only what you touched changes, with a few exceptions, each pinned by a test: a table you edit (or click into a cell of) is re-aligned as a whole when you leave it — alignment, cell text and escapes kept; table commands rewrite that table the same way; indenting a list item or pressing Enter in a numbered list renumbers the affected items; Enter in a list item drops trailing spaces before the cursor; a file with mixed line endings gets uniform ones once you edit it; typing on a lone blank line between two blocks adds a line break after that line, so the block below stays separate.
+> OpenMarkdown edits your Markdown source text directly; it never rebuilds the file from a document tree. Open and save without editing, and the file is byte-for-byte what it was: line endings (LF / CRLF), BOM, final newline, whitespace, tabs, escapes and Unicode spelling untouched. When you edit, only what you touched changes, with a few exceptions, each pinned by a test: editing a cell of an aligned table re-pads that cell when you leave it, and widens that one column when the new text no longer fits; table commands change only the rows or column they act on, in the table's own style; indenting a list item or pressing Enter in a numbered list renumbers the affected items; Enter in a list item drops trailing spaces before the cursor; a file with mixed line endings gets uniform ones once you edit it; typing on a lone blank line between two blocks adds a line break after that line, so the block below stays separate.
 
 The claim is about the file, so it holds when your host reads and writes the file with
 `openMarkdownFile` and `saveMarkdownFile`. The editor keeps the document as a string in `\n` with
@@ -72,22 +72,27 @@ developer panel says `0 bytes changed` until you type.
 
 ## What the exceptions look like
 
-Edit one cell of a table whose columns are not aligned, and the whole table is re-aligned. Column
-alignment colons, cell text and `\|` escapes are kept. This is the real diff from the comparison
-below, after changing `22` to `23`:
+Edit one cell of a table and leave it, and only that cell's line changes. A table written
+compact stays compact, and so does a hand-compacted row in an aligned table. In an aligned table
+the cell gets its column's padding back, and if the new text no longer fits, that one column is
+widened: its other aligned cells get more padding, and the delimiter row gets more dashes, its
+colons kept. Changing `10` to `1000000` in this table:
 
 ```diff
--| Left | Center | Right |
--|:-----|:------:|------:|
--| `a\|b` | pipe \| escaped | 1 |
--|uneven|  cell | 23 |
-+| Left   | Center          | Right |
-+| :----- | :-------------: | ----: |
-+| `a\|b` | pipe \| escaped | 1     |
-+| uneven | cell            | 23    |
+-| Plan    | Users | Price    |
+-|:--------|:-----:|---------:|
+-| Free    |   1   |       $0 |
+-| Team    |  10   |      $29 |
++| Plan    | Users   | Price    |
++|:--------|:-------:|---------:|
++| Free    |    1    |       $0 |
++| Team    | 1000000 |      $29 |
 ```
 
-A table that is already aligned is left alone. Nothing else in the file moves.
+Changing it to `12` changes the `Team` line only. Clicking into a cell and leaving without a
+change writes nothing. Table commands (insert, delete or move a row or column, toggle a column's
+alignment) change the rows or the column they act on, in the table's own style. Format table is
+the one command that re-aligns a whole table. Nothing else in the file moves.
 
 ## Compared with other editors
 
@@ -104,8 +109,8 @@ headless Chromium), saved it without editing, then changed one word and saved ag
 | MDXEditor (Lexical) | refused the file (reference links); 13 of 19 changed without them | the edit was lost on the full file |
 
 Atomic Editor ties with us here, because it is built the same way: the source is the document.
-The difference is with editors that rebuild Markdown from a tree. When we edited one table cell,
-both CodeMirror editors re-aligned that table. Ours kept the column alignment. Atomic's rewrote
+The difference is with editors that rebuild Markdown from a tree. When we edited one table cell
+(in 0.1.3, before cell edits stopped re-aligning tables), both CodeMirror editors re-aligned that table. Ours kept the column alignment. Atomic's rewrote
 the delimiter row to `| --- |` and lost it.
 
 The method, an example diff, the run date and the caveats are on [the method page](/editor/docs/fidelity/method/).

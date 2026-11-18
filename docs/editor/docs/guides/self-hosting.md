@@ -13,12 +13,13 @@ bundler does the same splitting.
 ## 1. Install
 
 In a small build project (it can live inside your app's repository), install the editor, its
-CodeMirror peers and esbuild:
+CodeMirror peers, the code-block languages (optional: highlighted fenced code) and esbuild:
 
 ```sh
 npm install @openmarkdown-dev/editor @codemirror/state @codemirror/view @codemirror/commands \
-  @codemirror/language @codemirror/language-data @codemirror/lang-markdown \
-  @codemirror/search @codemirror/autocomplete @lezer/highlight @lezer/markdown
+  @codemirror/language @codemirror/lang-markdown @codemirror/lang-html \
+  @codemirror/search @codemirror/autocomplete @lezer/common @lezer/highlight @lezer/markdown \
+  @codemirror/language-data
 npm install --save-dev esbuild
 ```
 
@@ -40,6 +41,7 @@ ordinary form post saves it), and hands CodeMirror the page's style nonce:
 ```js selfhost-entry
 // src/editor.js
 import { EditorView } from "@codemirror/view";
+import { languages } from "@codemirror/language-data";
 import { createEditorState, mountEditor } from "@openmarkdown-dev/editor";
 
 // The nonce the server put in this response's CSP header, read from the page.
@@ -54,6 +56,8 @@ mountEditor(
     // Render ```mermaid blocks as diagrams. Set false to keep them as code and
     // never load Mermaid; see "Diagrams and the policy" below.
     diagrams: true,
+    // Highlight fenced code; each language is a chunk, fetched on first use.
+    codeLanguages: languages,
     host: { onChange: (doc) => { source.value = doc; } },
   }),
 );
@@ -105,7 +109,8 @@ writeFileSync(join(outdir, "THIRD_PARTY_LICENSES.txt"), all.join(`\n${"-".repeat
 
 - `format: "esm"` with `splitting: true` keeps the editor's lazy `import()`s as separate files.
   Without splitting, esbuild would inline Mermaid and every language into one large file that
-  every page downloads.
+  every page downloads. If your page must load one file, see
+  [bundling into one file](/editor/docs/guides/bundling/).
 - `legalComments: "eof"` keeps the license comments some packages put in their code. Most
   packages do not, so the script also writes `THIRD_PARTY_LICENSES.txt` with the license file of
   every package in the output. Serve it, or link it from your app's notices page: the MIT and
@@ -247,8 +252,8 @@ The build above is the same; four things differ.
   around them, not the whole document; this keeps long documents fast. Anything that reads the
   page's DOM sees only that part: the WebView's own find, copying the rendered HTML, and
   screen readers and other accessibility tools. Read the text with `editor.getDoc()`, and for
-  find use the editor's own panel (Cmd/Ctrl+F, or `openSearchPanel(editor.view)` from
-  `@codemirror/search`), which searches the whole document.
+  find use the editor's own panel (Cmd/Ctrl+F, or `editor.openSearch()`), which searches the
+  whole document.
 
 ## Loaded on demand
 
@@ -257,7 +262,7 @@ it, and never otherwise:
 
 - **Mermaid** and the code for each diagram type, on the first `mermaid` code block of that type
   (never, with `diagrams: false`; not in the output at all, with the `no-diagrams` entry);
-- **Temml**, on the first `$…$` or `$$…$$` formula;
+- **Temml**, on the first formula;
 - **a code language's grammar**, on the first fenced block in that language.
 
 A document with none of these downloads only the entry and the chunks it shares.

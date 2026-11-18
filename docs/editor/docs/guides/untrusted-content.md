@@ -9,6 +9,9 @@ agent. Rendering a document never runs its script:
   its source. Unknown attributes are dropped.
 - **Mermaid** runs with `securityLevel: "strict"` and no HTML labels. Its SVG goes through the same
   allowlist.
+- **Your own renderers** (`renderMath`, `renderDiagram`; see [renderers](/editor/docs/guides/renderers/)) go through
+  the same sanitiser as the built-in ones: a formula must be MathML, a diagram SVG inside the
+  diagram profile, or it shows its source.
 - **Links** are classified the way a browser reads them, after decoding entities and removing
   control characters. `javascript:`, `vbscript:`, `livescript:` and `data:` links are never passed
   to `openLink` or `openExternal`, however they are obfuscated. Your `refusedLink` is told
@@ -53,14 +56,14 @@ needs, exactly:
 vulnerabilities`, one for each package on the path (`katex`, `mermaid` and this package). We
 assessed it, and it does not apply to the editor:
 
-- **GHSA-238p-pmpm-9mq7** (low; `katex`, installed through `mermaid` 11.17.2): "KaTeX: Existing
+- **GHSA-238p-pmpm-9mq7** (low; `katex`, installed through `mermaid` 11): "KaTeX: Existing
   prototype pollution can bypass trust restrictions". Exploiting it needs a prototype pollution
   already present in the page *and* KaTeX output inserted without sanitising. The editor renders
   math with Temml, not KaTeX. Mermaid runs with `htmlLabels: false`, so its labels are plain SVG
   text. Every piece of markup the editor inserts goes through its one sanitiser, which refuses
   anything outside its allow-list. The fix exists only in Mermaid 12, which adds a dependency
-  under a license this package cannot take (EPL-2.0 OR GPL-3.0). With the `no-diagrams` entry,
-  neither Mermaid nor KaTeX reaches your bundle. Next review: 2027-02-04.
+  under a license this package cannot take (EPL-2.0 OR GPL-3.0). With the `no-diagrams` or
+  `no-renderers` entry, neither Mermaid nor KaTeX reaches your bundle. Next review: 2027-02-04.
 
 The release check fails on any advisory that is not assessed here.
 

@@ -13,6 +13,18 @@ The underlying CodeMirror view — the escape hatch for anything not covered her
 
 ## Methods
 
+### closeSearch()
+
+> **closeSearch**(): `void`
+
+Close the find panel and give the keys back to the text.
+
+#### Returns
+
+`void`
+
+***
+
 ### destroy()
 
 > **destroy**(): `void`
@@ -37,6 +49,30 @@ The shown state's document path, or null for an unsaved document (it travels wit
 
 ***
 
+### editable()
+
+> **editable**(): `boolean`
+
+Whether the user may change the document (it travels with the state).
+
+#### Returns
+
+`boolean`
+
+***
+
+### focus()
+
+> **focus**(): `void`
+
+Give the editor the keyboard focus.
+
+#### Returns
+
+`void`
+
+***
+
 ### getDoc()
 
 > **getDoc**(): `string`
@@ -46,6 +82,40 @@ The current Markdown source, byte for byte what is being edited.
 #### Returns
 
 `string`
+
+***
+
+### isSearchOpen()
+
+> **isSearchOpen**(): `boolean`
+
+Is the find panel open?
+
+#### Returns
+
+`boolean`
+
+***
+
+### isUnedited()
+
+> **isUnedited**(`file`): `boolean`
+
+Is the document unchanged from `file` (what `openMarkdownFile` or
+`openMarkdownText` returned)? The same test `saveMarkdownFile` uses to
+return the original bytes: for an unsaved-changes indicator.
+
+#### Parameters
+
+##### file
+
+###### text
+
+`string`
+
+#### Returns
+
+`boolean`
 
 ***
 
@@ -61,6 +131,30 @@ The shown state's mode (it travels with the state).
 
 ***
 
+### openSearch()
+
+> **openSearch**(): `void`
+
+Open the find panel and focus its field, as Mod+F does. It works in every mode.
+
+#### Returns
+
+`void`
+
+***
+
+### redo()
+
+> **redo**(): `boolean`
+
+Redo the last undone change, as Mod+Shift+Z does. Returns false when there was nothing to redo.
+
+#### Returns
+
+`boolean`
+
+***
+
 ### refreshImages()
 
 > **refreshImages**(): `void`
@@ -72,6 +166,28 @@ null showed its source; it now shows the picture if the new answer is a URL.
 #### Returns
 
 `void`
+
+***
+
+### revealText()
+
+> **revealText**(`text`): `boolean`
+
+Select the first occurrence of `text` (from the start of the document)
+and scroll it into view, the way Find shows its current match — a match
+in a table cell scrolls that cell in. The editor is not focused (call
+`focus`). Returns false, and moves nothing, when `text` is empty or not in
+the document.
+
+#### Parameters
+
+##### text
+
+`string`
+
+#### Returns
+
+`boolean`
 
 ***
 
@@ -115,6 +231,44 @@ The shown state's document moved (rename) or was given a path (empty state → n
 
 ***
 
+### setEditable()
+
+> **setEditable**(`editable`): `void`
+
+Allow or forbid changing the document (`EditorStateOptions.editable`); document, selection and history are kept.
+
+#### Parameters
+
+##### editable
+
+`boolean`
+
+#### Returns
+
+`void`
+
+***
+
+### setEnvironment()
+
+> **setEnvironment**(`environment`): `void`
+
+Replace this editor's own environment (`EditorStateOptions.environment`):
+the members given override the page's defaults from now on, a new color
+scheme applies at once. It travels with the state.
+
+#### Parameters
+
+##### environment
+
+[`EditorOwnEnvironment`](/editor/docs/api/type-aliases/editorownenvironment/)
+
+#### Returns
+
+`void`
+
+***
+
 ### setMode()
 
 > **setMode**(`mode`): `void`
@@ -144,3 +298,15 @@ theme — in line with now. A parked state kept the value it had when it left.
 #### Returns
 
 `void`
+
+***
+
+### undo()
+
+> **undo**(): `boolean`
+
+Undo the last change, as Mod+Z does. Returns false when there was nothing to undo (or the editor is not editable).
+
+#### Returns
+
+`boolean`
