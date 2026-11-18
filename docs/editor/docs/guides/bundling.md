@@ -7,8 +7,8 @@ formula renderer, Mermaid with all its diagram types, the HTML grammar. This pag
 costs for each entry and how to keep the file small.
 
 If your bundler can split (Vite, webpack, Rollup or esbuild with `format: "esm"` and
-`splitting: true`), you do not need this page: the renderers stay separate chunks, fetched only
-by a document that needs them.
+`splitting: true`), you need only [first load with a splitting bundler](#first-load-with-a-splitting-bundler):
+the renderers stay separate chunks, fetched only by a document that needs them.
 
 ## What each entry inlines
 
@@ -23,8 +23,21 @@ inside (your own copy of CodeMirror, if your page has one, is shared and not cou
 
 The package's own code is the same in each. For a page that bundles into one file, use
 `/no-renderers` and give the editor the renderers your page already has, or `/no-diagrams` when the
-built-in formula renderer is welcome. With a splitting bundler, the first load of every entry is
-the same, about 185 KB gzipped with CodeMirror.
+built-in formula renderer is welcome.
+
+## First load with a splitting bundler
+
+What a page loads before the editor appears, minified and gzipped with CodeMirror, is about the
+same for every entry, but not for every bundler:
+
+| Bundler | First load | Why |
+| --- | --- | --- |
+| Vite, Rollup | about 185 KB | The HTML grammar is split out and loads the first time a document holds HTML. |
+| esbuild (`--bundle --splitting --format=esm --minify`) | about 250 KB | `@codemirror/lang-markdown` imports `@codemirror/lang-html` at its top level and calls it there. esbuild keeps that call, so the HTML, CSS and JavaScript grammars land in the first load. |
+
+The esbuild figure is our measurement of a page that only mounts the editor (248 KB); an
+integration measured about 262 KB for its own page. Formulas and diagrams stay separate chunks
+with either bundler.
 
 ## The recipe
 
@@ -77,3 +90,7 @@ const state = createEditorState({ doc, codeLanguages });
 page's Mermaid for diagrams. It holds its own CodeMirror, so it cannot take `extensions` built
 from another copy; a page that uses CodeMirror itself should bundle the package instead
 ([self-hosting](/editor/docs/guides/self-hosting/)).
+
+It exports the editor's functions only, not CodeMirror's `LanguageDescription`, so it cannot take
+`codeLanguages` either: fenced code shows unhighlighted. For highlighted code blocks, bundle the
+package with the languages you want (the recipe in [code blocks](#code-blocks) above).

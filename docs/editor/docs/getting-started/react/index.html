@@ -145,6 +145,9 @@ you can mutate it, or read the latest props through a ref as above, without rebu
 state.</li>
 <li><strong>Only user edits go up.</strong> <code dir="auto">setDoc</code> is not a user edit, so <code dir="auto">isUserEdit</code> keeps a <code dir="auto">value</code>
 pushed in from props from being echoed back to <code dir="auto">onChange</code>.</li>
+<li><strong>Options go to <code dir="auto">createEditorState</code>.</strong> Highlighted code blocks, for example, are an opt-in:
+<code dir="auto">createEditorState({ doc: value, codeLanguages: languages, host })</code> with <code dir="auto">languages</code> from
+<code dir="auto">@codemirror/language-data</code> (<a href="/editor/docs/getting-started/install/#highlighted-code-blocks">install</a>).</li>
 <li><strong>Strict Mode</strong> runs the effect twice in development. <code dir="auto">destroy</code> in the cleanup removes the
 first editor before the second mounts.</li>
 </ul>

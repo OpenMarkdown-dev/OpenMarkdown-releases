@@ -42,6 +42,9 @@ export function MarkdownField({ value, onChange }: { value: string; onChange: (d
   state.
 - **Only user edits go up.** `setDoc` is not a user edit, so `isUserEdit` keeps a `value`
   pushed in from props from being echoed back to `onChange`.
+- **Options go to `createEditorState`.** Highlighted code blocks, for example, are an opt-in:
+  `createEditorState({ doc: value, codeLanguages: languages, host })` with `languages` from
+  `@codemirror/language-data` ([install](/editor/docs/getting-started/install/#highlighted-code-blocks)).
 - **Strict Mode** runs the effect twice in development. `destroy` in the cleanup removes the
   first editor before the second mounts.
 

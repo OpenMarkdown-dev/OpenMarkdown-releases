@@ -33,6 +33,19 @@ means "unsaved edits":
 file = openMarkdownFile(bytes);
 ```
 
+## Highlighted code blocks
+
+Fenced code is plain until you opt in. Install `@codemirror/language-data` and pass its
+`languages` as `codeLanguages` (each language loads the first time a block uses it):
+
+```ts
+import { languages } from "@codemirror/language-data";
+
+const state = createEditorState({ doc: file.text, codeLanguages: languages });
+```
+
+See [install](/editor/docs/getting-started/install/#highlighted-code-blocks) for what this adds to your lockfile.
+
 ## Read and write the document as a string
 
 When there is no file, only text (a form field, local storage), give the editor a string. It

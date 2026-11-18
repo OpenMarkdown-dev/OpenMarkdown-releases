@@ -299,7 +299,7 @@ written" means the text stays as you typed it, with no special treatment.</p>
 <td>Math <code dir="auto">\(…\)</code> and <code dir="auto">\[…\]</code></td>
 <td><code dir="auto">\(x^2\)</code></td>
 <td>Rendered</td>
-<td>The delimiters LLMs write. <code dir="auto">\[ … \]</code> is block math when it is a paragraph of its own; on one line it needs a space inside both brackets. Otherwise these stay CommonMark escapes.</td>
+<td>The delimiters LLMs write. <code dir="auto">\[ … \]</code> is block math when it is a paragraph of its own; on one line it needs a space inside both brackets. Otherwise these stay CommonMark escapes: <code dir="auto">\[ … \]</code> in the middle of a line (sharing its paragraph with other text) is never math, by design, and shows as its text <code dir="auto">[ … ]</code>, the backslashes hidden off the caret. (Pandoc's <code dir="auto">tex_math_single_backslash</code> reads it as display math; the editor keeps CommonMark's reading there.)</td>
 </tr>
 <tr>
 <td>YAML front matter</td>
@@ -505,6 +505,10 @@ written" means the text stays as you typed it, with no special treatment.</p>
 <tr>
 <td><code dir="auto">\[ a \] b \[ c \]</code></td>
 <td><code dir="auto">[ a ] b [ c ]</code></td>
+</tr>
+<tr>
+<td><code dir="auto">Let \[ x^2 \] be the area.</code></td>
+<td><code dir="auto">Let [ x^2 ] be the area.</code></td>
 </tr>
 <tr>
 <td><code dir="auto">text⏎\[⏎x⏎\]</code></td>

@@ -126,13 +126,19 @@ packages enter your lockfile.
 
 Some projects refuse packages published in the last few days: bun's `minimumReleaseAge`
 (`bunfig.toml`), pnpm's `minimumReleaseAge` (`pnpm-workspace.yaml`), or a CI policy built on
-`npm install --before`. A version of the editor younger than that window is refused. Install the
-newest version older than your window rather than excluding the package from the gate:
+`npm install --before`. A version of the editor younger than that window is refused. The gate
+falls back to an older version only inside your version range: with `^0.2.0` in `package.json`
+and 0.2.0 the newest release, no version qualifies, and the install fails until 0.2.0 is older
+than the window. Pin the newest version older than your window instead:
 
 ```sh
 npm view @openmarkdown-dev/editor time --json
 npm install @openmarkdown-dev/editor@<version>   # the newest one older than your window
 ```
+
+To exclude the package from the gate instead, bun's `minimumReleaseAgeExcludes` takes exact
+package names, not patterns: list `"@openmarkdown-dev/editor"` (and `"@openmarkdown-dev/css"` if
+you use the stylesheets); `"@openmarkdown-dev/*"` matches nothing.
 
 Every release is listed with its date in the [changelog](https://github.com/OpenMarkdown-dev/OpenMarkdown-editor/blob/main/CHANGELOG.md),
 and its peers and dependencies are declared as ranges, so an older editor version installs with
@@ -198,6 +204,19 @@ means "unsaved edits":
 ```ts
 file = openMarkdownFile(bytes);
 ```
+
+## Highlighted code blocks
+
+Fenced code is plain until you opt in. Install `@codemirror/language-data` and pass its
+`languages` as `codeLanguages` (each language loads the first time a block uses it):
+
+```ts
+import { languages } from "@codemirror/language-data";
+
+const state = createEditorState({ doc: file.text, codeLanguages: languages });
+```
+
+See [install](https://openmarkdown.dev/editor/docs/getting-started/install/#highlighted-code-blocks) for what this adds to your lockfile.
 
 ## Read and write the document as a string
 
@@ -352,6 +371,9 @@ export function MarkdownField({ value, onChange }: { value: string; onChange: (d
   state.
 - **Only user edits go up.** `setDoc` is not a user edit, so `isUserEdit` keeps a `value`
   pushed in from props from being echoed back to `onChange`.
+- **Options go to `createEditorState`.** Highlighted code blocks, for example, are an opt-in:
+  `createEditorState({ doc: value, codeLanguages: languages, host })` with `languages` from
+  `@codemirror/language-data` ([install](https://openmarkdown.dev/editor/docs/getting-started/install/#highlighted-code-blocks)).
 - **Strict Mode** runs the effect twice in development. `destroy` in the cleanup removes the
   first editor before the second mounts.
 
@@ -1141,6 +1163,27 @@ Return a target that is valid in a Markdown link (percent-encode spaces) and tha
 `resolveImage` accepts. When the document has a path and you give both, `saveAttachment` is
 used.
 
+The editor shows the new image by loading what `resolveImage` returns for that link, at once.
+When the place you store it does not serve it yet, the image is broken in the editor until it
+does: a CMS that keeps uploads in a draft store until the entry is published, for example, writes
+`/media/42.png`, and that path answers 404 before publishing. Then resolve the link yourself:
+keep what you uploaded, and have `resolveImage` answer from it first.
+
+```ts
+const pending = new Map<string, string>(); // link target → blob URL, until the server serves it
+
+const host = {
+  uploadImage: async (bytes: Uint8Array, hint: string | null) => {
+    const path = await saveToDraftStore(bytes, hint); // e.g. "/media/42.png", not served yet
+    if (path) pending.set(path, URL.createObjectURL(new Blob([bytes.slice()])));
+    return path;
+  },
+  resolveImage: (src: string) => pending.get(src) ?? (src.startsWith("/media/") ? src : null),
+};
+```
+
+After publishing, drop the entries (revoking their blob URLs) and call `editor.refreshImages()`.
+
 ## When an image cannot be stored
 
 - With neither `saveAttachment` nor `uploadImage`, pasting or dropping an image inserts nothing.
@@ -1226,7 +1269,7 @@ written" means the text stays as you typed it, with no special treatment.
 | Callout fold marks | `> [!NOTE]-` | Rendered | Obsidian's `-` / `+` after the type: rendered as the callout, nothing folds. |
 | Inline math `$…$` | `$E = mc^2$` | Rendered | Pandoc's rules: a non-space after the opening `$`, a non-space before the closing `$`, no digit after it. One line. |
 | Math `$$…$$` | `$$\int_0^1 x\,dx$$` | Rendered | On lines of its own: block math (may span lines). Inside a line of text: inline math, as in remark-math, Obsidian and Typora. |
-| Math `\(…\)` and `\[…\]` | `\(x^2\)` | Rendered | The delimiters LLMs write. `\[ … \]` is block math when it is a paragraph of its own; on one line it needs a space inside both brackets. Otherwise these stay CommonMark escapes. |
+| Math `\(…\)` and `\[…\]` | `\(x^2\)` | Rendered | The delimiters LLMs write. `\[ … \]` is block math when it is a paragraph of its own; on one line it needs a space inside both brackets. Otherwise these stay CommonMark escapes: `\[ … \]` in the middle of a line (sharing its paragraph with other text) is never math, by design, and shows as its text `[ … ]`, the backslashes hidden off the caret. (Pandoc's `tex_math_single_backslash` reads it as display math; the editor keeps CommonMark's reading there.) |
 | YAML front matter | `---⏎title: x⏎---` | Rendered | At the very start of the file; shown as an editable Properties block. |
 | Image size | `![alt\|300](cat.png)` | Rendered | `\|width` or `\|widthxheight` at the end of the alt text, in pixels (Obsidian's form). |
 | Mermaid diagrams | `` ```mermaid `` | Rendered | A fence with info string `mermaid`. Off with `diagrams: false` and in the `no-diagrams` entry. |
@@ -1278,6 +1321,7 @@ Each row is a test vector: the source, and what the editor renders it as (formul
 | `\[x\]` | `[x]` |
 | `- \[x\] item` | `<ul>⏎<li>[x] item</li>⏎</ul>` |
 | `\[ a \] b \[ c \]` | `[ a ] b [ c ]` |
+| `Let \[ x^2 \] be the area.` | `Let [ x^2 ] be the area.` |
 | `text⏎\[⏎x⏎\]` | `text⏎[⏎x⏎]` |
 
 ⏎ marks a line break.
@@ -1867,8 +1911,8 @@ formula renderer, Mermaid with all its diagram types, the HTML grammar. This pag
 costs for each entry and how to keep the file small.
 
 If your bundler can split (Vite, webpack, Rollup or esbuild with `format: "esm"` and
-`splitting: true`), you do not need this page: the renderers stay separate chunks, fetched only
-by a document that needs them.
+`splitting: true`), you need only [first load with a splitting bundler](#first-load-with-a-splitting-bundler):
+the renderers stay separate chunks, fetched only by a document that needs them.
 
 ## What each entry inlines
 
@@ -1883,8 +1927,21 @@ inside (your own copy of CodeMirror, if your page has one, is shared and not cou
 
 The package's own code is the same in each. For a page that bundles into one file, use
 `/no-renderers` and give the editor the renderers your page already has, or `/no-diagrams` when the
-built-in formula renderer is welcome. With a splitting bundler, the first load of every entry is
-the same, about 185 KB gzipped with CodeMirror.
+built-in formula renderer is welcome.
+
+## First load with a splitting bundler
+
+What a page loads before the editor appears, minified and gzipped with CodeMirror, is about the
+same for every entry, but not for every bundler:
+
+| Bundler | First load | Why |
+| --- | --- | --- |
+| Vite, Rollup | about 185 KB | The HTML grammar is split out and loads the first time a document holds HTML. |
+| esbuild (`--bundle --splitting --format=esm --minify`) | about 250 KB | `@codemirror/lang-markdown` imports `@codemirror/lang-html` at its top level and calls it there. esbuild keeps that call, so the HTML, CSS and JavaScript grammars land in the first load. |
+
+The esbuild figure is our measurement of a page that only mounts the editor (248 KB); an
+integration measured about 262 KB for its own page. Formulas and diagrams stay separate chunks
+with either bundler.
 
 ## The recipe
 
@@ -1937,6 +1994,10 @@ const state = createEditorState({ doc, codeLanguages });
 page's Mermaid for diagrams. It holds its own CodeMirror, so it cannot take `extensions` built
 from another copy; a page that uses CodeMirror itself should bundle the package instead
 ([self-hosting](https://openmarkdown.dev/editor/docs/guides/self-hosting/)).
+
+It exports the editor's functions only, not CodeMirror's `LanguageDescription`, so it cannot take
+`codeLanguages` either: fenced code shows unhighlighted. For highlighted code blocks, bundle the
+package with the languages you want (the recipe in [code blocks](#code-blocks) above).
 
 # Fidelity
 

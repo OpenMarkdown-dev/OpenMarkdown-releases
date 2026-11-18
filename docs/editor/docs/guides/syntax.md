@@ -46,7 +46,7 @@ written" means the text stays as you typed it, with no special treatment.
 | Callout fold marks | `> [!NOTE]-` | Rendered | Obsidian's `-` / `+` after the type: rendered as the callout, nothing folds. |
 | Inline math `$…$` | `$E = mc^2$` | Rendered | Pandoc's rules: a non-space after the opening `$`, a non-space before the closing `$`, no digit after it. One line. |
 | Math `$$…$$` | `$$\int_0^1 x\,dx$$` | Rendered | On lines of its own: block math (may span lines). Inside a line of text: inline math, as in remark-math, Obsidian and Typora. |
-| Math `\(…\)` and `\[…\]` | `\(x^2\)` | Rendered | The delimiters LLMs write. `\[ … \]` is block math when it is a paragraph of its own; on one line it needs a space inside both brackets. Otherwise these stay CommonMark escapes. |
+| Math `\(…\)` and `\[…\]` | `\(x^2\)` | Rendered | The delimiters LLMs write. `\[ … \]` is block math when it is a paragraph of its own; on one line it needs a space inside both brackets. Otherwise these stay CommonMark escapes: `\[ … \]` in the middle of a line (sharing its paragraph with other text) is never math, by design, and shows as its text `[ … ]`, the backslashes hidden off the caret. (Pandoc's `tex_math_single_backslash` reads it as display math; the editor keeps CommonMark's reading there.) |
 | YAML front matter | `---⏎title: x⏎---` | Rendered | At the very start of the file; shown as an editable Properties block. |
 | Image size | `![alt\|300](cat.png)` | Rendered | `\|width` or `\|widthxheight` at the end of the alt text, in pixels (Obsidian's form). |
 | Mermaid diagrams | `` ```mermaid `` | Rendered | A fence with info string `mermaid`. Off with `diagrams: false` and in the `no-diagrams` entry. |
@@ -98,6 +98,7 @@ Each row is a test vector: the source, and what the editor renders it as (formul
 | `\[x\]` | `[x]` |
 | `- \[x\] item` | `<ul>⏎<li>[x] item</li>⏎</ul>` |
 | `\[ a \] b \[ c \]` | `[ a ] b [ c ]` |
+| `Let \[ x^2 \] be the area.` | `Let [ x^2 ] be the area.` |
 | `text⏎\[⏎x⏎\]` | `text⏎[⏎x⏎]` |
 
 ⏎ marks a line break.

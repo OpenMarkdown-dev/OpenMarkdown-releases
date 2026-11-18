@@ -96,6 +96,27 @@ Return a target that is valid in a Markdown link (percent-encode spaces) and tha
 `resolveImage` accepts. When the document has a path and you give both, `saveAttachment` is
 used.
 
+The editor shows the new image by loading what `resolveImage` returns for that link, at once.
+When the place you store it does not serve it yet, the image is broken in the editor until it
+does: a CMS that keeps uploads in a draft store until the entry is published, for example, writes
+`/media/42.png`, and that path answers 404 before publishing. Then resolve the link yourself:
+keep what you uploaded, and have `resolveImage` answer from it first.
+
+```ts
+const pending = new Map<string, string>(); // link target → blob URL, until the server serves it
+
+const host = {
+  uploadImage: async (bytes: Uint8Array, hint: string | null) => {
+    const path = await saveToDraftStore(bytes, hint); // e.g. "/media/42.png", not served yet
+    if (path) pending.set(path, URL.createObjectURL(new Blob([bytes.slice()])));
+    return path;
+  },
+  resolveImage: (src: string) => pending.get(src) ?? (src.startsWith("/media/") ? src : null),
+};
+```
+
+After publishing, drop the entries (revoking their blob URLs) and call `editor.refreshImages()`.
+
 ## When an image cannot be stored
 
 - With neither `saveAttachment` nor `uploadImage`, pasting or dropping an image inserts nothing.

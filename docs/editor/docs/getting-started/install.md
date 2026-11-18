@@ -71,13 +71,19 @@ packages enter your lockfile.
 
 Some projects refuse packages published in the last few days: bun's `minimumReleaseAge`
 (`bunfig.toml`), pnpm's `minimumReleaseAge` (`pnpm-workspace.yaml`), or a CI policy built on
-`npm install --before`. A version of the editor younger than that window is refused. Install the
-newest version older than your window rather than excluding the package from the gate:
+`npm install --before`. A version of the editor younger than that window is refused. The gate
+falls back to an older version only inside your version range: with `^0.2.0` in `package.json`
+and 0.2.0 the newest release, no version qualifies, and the install fails until 0.2.0 is older
+than the window. Pin the newest version older than your window instead:
 
 ```sh
 npm view @openmarkdown-dev/editor time --json
 npm install @openmarkdown-dev/editor@<version>   # the newest one older than your window
 ```
+
+To exclude the package from the gate instead, bun's `minimumReleaseAgeExcludes` takes exact
+package names, not patterns: list `"@openmarkdown-dev/editor"` (and `"@openmarkdown-dev/css"` if
+you use the stylesheets); `"@openmarkdown-dev/*"` matches nothing.
 
 Every release is listed with its date in the [changelog](https://github.com/OpenMarkdown-dev/OpenMarkdown-editor/blob/main/CHANGELOG.md),
 and its peers and dependencies are declared as ranges, so an older editor version installs with
