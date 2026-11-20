@@ -1191,6 +1191,8 @@ table.doc code, .guide-sec code { font-family: var(--mono); font-size: 0.85em; b
 /* the build-time diagram: on its own Paper ground, scrolling rather than shrinking its labels */
 .learn-doc figure.om-mermaid { margin-top: 1.5rem; overflow-x: auto; background: var(--paper); border: 1px solid var(--line-soft); border-radius: 0.5rem; padding: 1rem; }
 .learn-doc figure.om-mermaid svg { display: block; min-width: 52rem; height: auto; margin: 0 auto; }
+/* an article image (a screenshot, a GIF): never wider than the column, ratio kept */
+.learn-doc img { display: block; max-width: 100%; height: auto; margin-top: 1.5rem; border: 1px solid var(--line-soft); border-radius: 0.5rem; }
 .learn-list { padding-bottom: 2rem; }
 .learn-item { padding: 1.75rem 0; border-top: 1px solid var(--line-soft); }
 .learn-item h2 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; text-wrap: balance; }
