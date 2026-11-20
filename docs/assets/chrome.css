@@ -160,21 +160,65 @@
    addressed by class, never as a bare `footer`: the docs have footers of their
    own (page navigation) that must not turn into an ink band. */
 .site-footer .wrap { max-width: var(--site-col); margin: 0 auto; padding: 0 1.5rem; }
+
+/* The ink footer (spec: site-chrome / footer 的结构): a brand block and four
+   link columns, one link per line, then a thin rule over the copyright and the
+   (launch-held) legal links. Headings are told apart by colour, not size.
+   Colours on ink #17171A, all checked ≥ 4.5:1 — links #F4F0E6 15.7:1, tagline
+   and the brand block's GitHub #A8A396 7.1:1, headings and the bottom bar
+   #8A8579 4.9:1. Literal values rather than tokens: the footer is ink on every
+   page and every consumer, whatever the page's own ground. */
 .site-footer {
   background: var(--ink, #17171A);
   --fg: #F4F0E6; --bg: var(--ink, #17171A); --line: rgba(244,240,230,0.22);
-  padding: 2.5rem 0 3.5rem; font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace); font-size: 0.8125rem; color: #cfc9bd;
+  padding: 5.5rem 0 2.5rem;
+  font-family: var(--sans, "Space Grotesk", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Helvetica, Arial, sans-serif);
+  font-size: 0.9375rem; line-height: 1.4; color: #F4F0E6;
 }
-.site-footer .wrap { display: flex; justify-content: space-between; gap: 1.1rem 1.5rem; flex-wrap: wrap; align-items: center; }
-/* index footer stacks two full-width rows inside the same wrap flex —
-   guide.html's simpler footer (span + fnav, no rows) keeps working as is */
-.foot-row { flex: 1 0 100%; display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
-.site-footer .fnav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.site-footer a { color: inherit; text-decoration: none; }
-.site-footer a:hover { color: var(--fg, #17171A); }
-/* Products row — both products again at the foot of every page (spec: site-chrome). */
-.site-footer .flabel { color: #F4F0E6; }
-.site-footer small { font-size: inherit; opacity: 0.6; }
+.site-footer a { color: inherit; text-decoration: none; transition: color 0.15s ease; }
+.site-footer a:hover { color: #FFFFFF; }
+.site-footer a:focus-visible { outline: 2px solid #4a7fd6; outline-offset: 2px; border-radius: 2px; }
+/* The last column is as wide as the address it carries, so the address never
+   spills past the column edge; the other four share what is left. */
+.site-footer .foot-main { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr max-content; gap: 2.5rem; }
+.site-footer .foot-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 1.125rem; }
+.site-footer .foot-mark { display: flex; align-items: center; gap: 0.75rem; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.site-footer .foot-mark img { height: 1.375rem; width: auto; display: block; }
+.site-footer .foot-tag { margin: 0; max-width: 16.25rem; font-size: 1rem; line-height: 1.5; color: #A8A396; }
+.site-footer .foot-gh { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; font-size: 0.875rem; color: #A8A396; }
+.site-footer .foot-gh:hover { color: #F4F0E6; }
+.site-footer .foot-col { display: flex; flex-direction: column; align-items: flex-start; gap: 0.875rem; }
+.site-footer .foot-head { margin-bottom: 0.25rem; font-size: 0.875rem; color: #8A8579; }
+.site-footer .foot-short { display: none; }
+.site-footer .foot-base {
+  margin-top: 5rem; padding-top: 1.375rem; border-top: 1px solid rgba(244, 240, 230, 0.14);
+  display: flex; justify-content: space-between; align-items: center; gap: 0.75rem 1.5rem; flex-wrap: wrap;
+  font-family: var(--mono, "Space Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.8125rem; color: #8A8579;
+}
+.site-footer .foot-legal { display: flex; gap: 1.75rem; }
+.site-footer .foot-legal a:hover { color: #F4F0E6; }
+/* Narrower than the full column: the brand block takes its own row, the four
+   link columns share the next. */
+@media (max-width: 64rem) {
+  .site-footer .foot-main { grid-template-columns: 1fr 1fr 1fr max-content; }
+  .site-footer .foot-brand { grid-column: 1 / -1; }
+}
+/* Phone: two columns by two rows; short labels for the address and the legal
+   links; legal above the copyright at the very bottom. */
+@media (max-width: 45rem) {
+  .site-footer { padding: 4rem 0 2rem; font-size: 1rem; }
+  .site-footer .foot-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 1.5rem; }
+  .site-footer .foot-brand { gap: 0.875rem; margin-bottom: 0.5rem; }
+  .site-footer .foot-mark { font-size: 1.375rem; gap: 0.625rem; }
+  .site-footer .foot-mark img { height: 1.25rem; }
+  .site-footer .foot-tag { max-width: none; font-size: 0.9375rem; }
+  .site-footer .foot-gh { display: none; } /* GitHub stays one tap away under Resources */
+  .site-footer .foot-long { display: none; }
+  .site-footer .foot-short { display: inline; }
+  .site-footer .foot-base { margin-top: 3rem; padding-top: 1.25rem; flex-direction: column; align-items: flex-start; }
+  .site-footer .foot-legal { order: -1; gap: 1.5rem; }
+}
 
 /* First-load lift for a page's hero (the app home and the editor home): each
    .rise element floats up and fades in once; .rise-N staggers them. Lives here,
