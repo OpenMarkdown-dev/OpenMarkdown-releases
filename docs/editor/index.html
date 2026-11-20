@@ -211,27 +211,7 @@
   <!-- END site-footer -->
 
   <!-- This page's analytics events (cookieless, no PII). The loader itself is
-       injected before   <!-- Analytics loader: cookieless, no PII, production host only; known test paths
-       are not counted. Defined once in site-chrome/analytics.html (spec:
-       landing-page-analytics); this page's own events are in its own script. -->
-  <script>
-  (function () {
-    'use strict';
-    if (location.hostname !== 'openmarkdown.dev') return;
-    var TEST_PATHS = ['/agent-smoke-test'];
-    window.goatcounter = window.goatcounter || {};
-    window.goatcounter.path = function (p) {
-      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
-    };
-    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
-    var s = document.createElement('script');
-    s.async = true;
-    s.setAttribute('data-goatcounter', ENDPOINT);
-    s.src = 'https://gc.zgo.at/count.js';
-    document.head.appendChild(s);
-  })();
-  </script>
-</body> by vite.editor-site.config.ts from
+       injected at the end of the body by vite.editor-site.config.ts from
        site-chrome/analytics.html, the same one every site page carries.
        Production host ONLY. Contract: openspec landing-page-analytics +
        editor-site. Events: editor-copy-<install|script> when a code block is
@@ -254,5 +234,25 @@
   })();
   </script>
 
+  <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+  })();
+  </script>
 </body>
 </html>
