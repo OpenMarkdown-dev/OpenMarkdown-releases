@@ -13,15 +13,6 @@ On macOS and Linux, the quickest way is the app itself. Press <kbd>⇧⌘A</kbd>
 
 **See what runs** shows the exact commands before you click, with how to remove them. Gemini CLI and opencode start as they are: connect them by hand below first.
 
-## Desktop chat apps (macOS)
-
-Open the intercom (<kbd>⇧⌘A</kbd>). With no agent running it shows two ways to let AI edit your files; the second, **Talk in a chat app**, has one row per chat app: its state and one button. With agents running, switch the top of the intercom to **Chat apps** to see the same rows. Nothing is registered until you click; **⋯ → See what runs** shows the exact commands first. An app that is not installed shows **Download**, which opens the vendor's own download page.
-
-- **ChatGPT:** **Connect** registers the MCP server with the Codex command-line tool that ships inside ChatGPT (ChatGPT and Codex share `~/.codex/config.toml`), then opens a new ChatGPT thread. Once connected, the row reads **Connected** and the button **Open**. If an `openmd` entry is already there, nothing is changed, unless that entry is one OpenMarkdown made and its `openmd` can no longer be found: then the row reads **Needs repair**, and **Repair** registers it again by full path. **⋯ → Remove from ChatGPT** removes only the entry OpenMarkdown made (the same as `codex mcp remove openmd`).
-- **Claude:** **Install** makes a Desktop Extension (`OpenMarkdown.mcpb`) and hands it to Claude, which shows its own install dialog. The extension contains no copy of `openmd`: it runs the one inside your OpenMarkdown app, so it stays current as the app updates. Remove it in Claude → Settings → Extensions (**⋯ → Remove from Claude** shows the same, under the row).
-
-Both register the app's own `openmd` by its full path (for example `/Applications/OpenMarkdown.app/Contents/MacOS/openmd`), so they do not need the command-line tool turned on. If you move OpenMarkdown.app, connect again.
-
 ## Let your agent do it
 
 For an agent you run in your own terminal, paste this to it (any agent that can read a web page):
