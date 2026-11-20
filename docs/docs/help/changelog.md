@@ -2,6 +2,13 @@
 
 What changed in each release, newest first. Download the latest from the [home page](/#download).
 
+## 0.16.1
+
+Widen your text view
+- Text width: Standard or Wide, in Settings or from the command palette
+- Mermaid: Large diagrams wait for Render instead of slowing typing
+- Property edits always save as valid YAML
+
 ## 0.16.0
 
 Diagrams in your notes, and notes you can share
