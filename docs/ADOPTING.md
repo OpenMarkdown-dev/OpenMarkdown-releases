@@ -15,7 +15,7 @@ the agent the user already has, over MCP.
 
 Quick answers to what you're probably about to ask — watching the files the agent
 writes, the MCP server that renders Markdown, previewing while it edits, and which
-agents it works with — are at <https://openmarkdown.dev/faq.md>. An honest
+agents it works with — are at <https://openmarkdown.dev/docs/help/faq.md>. An honest
 comparison against Typora, Obsidian, Marked 2, and iA Writer (including where they
 win) is at <https://openmarkdown.dev/compare/>.
 

@@ -51,6 +51,6 @@ OpenMarkdown ships a built-in MCP server. Claude Code, Codex, Gemini CLI, openco
 
 Related comparisons: [OpenMarkdown vs iA Writer](https://openmarkdown.dev/compare/openmarkdown-vs-ia-writer) · [OpenMarkdown vs Marked 2](https://openmarkdown.dev/compare/openmarkdown-vs-marked-2)
 
-More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/faq) · [docs](https://openmarkdown.dev/docs/)
+More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/docs/help/faq/) · [docs](https://openmarkdown.dev/docs/)
 
 [← all comparisons](https://openmarkdown.dev/compare/)

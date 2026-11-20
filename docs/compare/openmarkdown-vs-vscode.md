@@ -52,6 +52,6 @@ And the agent participates through that rendered view: OpenMarkdown's built-in M
 
 Related comparisons: [OpenMarkdown vs Obsidian](https://openmarkdown.dev/compare/openmarkdown-vs-obsidian) · [OpenMarkdown vs Apple Notes](https://openmarkdown.dev/compare/openmarkdown-vs-apple-notes)
 
-More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/faq) · [docs](https://openmarkdown.dev/docs/)
+More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/docs/help/faq/) · [docs](https://openmarkdown.dev/docs/)
 
 [← all comparisons](https://openmarkdown.dev/compare/)

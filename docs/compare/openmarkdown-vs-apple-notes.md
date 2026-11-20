@@ -52,6 +52,6 @@ Apple Notes keeps your writing inside a proprietary database. Markdown, added in
 
 Related comparisons: [OpenMarkdown vs Obsidian](https://openmarkdown.dev/compare/openmarkdown-vs-obsidian) · [OpenMarkdown vs VS Code](https://openmarkdown.dev/compare/openmarkdown-vs-vscode)
 
-More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/faq) · [docs](https://openmarkdown.dev/docs/)
+More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/docs/help/faq/) · [docs](https://openmarkdown.dev/docs/)
 
 [← all comparisons](https://openmarkdown.dev/compare/)

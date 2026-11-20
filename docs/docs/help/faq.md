@@ -12,6 +12,10 @@ No. It works with the agent you already use: Claude Code, Codex, Gemini CLI, ope
 
 Yes. Open the file in OpenMarkdown. Whether the agent writes through the [MCP tools](/docs/reference/mcp-tools/) or straight to disk, the page updates as it writes. Through the tools it can also scroll your view to the part it means (`reveal`).
 
+## Does it have an MCP server?
+
+Yes, built in: `openmd mcp`, over stdio. It is the app itself, not a service that renders Markdown to HTML, so the file your agent opens or edits is the one on your screen. Your agent gets tools to open files, scroll your view and read or write one section at a time: [MCP tools](/docs/reference/mcp-tools/). Claude Code gets it with the plugin; other agents register it with one command. See [Connect your agent](/docs/start/connect/). It runs on macOS and Linux.
+
 ## Will my agent overwrite what I'm typing?
 
 No. Through the tools it edits one section at a time, and a write to a section you changed is refused until it reads your version. Changes it makes on disk are merged with your unsaved edits, and if both of you changed the same lines, <kbd>⌘Z</kbd> brings yours back. See [Co-edit](/docs/agent/co-edit/).

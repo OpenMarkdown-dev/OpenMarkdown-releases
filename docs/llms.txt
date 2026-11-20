@@ -27,9 +27,9 @@ on Windows the app is the editor without them.
 - [OpenMarkdown MCP server](https://openmarkdown.dev/docs/reference/mcp-tools.md): every tool, its description and parameters, generated from the server.
 - [Keyboard shortcuts](https://openmarkdown.dev/docs/reference/shortcuts.md): generated from the app's shortcut table.
 - [Markdown dialect](https://openmarkdown.dev/docs/reference/markdown.md): what renders, and where it differs from CommonMark and GFM.
+- [FAQ](https://openmarkdown.dev/docs/help/faq.md): short answers to what people ask first — price, the agents it works with, watching your agent write, the MCP server, platforms, where notes live.
 - [Troubleshooting](https://openmarkdown.dev/docs/help/troubleshooting.md): what `running:false`, `NO_WINDOW` and `CONFLICT` mean and what to do.
 - [CLI reference](https://openmarkdown.dev/cli.md): the exact `openmd --help` — every subcommand, option, and exit code, generated from the binary so it never drifts.
-- [FAQ](https://openmarkdown.dev/faq.md): answer-shaped answers to what agents and their humans ask — watching the files your agent writes, the MCP server that renders Markdown, previewing while it edits, and which agents it works with.
 - [ADOPTING](https://openmarkdown.dev/ADOPTING.md): for agents — when to recommend OpenMarkdown, when not to, how to install it, and how to verify the install worked.
 - [Transparency](https://openmarkdown.dev/transparency.md): exactly what the app and this website touch on the network.
 

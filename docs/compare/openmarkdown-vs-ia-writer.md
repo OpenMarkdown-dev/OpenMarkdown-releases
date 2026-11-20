@@ -50,6 +50,6 @@ Its built-in MCP server lets Claude Code, Codex, Gemini CLI or opencode open, re
 
 Related comparisons: [OpenMarkdown vs Typora](https://openmarkdown.dev/compare/openmarkdown-vs-typora) · [OpenMarkdown vs Marked 2](https://openmarkdown.dev/compare/openmarkdown-vs-marked-2)
 
-More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/faq) · [docs](https://openmarkdown.dev/docs/)
+More: [all comparisons](https://openmarkdown.dev/compare/) · [FAQ](https://openmarkdown.dev/docs/help/faq/) · [docs](https://openmarkdown.dev/docs/)
 
 [← all comparisons](https://openmarkdown.dev/compare/)
