@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- OpenMarkdown Anywhere: the sync + web-AI product page (change cloud-billing,
+       design D16). Public as a beta waitlist page (change settings-nav D24): the
+       launch switch site-src/anywhere-launch.json is { live: true, pricing: false },
+       so this page, its nav link and sitemap row publish while the new pricing
+       page (/support) is still held. Every claim here must be true today: the
+       beta is macOS only, and only Claude is offered as a web AI (CLIENTS below). -->
+  <title>OpenMarkdown Anywhere — encrypted sync for your Markdown notes</title>
+  <meta name="description" content="Private, encrypted sync for your Markdown notes between your Macs, and with Claude. In a private beta on macOS: join the waitlist.">
+  <link rel="canonical" href="https://openmarkdown.dev/anywhere">
+  <link rel="alternate" type="text/markdown" href="/anywhere.md">
+  <meta name="theme-color" content="#17171A">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenMarkdown">
+  <meta property="og:title" content="OpenMarkdown Anywhere — your notes, anywhere">
+  <meta property="og:description" content="Private, encrypted sync between your Macs, and with Claude. In a private beta: join the waitlist.">
+  <meta property="og:url" content="https://openmarkdown.dev/anywhere">
+  <meta property="og:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenMarkdown Anywhere — your notes, anywhere">
+  <meta name="twitter:description" content="Private, encrypted sync between your Macs, and with Claude. In a private beta: join the waitlist.">
+  <meta name="twitter:image" content="https://openmarkdown.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="OpenMarkdown — Feather-light. Light-speed.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/06-appicon-ink.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+
+  <!-- Structured data: name/url/description mirror <title>, canonical and the
+       meta description (scripts/check-site-corpus.mjs parses it). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "OpenMarkdown Anywhere — encrypted sync for your Markdown notes",
+    "url": "https://openmarkdown.dev/anywhere",
+    "description": "Private, encrypted sync for your Markdown notes between your Macs, and with Claude. In a private beta on macOS: join the waitlist.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "OpenMarkdown",
+      "url": "https://openmarkdown.dev/"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "OpenMarkdown",
+      "url": "https://openmarkdown.dev/"
+    }
+  }
+  </script>
+
+  <!-- Page-scoped styles. Animation grammar is the home page's: the default
+       markup IS the end frame (no JS, reduced motion and the twin all read the
+       finished state); CSS keyframes or a JS-driven data-beat only replay how
+       it got there. site.css's reduced-motion rule stops every animation, and
+       the scripts below do not start under it. -->
+  <style>
+    /* —— hero (ink, pulled up under the transparent nav) —— */
+    .aw-hero { background: var(--ink); color: #F4F0E6; text-align: center;
+      --fg: #F4F0E6; --bg: var(--ink); --line: rgba(244, 240, 230, 0.2);
+      margin-top: calc(-1 * var(--nav-h));
+      padding: calc(var(--nav-h) + clamp(3.5rem, 10vw, 6rem)) 0 clamp(3rem, 7vw, 4.5rem); }
+    .aw-hero .eyebrow { color: #8f8a7f; }
+    .aw-hero h1 { font-weight: 800; letter-spacing: -0.04em; line-height: 0.98;
+      font-size: clamp(2.7rem, 8.5vw, 5.25rem); margin-top: 1rem; text-wrap: balance; }
+    .aw-hero .lede { max-width: 32rem; margin: 1.4rem auto 0; color: #d6d1c6;
+      font-size: clamp(1.06rem, 2.3vw, 1.25rem); line-height: 1.5; text-wrap: balance; }
+    .aw-hero .cta-row { margin-top: 2rem; }
+    .aw-hero .btn { background: #F4F0E6; color: var(--ink); border-color: #F4F0E6; }
+    .aw-hero .btn.ghost { background: transparent; color: #F4F0E6; border-color: rgba(244, 240, 230, 0.3); }
+
+    /* —— hero stage: one .md file in the middle, four endpoints take turns
+       editing it. Each edit lands on the editor's own copy first, flies into
+       the file along its wire, then out to everyone else. The four edits
+       (add, tick, edit, delete) cancel out, so the loop never resets. The
+       markup is the static frame (no JS, reduced motion); the script below
+       only animates it and lays the wires to the real geometry.
+       Wide = four corners; under 640px of stage = file on top, endpoints in a row. —— */
+    .hd-wrap { container-type: inline-size; margin: clamp(2rem, 5vw, 3rem) auto 0; max-width: 56rem; }
+    .hd-stage { position: relative; height: 17.5rem; text-align: left; }
+    @container (max-width: 640px) { .hd-stage { height: 20rem; } }
+    .hd-stage svg.wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .hd-stage .base { stroke: #2f2e2a; stroke-width: 1.4; fill: none; vector-effect: non-scaling-stroke; }
+    .hd-stage .hot { fill: none; stroke-width: 2.2; stroke-linecap: round; opacity: 0; filter: drop-shadow(0 0 4px currentColor); }
+    .hd-stage .g-narrow { display: none; }
+    @container (max-width: 640px) { .hd-stage .g-wide { display: none; } .hd-stage .g-narrow { display: inline; } }
+    .hd-doc { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12.5rem; background: var(--paper);
+      border-radius: 0.65rem; box-shadow: 0 1.1rem 3rem rgba(0, 0, 0, 0.5); padding: 1rem 1rem 1.1rem; display: flex; flex-direction: column; gap: 9px; }
+    @container (max-width: 640px) { .hd-doc { top: 30%; width: 11.9rem; } }
+    .hd-doc .mark { position: absolute; top: -13px; left: 14px; width: 42px; height: 26px; background: var(--paper); border-radius: 6px;
+      padding: 3px 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
+    .hd-doc .mark svg { width: 100%; height: 100%; display: block; }
+    .hd-doc .hd { height: 9px; width: 46%; border-radius: 4px; background: var(--ink); margin-top: 4px; }
+    .hd-stage .rows { display: flex; flex-direction: column; gap: 9px; }
+    .hd-stage .row { display: flex; align-items: center; gap: 7px; transform-origin: left; max-height: 12px; }
+    .hd-stage .row .bx { width: 9px; height: 9px; border: 1.5px solid #8a877e; border-radius: 2px; flex: none; position: relative;
+      transition: background 0.3s, border-color 0.3s; }
+    .hd-stage .row i { display: block; height: 6px; border-radius: 3px; background: #cfcabe; transition: background 1.4s, width 0.5s, opacity 0.4s; }
+    .hd-stage .row.done .bx { background: var(--ink); border-color: var(--ink); }
+    .hd-stage .row.done i { opacity: 0.35; }
+    .hd-stage .row.pop .bx { animation: hdPop 0.5s ease-out; }
+    .hd-stage .row .bx::after { content: ""; position: absolute; left: 2px; top: -1px; width: 3px; height: 6px; border: solid #fff;
+      border-width: 0 1.5px 1.5px 0; transform: rotate(45deg) scale(0); transition: transform 0.25s 0.1s; }
+    .hd-stage .row.done .bx::after { transform: rotate(45deg) scale(1); }
+    @keyframes hdPop { 0% { transform: scale(1); } 40% { transform: scale(1.7); box-shadow: 0 0 0 6px var(--pc); } 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; } }
+    .hd-stage .new { animation: hdGrow 0.5s ease-out; }
+    .hd-stage .gone { animation: hdShrink 0.45s ease-in forwards; }
+    @keyframes hdGrow { from { transform: scaleX(0); max-height: 0; } to { transform: scaleX(1); } }
+    @keyframes hdShrink { to { transform: scaleX(0); opacity: 0; max-height: 0; margin-top: -9px; } }
+    /* Each endpoint is a tile with its mini copy on the OUTER side (away from
+       the file). The endpoint is placed by the wire's anchor: the tile's inner
+       side edge at its vertical middle (left tiles: right edge; right tiles:
+       left edge). Narrow: a row under the file, copy under the tile, the wire
+       meets the tile's top edge. The same anchors drive the SVG wires. */
+    .hd-ep { position: absolute; display: flex; align-items: center; gap: 10px; }
+    .hd-ep.e0, .hd-ep.e2 { flex-direction: row-reverse; transform: translate(-100%, -50%); }
+    .hd-ep.e1, .hd-ep.e3 { transform: translate(0, -50%); }
+    .hd-ep.e0 { left: 30%; top: 25%; } .hd-ep.e1 { left: 70%; top: 25%; } .hd-ep.e2 { left: 30%; top: 75%; } .hd-ep.e3 { left: 70%; top: 75%; }
+    @container (max-width: 640px) {
+      .hd-ep.e0, .hd-ep.e1, .hd-ep.e2, .hd-ep.e3 { flex-direction: column; transform: translate(-50%, 0); top: 67%; }
+      .hd-ep.e0 { left: 14%; } .hd-ep.e1 { left: 38%; } .hd-ep.e2 { left: 62%; } .hd-ep.e3 { left: 86%; }
+    }
+    .hd-ep .ico { width: 60px; height: 60px; border-radius: 15px; border: 1.5px solid #45443e; display: grid; place-items: center;
+      background: #1f1f23; color: #F4F0E6; transition: border-color 0.3s, box-shadow 0.3s; }
+    .hd-ep .ico svg { width: 26px; height: 26px; }
+    .hd-ep .ico .pair { display: flex; gap: 5px; align-items: center; }
+    .hd-ep .ico .pair svg { width: 17px; height: 17px; }
+    .hd-ep.act .ico { border-color: var(--c); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 28%, transparent); }
+    .hd-ep.rx .ico { border-color: var(--rc); box-shadow: 0 0 0 5px color-mix(in srgb, var(--rc) 22%, transparent); }
+    .hd-ep .mini { width: 78px; display: flex; flex-direction: column; gap: 6px; padding: 9px 10px; border-radius: 7px; background: #232327; }
+    .hd-ep .mini b { display: block; height: 4px; max-height: 4px; border-radius: 2px; background: #5c5a54; transform-origin: left;
+      transition: width 0.5s, opacity 0.5s, background 1.4s; }
+    .hd-ep .mini b.done { opacity: 0.35; }
+    .hd-ep .mini b.pop { animation: hdMpop 0.5s ease-out; }
+    @keyframes hdMpop { 40% { transform: scaleY(2.2); } }
+    @container (max-width: 640px) {
+      .hd-ep .ico { width: 46px; height: 46px; border-radius: 12px; } .hd-ep .ico svg { width: 20px; height: 20px; } .hd-ep .ico .pair { gap: 3px; } .hd-ep .ico .pair svg { width: 14px; height: 14px; }
+      .hd-ep .mini { width: 58px; padding: 7px 8px; gap: 5px; }
+    }
+    .hd-dot { position: absolute; width: 11px; height: 11px; border-radius: 50%; margin: -5.5px 0 0 -5.5px; opacity: 0; pointer-events: none; }
+    .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* —— section rhythm —— */
+    .aw-sec { padding: clamp(3.5rem, 8vw, 5.5rem) 0; }
+    .aw-sec + .aw-sec { border-top: 1px solid var(--line-soft); }
+    .aw-sec .head { max-width: 40rem; }
+    .aw-sec .head .eyebrow { display: block; margin-bottom: 0.9rem; }
+    .aw-sec .head .lede { margin-top: 0.9rem; }
+    .aw-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.25rem; align-items: start; }
+    @media (max-width: 44rem) { .aw-pair { grid-template-columns: 1fr; } }
+    .aw-pair .window { box-shadow: 0 1.25rem 2.5rem -1.75rem rgba(23, 23, 26, 0.35); }
+    .titlebar .filename { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .titlebar .state { margin-left: auto; font-family: var(--mono); font-size: 0.7rem; color: var(--signal); transition: color 0.2s ease; }
+
+    /* —— live sync: tick on the left, the right one shakes and updates —— */
+    .aw-sync .fs-doc { min-height: 9.5rem; }
+    .aw-sync li { border-radius: 0.3rem; margin: 0 -0.35rem; padding: 0.1rem 0.35rem; }
+    .aw-sync .pop .box { animation: scPop 0.35s ease; }
+    .aw-sync .bump { animation: awBump 0.45s ease; }
+    .aw-sync .lit { animation: awLit 1.4s ease; }
+    .aw-sync .state.on { color: var(--emerald); }
+    /* OS mark before the device name (the founder chose OS marks to name the
+       platform): monochrome, currentColor, ~12px */
+    .titlebar .os { display: inline-flex; margin-left: 0.5rem; color: #6f6b63; }
+    .titlebar .os svg { width: 0.75rem; height: 0.75rem; display: block; }
+    .titlebar .os + .filename { margin-left: 0.35rem; }
+    @keyframes awBump { 20% { transform: translateX(-3px) rotate(-0.4deg); } 45% { transform: translateX(3px) rotate(0.4deg); }
+      70% { transform: translateX(-2px); } 100% { transform: none; } }
+    @keyframes awLit { 0%, 40% { background: rgba(31, 138, 91, 0.16); } 100% { background: transparent; } }
+
+    /* —— AI: you ask in your client, the tool runs, the line lands in the
+       note with the agent's tint. The left window restyles per client
+       (data-style chat | term, data-client); the beat lives on #awAI, so a
+       switch never restarts or desyncs the right side. —— */
+    .aw-ai { align-items: end; }
+    .aw-left { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+    .aw-switch { display: flex; flex-wrap: wrap; gap: 0.2rem; padding: 0.22rem; align-self: flex-start; max-width: 100%;
+      border: 1px solid var(--line); border-radius: 0.8rem; background: var(--paper); }
+    .aw-switch[hidden] { display: none; }
+    .aw-switch button { font-family: var(--mono); font-size: 0.72rem; line-height: 1.2; color: var(--signal); white-space: nowrap;
+      background: transparent; border: 0; border-radius: 0.6rem; padding: 0.42rem 0.7rem; cursor: pointer; }
+    .aw-switch button:hover { color: var(--fg); }
+    .aw-switch button:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+    .aw-switch button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+    .aw-client { display: flex; flex-direction: column; height: 17.5rem; }
+    .aw-client .titlebar { flex: none; }
+    .aw-client .addr { margin-left: 0.5rem; flex: 1; max-width: 13rem; font-family: var(--mono); font-size: 0.7rem; color: var(--signal);
+      background: var(--bg); border: 1px solid var(--line-soft); border-radius: 999px; padding: 0.15rem 0.7rem; display: none; }
+    .aw-client[data-client="claude-web"] .addr, .aw-client[data-client="chatgpt-web"] .addr { display: block; }
+    .aw-client[data-client="claude-web"] .filename, .aw-client[data-client="chatgpt-web"] .filename { display: none; }
+    .aw-client .body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .aw-client .msgs { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
+      gap: 0.55rem; padding: 0.9rem 1.1rem 0.6rem; font-size: 0.86rem; line-height: 1.5; }
+    .aw-client .msg { max-width: 88%; text-wrap: pretty; }
+    .aw-client .msg.you { align-self: flex-end; background: var(--surface); padding: 0.45rem 0.8rem; border-radius: 1rem; }
+    .aw-client .msg.ai { align-self: flex-start; }
+    .aw-client .tool { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.78rem;
+      color: var(--signal); border: 1px solid var(--line-soft); border-radius: 0.5rem; padding: 0.3rem 0.6rem; }
+    .aw-client .t-head { display: inline-flex; align-items: center; gap: 0.45rem; }
+    .aw-client .spin { width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 1.5px solid var(--line); border-top-color: var(--fg);
+      display: none; animation: awSpin 0.8s linear infinite; }
+    .aw-client .ok { color: var(--emerald); font-size: 0.75rem; }
+    .aw-client .ok::before { content: "✓"; }
+    .aw-client[data-style="term"] .ok::before { content: "⏺"; }
+    @keyframes awSpin { to { transform: rotate(360deg); } }
+    .aw-client .composer { flex: none; margin: 0 0.9rem 0.9rem; display: flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.45rem 0.4rem 1rem; font-size: 0.84rem; min-height: 2.4rem; }
+    .aw-client .composer .field { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .aw-client .composer .ph { color: var(--signal); }
+    .aw-client .composer .typed:not(:empty) + .ph { display: none; }
+    .aw-client .send { width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--line); color: var(--bg); flex: none;
+      display: grid; place-items: center; font-size: 0.8rem; transition: background 0.2s ease; }
+    .aw-client .t-only { display: none; }
+
+    /* per-client neutral looks (no trade dress, no logos): warm paper for
+       the Claude clients, plain white with a centred column for ChatGPT */
+    .aw-client[data-style="chat"][data-client^="claude"] .body { background: #F7F3EA; }
+    .aw-client[data-style="chat"][data-client^="claude"] .msg.you { background: #EBE4D6; }
+    .aw-client[data-style="chat"][data-client^="claude"] .composer { border-radius: 0.9rem; background: #FFFDF8; }
+    .aw-client[data-client="chatgpt-web"] .body { background: #FFFFFF; }
+    .aw-client[data-client="chatgpt-web"] .msgs { padding-inline: 1.6rem; }
+    .aw-client[data-client="chatgpt-web"] .msg.you { background: #F1F1F1; border-radius: 1.2rem; }
+    .aw-client[data-client="chatgpt-web"] .composer { background: #FFFFFF; box-shadow: 0 0.2rem 0.8rem -0.4rem rgba(0,0,0,0.25); }
+
+    /* terminal look (Claude Code): one monospace column, a boxed prompt */
+    .aw-client[data-style="term"] .body { background: #1B1B1E; color: #E9E5DC; font-family: var(--mono); }
+    .aw-client[data-style="term"] .titlebar { background: #232327; border-bottom-color: rgba(244,240,230,0.08); }
+    .aw-client[data-style="term"] .titlebar .filename { color: #8f8a7f; }
+    .aw-client[data-style="term"] .msgs { font-size: 0.74rem; line-height: 1.55; gap: 0.5rem; padding: 0.9rem 1rem 0.5rem; }
+    .aw-client[data-style="term"] .msg { max-width: none; }
+    .aw-client[data-style="term"] .msg.you { align-self: stretch; background: transparent; padding: 0; color: #9c968b; }
+    .aw-client[data-style="term"] .msg.you::before { content: "> "; }
+    .aw-client[data-style="term"] .msg.ai::before { content: "⏺ "; color: #E9E5DC; }
+    .aw-client[data-style="term"] .tool { border: 0; padding: 0; font-size: 0.74rem; color: #E9E5DC; border-radius: 0; }
+    .aw-client[data-style="term"] .c-only { display: none; }
+    .aw-client[data-style="term"] .t-only { display: inline; }
+    .aw-client[data-style="term"] .tool .ok { color: #6FCF97; }
+    .aw-client[data-style="term"] .tool .t-sub { display: block; color: #8f8a7f; padding-left: 1.1rem; }
+    .aw-client[data-style="term"] .tool { flex-direction: column; align-items: flex-start; gap: 0; }
+    .aw-client[data-style="term"] .tool .t-head { display: inline-flex; gap: 0.45rem; align-items: center; }
+    .aw-client[data-style="term"] .spin { border-color: rgba(244,240,230,0.25); border-top-color: #E9E5DC; }
+    .aw-client[data-style="term"] .composer { border-radius: 0.35rem; border-color: rgba(244,240,230,0.25); font-size: 0.74rem; padding-left: 0.7rem; }
+    .aw-client[data-style="term"] .composer::before { content: ">"; color: #8f8a7f; }
+    .aw-client[data-style="term"] .composer .ph { color: #6f6b63; }
+    .aw-client[data-style="term"] .send { display: none; }
+
+    /* beats: 0 empty · 1 typing · 2 sent · 3 tool running · 4 tool done + the
+       line lands · 5 reply · 6 hold. Static (no .run) = the end frame. */
+    .aw-ai.run .msg, .aw-ai.run .tool, .aw-ai.run .new { transition: opacity 0.3s ease, transform 0.3s ease, background 0.8s ease; }
+    .aw-ai.run:is([data-beat="0"], [data-beat="1"]) .msg.you,
+    .aw-ai.run:is([data-beat="0"], [data-beat="1"], [data-beat="2"]) .tool,
+    .aw-ai.run:is([data-beat="0"], [data-beat="1"], [data-beat="2"], [data-beat="3"], [data-beat="4"]) .msg.ai { opacity: 0; transform: translateY(0.3rem); }
+    .aw-ai.run[data-beat="3"] .tool .spin { display: inline-block; }
+    .aw-ai.run[data-beat="3"] .tool .ok { display: none; }
+    .aw-ai.run[data-beat="1"] .send { background: var(--fg); }
+    .aw-ai .fs-doc { min-height: 17.5rem; }
+    .aw-ai .new { border-radius: 0.3rem; margin: 0 -0.35rem; padding: 0.1rem 0.35rem; background: rgba(255, 90, 60, 0.1); }
+    .aw-ai .who { margin-left: auto; font-family: var(--mono); font-size: 0.66rem; color: var(--flame); }
+    .aw-ai.run:is([data-beat="0"], [data-beat="1"], [data-beat="2"], [data-beat="3"]) .new { opacity: 0; }
+    .aw-ai.run[data-beat="4"] .new { background: rgba(255, 90, 60, 0.24); outline: 2px solid rgba(255, 90, 60, 0.35); outline-offset: 0.1rem; }
+
+    /* —— privacy —— */
+    .aw-priv { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.25rem; align-items: start; }
+    @media (max-width: 44rem) { .aw-priv { grid-template-columns: 1fr; } }
+    .aw-tree { border: 1px solid var(--line); border-radius: 0.75rem; background: var(--bg); padding: 1.1rem 1.3rem;
+      font-family: var(--mono); font-size: 0.88rem; line-height: 2; }
+    .aw-tree .lit { font-weight: 700; }
+    .aw-tree .lit small { font-weight: 400; color: var(--emerald); margin-left: 0.4rem; }
+    .aw-tree .dim { color: #b7b3aa; }
+    .aw-tree .note { display: block; margin-top: 0.5rem; padding-top: 0.6rem; border-top: 1px solid var(--line-soft);
+      font-size: 0.72rem; line-height: 1.5; color: var(--signal); }
+    .aw-points { display: flex; flex-direction: column; gap: 1.25rem; }
+    .aw-points p { font-size: 0.98rem; color: var(--signal); text-wrap: pretty; }
+    .aw-points p b { display: block; color: var(--fg); font-size: 1.06rem; }
+
+    /* —— history: a scrubber over a stack of snapshots. Static = restored at
+       Mon 9:20 (the markup's inline layout), which reduced motion keeps. —— */
+    .aw-rewind { position: relative; margin-top: 2.25rem; border: 1px solid var(--line); border-radius: 0.9rem;
+      background: var(--canvas); padding: 2.25rem 1.5rem 1.4rem; overflow: hidden; }
+    .aw-rewind .deck { position: relative; width: min(19rem, 100% - 2.5rem); height: 10.5rem; margin: 1.6rem auto 0; }
+    .aw-rewind .deck.bump { animation: awBump 0.45s ease; }
+    .aw-rewind .snap { position: absolute; inset: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 0.6rem;
+      padding: 0.7rem 0.9rem; font-family: var(--mono); font-size: 0.74rem; line-height: 1.6; white-space: pre-line;
+      box-shadow: 0 0.4rem 1.1rem -0.5rem rgba(23, 23, 26, 0.25);
+      transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.45s ease; }
+    .aw-rewind .snap small { display: block; font-size: 0.66rem; color: var(--signal); margin-bottom: 0.3rem; }
+    .aw-rewind .pill { display: block; width: max-content; margin: 1.1rem auto 0; background: var(--ink); color: var(--paper);
+      font-family: var(--mono); font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 999px; opacity: 0; transition: opacity 0.3s ease; }
+    .aw-rewind .pill.on { opacity: 1; }
+    .aw-rewind .tl { position: relative; height: 3.2rem; margin: 1.4rem 1.2rem 0; }
+    .aw-rewind .tl::before { content: ""; position: absolute; left: 0; right: 0; top: 0.75rem; height: 2px; background: var(--line); }
+    .aw-rewind .tl-dot { position: absolute; top: 0; transform: translateX(-50%); padding: 0.2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.35rem; font-family: var(--mono);
+      font-size: 0.66rem; color: var(--signal); white-space: nowrap; transition: color 0.3s ease; }
+    .aw-rewind .tl-dot::before { content: ""; width: 0.6rem; height: 0.6rem; margin-top: 0.3rem; border-radius: 50%;
+      background: var(--paper); border: 2px solid var(--signal); }
+    .aw-rewind .tl-dot[data-on] { color: var(--fg); }
+    .aw-rewind .tl-head { position: absolute; top: 0.32rem; width: 1rem; height: 1rem; border-radius: 50%; background: var(--ink);
+      transform: translateX(-50%); pointer-events: none; transition: left 0.6s cubic-bezier(0.6, 0, 0.2, 1);
+      box-shadow: 0 0 0 0.25rem rgba(23, 23, 26, 0.1); }
+    @media (max-width: 34rem) { .aw-rewind .tl-dot { font-size: 0.6rem; } .aw-rewind .tl { margin-inline: 1.4rem; } }
+    .aw-keep { list-style: none; padding: 0; margin: 1.1rem 0 0; display: flex; flex-wrap: wrap;
+      gap: 0.4rem 1.75rem; font-family: var(--mono); font-size: 0.8rem; color: var(--signal); }
+    .aw-keep b { color: var(--fg); font-weight: 400; }
+
+    /* —— coming soon: publish a page. Greyed and dashed; the animation sits
+       inside. Static = switched on, the page up. —— */
+    .aw-soon { border: 1.5px dashed rgba(23, 23, 26, 0.22); border-radius: 0.9rem; padding: 1.6rem 1.75rem; color: #a7a59e;
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 1.5rem 2rem; align-items: center; }
+    @media (max-width: 44rem) { .aw-soon { grid-template-columns: 1fr; } }
+    .aw-soon h2 { font-size: 1.3rem; font-weight: 700; color: #8f8c85; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .aw-soon p { margin-top: 0.35rem; }
+    .aw-pub { position: relative; height: 13rem; filter: grayscale(1); opacity: 0.8; }
+    .aw-pub .pnote { position: absolute; left: 0; top: 1rem; width: 11rem; background: var(--paper); border: 1px solid var(--line);
+      border-radius: 0.6rem; padding: 0.7rem 0.85rem; font-family: var(--mono); font-size: 0.72rem; line-height: 1.6; color: #55534d; }
+    .aw-pub .tog { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.55rem; font-family: var(--sans); font-size: 0.72rem; }
+    .aw-pub .sw { width: 1.65rem; height: 0.9rem; border-radius: 999px; background: #8f8c85; position: relative; transition: background 0.3s ease; }
+    .aw-pub .sw::after { content: ""; position: absolute; top: 0.13rem; left: 0.88rem; width: 0.64rem; height: 0.64rem; border-radius: 50%;
+      background: #fff; transition: left 0.3s ease; }
+    .aw-pub .browser { position: absolute; right: 0; top: 2.2rem; width: min(14rem, 62%); background: #fff; border: 1px solid var(--line);
+      border-radius: 0.6rem; overflow: hidden; box-shadow: 0 0.9rem 1.8rem -1rem rgba(23, 23, 26, 0.35);
+      transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.45s ease; }
+    .aw-pub .url { background: var(--canvas); font-family: var(--mono); font-size: 0.6rem; padding: 0.4rem 0.55rem; color: #8f8c85;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .aw-pub .page { padding: 0.75rem 0.85rem; font-size: 0.78rem; color: #55534d; }
+    .aw-pub .page b { display: block; font-size: 0.95rem; color: #3d3c38; margin-bottom: 0.3rem; }
+    .aw-pub:not(.on) .sw { background: #d6d3ca; }
+    .aw-pub:not(.on):not(.flip) .sw::after { left: 0.13rem; }
+    .aw-pub:not(.on) .browser { transform: translateY(1.8rem); opacity: 0; }
+    .aw-pub.flip .sw { background: #8f8c85; }
+    .tag-soon { font-family: var(--mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+      border: 1px solid #c9c6bd; border-radius: 0.2rem; padding: 0.15rem 0.35rem; color: #a7a59e; }
+
+    /* —— free to start: an ink band, the price big, the facts in one line —— */
+    .aw-free { background: var(--ink); color: #F4F0E6; padding: clamp(3.5rem, 8vw, 5.5rem) 0; }
+    .aw-free .grid3 { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2rem clamp(2.5rem, 6vw, 5rem); align-items: center; }
+    @media (max-width: 52rem) { .aw-free .grid3 { grid-template-columns: 1fr; } }
+    .aw-free .eyebrow { color: #8f8a7f; }
+    .aw-free .big { font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; font-size: clamp(5rem, 16vw, 9rem); margin-top: 0.6rem; }
+    .aw-free .under { margin-top: 0.6rem; font-size: 1rem; color: #b8b2a5; }
+    .aw-free h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+    .aw-free ul { list-style: none; padding: 0; margin: 1.1rem 0 0; display: grid; grid-template-columns: repeat(2, max-content);
+      gap: 0.55rem 2rem; font-family: var(--mono); font-size: 0.85rem; color: #d6d1c6; }
+    .aw-free li::before { content: "✓ "; color: #6FCF97; }
+    .aw-free .btn { background: #F4F0E6; color: var(--ink); border-color: #F4F0E6; }
+    .aw-free .more { white-space: nowrap; display: block; width: max-content; margin: 0.9rem 0 0; font-family: var(--mono); font-size: 0.8rem; color: #b8b2a5; }
+    .aw-free .more:hover { color: #F4F0E6; }
+    /* the waitlist (settings-nav D24) */
+    .aw-hero .beta-note { margin-top: 0.9rem; font-family: var(--mono); font-size: 0.8rem; color: #8f8a7f; }
+    .aw-join { max-width: 26rem; scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    .aw-join .join-note { margin-top: 0.8rem; font-size: 0.82rem; line-height: 1.45; color: #b8b2a5; }
+    .aw-sec + .seam, .seam + .aw-sec { border-top: 0; }
+
+    /* —— Anywhere+: the perks, compact, one line icon each —— */
+    .aw-plus .plus-lockup { font-size: 1.6rem; margin-bottom: 1rem; }
+    .aw-plus .perks { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: 1rem; }
+    .aw-plus .perks li { display: flex; gap: 0.8rem; align-items: flex-start; border-top: 1px solid var(--line-soft); padding-top: 1rem; }
+    .aw-plus .perks svg { width: 1.35rem; height: 1.35rem; flex: none; margin-top: 0.1rem; }
+    .aw-plus .perks b { display: block; font-size: 0.95rem; }
+    .aw-plus .perks .tag-soon { display: inline-block; font-size: 0.58rem; white-space: nowrap; vertical-align: 0.15em; margin-left: 0.2rem; }
+    .aw-plus .perks span { font-size: 0.88rem; color: var(--signal); }
+    .aw-plus .perks li.soon { color: #a7a59e; }
+    .aw-plus .perks li.soon b { color: #8f8c85; }
+    .aw-plus .buy { margin-top: 2.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+    .aw-hero .hero-lockup { font-size: 1.15rem; color: #F4F0E6; display: flex; justify-content: center; margin-bottom: 1.1rem; }
+    .aw-plus .buy p { font-family: var(--mono); font-size: 0.85rem; color: #6f6b63; }
+    .aw-plus .buy p b { color: var(--fg); font-weight: 700; }
+    .aw-plus .buy p em { font-style: normal; color: #14633F; }
+
+    /* —— FAQ: closed answers are display:none outright (not left to the
+       engine's details slot), and the summary is a plain block so WebKit
+       keeps treating it as the summary —— */
+    .aw-faq { margin-top: 1.5rem; border-top: 1px solid var(--line); max-width: 46rem; }
+    .aw-faq details { border-bottom: 1px solid var(--line); }
+    .aw-faq summary { display: block; position: relative; cursor: pointer; font-weight: 600; list-style: none;
+      padding: 1.05rem 2rem 1.05rem 0; }
+    .aw-faq summary::-webkit-details-marker { display: none; }
+    .aw-faq summary::marker { content: ""; }
+    .aw-faq summary::after { content: "+"; position: absolute; right: 0.25rem; top: 1.05rem; font-family: var(--mono); color: var(--signal); }
+    .aw-faq details[open] > summary::after { content: "−"; }
+    .aw-faq summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .aw-faq details:not([open]) > :not(summary) { display: none; }
+    .aw-faq details > p { margin: -0.35rem 0 0; padding-bottom: 1.1rem; color: #6f6b63; font-size: 0.98rem; text-wrap: pretty; }
+  </style>
+</head>
+<body>
+
+  <!-- BEGIN site-nav (generated — do not edit) -->
+  <nav class="nav over-hero" id="nav">
+    <div class="wrap">
+      <div class="brand-row">
+        <a class="brand" href="/">
+          <img class="mark-rev" src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+          <img class="mark-pri" src="assets/01-mark-primary.svg" alt="" width="34" height="21">
+          <span class="brand-name">OpenMarkdown</span>
+        </a>
+        <span class="product-toggle" role="group" aria-label="OpenMarkdown products">
+          <a class="pt-app" href="/" aria-current="true">App</a>
+          <a class="pt-editor" href="/editor/">Editor</a>
+        </span>
+      </div>
+      <div class="links">
+        <a href="/demo" id="navDemo">Demo</a>
+        <a href="/anywhere" aria-current="page">Anywhere</a>
+        <a href="/support">Pricing</a>
+        <a href="/docs/">Docs</a>
+        <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+        <a class="btn" href="/#download">Download</a>
+      </div>
+    </div>
+  </nav>
+  <!-- The nav's Demo entry is the SECOND way into the demo; the hero button is the
+       first. They sit on the same page, so nothing downstream — referrer, landing
+       path — can tell them apart, and one shared event would permanently lose
+       which entry actually works. So they count separately, the way /support's two
+       CTAs already do (contract: landing-page-analytics / demo 入口计为意图事件).
+       Lives here rather than in each page's own script block because the nav is on
+       every page: the alternative is fourteen copies of this listener, which is
+       the thing this file exists to prevent. Attaches only — no request is made
+       here, and none at all off the production host, where window.goatcounter is
+       never defined.
+       The product toggle beside the brand needs no script: it is two links
+       (spec: site-chrome / 导航栏的产品切换开关). -->
+  <script>
+    (function () {
+      var link = document.getElementById('navDemo');
+      if (link) link.addEventListener('click', function () {
+        var gc = window.goatcounter;
+        if (gc && gc.count) gc.count({ path: 'try-demo-nav', event: true });
+      });
+    })();
+  </script>
+  <!-- END site-nav -->
+
+  <main>
+    <!-- 1 · hero -->
+    <header class="aw-hero">
+      <div class="wrap">
+        <div class="hero-lockup" aria-label="OpenMarkdown Anywhere"><span class="lockup"><svg viewBox="0 0 208 128" aria-hidden="true"><rect x="5" y="5" width="198" height="118" rx="10" fill="none" stroke="currentColor" stroke-width="10"/><g fill="#9A9A9A"><polygon points="44,30 57,30 51,98 38,98"/><polygon points="77,30 90,30 84,98 71,98"/><polygon points="30,44 90,44 90,56 30,56"/><polygon points="30,73 90,73 90,85 30,85"/></g><path transform="translate(68,0)" fill="currentColor" d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39z"/></svg>Anywhere</span></div>
+        <h1>Your notes, anywhere.</h1>
+        <p class="lede">Private, encrypted sync between your Macs, and with the AI chats you ask.</p>
+        <div class="cta-row">
+          <a class="btn" href="#join">Join the beta waitlist</a>
+          <a class="btn ghost" href="#start">What&rsquo;s free</a>
+        </div>
+        <p class="beta-note">In a private beta on macOS. We&rsquo;ll send you an invite email when a spot opens.</p>
+        <p class="vh">One Markdown file in the middle, kept in step on two Macs, Claude, and a terminal: each edits it in turn and the change reaches all the others.</p>
+        <div class="hd-wrap">
+          <div class="hd-stage" id="hdStage" aria-hidden="true" data-twin="omit">
+            <svg class="wires" viewBox="0 0 100 100" preserveAspectRatio="none"><g class="g-wide"><line class="base" x1="50" y1="50" x2="30" y2="25"/><line class="base" x1="50" y1="50" x2="70" y2="25"/><line class="base" x1="50" y1="50" x2="30" y2="75"/><line class="base" x1="50" y1="50" x2="70" y2="75"/></g><g class="g-narrow"><line class="base" x1="50" y1="30" x2="14" y2="67"/><line class="base" x1="50" y1="30" x2="38" y2="67"/><line class="base" x1="50" y1="30" x2="62" y2="67"/><line class="base" x1="50" y1="30" x2="86" y2="67"/></g><line class="hot" x1="0" y1="0" x2="0" y2="0" pathLength="1000"/><line class="hot" x1="0" y1="0" x2="0" y2="0" pathLength="1000"/><line class="hot" x1="0" y1="0" x2="0" y2="0" pathLength="1000"/><line class="hot" x1="0" y1="0" x2="0" y2="0" pathLength="1000"/></svg>
+            <div class="hd-doc"><span class="mark"><svg viewBox="0 0 208 128"><rect x="5" y="5" width="198" height="118" rx="10" fill="none" stroke="#17171A" stroke-width="10"/><g fill="#9a9a9a"><polygon points="44,30 57,30 51,98 38,98"/><polygon points="77,30 90,30 84,98 71,98"/><polygon points="30,44 90,44 90,56 30,56"/><polygon points="30,73 90,73 90,85 30,85"/></g><path transform="translate(68,0)" fill="#17171A" d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39z"/></svg></span><div class="hd"></div><div class="rows"><div class="row done" data-id="r0"><span class="bx"></span><i style="width:62%"></i></div><div class="row" data-id="r1"><span class="bx"></span><i style="width:62%"></i></div><div class="row" data-id="r2"><span class="bx"></span><i style="width:75%"></i></div><div class="row" data-id="r3"><span class="bx"></span><i style="width:75%"></i></div></div></div>
+            <div class="hd-ep e0" style="--c:#e07a2f"><div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></div><div class="mini"><b class="done" data-id="r0" style="width:34.1%"></b><b class="" data-id="r1" style="width:62%"></b><b class="" data-id="r2" style="width:75%"></b><b class="" data-id="r3" style="width:75%"></b></div></div>
+            <div class="hd-ep e1" style="--c:#4b9fd6"><div class="ico"><!-- a second Mac: the beta is macOS only (settings-nav D24) --><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></div><div class="mini"><b class="done" data-id="r0" style="width:34.1%"></b><b class="" data-id="r1" style="width:62%"></b><b class="" data-id="r2" style="width:75%"></b><b class="" data-id="r3" style="width:75%"></b></div></div>
+            <div class="hd-ep e2" style="--c:#c9a3ff"><div class="ico"><!-- simple-icons "claude" (CC0-1.0, v13.21.0); only clients tested end to end are drawn (settings-nav D24) --><svg viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></div><div class="mini"><b class="done" data-id="r0" style="width:34.1%"></b><b class="" data-id="r1" style="width:62%"></b><b class="" data-id="r2" style="width:75%"></b><b class="" data-id="r3" style="width:75%"></b></div></div>
+            <div class="hd-ep e3" style="--c:#6fc49a"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg></div><div class="mini"><b class="done" data-id="r0" style="width:34.1%"></b><b class="" data-id="r1" style="width:62%"></b><b class="" data-id="r2" style="width:75%"></b><b class="" data-id="r3" style="width:75%"></b></div></div>
+            <span class="hd-dot"></span><span class="hd-dot"></span><span class="hd-dot"></span><span class="hd-dot"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="seam" aria-hidden="true"></div>
+
+    <!-- 2 · live sync (auto-plays; static = both windows in step) -->
+    <section class="aw-sec" id="sync">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">Live sync</span>
+          <h2 class="md-h">Sync across devices.</h2>
+          <p class="lede">Tick a task on one Mac and the same note updates on the other.</p>
+        </div>
+        <div class="aw-pair aw-sync" id="awSync" aria-label="You tick tasks in Plan.md on a MacBook; the same note on an iMac updates to match.">
+          <figure class="window" aria-hidden="true">
+            <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><!-- OS mark: the Apple path is simple-icons "apple" (CC0-1.0, v13.21.0), inlined --><span class="os" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></span><span class="filename">MacBook · Plan.md</span><span class="state">you</span></div>
+            <div class="fs-doc">
+              <h4>Plan</h4>
+              <ul class="tasks" data-side="a">
+                <li class="done"><span class="box"></span><span>Draft the launch post</span></li>
+                <li class="done"><span class="box"></span><span>Record the demo</span></li>
+                <li class="done"><span class="box"></span><span>Send the invites</span></li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="window" aria-hidden="true">
+            <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><!-- OS mark: the Apple path again (the beta is macOS only) --><span class="os" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></span><span class="filename">iMac · Plan.md</span><span class="state">synced</span></div>
+            <div class="fs-doc">
+              <h4>Plan</h4>
+              <ul class="tasks" data-side="b">
+                <li class="done"><span class="box"></span><span>Draft the launch post</span></li>
+                <li class="done"><span class="box"></span><span>Record the demo</span></li>
+                <li class="done"><span class="box"></span><span>Send the invites</span></li>
+              </ul>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · AI (auto-plays; static = the asked-for line already in the note).
+         The left window takes the look of the chosen client; only clients
+         tested end to end are offered (CLIENTS in the script below). -->
+    <section class="aw-sec" id="web-ai">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">Your AI</span>
+          <!-- heading slot: the founder's final main heading goes here. While Claude is the only web AI tested end to end, it names Claude (settings-nav D24; was "Your notes, in every chat.") -->
+          <h2 class="md-h">Your notes, in every chat.</h2>
+          <p class="lede">Ask Claude to read, search or add to your notes, and watch the change land in the app.</p>
+        </div>
+        <div class="aw-pair aw-ai" id="awAI" aria-label="You ask your AI to add a task for tomorrow to your plan; it uses OpenMarkdown, and the line appears in Plan.md, marked as the AI's change.">
+          <div class="aw-left">
+            <div class="aw-switch" id="awSwitch" role="group" aria-label="Show this in" data-twin="omit" hidden></div>
+            <figure class="window aw-client" id="awClient" data-client="claude-app" data-style="chat" aria-hidden="true">
+              <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="filename">Claude</span><span class="addr">claude.ai</span></div>
+              <div class="body">
+                <div class="msgs">
+                  <div class="msg you">Add &ldquo;Call the venue&rdquo; to tomorrow in my plan.</div>
+                  <div class="tool"><span class="t-head"><span class="spin"></span><span class="ok"></span><span class="c-only">Using OpenMarkdown</span><span class="t-only">openmarkdown - write_section (MCP)</span></span><span class="t-only t-sub">⎿ Plan.md · Tomorrow</span></div>
+                  <div class="msg ai">Done. Added it under Tomorrow in Plan.md.</div>
+                </div>
+                <div class="composer"><span class="field"><span class="typed"></span><span class="ph">Reply&hellip;</span></span><span class="send">&uarr;</span></div>
+              </div>
+            </figure>
+          </div>
+          <figure class="window" aria-hidden="true">
+            <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="filename">OpenMarkdown · Plan.md</span></div>
+            <div class="fs-doc">
+              <h4>Plan</h4>
+              <h5>Tomorrow</h5>
+              <ul class="tasks">
+                <li><span class="box"></span><span>Pick up the banners</span></li>
+                <li class="new"><span class="box"></span><span>Call the venue</span><span class="who">AI</span></li>
+              </ul>
+              <h5>Later</h5>
+              <ul class="tasks">
+                <li><span class="box"></span><span>Thank-you notes</span></li>
+              </ul>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · privacy -->
+    <section class="aw-sec" id="private">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">Private by design</span>
+          <h2 class="md-h">Your notes. Your rules.</h2>
+        </div>
+        <div class="aw-priv">
+          <div class="aw-tree" data-twin="omit" role="img" aria-label="A folder tree: only the Notes folder you picked is synced; Work, Taxes and Photos stay on your computer.">
+            <div>~/Documents</div>
+            <div>├─ <span class="lit">Notes<small>⟳ synced</small></span></div>
+            <div>├─ <span class="dim">Work</span></div>
+            <div>├─ <span class="dim">Taxes</span></div>
+            <div>└─ <span class="dim">Photos</span></div>
+            <span class="note">Only the folder you pick syncs. The rest stays here.</span>
+          </div>
+          <div class="aw-points">
+            <p><b>Encrypted at rest.</b> Only your signed-in account and the AIs you authorize can read your notes.</p>
+            <p><b>Only the folder you pick.</b> Everything else never leaves your computer.</p>
+            <p><b>Erase any time.</b> Delete the cloud copy whenever you like.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · history (auto-plays a rewind; the checkpoints are clickable; static = restored at Mon 9:20) -->
+    <section class="aw-sec" id="history">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">History</span>
+          <h2 class="md-h">Go back in time.</h2>
+          <p class="lede">Every note keeps checkpoints as you write. Bring any of them back.</p>
+        </div>
+        <p class="vh">A note&rsquo;s checkpoints from Monday 9:10 to now; the note is brought back to Monday 9:20.</p>
+        <div class="aw-rewind" id="awRewind" aria-hidden="true" data-twin="omit">
+          <div class="deck" aria-hidden="true">
+              <div class="snap" style="z-index:7;transform:translate(36px,-36px) scale(0.88);opacity:0"><small>Checkpoint · Mon 9:10</small># Trip to Kyoto
+- book flights
+- find a ryokan</div>
+              <div class="snap" style="z-index:10;transform:translate(0px,0px) scale(1.00);opacity:1"><small>Checkpoint · Mon 9:20</small># Trip to Kyoto
+- book flights ✓
+- find a ryokan
+- day trip to Nara</div>
+              <div class="snap" style="z-index:9;transform:translate(12px,-12px) scale(0.96);opacity:1"><small>Checkpoint · Tue 14:02</small># Trip to Kyoto
+- book flights ✓
+- ryokan in Gion ✓
+- day trip to Nara</div>
+              <div class="snap" style="z-index:8;transform:translate(24px,-24px) scale(0.92);opacity:1"><small>Current version</small># Trip to Kyoto
+- book flights ✓
+- ryokan in Gion ✓
+- day trip to Nara
+- pack the camera</div>
+          </div>
+          <span class="pill on">Restored · Mon 9:20</span>
+          <div class="tl">
+              <span class="tl-dot" style="left:0%" data-at="0%" data-when="Mon 9:10">Mon 9:10</span>
+              <span class="tl-dot" style="left:33.33%" data-at="33.33%" data-when="Mon 9:20" data-on>Mon 9:20</span>
+              <span class="tl-dot" style="left:66.67%" data-at="66.67%" data-when="Tue 14:02">Tue 14:02</span>
+              <span class="tl-dot" style="left:100%" data-at="100%" data-when="now">now</span>
+            <span class="tl-head" style="left:33.33%" aria-hidden="true"></span>
+          </div>
+        </div>
+        <ul class="aw-keep"><li><b>Anywhere Free</b> — 7 days</li><li><b>Anywhere+</b> — 3 months</li></ul>
+      </div>
+    </section>
+
+    <!-- 6 · coming soon -->
+    <section class="aw-sec" id="publish">
+      <div class="wrap">
+        <div class="aw-soon">
+          <div>
+            <h2>Publish a page <span class="tag-soon">COMING SOON</span></h2>
+            <p>Publish a note as a web page anyone can read.</p>
+          </div>
+          <!-- Illustrative only: the publishing domain is not decided. -->
+          <div class="aw-pub on" id="awPub" aria-hidden="true">
+            <div class="pnote"># Trip to Kyoto<br>- ryokan in Gion<br>- day trip to Nara<div class="tog"><span class="sw"></span><span>Publish</span></div></div>
+            <div class="browser"><div class="url">openmarkdown.page/you/trip-to-kyoto</div><div class="page"><b>Trip to Kyoto</b>· ryokan in Gion<br>· day trip to Nara</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · free to start. The "about 100 notes" figure follows design D14
+         (1 MB with 10-minute checkpoints); re-check it against real usage
+         before launch. -->
+    <div class="seam" aria-hidden="true"></div>
+    <section class="aw-free" id="start">
+      <div class="wrap grid3">
+        <div>
+          <div class="eyebrow">Anywhere Free</div>
+          <div class="big">$0</div>
+          <div class="under">with a free account</div>
+        </div>
+        <div>
+          <h2>Free to start.</h2>
+          <ul>
+            <li>1 synced folder</li>
+            <li>About 100 notes</li>
+            <li>7 days of history</li>
+            <li>No card</li>
+          </ul>
+        </div>
+        <!-- The waitlist (change settings-nav D24): WorkOS AuthKit's built-in waitlist
+             in the PRODUCTION environment (environment_01M7P90C0JE54259DZWG97V3M9,
+             AuthKit domain thrilling-flame-55.authkit.app). Signing up there with
+             waitlist mode on puts the email on WorkOS's list; letting someone in is
+             approving their entry, which sends the invite email. One list, held by
+             the sign-in provider, no list of ours. The click event (waitlist-anywhere)
+             is in this page's events script below. -->
+        <div class="aw-join" id="join">
+          <a class="btn" href="https://thrilling-flame-55.authkit.app/sign-up" rel="noopener" data-waitlist="anywhere">Join the beta waitlist <span aria-hidden="true">&#8599;</span></a>
+          <p class="join-note">Sign up with your email address to join. When a beta spot opens (macOS for now), we&rsquo;ll send you an invite email, and you sign in to OpenMarkdown with that same address.</p>
+        </div>
+      </div>
+    </section>
+    <div class="seam" aria-hidden="true"></div>
+
+    <!-- 7b · Anywhere+ perks (numbers from design D11/D13) -->
+    <section class="aw-sec aw-plus" id="plus">
+      <div class="wrap">
+        <div class="head">
+          <div class="plus-lockup"><span class="lockup"><svg viewBox="0 0 208 128" aria-hidden="true"><rect x="5" y="5" width="198" height="118" rx="10" fill="none" stroke="currentColor" stroke-width="10"/><g fill="#9A9A9A"><polygon points="44,30 57,30 51,98 38,98"/><polygon points="77,30 90,30 84,98 71,98"/><polygon points="30,44 90,44 90,56 30,56"/><polygon points="30,73 90,73 90,85 30,85"/></g><path transform="translate(68,0)" fill="currentColor" d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39z"/></svg>Anywhere<span class="p">+</span></span></div>
+          <h2 class="md-h">Go further with Anywhere+.</h2>
+        </div>
+        <ul class="perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.5 9.5 4.25 4.25 0 0 0 7 18z"/></svg><div><b>10 GB in the cloud</b> <span>Free has 1 MB.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/></svg><div><b>Images and files up to 50 MB</b> <span>Attachments sync with your notes.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div><b>3 months of history</b> <span>Free keeps 7 days.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg><div><b>Priority feedback</b> <span>Your feedback is seen first.</span></div></li>
+          <li class="soon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14.5 0 17M12 3.5c-2.5 2.5-2.5 14.5 0 17"/></svg><div><b>Publish a page <span class="tag-soon">COMING SOON</span></b> <span>A note as a web page anyone can read.</span></div></li>
+        </ul>
+        <div class="buy">
+          <p><b>$5/month</b> or <b>$48/year</b><br><em>New accounts pay $29 for the first year.</em></p>
+          <a class="btn ghost" href="#join">Join the beta waitlist</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · FAQ -->
+    <section class="aw-sec" id="faq">
+      <div class="wrap">
+        <h2 class="md-h">FAQ</h2>
+        <div class="aw-faq">
+          <details>
+            <summary>Can I use Anywhere now?</summary>
+            <p>It&rsquo;s in a private beta on macOS, and we&rsquo;re letting people in a few at a time. <a href="#join">Join the waitlist</a> and we&rsquo;ll send you an invite email when a spot opens. The app itself is free and needs no account: <a href="/#download">download it</a> any time.</p>
+          </details>
+          <details>
+            <summary>What is your refund policy?</summary>
+            <p>Changed your mind? Ask within 7 days of paying for Anywhere+ and we refund you in full, no questions asked. Supporter and Founding Supporter backing is a one-time gift and isn&rsquo;t refundable.</p>
+          </details>
+          <details>
+            <summary>What do Supporters get?</summary>
+            <p>Supporters ($10, one-time) get their name in our supporters file, a supporter badge and early development notes. Founding Supporters ($50, one-time) also get experimental builds before they ship, development updates with a direct line to us, and a say in where we take it. <a href="/support">See the tiers</a>.</p>
+          </details>
+          <details>
+            <summary>Which AI apps can use my notes?</summary>
+            <p>Claude (the desktop app and claude.ai), once you connect it to your account. It can read, search and add to the notes in your synced folder. ChatGPT and Claude Code come next; we&rsquo;re testing them during the beta.</p>
+          </details>
+          <details>
+            <summary>Do I need an account to use OpenMarkdown?</summary>
+            <p>No. The app is free and works without an account. You only sign up to sync with Anywhere.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN site-footer (generated — do not edit) -->
+  <div class="seam" aria-hidden="true"></div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-main">
+        <div class="foot-brand">
+          <a class="foot-mark" href="/">
+            <img src="assets/02-mark-reversed.svg" alt="" width="34" height="21">
+            <span>OpenMarkdown</span>
+          </a>
+          <p class="foot-tag">The Markdown editor you share with your agent.</p>
+          <a class="foot-gh" href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+        </div>
+        <nav class="foot-col" aria-label="Product">
+          <span class="foot-head">Product</span>
+          <a href="/#download">Download</a>
+          <a href="/editor/">Editor</a>
+          <a href="/support">Pricing</a>
+          <a href="/docs/help/changelog/">Changelog</a>
+        </nav>
+        <nav class="foot-col" aria-label="Learn">
+          <span class="foot-head">Learn</span>
+          <a href="/docs/">Docs</a>
+          <a href="/learn/">Learn</a>
+          <a href="/docs/help/faq/">FAQ</a>
+          <a href="/compare/">Compare</a>
+        </nav>
+        <nav class="foot-col" aria-label="Resources">
+          <span class="foot-head">Resources</span>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases">GitHub</a>
+          <a href="https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases">Releases</a>
+          <a href="/transparency">Transparency</a>
+          <a href="/support#tiers">Support us</a>
+        </nav>
+        <nav class="foot-col" aria-label="Contact">
+          <span class="foot-head">Contact</span>
+          <a href="mailto:support@openmarkdown.dev"><span class="foot-long">support@openmarkdown.dev</span><span class="foot-short">Email us</span></a>
+          <a href="/feedback">Send feedback</a>
+        </nav>
+      </div>
+      <div class="foot-base">
+        <span class="foot-copy">© 2026 OpenMarkdown</span>
+        <span class="foot-legal">
+          <a href="/terms">Terms<span class="foot-long"> of Service</span></a>
+          <a href="/privacy">Privacy<span class="foot-long"> Policy</span></a>
+        </span>
+      </div>
+    </div>
+  </footer>
+  <!-- END site-footer -->
+
+  <script>
+  (function () {
+    'use strict';
+    // Nav ground: reversed while it sits over the ink hero (same as /support).
+    var nav = document.getElementById('nav');
+    var hero = document.querySelector('.aw-hero');
+    if (nav) {
+      var onScroll = function () {
+        var y = window.scrollY;
+        nav.classList.toggle('scrolled', y > 8);
+        nav.classList.toggle('on-ink', hero ? y < (hero.offsetHeight - nav.offsetHeight - 4) : false);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+    }
+
+    // AI client switcher. Only clients tested end to end are shown; the rest
+    // wait here until they are. Restyles the left window only: the beat lives
+    // on #awAI, so switching never restarts the demo or touches the note.
+    var CLIENTS = [
+      { id: 'claude-app', label: 'Claude app', style: 'chat', title: 'Claude', ph: 'Reply…', show: true },
+      { id: 'claude-web', label: 'Claude web', style: 'chat', addr: 'claude.ai', ph: 'Reply…', show: true },
+      { id: 'chatgpt-web', label: 'ChatGPT web', style: 'chat', addr: 'chatgpt.com', ph: 'Ask anything', show: false },
+      { id: 'claude-code', label: 'Claude Code', style: 'term', title: '~/notes — Claude Code', ph: 'Try "edit Plan.md"', show: false },
+      { id: 'chatgpt-app', label: 'ChatGPT app', style: 'chat', title: 'ChatGPT', ph: 'Ask anything', show: false },
+      { id: 'codex', label: 'Codex', style: 'term', title: '~/notes — Codex', ph: 'Ask Codex', show: false },
+    ];
+    var sw = document.getElementById('awSwitch');
+    var client = document.getElementById('awClient');
+    if (sw && client) {
+      var pick = function (c) {
+        client.dataset.client = c.id;
+        client.dataset.style = c.style;
+        client.querySelector('.filename').textContent = c.title || c.label;
+        client.querySelector('.addr').textContent = c.addr || '';
+        client.querySelector('.ph').textContent = c.ph;
+        sw.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.id === c.id)); });
+      };
+      CLIENTS.filter(function (c) { return c.show; }).forEach(function (c) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.dataset.id = c.id; b.textContent = c.label;
+        b.addEventListener('click', function () { pick(c); });
+        sw.appendChild(b);
+      });
+      pick(CLIENTS[0]);
+      sw.hidden = false;
+    }
+
+    // History: a looping demo, no controls. Back from now to Mon 9:20, a
+    // shake and the pill, then gently forward to now again: no jump.
+    var rw = document.getElementById('awRewind');
+    var rewindTo = null;
+    if (rw) {
+      var cards = rw.querySelectorAll('.snap');
+      var dots = rw.querySelectorAll('.tl-dot');
+      var head = rw.querySelector('.tl-head');
+      var deck = rw.querySelector('.deck');
+      var pill = rw.querySelector('.pill');
+      rewindTo = function (front, restored) {
+        cards.forEach(function (c, i) {
+          var k = (i - front + cards.length) % cards.length;
+          c.style.zIndex = 10 - k;
+          c.style.transform = 'translate(' + k * 12 + 'px,' + -k * 12 + 'px) scale(' + (1 - k * 0.04) + ')';
+          c.style.opacity = k > 2 ? 0 : 1;
+        });
+        head.style.left = dots[front].dataset.at;
+        dots.forEach(function (d, i) { d.toggleAttribute('data-on', i === front); });
+        pill.classList.toggle('on', Boolean(restored));
+        if (restored) {
+          pill.textContent = 'Restored · ' + dots[front].dataset.when;
+          deck.classList.remove('bump'); void deck.offsetWidth; deck.classList.add('bump');
+        }
+      };
+    }
+
+    // The two auto-playing demos. Reduced motion: never start, the markup is
+    // already the end frame. Each plays only while on screen.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    function whileVisible(el, play) {
+      var visible = false, running = false;
+      async function loop() {
+        if (running) return;
+        running = true;
+        while (visible) await play(function () { return visible; });
+        running = false;
+      }
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible) loop();
+      }, { threshold: 0.35 }).observe(el);
+    }
+    function restart(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+    // Live sync: tick on the MacBook, then the iMac window shakes and matches.
+    var sync = document.getElementById('awSync');
+    if (sync && 'IntersectionObserver' in window) {
+      var a = sync.querySelectorAll('[data-side="a"] li');
+      var b = sync.querySelectorAll('[data-side="b"] li');
+      var winB = sync.querySelectorAll('.window')[1];
+      var stateB = winB.querySelector('.state');
+      whileVisible(sync, async function (on) {
+        for (var i = 1; i < a.length; i++) { a[i].classList.remove('done'); b[i].classList.remove('done'); }
+        await sleep(1300);
+        for (var j = 1; j < a.length && on(); j++) {
+          a[j].classList.add('done'); restart(a[j], 'pop');
+          await sleep(650);
+          b[j].classList.add('done'); restart(winB, 'bump'); restart(b[j], 'lit');
+          stateB.textContent = 'updated'; stateB.classList.add('on');
+          await sleep(1300);
+          stateB.textContent = 'synced'; stateB.classList.remove('on');
+          await sleep(500);
+        }
+        await sleep(2400);
+      });
+    }
+
+    // AI: type the ask, send it, the tool runs, the line lands, the reply.
+    // Same text and timing for every client.
+    var ai = document.getElementById('awAI');
+    if (ai && 'IntersectionObserver' in window) {
+      var typed = ai.querySelector('.typed');
+      var ASK = 'Add "Call the venue" to tomorrow in my plan.';
+      whileVisible(ai, async function () {
+        ai.classList.add('run');
+        ai.dataset.beat = 0; typed.textContent = ''; await sleep(900);
+        ai.dataset.beat = 1;
+        for (var n = 1; n <= ASK.length; n++) { typed.textContent = ASK.slice(0, n); await sleep(32); }
+        await sleep(350);
+        typed.textContent = ''; ai.dataset.beat = 2; await sleep(700);
+        ai.dataset.beat = 3; await sleep(1500);
+        ai.dataset.beat = 4; await sleep(900);
+        ai.dataset.beat = 5; await sleep(1200);
+        ai.dataset.beat = 6; await sleep(3000);
+      });
+    }
+
+    // Hero: the file in the middle and its four editors. Ported from the
+    // approved sketch (hero-d): same steps, colours and timing. Works on the
+    // static markup above; resizing only re-lays the wires (positions are in
+    // % and switch layout by container query), so the loop never restarts.
+    var hd = document.getElementById('hdStage');
+    if (hd && 'IntersectionObserver' in window) (function () {
+      var COLORS = ['#e07a2f', '#4b9fd6', '#c9a3ff', '#6fc49a'];
+      // wire anchors (%): the tile's inner side edge, mid-height (wide); its top edge (narrow) — the CSS places each endpoint here
+      var WIDE = [[30, 25], [70, 25], [30, 75], [70, 75]], NARROW = [[14, 67], [38, 67], [62, 67], [86, 67]];
+      var anchors = [];
+      // Seamless loop. Start: [done .62, .62, .75, .75]. Each lap: Mac adds .75
+      // at the end; the AI ticks row 1; the second Mac edits row 2 to .62; the
+      // terminal deletes row 0 (the done one). End = start.
+      var START = [{ w: .62, done: true }, { w: .62 }, { w: .75 }, { w: .75 }];
+      var STEPS = [[0, 'add', null, .75], [2, 'tick', 1], [1, 'edit', 2, .62], [3, 'del', 0]];
+      var svg = hd.querySelector('svg.wires');
+      var bases = svg.querySelectorAll('.base');
+      var hots = svg.querySelectorAll('.hot');
+      var doc = hd.querySelector('.hd-doc');
+      var eps = hd.querySelectorAll('.hd-ep');
+      var minis = [].map.call(eps, function (e) { return e.querySelector('.mini'); });
+      var dots = hd.querySelectorAll('.hd-dot');
+      var uid = START.length;
+      function layWires() {
+        var W = hd.clientWidth, H = hd.clientHeight, narrow = W < 640;
+        var pos = narrow ? NARROW : WIDE, at = narrow ? [50, 30] : [50, 50];
+        svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+        var cx = at[0] / 100 * W, cy = at[1] / 100 * H;
+        anchors = pos.map(function (p) { return { x: p[0] / 100 * W, y: p[1] / 100 * H }; });
+        [].forEach.call(bases, function (l, n) {
+          var p = pos[n % 4];
+          l.setAttribute('x1', cx); l.setAttribute('y1', cy); l.setAttribute('x2', p[0] / 100 * W); l.setAttribute('y2', p[1] / 100 * H);
+        });
+        [].forEach.call(hots, function (l, i) {
+          var p = pos[i];
+          l.setAttribute('x1', p[0] / 100 * W); l.setAttribute('y1', p[1] / 100 * H); l.setAttribute('x2', cx); l.setAttribute('y2', cy);
+        });
+      }
+      layWires();
+      var rz; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(layWires, 80); }, { passive: true });
+
+      function paint(big, el, r) { var bar = big ? el.querySelector('i') : el; bar.style.width = (r.done && !big ? r.w * .55 : r.w) * 100 + '%'; el.classList.toggle('done', !!r.done); }
+      function mk(big, r) {
+        var el;
+        if (big) { el = document.createElement('div'); el.className = 'row'; el.innerHTML = '<span class="bx"></span><i></i>'; }
+        else el = document.createElement('b');
+        el.dataset.id = r.id; paint(big, el, r); return el;
+      }
+      function flash(big, el, col) { var bar = big ? el.querySelector('i') : el; bar.style.background = col; setTimeout(function () { bar.style.background = ''; }, 1300); }
+      var copies = [{ box: doc.querySelector('.rows'), big: true }].concat(minis.map(function (m) { return { box: m, big: false }; }));
+      copies.forEach(function (c) { c.state = START.map(function (r, i) { return { w: r.w, done: !!r.done, id: 'r' + i }; }); });
+      function step(c, s, col, addId) {
+        var op = s[1], i = s[2], v = s[3], box = c.box, big = c.big, state = c.state;
+        if (op === 'add') { var nr = { id: addId, w: v }; state.push(nr); var ne = mk(big, nr); ne.classList.add('new'); box.appendChild(ne); if (col) flash(big, ne, col); return; }
+        var r = state[i]; if (!r) return;
+        var el = box.querySelector('[data-id="' + r.id + '"]');
+        if (op === 'del') { state.splice(i, 1); if (el) { if (col) flash(big, el, col); el.classList.add('gone'); setTimeout(function () { el.remove(); }, 460); } return; }
+        if (op === 'tick') r.done = true;
+        if (op === 'edit') r.w = v;
+        if (el) {
+          paint(big, el, r); if (col) flash(big, el, col);
+          if (op === 'tick') { el.style.setProperty('--pc', col || 'transparent'); el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+        }
+      }
+      function mid(el) { var r = el.getBoundingClientRect(), R = hd.getBoundingClientRect(); return { x: r.left + r.width / 2 - R.left, y: r.top + r.height / 2 - R.top }; }
+      function glow(i, inward, col, ms) {
+        var w = hots[i];
+        w.style.stroke = col; w.style.color = col; w.style.transition = 'none'; w.style.strokeDasharray = '280 1000';
+        w.style.strokeDashoffset = inward ? 280 : -720; w.style.opacity = 1; void w.getBoundingClientRect();
+        w.style.transition = 'stroke-dashoffset ' + ms + 'ms cubic-bezier(.5,0,.3,1),opacity .3s ' + (ms - 150) + 'ms';
+        w.style.strokeDashoffset = inward ? -720 : 280; w.style.opacity = 0;
+      }
+      function fly(dot, a, b, col, ms) {
+        return new Promise(function (res) {
+          dot.style.background = col; dot.style.boxShadow = '0 0 16px ' + col; dot.style.transition = 'none';
+          dot.style.left = a.x + 'px'; dot.style.top = a.y + 'px'; dot.style.opacity = 1; void dot.offsetWidth;
+          dot.style.transition = 'left ' + ms + 'ms cubic-bezier(.5,0,.3,1),top ' + ms + 'ms cubic-bezier(.5,0,.3,1),opacity .2s';
+          dot.style.left = b.x + 'px'; dot.style.top = b.y + 'px';
+          setTimeout(function () { dot.style.opacity = 0; res(); }, ms);
+        });
+      }
+      var visible = false, waiting = [];
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible) { waiting.forEach(function (f) { f(); }); waiting = []; }
+      }).observe(hd);
+      var whenVisible = function () { return visible ? Promise.resolve() : new Promise(function (r) { waiting.push(r); }); };
+      (async function () {
+        await sleep(800);
+        for (;;) {
+          for (var n = 0; n < STEPS.length; n++) {
+            await whenVisible();
+            var s = STEPS[n], k = s[0], e = eps[k], col = COLORS[k], addId = 'r' + (uid++);
+            e.classList.add('act'); step(copies[k + 1], s, col, addId); await sleep(450);
+            glow(k, true, col, 600); await fly(dots[k], anchors[k], mid(doc), col, 600);
+            step(copies[0], s, col, addId); await sleep(300);
+            await Promise.all([].map.call(eps, function (x, j) { if (j === k) return null; glow(j, false, col, 550); return fly(dots[j], mid(doc), mid(minis[j]), col, 550); }));
+            [].forEach.call(eps, function (x, j) {
+              if (j === k) return;
+              step(copies[j + 1], s, col, addId); x.style.setProperty('--rc', col); x.classList.add('rx');
+              setTimeout(function () { x.classList.remove('rx'); }, 700);
+            });
+            await sleep(500); e.classList.remove('act');
+          }
+        }
+      })();
+    })();
+
+    // History autoplay: the playhead slides back while the matching snapshot
+    // comes to the front; at Mon 9:20 the stack shakes and the pill appears.
+    if (rw && 'IntersectionObserver' in window) {
+      rewindTo(3, false);
+      whileVisible(rw, async function () {
+        await sleep(1500);
+        rewindTo(2, false); await sleep(700);
+        rewindTo(1, true); await sleep(2600);
+        rewindTo(2, false); await sleep(650);
+        rewindTo(3, false);
+      });
+    }
+
+    // Publish (coming soon): the switch flips on, the page rises.
+    var pub = document.getElementById('awPub');
+    if (pub && 'IntersectionObserver' in window) {
+      whileVisible(pub, async function () {
+        pub.classList.remove('on'); await sleep(1500);
+        pub.classList.add('flip'); await sleep(400);
+        pub.classList.add('on'); pub.classList.remove('flip'); await sleep(3200);
+      });
+    }
+  })();
+  </script>
+
+  <!-- BEGIN site-analytics (generated — do not edit) -->
+  <!-- Analytics loader: cookieless, no PII, production host only; known test paths
+       are not counted. Defined once in site-chrome/analytics.html (spec:
+       landing-page-analytics); this page's own events are in its own script. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var TEST_PATHS = ['/agent-smoke-test'];
+    window.goatcounter = window.goatcounter || {};
+    window.goatcounter.path = function (p) {
+      return TEST_PATHS.indexOf(p) !== -1 ? null : p;
+    };
+    var ENDPOINT = 'https://openmarkdown.goatcounter.com/count';
+    var s = document.createElement('script');
+    s.async = true;
+    s.setAttribute('data-goatcounter', ENDPOINT);
+    s.src = 'https://gc.zgo.at/count.js';
+    document.head.appendChild(s);
+  })();
+  </script>
+  <!-- END site-analytics -->
+  <!-- This page's analytics events (the loader is the generated block above).
+       Production host ONLY, like the loader; they read window.goatcounter when
+       they fire. Contract: openspec landing-page-analytics. A press on the
+       waitlist link counts once as waitlist-anywhere (change settings-nav D24);
+       never blocks or changes the navigation (no preventDefault), and nothing
+       about the visitor goes to the analytics. -->
+  <script>
+  (function () {
+    'use strict';
+    if (location.hostname !== 'openmarkdown.dev') return;
+    var link = document.querySelector('#join a[data-waitlist]');
+    if (!link) return;
+    link.addEventListener('click', function () {
+      var g = window.goatcounter;
+      if (g && g.count) g.count({ path: 'waitlist-anywhere', event: true });
+    });
+  })();
+  </script>
+
+</body>
+</html>

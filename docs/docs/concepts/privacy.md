@@ -23,6 +23,10 @@ Each is off until you turn it on in Settings, and turning it off undoes exactly 
 - **$VISUAL editor:** one marked block in your shell's startup file.
 - **Default app for `.md`:** registers OpenMarkdown with macOS, remembering the app before it so it can hand back.
 
+## Deleting the cloud copy
+
+If you sync a folder and later delete its cloud copy, our host, Cloudflare, can restore its database to any point in the past 30 days, so a recoverable copy may remain on its side for up to 30 days. The storage that holds attachments and backups cannot be recovered once deleted.
+
 ## This site
 
 Page views are counted without cookies or personal data, only on the live site. Opened from a file, these pages make no requests at all.

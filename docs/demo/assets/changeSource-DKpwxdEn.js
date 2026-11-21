@@ -1,0 +1,1 @@
+const t=["agent","sync","webagent","external"];function r(n){return t.includes(n)?n:"external"}function c(n){return n!=="sync"}function s(n){return n==="webagent"?"web":void 0}function u(n,e){return n===e?n:n==="sync"?e:e==="sync"?n:"external"}export{s as a,u as c,c as i,r as s};

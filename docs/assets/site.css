@@ -81,6 +81,13 @@ a { color: inherit; }
 
 .lede { color: var(--signal); text-wrap: pretty; }
 
+/* —— the Anywhere+ lockup: the #M mark standing in for "OpenMarkdown", then
+   the plan's name (like AppleCare+). Frame and M follow the text colour, the
+   # bars stay Signal Gray; the + matches the word. ——————————————— */
+.lockup { display: inline-flex; align-items: center; font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1; text-transform: none; }
+.lockup svg { height: 0.82em; width: auto; margin-right: 0.28em; flex: none; }
+.lockup .p { margin-left: 0.04em; }
+
 /* —— buttons ————————————————————————————————————————————————— */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;

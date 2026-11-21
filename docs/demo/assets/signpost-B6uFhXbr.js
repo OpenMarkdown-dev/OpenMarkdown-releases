@@ -1,0 +1,1 @@
+function s(n,o){let e=null;for(const t of n)if(t<=o)e=t;else break;return e}function f(n,o){const e=new Set;for(const t of n){const r=s(o,t.from);e.add(r??t.from)}return[...e].sort((t,r)=>t-r)}function a(n,o){return[...new Set([...n,...o])].sort((e,t)=>e-t)}export{a as m,f as s};

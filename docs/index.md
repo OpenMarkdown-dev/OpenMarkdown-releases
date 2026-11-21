@@ -144,9 +144,9 @@ Byte-for-byte. OpenMarkdown never reflows, trims, or reformats your text — ope
 
 Delete moves files to the system Trash. Autosave when you pause, without nagging. Tabs, folder, and cursor come back after a crash.
 
-##### No account, no cloud
+##### No account needed
 
-No telemetry, nothing phones home. Your agent reads the same file on the same disk — no third party in between.
+Use it without signing up. Want your notes on every Mac and in Claude? [Join the Anywhere beta →](https://openmarkdown.dev/anywhere)
 
 ##### The keys you already know
 

@@ -59,6 +59,7 @@ Inside the sidebar terminal, <kbd>⌃</kbd> combinations go to the terminal, exc
 | --- | --- | --- |
 | Quit OpenMarkdown | <kbd>⌘Q</kbd> | <kbd>Ctrl+Q</kbd> |
 | Keyboard shortcuts | <kbd>⌘/</kbd> | <kbd>Ctrl+/</kbd> |
+| Settings | <kbd>⌘,</kbd> | <kbd>Ctrl+,</kbd> |
 | Undo | <kbd>⌘Z</kbd> | <kbd>Ctrl+Z</kbd> |
 | Redo | <kbd>⇧⌘Z</kbd> | <kbd>Shift+Ctrl+Z</kbd> |
 | Cut | <kbd>⌘X</kbd> | <kbd>Ctrl+X</kbd> |

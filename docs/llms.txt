@@ -41,6 +41,7 @@ on Windows the app is the editor without them.
 - On every platform the app is a native Markdown editor; the `openmd` CLI and MCP agent bridge run on macOS and Linux only.
 - [Releases](https://github.com/OpenMarkdown-dev/OpenMarkdown-releases/releases): all versions and release notes.
 - [Pricing](https://openmarkdown.dev/support): the whole app is free, with no account and nothing held back. Backing it is optional — a one-time payment, not a subscription.
+- [Anywhere](https://openmarkdown.dev/anywhere.md): optional encrypted sync for your notes between Macs and with Claude, in a private beta on macOS; join the waitlist on the page.
 
 ## Compare
 Honest comparisons with the editors people already use: where each one wins, and when to pick it instead.
