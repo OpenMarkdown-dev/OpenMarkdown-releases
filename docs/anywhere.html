@@ -348,14 +348,22 @@
 
     /* —— free to start: an ink band, the price big, the facts in one line —— */
     .aw-free { background: var(--ink); color: #F4F0E6; padding: clamp(3.5rem, 8vw, 5.5rem) 0; }
-    .aw-free .grid3 { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2rem clamp(2.5rem, 6vw, 5rem); align-items: center; }
-    @media (max-width: 52rem) { .aw-free .grid3 { grid-template-columns: 1fr; } }
+    /* Every track is minmax(0, …) and every cell min-width: 0, so no cell can
+       push past its track; the checklist then fits its own track (2 columns
+       when there is room, else 1) instead of a fixed 2 × max-content that spilled
+       into the waitlist column. Under 62rem the waitlist moves below the list,
+       under 52rem everything stacks. */
+    .aw-free .grid3 { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 19rem); gap: 2rem clamp(2.5rem, 6vw, 5rem); align-items: center; }
+    .aw-free .grid3 > * { min-width: 0; }
+    @media (max-width: 62rem) { .aw-free .grid3 { grid-template-columns: auto minmax(0, 1fr); } .aw-free .aw-join { grid-column: 2; } }
+    @media (max-width: 52rem) { .aw-free .grid3 { grid-template-columns: minmax(0, 1fr); } .aw-free .aw-join { grid-column: auto; } }
     .aw-free .eyebrow { color: #8f8a7f; }
     .aw-free .big { font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; font-size: clamp(5rem, 16vw, 9rem); margin-top: 0.6rem; }
     .aw-free .under { margin-top: 0.6rem; font-size: 1rem; color: #b8b2a5; }
     .aw-free h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
-    .aw-free ul { list-style: none; padding: 0; margin: 1.1rem 0 0; display: grid; grid-template-columns: repeat(2, max-content);
-      gap: 0.55rem 2rem; font-family: var(--mono); font-size: 0.85rem; color: #d6d1c6; }
+    .aw-free ul { list-style: none; padding: 0; margin: 1.1rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, max(10rem, (100% - 1.5rem) / 2)), max-content));
+      gap: 0.55rem 1.5rem; font-family: var(--mono); font-size: 0.85rem; color: #d6d1c6; }
+    .aw-free li { overflow-wrap: anywhere; }
     .aw-free li::before { content: "✓ "; color: #6FCF97; }
     .aw-free .btn { background: #F4F0E6; color: var(--ink); border-color: #F4F0E6; }
     .aw-free .more { white-space: nowrap; display: block; width: max-content; margin: 0.9rem 0 0; font-family: var(--mono); font-size: 0.8rem; color: #b8b2a5; }
