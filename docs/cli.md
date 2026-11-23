@@ -17,7 +17,7 @@ USAGE:
   openmd reveal [--json] <file> [heading]  open a file and scroll to a heading
                                           (exact, then case-insensitive, never by
                                           prefix; `::` path and #k as in
-                                          read_section; no heading = open and
+                                          read_note; no heading = open and
                                           activate only)
   openmd status [--json]                  report app state (never launches the app)
   openmd mcp                              run an MCP server on stdio (for MCP

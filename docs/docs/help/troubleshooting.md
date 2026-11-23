@@ -8,7 +8,7 @@ Agents started in OpenMarkdown's own terminal don't need this; they use the app'
 
 ## My agent says OpenMarkdown is not running
 
-The tools answer `running: false` or `NOT_RUNNING` when the app is closed. Open OpenMarkdown and ask again. `open_file` and `reveal` start the app themselves; the others don't, on purpose.
+The tools answer `running: false` or `NOT_RUNNING` when the app is closed. Open OpenMarkdown and ask again. `open_file` and `reveal` start the app themselves; the others don't, on purpose. Reading and editing notes (`read_note`, `edit_note`, `edit_note`, `list_files`, `search`, `create_note`) keeps working with the app closed: the agent then works on the files on disk.
 
 ## My agent says there is no window
 

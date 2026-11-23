@@ -1,0 +1,1 @@
+import{j as i}from"./index-BUvHEF0h.js";import{c as u}from"./utils-DCADjnpI.js";import{w as f,b as p}from"./buttonClasses-BiRw0eSB.js";import{t as c}from"./control-BeAznQJE.js";const e="w-full";function l({weight:t,tone:r,size:s,className:a,tip:o,block:m,...n}){return i.jsx("button",{className:u(p({weight:t,tone:r,size:s}),m&&e,a),...n,...f(t),...o?c(o):{}})}export{l as B};

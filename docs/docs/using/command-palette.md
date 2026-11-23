@@ -30,4 +30,4 @@ No match? <kbd>⇧↩</kbd> creates a note with the name you typed.
 - **Theme: dark**
 - **Open Welcome guide**
 
-Your agent can run the same commands with the [`execute_command`](/docs/reference/mcp-tools/#execute_command) tool.
+Your agent can run the same commands with the [`run_app_command`](/docs/reference/mcp-tools/#run_app_command) tool.

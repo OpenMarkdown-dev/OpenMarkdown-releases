@@ -4,7 +4,7 @@ You and your agent work in the same file at the same time. You type, tick boxes 
 
 ## How your agent edits
 
-Through the MCP tools, your agent edits **one section at a time**: it reads a section with `read_section`, then adds to it or replaces it with `write_section`. The rest of the note is left alone, including whatever you are typing elsewhere. Its edits go straight into the open note, not around it.
+Through the MCP tools, your agent edits **one section at a time**: it reads a section with `read_note`, then adds to it or replaces it with `edit_note`. The rest of the note is left alone, including whatever you are typing elsewhere. Its edits go straight into the open note, not around it.
 
 If you change a section while the agent is rewriting it, its write is refused and it has to read your version first. Your typing is never overwritten.
 

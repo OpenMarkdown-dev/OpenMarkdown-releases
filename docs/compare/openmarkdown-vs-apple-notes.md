@@ -40,7 +40,7 @@ For everyday personal notes, Apple Notes is hard to beat — and it's already on
 
 This is the one comparison where "local-first" genuinely is the difference — not a tie.
 
-Apple Notes keeps your writing inside a proprietary database. Markdown, added in macOS 26, is a *conversion* at the import and export edges — the note itself is never a plain file you own. In OpenMarkdown, the plain `.md` file on disk **is** the note. That's exactly what lets a coding agent take part: its built-in MCP server hands Claude Code, Codex, Gemini CLI or opencode structured tools — `read_section`, `write_section`, `reveal` — to co-edit the file live, with section-level conflict protection so your unsaved edits survive. There's nothing in a locked Apple Notes database for an agent to open that way. Different jobs: Apple Notes for your life; OpenMarkdown for the file you and your agent build together.
+Apple Notes keeps your writing inside a proprietary database. Markdown, added in macOS 26, is a *conversion* at the import and export edges — the note itself is never a plain file you own. In OpenMarkdown, the plain `.md` file on disk **is** the note. That's exactly what lets a coding agent take part: its built-in MCP server hands Claude Code, Codex, Gemini CLI or opencode structured tools — `read_note`, `edit_note`, `reveal` — to co-edit the file live, with section-level conflict protection so your unsaved edits survive. There's nothing in a locked Apple Notes database for an agent to open that way. Different jobs: Apple Notes for your life; OpenMarkdown for the file you and your agent build together.
 
 [See it on the home page: your note, and your agent working on it, in one window →](https://openmarkdown.dev/#together)
 

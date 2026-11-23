@@ -39,7 +39,7 @@ Plainly: on being a Markdown editor, Typora is more complete.
 
 One axis, and it's the whole reason OpenMarkdown exists: **your agent shares the file.**
 
-OpenMarkdown ships a built-in MCP server. Claude Code, Codex, Gemini CLI, opencode — any MCP client — can `open_file`, `open_folder`, `reveal` a heading, `read_section`, and `write_section` on the exact document you're looking at, while the preview re-renders and scrolls to each change. Because writes are section-scoped with optimistic concurrency, if you and the agent edit the same section at once the agent's write is rejected as a `CONFLICT` — your unsaved work is protected. Typora has no agent integration; it's built for one writer at a time. OpenMarkdown is also free, and its Rust core opens a window in well under a second.
+OpenMarkdown ships a built-in MCP server. Claude Code, Codex, Gemini CLI, opencode — any MCP client — can `open_file`, `open_folder`, `reveal` a heading, `read_note`, and `edit_note` on the exact document you're looking at, while the preview re-renders and scrolls to each change. Because writes are section-scoped with optimistic concurrency, if you and the agent edit the same section at once the agent's write is rejected as a `CONFLICT` — your unsaved work is protected. Typora has no agent integration; it's built for one writer at a time. OpenMarkdown is also free, and its Rust core opens a window in well under a second.
 
 [See it on the home page: your note, and your agent working on it, in one window →](https://openmarkdown.dev/#together)
 

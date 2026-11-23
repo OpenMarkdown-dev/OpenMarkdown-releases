@@ -23,7 +23,7 @@ A light Markdown window with a terminal tab for your agent — not a full IDE.
 | Weight & startup | Feather-light native Rust renderer; window in under a second (P50, maintainer's machine) | Full Electron IDE — hundreds of MB of RAM is typical |
 | What it is | A dedicated Markdown renderer you and your agent share | A complete code editor / IDE — Markdown is one file type among many |
 | Markdown view | Live-preview / source / reading — the rendered page is the surface, and it scrolls to each change | Source-first, with a built-in preview pane (`⌘⇧V`) |
-| How your agent touches the file | Built-in MCP server drives this rendered view — `read_section`, `write_section`, `reveal`, with section-level conflict protection — macOS and Linux today; Windows coming soon | Agents (Copilot, Claude, Codex) run in the editor and edit source; no rendered-view co-edit surface of this kind |
+| How your agent touches the file | Built-in MCP server drives this rendered view — `read_note`, `edit_note`, `reveal`, with section-level conflict protection — macOS and Linux today; Windows coming soon | Agents (Copilot, Claude, Codex) run in the editor and edit source; no rendered-view co-edit surface of this kind |
 | Extensions & language support | — (just Markdown, on purpose) | Vast marketplace; every language, debugging, git, terminal |
 
 Facts checked 2026-11-06; VS Code is free and cross-platform, an Electron app with a built-in Markdown preview. Details change — see [code.visualstudio.com](https://code.visualstudio.com/docs/languages/markdown).
@@ -40,7 +40,7 @@ It's not close, and it's not meant to be: VS Code is a whole IDE.
 
 Not by being a better editor — by being a different surface. In VS Code, a `.md` is source with an optional preview pane. In OpenMarkdown, the **rendered page is the thing you look at**, on a native Rust core that opens in well under a second rather than a full Electron IDE.
 
-And the agent participates through that rendered view: OpenMarkdown's built-in MCP server lets it `reveal` a heading, `read_section` and `write_section` with section-level conflict protection, while your preview scrolls to each change. So the natural setup isn't OpenMarkdown *instead of* VS Code — it's your agent working in VS Code (or any terminal) while the shared plan or spec renders live in OpenMarkdown for you to watch and edit alongside it.
+And the agent participates through that rendered view: OpenMarkdown's built-in MCP server lets it `reveal` a heading, `read_note` and `edit_note` with section-level conflict protection, while your preview scrolls to each change. So the natural setup isn't OpenMarkdown *instead of* VS Code — it's your agent working in VS Code (or any terminal) while the shared plan or spec renders live in OpenMarkdown for you to watch and edit alongside it.
 
 [See it on the home page: your note, and your agent working on it, in one window →](https://openmarkdown.dev/#together)
 

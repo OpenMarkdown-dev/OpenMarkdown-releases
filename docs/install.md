@@ -159,5 +159,5 @@ verbatim in the Claude Code plugin skill, and available inline on the /install p
 for every other host: a consent gate, then open the seeded `Welcome.md`
 (`open_file` + `reveal`) and hand off. The felt moment happens on demand — when you
 ask it to run a section (say, turn a CSV into a table), it edits in place
-(`read_section` / `write_section`) or moves your view (`reveal`). It never
+(`read_note` / `edit_note`) or moves your view (`reveal`). It never
 authors its own note and never sits in an unbounded wait.

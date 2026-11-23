@@ -8,7 +8,7 @@
 | --- | --- |
 | `openmd [open] [OPTIONS] <file>...` | open file(s) in OpenMarkdown; an image (png, jpg, gif, webp, svg) opens read-only in the viewer beside the document and is never created |
 | `openmd [open] <folder>` | open a folder as a workspace (an existing directory, or `openmd .`; not combinable with --wait or files) |
-| `openmd reveal [--json] <file> [heading]` | open a file and scroll to a heading (exact, then case-insensitive, never by prefix; `::` path and #k as in read_section; no heading = open and activate only) |
+| `openmd reveal [--json] <file> [heading]` | open a file and scroll to a heading (exact, then case-insensitive, never by prefix; `::` path and #k as in read_note; no heading = open and activate only) |
 | `openmd status [--json]` | report app state (never launches the app) |
 | `openmd mcp` | run an MCP server on stdio (for MCP clients to spawn, e.g. `claude mcp add openmd -- openmd mcp`; stays alive until stdin closes) |
 | `openmd --version` | print the version and exit |

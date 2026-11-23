@@ -38,7 +38,7 @@ Competitor facts checked 2026-11-06; note that **Marked 3** is the newer, active
 
 **You edit in the same window** — Marked can only preview, so watching and changing a file means bouncing between two apps. In OpenMarkdown the preview *is* the editor.
 
-**And your agent is a first-class participant.** Marked watches raw file saves; it doesn't know a coding agent exists. OpenMarkdown gives the agent a built-in MCP server with structured tools — `read_section`, `write_section`, `reveal` — and section-level conflict protection, so the agent edits precisely and your unsaved work is never clobbered. That's the difference between "previewing a file that happens to change" and "co-editing a file with your agent."
+**And your agent is a first-class participant.** Marked watches raw file saves; it doesn't know a coding agent exists. OpenMarkdown gives the agent a built-in MCP server with structured tools — `read_note`, `edit_note`, `reveal` — and section-level conflict protection, so the agent edits precisely and your unsaved work is never clobbered. That's the difference between "previewing a file that happens to change" and "co-editing a file with your agent."
 
 [See it on the home page: your note, and your agent working on it, in one window →](https://openmarkdown.dev/#together)
 

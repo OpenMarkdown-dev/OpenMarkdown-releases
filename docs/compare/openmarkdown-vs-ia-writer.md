@@ -38,7 +38,7 @@ Competitor facts checked 2026-11-06; pricing and platforms change — see [ia.ne
 
 iA Writer is built for one person writing. OpenMarkdown is built for **you and your agent sharing the file.**
 
-Its built-in MCP server lets Claude Code, Codex, Gemini CLI or opencode open, reveal, read and `write_section` on the document you're watching, with section-level conflict protection so your unsaved edits survive. The preview re-renders and scrolls to each change the agent makes. iA Writer has no agent integration of this kind — and OpenMarkdown is free, with a Rust core that opens a window in well under a second. Different tools for different moments: iA for drafting prose, OpenMarkdown for watching a plan or spec fill in as your agent works.
+Its built-in MCP server lets Claude Code, Codex, Gemini CLI or opencode open, reveal, read and edit (`read_note`, `edit_note`) the document you're watching, with section-level conflict protection so your unsaved edits survive. The preview re-renders and scrolls to each change the agent makes. iA Writer has no agent integration of this kind — and OpenMarkdown is free, with a Rust core that opens a window in well under a second. Different tools for different moments: iA for drafting prose, OpenMarkdown for watching a plan or spec fill in as your agent works.
 
 [See it on the home page: your note, and your agent working on it, in one window →](https://openmarkdown.dev/#together)
 

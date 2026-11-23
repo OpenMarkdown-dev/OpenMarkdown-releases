@@ -2,6 +2,13 @@
 
 What changed in each release, newest first. Download the latest from the [home page](/#download).
 
+## 0.16.2
+
+Meet the new OpenMarkdown MCP, for better co-editing
+- Agents change only the words they mean, so your typing elsewhere is never lost
+- With the app closed, agents still edit notes on disk and keep your editor's saves
+- Agent tools renamed: read_note, edit_note, create_note, run_app_command
+
 ## 0.16.1
 
 Widen your text view

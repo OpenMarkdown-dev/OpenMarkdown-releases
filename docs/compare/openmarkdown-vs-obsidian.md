@@ -41,7 +41,7 @@ Almost everywhere a knowledge tool should. This isn't false modesty:
 
 Two things, both narrow on purpose.
 
-**Your agent shares the file.** OpenMarkdown ships a built-in MCP server, so Claude Code, Codex, Gemini CLI or opencode can open, reveal, read and `write_section` on the exact document you're watching — with section-level conflict protection so your unsaved edits survive. Obsidian is built for a human navigating a vault, not for handing a coding agent structured, section-scoped edit tools over MCP.
+**Your agent shares the file.** OpenMarkdown ships a built-in MCP server, so Claude Code, Codex, Gemini CLI or opencode can open, reveal, read and edit (`read_note`, `edit_note`) the exact document you're watching — with section-level conflict protection so your unsaved edits survive. Obsidian is built for a human navigating a vault, not for handing a coding agent structured, section-scoped edit tools over MCP.
 
 **There's nothing to set up.** No vault, no plugins, no configuration — you open a `.md` and it renders, instantly, on a native Rust core. When the file *is* the point — a plan or spec your agent is filling in — that plainness is the feature.
 

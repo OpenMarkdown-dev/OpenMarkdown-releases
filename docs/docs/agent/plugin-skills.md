@@ -8,7 +8,7 @@ Claude Code reads a skill's description to decide when to use it; you do not cal
 
 | Skill | When Claude uses it |
 | --- | --- |
-| `using-openmarkdown` | Use when producing or editing markdown documents for a user who has OpenMarkdown installed — put documents in front of them via open_file/reveal, sense what they are looking at via get_context, edit notes they may have open section-by-section via read_section/write_section instead of whole-file rewrites, respond correctly to running:false/degraded/NO_WINDOW states instead of retrying or guessing, and — only when the user asks you to watch or listen — hold a file open as a live inbox, or their workspace sidebar open as an intercom, with wait_for_change instead of polling. |
+| `using-openmarkdown` | Use when producing or editing markdown documents for a user who has OpenMarkdown installed — put documents in front of them via open_file/reveal, sense what they are looking at via get_context, find notes on this computer and in their cloud copy via list_files/search, edit notes they may have open with content-anchored edit_note edits (exact text, or a section) instead of whole-file rewrites, respond correctly to running:false/degraded/NO_WINDOW states instead of retrying or guessing, and — only when the user asks you to watch or listen — hold a file open as a live inbox, or their workspace sidebar open as an intercom, with wait_for_change instead of polling. |
 
 ## Slash commands
 
