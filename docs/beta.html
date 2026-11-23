@@ -111,6 +111,35 @@
         <li><span class="beta-pending">When the beta is ready, download it</span><span class="beta-ready">Download the beta</span>, open the disk image and drag OpenMarkdown into Applications. It replaces the OpenMarkdown you have now.</li>
         <li>Open OpenMarkdown, go to <b>Settings → Anywhere</b> and choose <b>Sign in</b>. The app opens a sign-in page in your browser: use the email address your invite went to. Signing in on this website doesn’t sign the app in.</li>
         <li>Choose the folder to sync. The free plan syncs one folder of about 100 notes and keeps 7 days of history.</li>
+        <li>Connect your AI: see <a href="#connect-ai">Connecting your AI</a> below.</li>
+      </ol>
+    </section>
+
+    <section class="guide-sec" id="connect-ai">
+      <h2>Connecting your AI</h2>
+      <p><b>OpenMarkdown MCP</b> lets an AI find, read and edit your notes. It comes in two versions, and we suggest adding both for the best experience.</p>
+      <div class="tbl-scroll">
+        <table class="doc">
+          <thead><tr><th></th><th>OpenMarkdown</th><th>OpenMarkdown Cloud</th></tr></thead>
+          <tbody>
+            <tr><td>Runs</td><td>On your Mac</td><td>Online</td></tr>
+            <tr><td>Use it</td><td>At your Mac</td><td>On your phone or another computer</td></tr>
+            <tr><td>Works in</td><td><ul style="margin: 0; padding-left: 1.1rem"><li>Claude for Mac</li><li>ChatGPT for Mac</li><li>Claude Code</li></ul></td><td><ul style="margin: 0; padding-left: 1.1rem"><li>Claude on the web</li><li>The Claude phone app</li></ul></td></tr>
+            <tr><td>Reaches</td><td>Every note on this Mac, including the one open on your screen</td><td>Your synced folder</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="margin-top: 2rem">Add OpenMarkdown (on your Mac)</h3>
+      <ol class="beta-steps">
+        <li>In OpenMarkdown, press <b>⌘⇧A</b> to open the agent sidebar, and choose <b>Chat apps</b>.</li>
+        <li>Choose <b>Connect</b> next to Claude or ChatGPT, and follow what it asks.</li>
+      </ol>
+      <p>Claude Code: start it from the agent sidebar and the OpenMarkdown plugin installs itself. In your own terminal, run <code>claude plugin marketplace add OpenMarkdown-dev/OpenMarkdown-releases</code> and then <code>claude plugin install openmarkdown@openmarkdown</code>.</p>
+      <h3 style="margin-top: 2rem">Add OpenMarkdown Cloud (online)</h3>
+      <ol class="beta-steps">
+        <li>On claude.ai, open <b>Settings → Connectors</b> and choose <b>Add custom connector</b>.</li>
+        <li>Name it <b>OpenMarkdown Cloud</b> and paste <code>https://mcp.openmarkdown.dev/mcp</code>.</li>
+        <li>Sign in with your invite email. It then shows up in the Claude phone app too.</li>
       </ol>
     </section>
 
@@ -122,7 +151,7 @@
         <li>Signing in to OpenMarkdown Anywhere from the app.</li>
         <li>Syncing one folder, including between two Macs.</li>
         <li>History for every note, and restoring an earlier version.</li>
-        <li>Reading and editing your notes from Claude and ChatGPT on the web and on your phone.</li>
+        <li>Reading and editing your notes from Claude and ChatGPT on your Mac, and from Claude on the web and on your phone.</li>
         <li>Upgrading to Anywhere+.</li>
       </ul>
     </section>
