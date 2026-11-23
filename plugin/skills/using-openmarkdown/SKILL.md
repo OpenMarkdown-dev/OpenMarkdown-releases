@@ -1,6 +1,6 @@
 ---
 name: using-openmarkdown
-description: Use when producing or editing markdown documents for a user who has OpenMarkdown installed — put documents in front of them via open_file/reveal, sense what they are looking at via get_context, edit notes they may have open section-by-section via read_section/write_section instead of whole-file rewrites, respond correctly to running:false/degraded/NO_WINDOW states instead of retrying or guessing, and — only when the user asks you to watch or listen — hold a file open as a live inbox, or their workspace sidebar open as an intercom, with wait_for_change instead of polling.
+description: Use when producing or editing markdown documents for a user who has OpenMarkdown installed — put documents in front of them via open_file/reveal, sense what they are looking at via get_context, find notes on this computer and in their cloud copy via list_files/search, edit notes they may have open with content-anchored edit_note edits (exact text, or a section) instead of whole-file rewrites, respond correctly to running:false/degraded/NO_WINDOW states instead of retrying or guessing, and — only when the user asks you to watch or listen — hold a file open as a live inbox, or their workspace sidebar open as an intercom, with wait_for_change instead of polling.
 ---
 
 # Using OpenMarkdown as a shared whiteboard
@@ -16,22 +16,27 @@ Right after the plugin/MCP is first installed, your job is small: **open the Wel
 ## When to reach for it (and where to go next)
 
 - You just wrote or substantially edited a markdown document the user should read → `open_file` it (or `reveal` straight to the section that matters). Don't make them ask "where is it?".
+- You produced an image the user should look at (a chart, a screenshot, a diagram — png, jpg, gif, webp, svg) → `open_file` it: it opens read-only in the viewer beside their document, never as a tab. It must exist (an image is never created); `reveal` with a heading does not apply to it.
 - The conversation zooms in on one section of an open document → `reveal` with that heading, so their view follows the discussion.
 - You need to know what the user is working on, has selected, or is currently reading → `get_context` first, before asking them.
-- You're **editing** a file the user may have open → **see `references/write-back.md`** (section writes into the live buffer, not whole-file rewrites).
+- You're **editing** a file the user may have open → **see `references/write-back.md`** (content-anchored `edit_note` edits into the live buffer, not whole-file rewrites).
+- You need to **find** a note → `list_files` or `search`. They cover this computer (the folders OpenMarkdown knows) and, when the user is signed in to OpenMarkdown Anywhere, their cloud copy; each entry says `where` it is. **Pass a path back exactly as you got it** — a cloud-only note is `cloud:<path>` — and the server decides where it goes; never pick between these tools and any `cloud_*` tools yourself: on this computer, these are the ones to use. Several notes match? Prefer the one marked `open: true` (`active: true` first) — it is in front of the user; ask only if that still leaves more than one. New note → `create_note`.
+- The user asks about their OpenMarkdown plan or storage → `my_account`.
+- The user wants a whole folder in front of them (not one file) → `open_folder`.
 - The user has **explicitly asked you to watch** a file → **see `references/watch-loop.md`** (the co-edit inbox loop, `@agent` markers). Never enter a watch on your own initiative.
 - The user has **explicitly asked you to listen** on their workspace sidebar → **see `references/intercom.md`** (the message loop and the rules for what you say back). Never enter it on your own initiative.
-- Something needs doing in the app that no dedicated tool covers → `execute_command`, but see the escape-hatch discipline below.
+- Something needs doing in the app that no dedicated tool covers → `run_app_command`, but see the escape-hatch discipline below.
 
 ## Reading the states
 
 - `running: false` — the app is closed. Say so if relevant; `open_file`/`reveal` will launch it when you actually have something to show. Never call `get_context` in a loop hoping it comes up.
 - `degraded: true` — almost always the app is tray-resident with **no window at all**. The snapshot is the user's *last-known* state: lead with that framing and report it in the past tense ("the last thing you had open was…"), never assert it as what is open right now — the tabs it lists may have been closed since. Recovery means opening a window: `open_file` the relevant document yourself, or ask the user to open one; "bring the window to the front" is meaningless when none exists. Don't retry — nothing improves until a window opens.
-- `NO_WINDOW` vs `NOT_RUNNING` from `execute_command` — running-without-a-window vs not running at all. Either way the command had no live UI; if the action still matters, `open_file` something relevant first (that creates a window), then retry once.
+- `NOT_ON_THIS_COMPUTER` — the note is neither on this computer nor reachable in the cloud copy. Pass on the hint it carries (signing in to Anywhere) if there is one; don't retry or guess another path.
+- `NO_WINDOW` vs `NOT_RUNNING` from `run_app_command` — running-without-a-window vs not running at all. Either way the command had no live UI; if the action still matters, `open_file` something relevant first (that creates a window), then retry once.
 
 ## Escape-hatch discipline
 
-Call `get_context` and pick an id from `availableCommands` before any `execute_command`. Never guess command ids — a typo'd id is indistinguishable from a missing feature.
+Call `get_context` and pick an id from `availableCommands` before any `run_app_command`. Never guess command ids — a typo'd id is indistinguishable from a missing feature.
 
 ## When things fail
 

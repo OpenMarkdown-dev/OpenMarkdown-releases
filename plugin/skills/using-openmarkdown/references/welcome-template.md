@@ -1,87 +1,98 @@
 # Welcome to OpenMarkdown
 
-This file is an onboarding tutorial. 
-This is a `.md` file on your disk. OpenMarkdown just *renders* it. 
+This is a plain `.md` file on your disk — OpenMarkdown just shows it. Edit
+anything here; it's yours.
 
-- First part: Basics — just you.
-- Second part: Agents — you and your coding agent.
+- **Part one — How to write Markdown**. Five minutes.
+- **Part two — you and your agent.** Connect it, then work on one file together.
 
 ---
 
-## 1. Markdown grammar + Live preview
+## 1. Write
 
-Put your cursor anywhere and start editing.
+Type markdown and it renders as you go. Put the cursor on anything to see its
+source again.
 
-### 1.1 Hash tag `#` for heading/subheading
-#### 1.1.1 More `#`'s means subheading
-##### 1.1.1.1 Six levels of heading in total 
-###### 1.1.1.1.1 Fold/Expand heading  sections using the left triangle
+| Type | You get | Or press |
+| --- | --- | --- |
+| `#` to `######` | a heading, six levels | |
+| `**bold**` | **bold** | `⌘B` |
+| `*italic*` | *italic* | `⌘I` |
+| \`code\` | `code` | `⌘E` |
+| `[text](url)` | a link — ⌘-click to open | `⌘K` |
+| `[[` | a link to another note — pick from your files | |
+| `- ` or `1. ` | a list | |
+| `- [ ] ` | a checkbox | |
+| `> ` | a quote | |
 
-**Bold** is double `**[TEXT]**` or `⌘B`
-*Italic* is single `*[TEXT]*` or `⌘I`
-~~Strikeout~~ is double `~~[TEXT]~~`
+Try a few on the line below:
+
+
+
+Hover any heading and click the triangle on its left to fold it. The **outline**
+on the left lists every heading — click one to jump there.
+
+### Bigger blocks
 
 > [!tip]
-> This is a **callout**. Change `[!tip]` to `[!warning]` and watch the color and
-> icon change. (Callouts: `note` · `tip` · `important` · `warning` · `caution`.)
-> Or `⌘⇧P`, type "callout" to insert one.
+> A **callout**. Change `tip` to `warning` and watch it change.
+> Five kinds: `note` · `tip` · `important` · `warning` · `caution`.
 
-A table for planning the page. **Click a cell and edit it** — press `Tab` to move
-across, `Enter` to add a row:
+| Plan | Owner | Done |
+| --- | --- | --- |
+| Draft the page | me | |
+| Pick a photo | me | |
 
-| Section | Content            | Done |
-| ------- | ------------------ | ---- |
-| Hero    | Big headline       |      |
-| About   | One short sentence |      |
-| Contact | An email link      |      |
-
-**Note:** `⌘⇧P`, type "table" for table commands.
-
-And a code block — your page's first lines. Syntax highlights automatically. Copy button on top right corner.
+Click a cell to edit it: `Tab` moves across, `Enter` adds a row.
 
 ```html
 <h1>Hi, I'm building this page</h1>
-<p>...and OpenMarkdown is where I'm planning it.</p>
 ```
 
-A **link** — ⌘-click to open: [openmarkdown.dev](https://openmarkdown.dev)
-**Link another note** — type `[[`, pick a file, and it drops in as a link you can ⌘-click.
-A **photo** — drag or copy any image into the note; it's saved next to this file and linked as `![](...)`.
+Code highlights itself; the copy button is in the corner.
 
-That's the core feel: **you edit the file, the file is the truth, the app just
+**Images:** drag or paste one in — it's saved next to this file. Right-click it
+→ **View beside** to see it at full size.
+
+Need any of these without remembering the syntax? `⌘⇧P`, then type "callout"
+or "table".
+
+That's the whole idea: **you edit the file, the file is the truth, the app just
 shows it.**
 
-## 2. Command palette
+## 2. Find anything
 
-> Command palette is the command center for
-> - Find files
-> - Jump to sections
-> - Commands
+One box for everything. It opens on your **files**; with the box empty, `→` / `←`
+switch to `@` **headings** in this note and `>` **commands**.
 
-Press `⌘P` — it opens on your **files**. With the box empty, tap `→` / `←` to cycle
-the three modes: **files → `@` outline (jump to any heading) → `>` commands**.
-(`⌘⇧P` jumps straight to commands.) Press `⌘/` any time to see every shortcut.
-![](attachments/command-palette-outline.png)
-<!-- SCREENSHOT: ⌘P palette, empty query, three chips visible (files / @ outline / > commands) -->
-
+![The ⌘P palette](attachments/command-palette.png)
 
 ## 3. Shortcuts
 
-You may already know most of these. OpenMarkdown aims to feel as smooth as possible.
+| | |
+| --- | --- |
+| `⌘P` · `⌘⇧P` | find a file · run a command |
+| `⌘/` | every shortcut |
+| `⌘S` · `⌘F` | save · find |
+| `⌘T` · `⌘W` · `⌘⇧T` | new tab · close tab · bring the last one back |
+| `⌘1`–`⌘9` | jump to a tab |
+| `⌥↑` / `⌥↓` | move a line |
+| `⌘=` · `⌘-` · `⌘0` | bigger · smaller · reset text |
 
-- `⌘S` — save · `⌘F` — find · `⌘/` — see every shortcut
-- `⌘T` — new tab · `⌘⇧T` — reopen closed tab · `⌘W` — close tab *(don't, right now :)*
-- `⌘1`–`⌘9` — jump to a tab · `⌥⌘←` / `⌥⌘→` — previous / next tab
-- `⌥↑` / `⌥↓` — move a line · `⌥⇧↑` / `⌥⇧↓` — duplicate a line
+## 4. Your window
 
-## 4. The toolbar
+![The OpenMarkdown window](attachments/window.png)
 
-![OpenMarkdown's toolbar](attachments/toolbar.png)
-<!-- SCREENSHOT: top toolbar — file/outline toggles on the left; palette, view-mode switch, settings, pin on the right -->
+1. **Left side** — your **Homes**, the **Files** in the current one, and this
+   note's **Outline**. `⌘\` hides it all.
+2. **Tabs** — one per open note.
+3. **Top right** — command palette, view mode (live / source / reading),
+   settings, keep-on-top, then the three right-side cards:
+   **agent sidebar** (`⌘⇧A`), **viewer** for images, **terminal** (`` ⌃` ``).
 
-Top-left toggles the **file tree** and the **outline**. Top-right: the **command
-palette**, the **view mode** (live / source / reading), **settings**, and **pin**
-(keep the window always on top).
+**A home is a folder.** `⌘⇧O` opens one; a file you open from outside brings its
+folder (or its git repo) along. Click a home to switch — each keeps its own tabs.
+`×` takes one off the list (your files stay put); `⌘⇧T` brings it back.
 
 ---
 
@@ -99,15 +110,39 @@ palette**, the **view mode** (live / source / reading), **settings**, and **pin*
 > - your agent can edit **this same file** alongside you
 > - you both share one whiteboard.
 
-To connect it:
-1. **Settings → Command-line tool (openmd)**
-2. **Settings → Connect your agent** — paste the line it gives you to your agent.
+## Connect your agent
+*About two minutes. Do it once.*
+
+**Step 1 — start it here.** Press `⌘⇧A` to open the **agent sidebar**. It lists
+every coding agent installed on this Mac; click one. It starts in OpenMarkdown's
+own terminal, in the current home's folder, and connects itself. If its
+OpenMarkdown plugin is missing, the row says so and installs it when you click —
+"See what runs" shows the exact command first.
+
+No agent listed? Install one (for example Claude Code), then come back here.
+
+**Step 2 — the command line (optional).** Turn on **Settings → Command-line tool
+(openmd)**. Then from any terminal:
+
+```
+openmd notes.md      # open a file here (creates it if it doesn't exist)
+openmd .             # open a folder as a home
+```
+
+**Step 3 — an agent in your own terminal (optional).** Prefer your usual terminal
+app? Follow [openmarkdown.dev/docs/start/connect](https://openmarkdown.dev/docs/start/connect/).
+It can open and edit files here; only an agent started from the sidebar can
+talk to you *in* the sidebar.
+
+Connected? Ask your agent: `Are you connected to OpenMarkdown?` — it answers with
+the app's version and what you have open.
 
 ## Two ways to work together
 
-**Ask it** *(you switch over)* — go to your agent's window and give it a prompt. It
-edits *this* file; switch back to OpenMarkdown and watch the change land. Most sections
-below work this way — each has a prompt to copy.
+**Ask it** *(you send, it answers)* — paste a prompt into the **agent sidebar**
+(`⌘⇧A`) and press send — or into your agent's own window, if it runs elsewhere. It
+edits *this* file and you watch the change land. Most sections below work this
+way — each has a prompt to copy.
 
 **Let it watch** *(it comes to you)* — tell your agent to *watch* this file (on Claude
 Code: `/openmarkdown:co-edit`). Now you hand off work **without leaving OpenMarkdown**:
@@ -115,6 +150,21 @@ type `- [ ] @agent <task>` right in the file, save, and it does the work and tic
 box. The last section tries this.
 
 ---
+
+## Ask it: talk in the sidebar
+*Shows: the agent sidebar — a conversation that never leaves this window.*
+
+Put your cursor in this section, open the sidebar (`⌘⇧A`), and send:
+
+```
+Listen to me here. What is this section for?
+```
+
+The sidebar attaches **where you are** (file + section), not the text — the agent
+reads it fresh. Its replies are short and land in the sidebar; anything worth
+keeping it writes into the file. The chat itself is not saved.
+
+(On Claude Code, `/openmarkdown:listen` starts listening in one step.)
 
 ## Ask it: build the hero
 *Shows: your agent writing into this file — you watch it appear.*

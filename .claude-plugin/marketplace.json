@@ -7,7 +7,7 @@
     {
       "name": "openmarkdown",
       "source": "./plugin",
-      "description": "Shared whiteboard between you and the user: OpenMarkdown MCP tools (open_file / reveal / get_context / execute_command) plus the skill that teaches when to use them."
+      "description": "Shared whiteboard between you and the user: OpenMarkdown MCP tools (open_file / reveal / get_context / run_app_command) plus the skill that teaches when to use them."
     }
   ]
 }

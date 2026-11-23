@@ -10,7 +10,7 @@ Only reach for this if `wait_for_change` actually appears in your tool list.
 
 ## The loop
 
-`wait_for_change` on the file → it returns → **re-read the file** (`read_section`, or your own file tools if the app is closed) → act on what's new → wait again.
+`wait_for_change` on the file → it returns → **re-read the file** (`read_note`, or your own file tools if the app is closed) → act on what's new → wait again.
 
 - The return tells the two cases apart: a real change is `{changed:true}` (a delete is `{changed:true, exists:false}`); a clean `{changed:false, timedOut:true}` just means nothing moved before the timeout — loop and wait again, it is **not** an error.
 - **Always re-read before acting.** A wait only returns *because* something moved, so whatever you cached before it is stale by definition.
@@ -34,12 +34,12 @@ When you finish one, **tick it and sign** as the receipt, e.g. `- [x] @agent sum
 
 ## Claiming (multi-agent arbitration)
 
-If more than one agent watches the same file, claim before you work: `write_section` (replace, with the `baseHash` you just read) to mark the task line as yours (append something like `⏳claude`). The baseHash is the lock — a second claimant gets `CONFLICT`, re-reads, sees it taken, and backs off. No new mechanism, just the write-back concurrency from `write-back.md`.
+If more than one agent watches the same file, claim before you work: `edit_note` with an exact `old_text` edit of the task line to mark it as yours (it fails with NOT_FOUND if another agent changed that line first) (append something like `⏳claude`). The baseHash is the lock — a second claimant gets `CONFLICT`, re-reads, sees it taken, and backs off. No new mechanism, just the write-back concurrency from `write-back.md`.
 
 ## The user sees you working (no marker needed)
 
-You don't need to write anything to signal "I'm on it." While you `read_section` a section and then `write_section` it, OpenMarkdown gives the user an ephemeral glow on that section in the agent color — lit when you read, cleared when you write. So your natural read → think → write already shows "an agent is working here," bridging the seconds you spend thinking. It's presence-only (never names which agent) and touches nothing on disk. Your durable trace is the content you write and the `✓` you sign, not this glow.
+You don't need to write anything to signal "I'm on it." While you `read_note` a section and then `edit_note` it, OpenMarkdown gives the user an ephemeral glow on that section in the agent color — lit when you read, cleared when you write. So your natural read → think → write already shows "an agent is working here," bridging the seconds you spend thinking. It's presence-only (never names which agent) and touches nothing on disk. Your durable trace is the content you write and the `✓` you sign, not this glow.
 
 ## Section-by-section, not whole-file
 
-Acting on watched work is editing — follow `write-back.md`: `read_section` → `write_section` into the user's live buffer, never a whole-file rewrite that races their unsaved edits.
+Acting on watched work is editing — follow `write-back.md`: `read_note` → `edit_note` into the user's live buffer, never a whole-file rewrite that races their unsaved edits.
